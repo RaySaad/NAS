@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Expense Type search view-->
+    <record id="view_account_expense_type_search" model="ir.ui.view">
+        <field name="name">account.expense.type.search</field>
+        <field name="model">account.expense.type</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Expense Type">
+                <filter string="Prepaid Expense"
+                        name="prepaid_expense"
+                        domain="[('expense_nature', '=', 'prepaid')]" />
+                <filter string="Accrual Expense"
+                        name="accrual_expense"
+                        domain="[('expense_nature', '=', 'accrual')]" />
+                <filter string="Confirmed"
+                        name="confirmed"
+                        domain="[('state', '=', 'confirmed')]" />
+                <field name="name" />
+                <field name="arabic_name" />
+
+                <field name="prepaid_amortization_method"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Expense Nature" name="expense_nature"
+                            domain="[]" context="{'group_by':'expense_nature'}"/>
+                    <filter string="State" name="state"
+                            domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Prepaid Amortization Method" name="prepaid_method"
+                            domain="[]" context="{'group_by':'prepaid_amortization_method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Expense Type list view-->
+    <record id="view_account_expense_type_tree" model="ir.ui.view">
+        <field name="name">account.expense.type.tree</field>
+        <field name="model">account.expense.type</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Expense Type" >
+                <field name="name" />
+                <field name="arabic_name" />
+                <field name="expense_nature" />
+                <field name="prepaid_amortization_method" />
+                <field name="state" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Expense Type form view -->
+    <record id="view_account_expense_type_form" model="ir.ui.view">
+        <field name="name">account.expense.type.form.</field>
+        <field name="model">account.expense.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Expense Type">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object"
+                            invisible="state != 'draft'" class="oe_highlight" groups="account.group_account_invoice"/>
+                    <button name="action_draft" string="Set to Draft" type="object"
+                            invisible="state != 'confirmed'"
+                            class="oe_highlight" groups="account.group_account_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="expense_nature"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="arabic_name" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expenses" invisible="not expense_nature" >
+                            <group>
+                                <field name="prepaid_amortization_method"
+                                       required="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="prepaid_expense_account_id" domain="[('company_ids','in',[company_id])]" options="{'no_create_edit':True, 'no_create':True}"
+                                       required="1"/>
+                                <field name="expense_account_id" domain="[('company_ids','in',[company_id])]" options="{'no_create_edit':True, 'no_create':True}"
+                                       required="1"/>
+                            </group>
+                        </page>
+                        <page string="Description">
+                            <field name="description"  />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Expense Type Action -->
+    <record id="action_expense_type_tree" model="ir.actions.act_window">
+        <field name="name">Expense Type</field>
+        <field name="res_model">account.expense.type</field>
+        <field name="view_id" ref="view_account_expense_type_tree" />
+        <field name="view_mode">list,form,activity</field>
+    </record>
+
+    <!-- Expense Type Menu Item -->
+    <menuitem action="action_expense_type_tree"
+              id="menu_expense_type"
+              parent="account.account_management_menu"
+              sequence="10" />
+</odoo>

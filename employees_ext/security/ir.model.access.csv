@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employees_ext,access_employee_section,employees_ext.model_employee_section,base.group_user,1,1,1,1

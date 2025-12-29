@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="name">view_move_form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="customer_code" />
+                    <field name="customer_account_domain" invisible="1" />
+                    <field name="customer_account" domain="customer_account_domain" readonly="0" />
+                    <field name="project_group_id" />
+                    <field name="invoice_project_id" />
+                </xpath>
+                <xpath expr="//field[@name='delivery_date']" position="after">
+                    <field name="crm_number" />
+                    <field name="ref_no" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_form_inherit_customer_fields" model="ir.ui.view">
+            <field name="name">account.move.form.inherit.customer.fields</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='partner_id']" position="after">
+                    <field name="customer_code" force_save="1" optional="hide" />
+                    <field name="customer_account_domain" column_invisible="True" />
+                    <field name="customer_account" domain="customer_account_domain" force_save="1" optional="show" />
+                    <field name="contract_type" force_save="1" readonly="1" optional="hide" />
+                    <field name="employee_id" force_save="1" optional="show" />
+                    <field name="employee_code" force_save="1" readonly="1" optional="hide" />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='partner_id']" position="after">
+                    <field name="customer_code" force_save="1" optional="hide" />
+                    <field name="customer_account_domain" column_invisible="True" />
+                    <field name="customer_account" domain="customer_account_domain" force_save="1" optional="show" />
+                    <field name="contract_type" force_save="1" readonly="1" optional="hide" />
+                    <field name="employee_id" force_save="1" optional="show" />
+                    <field name="employee_code" force_save="1" readonly="1" optional="hide" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_move_filter_ext" model="ir.ui.view">
+            <field name="name">view_account_move_filter_ext</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="customer_code" />
+                    <field name="customer_account"/>
+                    <field name="project_group_id" />
+                    <field name="invoice_project_id" />
+                    <field name="crm_number" />
+                    <field name="ref_no" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_move_line_filter" model="ir.ui.view">
+            <field name="name">view_account_move_line_filter</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="customer_code" />
+                    <field name="customer_account"/>
+                    <field name="employee_id" />
+                    <field name="employee_code" />
+                    <field name="contract_type" />
+                    <field name="project_group_id" />
+                    <field name="invoice_project_id" />
+                    <field name="crm_number" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

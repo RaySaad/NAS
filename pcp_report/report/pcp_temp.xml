@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pcp_report_temp_id" model="ir.actions.report">
+        <field name="name">Petty Cash Purchase Report</field>
+        <field name="model">petty.cash.purchase</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pcp_report.pcp_report_temp_template_id</field>
+        <field name="report_file">pcp_report.pcp_report_temp_template_id</field>
+        <field name="binding_model_id" ref="petty_cash_purchases.model_petty_cash_purchase" />
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'PCP - %s' %(object.name)</field>
+    </record>
+</odoo>

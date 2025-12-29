@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pcp_template_report_view">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.sudo()" />
+                <div class="page" style="font-size:12pt; font-family:Arial,sans-serif;">
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <h2 style="background:#294E73; color:white; font-size:25px;  padding:10px; display:inline-block;">
+                            Petty Cash Voucher
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Petty Cash Voucher:</strong>
+                            <span t-esc="o.name" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                        </div>
+                        <div class="col-6 text-right">
+                            <strong>Journal:</strong>
+                            <span t-esc="o.employee_journal_id.name" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px;">
+                        <div class="col-6">
+                            <strong>Account:</strong>
+                            <span t-esc="o.account_id.name" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                        </div>
+                        <div class="col-6 text-right">
+                            <strong>Status:</strong>
+                            <span t-esc="dict(o._fields['state'].selection)[o.state]" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px;">
+                        <div class="col-6">
+                            <strong>Invoice#:</strong>
+                            <t t-set="parts" t-value="[]" />
+                            <t t-foreach="o.move_line.filtered(lambda m: m.state in ['draft','posted'] and m.name and m.name != '/')" t-as="moves">
+                                <t t-set="parts" t-value="parts + [moves.name]" />
+                            </t>
+                            <span t-esc="', '.join(parts)" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                        </div>
+                    </div>
+                    <br /><br />
+                    <table class="table table-bordered table-sm" style="font-size:11pt;">
+                        <thead style="background-color:#294E73; color:white;">
+                            <tr class="text-center">
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Date</th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Category</th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Reference </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Description </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Business unit </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Vehicle </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Worker </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Department </th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Total before vat</th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Vat</th>
+                                <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Total after vat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.expenses_line_ids" t-as="line">
+                                <tr>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.date or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.category_id.name or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.description or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.name or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.operating_unit_id.name or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.vehicle_id.name or ''" /></td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.employee_id.name or ''" /></td>
+                                    <td class="text-left" style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;font-size:10pt; line-height:1.4;">
+                                        <t t-if="line.analytic_distribution">
+                                            <t t-set="dist_dict" t-value="line.analytic_distribution" />
+                                            <t t-foreach="dist_dict.items()" t-as="item">
+                                                <t t-set="analytic_ids_str" t-value="item[0]" />
+                                                <t t-set="percentage" t-value="item[1]" />
+                                                <t t-set="analytic_ids" t-value="analytic_ids_str.split(',') if ',' in analytic_ids_str else [analytic_ids_str]" />
+                                                <t t-foreach="analytic_ids" t-as="aid">
+                                                    <t t-set="analytic_account" t-value="env['account.analytic.account'].browse(int(aid.strip()))" />
+                                                    <div>
+                                                        <span t-esc="analytic_account.name" />
+                                                        <small style="color:#666;"> (
+                                                            <t t-esc="percentage" t-options="{'widget':'float','precision':2}" />%)</small>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                        </t>
+                                    </td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-right">
+                                        <span t-if="line.sub_total &gt; 0" t-esc="line.sub_total" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                    </td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-right">
+                                        <span t-if="line.tax_amount &gt; 0" t-esc="line.tax_amount" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                    </td>
+                                    <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-right">
+                                        <span t-if="line.total_amount &gt; 0" t-esc="line.total_amount" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr style="font-weight:bold; background:#f0f0f0;">
+                                <td colspan="8" class="text-center">Total:</td>
+                                <td class="text-right">
+                                    <span t-esc="o.untaxed_amount" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="o.total_tax_amount" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="o.total_amount" t-options="{'widget': 'monetary', 'display_currency': o.company_currency_id}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p t-attf-style="page-break-inside: avoid !important;page-break-after: always !important;" />
+            </t>
+        </t>
+    </template>
+    <template id="pcp_report_temp_template_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="pcp_report.pcp_template_report_view" />
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,30 @@
+<odoo>
+<!--    rebuild-->
+    <record model="ir.rule" id="account_expense_type_comp_rule">
+        <field name="name">Account Expense Type multi-company</field>
+        <field name="model_id" ref="model_account_expense_type"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+    </record>
+
+    <record model="ir.rule" id="account_expense_transaction_comp_rule">
+        <field name="name">Account Expense Transaction multi-company</field>
+        <field name="model_id" ref="model_account_expense_transaction"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="expense_detail_line_comp_rule">
+        <field name="name">Expense Detail Line multi-company</field>
+        <field name="model_id" ref="model_expense_detail_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="amortization_board_line_comp_rule">
+        <field name="name">Amortization Board Line multi-company</field>
+        <field name="model_id" ref="model_amortization_board_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

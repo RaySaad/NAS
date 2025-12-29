@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="group_pcp_cancel" model="res.groups">
+            <field name="name">PCP cancel</field>
+            <field name="category_id" ref="base.module_category_accounting"/>
+        </record>
+    </data>
+</odoo>

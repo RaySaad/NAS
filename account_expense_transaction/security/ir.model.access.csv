@@ -1,0 +1,5 @@
+id,group_id/id,name,model_id/id,perm_create,perm_read,perm_write,perm_unlink
+manager_account_expense_type,account.group_account_invoice,Manager can do all Operations,account_expense_transaction.model_account_expense_type,1,1,1,1
+manager_account_expense_transaction,account.group_account_invoice,Manager can do all Exp Transactions,account_expense_transaction.model_account_expense_transaction,1,1,1,1
+access_expense_detail_line,account.group_account_invoice,access_expense_detail_line,model_expense_detail_line,1,1,1,1
+access_amortization_board_line,account.group_account_invoice,access_amortization_board_line,model_amortization_board_line,1,1,1,1

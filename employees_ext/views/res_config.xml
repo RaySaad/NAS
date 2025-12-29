@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_ext_hr" model="ir.ui.view">
+        <field name="name">res.config.settings.form (hr app api)</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5" />
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='contacts_settings']" position="inside">
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane" id="hr_api_settings">
+                            <div class="o_form_label">Hr Api Token</div>
+                            <field name="api_token" type="object" string="Hr Api Token" />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Expense transaction list view -->
+    <record id="view_account_expense_transaction_tree" model="ir.ui.view">
+        <field name="name">account.expense.transaction.tree</field>
+        <field name="model">account.expense.transaction</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Expense Transaction">
+                <field name="reference" />
+                <field name="date" />
+                <field name="expense_nature" />
+                <field name="amortization_method" />
+                <field name="payment_type" />
+                <field name="state" />
+            </list>
+        </field>
+    </record>
+    <!-- Expense transaction form view -->
+    <record id="view_account_expense_transaction_form" model="ir.ui.view">
+        <field name="name">account.expense.transaction.form</field>
+        <field name="model">account.expense.transaction</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Expense Transaction">
+                <header>
+                    <button name="temp_reset" string="Reset" type="object" class="oe_highlight" />
+                    <button name="action_review" string="Mark as Reviewed" type="object" invisible="state != 'draft'" class="oe_highlight" groups="account.group_account_invoice" />
+                    <button name="action_confirm" string="Mark as Confirmed" type="object" invisible="state != 'reviewed'" class="oe_highlight" groups="account.group_account_invoice" />
+                    <button name="action_final_approval" string="Mark as Final Approved" type="object" invisible="state != 'confirmed'" class="oe_highlight" groups="account.group_account_invoice" />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_entries" type="object" icon="fa-pencil" invisible="entry_count == 0">
+                            <field string="Journal Entries" name="entry_count" widget="statinfo" />
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field name="expense_nature" widget="radio" />
+                            <field name="amortization_method" />
+                            <field name="reference" />
+                            <field name="move_id" />
+                            <field name="company_id" groups="base.group_multi_company" readonly="1" force_save="1" />
+                        </group>
+                        <group>
+                            <field name="journal_id" options="{'no_create_edit':True, 'no_create':True}" />
+                            <field name="payment_type" invisible="expense_nature == 'accrual'" required="expense_nature == 'prepaid'" />
+                            <field name="type_jv" string="Type JV" required="1" />
+                            <field name="payment_journal_id" options="{'no_create_edit':True, 'no_create':True}" invisible="payment_type != 'bank_cash'" required="payment_type == 'bank_cash'" />
+                            <field name="bank_account_id" options="{'no_create_edit':True, 'no_create':True}" invisible="payment_type != 'bank_cash'" required="payment_type == 'bank_cash'" />
+                            <field name="vendor_id" options="{'no_create_edit':True, 'no_create':True}" invisible="payment_type != 'credit'" required="payment_type == 'credit'" />
+                            <field name="invoice_id" options="{'no_create_edit':True, 'no_create':True}" invisible="payment_type != 'credit'" required="payment_type == 'credit'" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expenses Details">
+                            <field name="expense_detail_ids" context="{'reference':reference, 'expense_nature': expense_nature, 'company_id':company_id}">
+                                <list editable="bottom">
+                                    <field name="company_id" column_invisible="1" />
+                                    <field name="expense_type_id" domain="[('expense_nature','=',parent.expense_nature),('company_id','=', company_id)]" />
+                                    <field name="description" />
+                                    <field name="employee_id" />
+                                    <field name="prepaid_expense_account_id" />
+                                    <field name="expense_account_id" />
+                                    <field name="operating_unit_id" force_save="1" />
+                                    <field name="partner_id" optional="show" force_save="1" />
+                                    <field name="customer_code" optional="hide" force_save="1" />
+                                    <field name="customer_account_domain" readonly="1" column_invisible="1" force_save="1" optional="hide" />
+                                    <field name="customer_account" domain="customer_account_domain" optional="show" force_save="1" />
+                                    <field name="contract_type" force_save="1" readonly="1" optional="hide" />
+                                    <field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting" options="{'product_field': 'product_id', 'account_field': 'account_id'}" />
+                                    <field name="start_date" />
+                                    <field name="end_date" />
+                                    <field name="total_days" />
+                                    <field name="quantity" />
+                                    <field name="price_unit" />
+                                    <field name="price_total" />
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Amortization Board">
+                            <field name="amortization_board_ids">
+                                <list editable="bottom">
+                                    <field name="start_date" />
+                                    <field name="end_date" />
+                                    <field name="prepaid_expense_account_id" />
+                                    <field name="expense_account_id" />
+                                    <field name="operating_unit_id" force_save="1" />
+                                    <field name="partner_id" optional="show" force_save="1" />
+                                    <field name="customer_code" optional="hide" force_save="1" />
+                                    <field name="customer_account_domain" readonly="1" column_invisible="1" force_save="1" optional="hide" />
+                                    <field name="customer_account" domain="customer_account_domain" optional="show" force_save="1" />
+                                    <field name="contract_type" force_save="1" readonly="1" optional="hide" />
+                                    <field name="total_days" />
+                                    <field name="period_days" />
+                                    <field name="amortization_amount" />
+                                    <field name="amortization_accumulated" />
+                                    <field name="remaining_value" />
+                                    <field name="move_id" invisible="0" />
+                                    <field name="company_id" column_invisible="1" />
+                                    <button name="post_entry" string="Post" type="object" class="btn-primary" invisible="move_id != 'False'" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+    <!-- Expense Transaction search view-->
+    <record id="view_account_expense_transaction_search" model="ir.ui.view">
+        <field name="name">account.expense.transaction.search</field>
+        <field name="model">account.expense.transaction</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Expense Transaction">
+                <field name="reference" />
+                <field name="payment_journal_id" />
+                <field name="journal_id" />
+                <field name="invoice_id" />
+                <field name="vendor_id" />
+                <field name="bank_account_id" />
+                <field name="move_id" />
+                <filter string="Prepaid Expense" name="prepaid_expense" domain="[('expense_nature', '=', 'prepaid')]" />
+                <filter string="Accrual Expense" name="accrual_expense" domain="[('expense_nature', '=', 'accrual')]" />
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
+                <filter string="Reviewed" name="reviewed" domain="[('state', '=', 'reviewed')]" />
+                <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]" />
+                <filter string="Final Approval" name="final_approval" domain="[('state', '=', 'final_approval')]" />
+                <filter string="Full Amortization" name="full_amortization" domain="[('state', '=', 'full_amortization')]" />
+                <group expand="0" string="Group By...">
+                    <filter string="Expense Nature" name="expense_nature" domain="[]" context="{'group_by':'expense_nature'}" />
+                    <filter string="State" name="state" domain="[]" context="{'group_by':'state'}" />
+                    <filter string="Amortization Journal" name="journal_id" domain="[]" context="{'group_by':'journal_id'}" />
+                    <filter string="Payment Method" name="payment_journal_id" domain="[]" context="{'group_by':'payment_journal_id'}" />
+                    <filter string="Vendor" name="vendor_id" domain="[]" context="{'group_by':'vendor_id'}" />
+                    <separator />
+                    <filter string="Date" name="date" context="{'group_by':'date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- Expense transaction Action -->
+    <record id="action_expense_transaction_tree" model="ir.actions.act_window">
+        <field name="name">Expense transaction</field>
+        <field name="res_model">account.expense.transaction</field>
+        <field name="search_view_id" ref="view_account_expense_transaction_search" />
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- Expense transaction Menu Item -->
+    <menuitem action="action_expense_transaction_tree" id="menu_expense_transaction" parent="account.menu_finance_entries" sequence="10" />
+</odoo>

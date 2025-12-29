@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_form_custom_fields" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.individual.fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="customer_code" invisible="company_type != 'company'" />
+                <field name="currency" invisible="1" /> <!--todo: Need to remove this because already defined-->
+                <field name="lock_sale_currency" invisible="company_type != 'company'" />
+                <field name="forecast_invoice_frequency" invisible="company_type != 'company'" />
+                <field name="project_group_id" invisible="company_type != 'company'" />
+                <field name="invoice_project_id" invisible="company_type != 'company'" />
+                <field name="labor_office_no" invisible="company_type != 'company'" />
+                <field name="registration_no" invisible="company_type != 'company'" />
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="customer_code" invisible="company_type != 'person'" />
+                <field name="identification_number" invisible="company_type != 'person'" />
+                <field name="country_code" invisible="company_type != 'person'" readonly="0" />
+                <field name="job_title" invisible="company_type != 'person'" />
+                <field name="working_place" invisible="company_type != 'person'" />
+                <field name="gender" invisible="company_type != 'person'" />
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="second_mobile" invisible="company_type != 'person'" />
+            </xpath>
+            <xpath expr="//page" position="after">
+                <page string="Subscription" name="subscription">
+                    <field name="subscription_id">
+                        <list  editable="bottom">
+                            <field name="name"/>
+                            <field name="contract_name"/>
+                            <field name="contract_type"/>
+                        </list>
+                    </field>
+                </page>
+                <field name="second_mobile" invisible="company_type != 'person'" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_list_custom_fields" model="ir.ui.view">
+        <field name="name">res.partner.list.inherit.individual.fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="customer_code" optional="hide"/>
+                <field name="project_group_id" optional="hide"/>
+                <field name="invoice_project_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_search_custom_fields" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.individual.fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="customer_code" />
+                <field name="project_group_id" />
+                <field name="invoice_project_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_individual_contacts" model="ir.actions.act_window">
+    <field name="name">Individuals</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('is_company','=',False)]</field>
+    </record>
+
+    <record id="action_company_contacts" model="ir.actions.act_window">
+    <field name="name">Companies</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('is_company','=',True)]</field>
+    </record>
+
+    <menuitem id="menu_individual_contacts"
+            name="Individuals"
+              sequence="1"
+            parent="contacts.menu_contacts"
+            action="action_individual_contacts"/>
+
+    <menuitem id="menu_company_contacts"
+            name="Companies"
+              sequence="2"
+            parent="contacts.menu_contacts"
+            action="action_company_contacts"/>
+</odoo>

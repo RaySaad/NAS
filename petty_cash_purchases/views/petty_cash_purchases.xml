@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="petty_cash_purchases_form" model="ir.ui.view">
+            <field name="name">petty.cash.purchases.form</field>
+            <field name="model">petty.cash.purchase</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name" invisible="1" />
+                    <field name="move_id" invisible="1" />
+                    <header>
+                        <button name="submit" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'" />
+                        <button name="approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
+                        <button name="cancel" string="Reject" type="object" class="oe_highlight" invisible="state != 'submit'" />
+                        <button name="cancel" groups="petty_cash_purchases.group_pcp_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state == 'cancel'" />
+                        <button name="post" string="Post" type="object" class="oe_highlight" invisible="state != 'approve'" />
+                        <button name="done" string="Done" type="object" class="oe_highlight" invisible="state != 'post'" />
+                        <button name="draft" string="Set to Draft" type="object" class="oe_highlight" invisible="state != 'cancel'" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_journal_entries" type="object" class="oe_stat_button" invisible="jv_count &lt; 1">
+                                <field name="jv_count" widget="statinfo" string="Journal Entries" />
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="left">
+                                <!-- <field name="employee_id" context="{'default_petty_cash_account': True}" domain="[('petty_cash_account', '=', True)]" readonly="not can_edit" /> -->
+                                <field name="account_id" force_save="1" readonly="not can_edit" required="1" />
+                                <field name="employee_journal_id" readonly="not can_edit" required="1" />
+                                <field name="pcp_type" readonly="not can_edit" required="1" />
+                            </group>
+                            <group name="right">
+                                <field name="company_id" readonly="not can_edit" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="expense" string="Expense">
+                                <field name="expenses_line_ids" readonly="not can_edit">
+                                    <list editable="bottom">
+                                        <field name="date" force_save="1" optional="show" />
+                                        <field name="category_id" force_save="1" />
+                                        <field name="account_id" optional="show" groups="account.group_account_readonly" />
+                                        <field name="description" optional="show" force_save="1" />
+                                        <field name="name" force_save="1" />
+                                        <field name="operating_unit_id" force_save="1" />
+                                        <field name="vehicle_id" optional="show" force_save="1" />
+                                        <field name="vendor_id" optional="show" force_save="1" />
+                                        <field name="vendor_vat" readonly="1" optional="hide" force_save="1" />
+                                        <field name="customer_code" optional="hide" force_save="1" />
+                                        <field name="customer_account_domain" readonly="1" column_invisible="1" force_save="1" optional="hide" />
+                                        <field name="customer_account" domain="customer_account_domain" optional="show" force_save="1" />
+                                        <field name="contract_type" force_save="1" readonly="1" optional="hide" />
+                                        <field name="employee_id" optional="show" force_save="1" />
+                                        <field name="employee_code" readonly="1" optional="hide" force_save="1" />
+                                        <field name="analytic_distribution" widget="analytic_distribution" optional="show" options="{'force_applicability': 'optional', 'disable_save': true}" />
+                                        <field name="price_unit" force_save="1" optional="show" widget="monetary" options="{'currency_field': 'company_currency_id', 'field_digits': True}" />
+                                        <field name="quantity" force_save="1" optional="show" />
+                                        <field name="tax_ids" string="Taxes" optional="show" widget="many2many_tags" context="{'default_company_id': company_id}" />
+                                        <field name="sub_total" optional="hide" string="Subtotal" readonly="True" />
+                                        <field name="tax_amount" optional="hide" string="Tax Amount" readonly="True" />
+                                        <field name="total_amount" string="Total" readonly="True" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer" colspan="2" name="expense_total">
+                            <field name="untaxed_amount" />
+                            <div class="oe_inline o_td_label">
+                                <label for="total_tax_amount" />
+                            </div>
+                            <field name="total_tax_amount" nolabel="1" />
+                            <div class="oe_inline o_td_label">
+                                <label for="total_amount" />
+                            </div>
+                            <field name="total_amount" nolabel="1" class="oe_subtotal_footer_separator" />
+                            <!--                            <field name="amount_residual" class="oe_subtotal_footer_separator" invisible="state not in ('post', 'done')"/>-->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="petty_cash_purchases_tree" model="ir.ui.view">
+            <field name="name">petty.cash.purchases.tree</field>
+            <field name="model">petty.cash.purchase</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <!--                    <field name="payment_mode"/>-->
+                    <field name="employee_journal_id" />
+                    <field name="company_id" />
+                    <field name="total_tax_amount" sum="total" />
+                    <field name="untaxed_amount" sum="total" />
+                    <field name="total_amount" sum="total" />
+                </list>
+            </field>
+        </record>
+        <record id="action_petty_cash_purchases" model="ir.actions.act_window">
+            <field name="name">Petty Cash Purchase</field>
+            <field name="res_model">petty.cash.purchase</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem id="petty_cash_purchases_main" name="PCP" sequence="10" web_icon="petty_cash_purchases,static/description/icon.png" />
+        />
+        <menuitem id="petty_cash_purchases" name="Purchase" action="action_petty_cash_purchases" parent="petty_cash_purchases_main" sequence="1" />
+        />
+    </data>
+</odoo>

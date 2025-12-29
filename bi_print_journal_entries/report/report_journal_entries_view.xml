@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="journal_entry_template_report_view">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.sudo()" />
+                <t t-if="o.move_type == 'entry'">
+                    <div class="page" style="font-size:12pt; font-family:Arial,sans-serif;">
+                        <div style="text-align:center; margin-bottom:20px;">
+                            <h2 style="background:#294E73; color:white; font-size:25px;  padding:10px; display:inline-block;">
+                                JOURNAL ENTRY
+                            </h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Journal Entry:</strong>
+                                <span t-esc="o.name" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                            </div>
+                            <div class="col-6 text-right">
+                                <strong>Date:</strong>
+                                <span t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd-MM-yyyy'}" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:8px;">
+                            <div class="col-6">
+                                <strong>Journal:</strong>
+                                <span t-esc="o.journal_id.name" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                            </div>
+                            <div class="col-6 text-right">
+                                <strong>Reference:</strong>
+                                <span t-esc="o.ref or ''" style="background:#f6f6f6; padding:5px 10px; margin-left:10px;" />
+                            </div>
+                        </div>
+                        <br /><br />
+                        <table class="table table-bordered table-sm" style="font-size:11pt;">
+                            <thead style="background-color:#294E73; color:white;">
+                                <tr class="text-center">
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Operation Unit</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Account</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Customer</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Analytic Distribution</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Employee Code</th>
+                                    <th style="color:#fff;width:50px;overflow:hidden;word-break:break-word;">Vehicle</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Debit</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Credit</th>
+                                    <th style="color:#fff;width:100px;font-size:13px;overflow:hidden;word-break:break-word;">Label</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_debit" t-value="0" />
+                                <t t-set="total_credit" t-value="0" />
+                                <t t-foreach="o.line_ids.sorted(key='sequence')[:100]" t-as="line">
+                                    <t t-set="total_debit" t-value="total_debit + line.debit" />
+                                    <t t-set="total_credit" t-value="total_credit + line.credit" />
+                                    <tr>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="o.operating_unit_id.name or ''" /></td>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.account_id.display_name or line.account_id.name" /></td>
+                                        <td class="text-left" style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;font-size:10pt;">
+                                            <t t-set="parts" t-value="[]" />
+                                            <t t-if="line.partner_id">
+                                                <t t-set="parts" t-value="parts + [line.partner_id.name]" />
+                                            </t>
+                                            <t t-if="line.customer_code">
+                                                <t t-set="parts" t-value="parts + [line.customer_code]" />
+                                            </t>
+                                            <t t-if="line.customer_account and line.customer_account.name">
+                                                <t t-set="parts" t-value="parts + [line.customer_account.name]" />
+                                            </t>
+                                            <span t-esc="', '.join(parts)" t-if="parts" />
+                                            <t t-else="" />
+                                        </td>
+                                        <td class="text-left" style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;font-size:10pt; line-height:1.4;">
+                                            <t t-if="line.analytic_distribution">
+                                                <t t-set="dist_dict" t-value="line.analytic_distribution" />
+                                                <t t-foreach="dist_dict.items()" t-as="item">
+                                                    <t t-set="analytic_ids_str" t-value="item[0]" />
+                                                    <t t-set="percentage" t-value="item[1]" />
+                                                    <t t-set="analytic_ids" t-value="analytic_ids_str.split(',') if ',' in analytic_ids_str else [analytic_ids_str]" />
+                                                    <t t-foreach="analytic_ids" t-as="aid">
+                                                        <t t-set="analytic_account" t-value="env['account.analytic.account'].browse(int(aid.strip()))" />
+                                                        <div>
+                                                            <span t-esc="analytic_account.name" />
+                                                            <small style="color:#666;"> (
+                                                                <t t-esc="percentage" t-options="{'widget':'float','precision':2}" />%)</small>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <t t-elif="line.analytic_line_ids">
+                                                <t t-foreach="line.analytic_line_ids" t-as="al">
+                                                    <div>
+                                                        <span t-esc="al.account_id.name" />
+                                                        (
+                                                        <t t-esc="al.amount" t-options="{'widget':'float','precision':2}" />%)
+                                                    </div>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                            </t>
+                                        </td>
+                                        <td style="width:50px;overflow:hidden;word-break:break-word;" class="text-center">
+                                            <span t-esc="line.employee_code or (line.employee_id.employee_code if line.employee_id else '')" />
+                                        </td>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-center">
+                                            <t t-esc="line.vehicle_id.name"></t>
+                                        </td>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-right">
+                                            <span t-if="line.debit &gt; 0" t-esc="line.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" />
+                                        </td>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;" class="text-right">
+                                            <span t-if="line.credit &gt; 0" t-esc="line.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" />
+                                        </td>
+                                        <td style="width:100px;font-size:13px;overflow:hidden;word-break:break-word;"><span t-esc="line.name or ''" /></td>
+                                    </tr>
+                                </t>
+                                <tr style="font-weight:bold; background:#f0f0f0;">
+                                    <td colspan="6" class="text-center">Total:</td>
+                                    <td class="text-right">
+                                        <span t-esc="total_debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="total_credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" />
+                                    </td>
+                                    <td />
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p t-attf-style="page-break-inside: avoid !important;page-break-after: always !important;" />
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="journal_entry_report_template_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="bi_print_journal_entries.journal_entry_template_report_view" />
+            </t>
+        </t>
+    </template>
+</odoo>

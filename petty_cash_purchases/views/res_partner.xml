@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.petty</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="petty_cash_account" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_res_partner_petty" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="domain">[('petty_cash_account', '=', True)]</field>
+        <field name="context">{'default_petty_cash_account': True}</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+            id="res_partner_petty"
+            name="Contacts"
+            action="action_res_partner_petty"
+            parent="petty_cash_purchases.petty_cash_purchases_main"
+            sequence="10"/>
+    />
+</odoo>
