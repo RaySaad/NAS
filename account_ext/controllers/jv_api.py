@@ -762,7 +762,7 @@ class JVAPI(http.Controller):
 						auto_line = [
 							(0, 0, {
 								'account_id': bank_id.default_account_id.id,
-								'name': '',
+								'name': post['line_ids'][0]['name'],
 								"customer_account": existing.id,
 								'debit': amount if list(side)[0] != 'debit' else 0,
 								'credit': amount if list(side)[0] != 'credit' else 0
