@@ -632,6 +632,7 @@ class JVAPI(http.Controller):
 								'data': {}
 							}})
 						partner_id = False
+						existing = False
 						if post.get('customer_account', False):
 							existing = request.env['partner.subscription'].sudo().search([
 								('name', '=', post['customer_account'])
@@ -750,7 +751,7 @@ class JVAPI(http.Controller):
 								'employee_code': line.get('employee_code', ''),
 								"customer_code": line.get('customer_code', ''),
 								"operating_unit_id": line_operating_unit.id,
-								"customer_account": existing.id,
+								"customer_account": existing.id if existing else False,
 								'analytic_distribution': analytic_distribution or {},
 								'tax_ids': [[4, line['tax_id']]] if line.get('tax_id', False) else [],
 								'debit': line['amount'] if line['type'] == 'debit' else 0,
@@ -763,7 +764,7 @@ class JVAPI(http.Controller):
 							(0, 0, {
 								'account_id': bank_id.default_account_id.id,
 								'name': post['line_ids'][0]['name'],
-								"customer_account": existing.id,
+								"customer_account": existing.id if existing else False,
 								'debit': amount if list(side)[0] != 'debit' else 0,
 								'credit': amount if list(side)[0] != 'credit' else 0
 							})]

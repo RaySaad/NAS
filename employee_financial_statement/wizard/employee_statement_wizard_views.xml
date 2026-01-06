@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard Form View - Initial -->
+    <record id="view_employee_statement_wizard_form" model="ir.ui.view">
+        <field name="name">employee.statement.wizard.form</field>
+        <field name="model">employee.statement.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Employee Financial Statement">
+                <group>
+                    <group>
+                        <field name="employee_id" options="{'no_create': True}"/>
+                        <field name="linking_method"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="group_by_account"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_statement" string="Generate Statement" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Form View - Results -->
+    <record id="view_employee_statement_result_form" model="ir.ui.view">
+        <field name="name">employee.statement.wizard.result.form</field>
+        <field name="model">employee.statement.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Employee Financial Statement">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="employee_id" readonly="1" options="{'no_open': True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_from" readonly="1"/>
+                            <field name="date_to" readonly="1"/>
+                            <field name="linking_method" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_debit"/>
+                            <field name="total_credit"/>
+                            <field name="balance"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Statement Lines" name="lines">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="move_id"/>
+                                    <field name="journal_id"/>
+                                    <field name="account_id"/>
+                                    <field name="label"/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                    <field name="running_balance"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_view_lines" string="Open Full View" type="object" class="btn-primary"/>
+                    <button name="action_print_pdf" string="Print PDF" type="object" class="btn-secondary" icon="fa-file-pdf-o"/>
+                    <button name="action_export_excel" string="Export Excel" type="object" class="btn-secondary" icon="fa-file-excel-o"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Statement Lines List View -->
+    <record id="view_employee_statement_line_list" model="ir.ui.view">
+        <field name="name">employee.statement.line.list</field>
+        <field name="model">employee.statement.line</field>
+        <field name="arch" type="xml">
+            <list string="Statement Lines" create="0" edit="0" delete="0" export_xlsx="1">
+                <field name="date"/>
+                <field name="move_id"/>
+                <field name="journal_id"/>
+                <field name="account_id"/>
+                <field name="label"/>
+                <field name="debit" sum="Total Debit"/>
+                <field name="credit" sum="Total Credit"/>
+                <field name="running_balance"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_employee_statement_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Financial Statement</field>
+        <field name="res_model">employee.statement.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_employee_statement_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

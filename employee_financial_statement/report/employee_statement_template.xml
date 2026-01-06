@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_employee_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Report Header -->
+                        <div class="text-center" style="margin-bottom: 30px;">
+                            <h2 style="color: #2c3e50; font-weight: bold; margin-bottom: 5px;">
+                                Employee Financial Statement
+                            </h2>
+                            <div style="font-size: 14px; color: #7f8c8d;">
+                                Consolidated Journal Entry Report
+                            </div>
+                        </div>
+
+                        <!-- Employee Information Box -->
+                        <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; width: 120px; padding: 5px 0;">Employee:</td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; padding: 5px 0;">Employee ID:</td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.barcode or o.employee_id.id"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; padding: 5px 0;">Department:</td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.department_id.name or '-'"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; width: 120px; padding: 5px 0;">Period From:</td>
+                                            <td style="color: #212529; padding: 5px 0;">
+                                                <t t-if="o.date_from">
+                                                    <t t-esc="o.date_from" t-options="{'widget': 'date'}"/>
+                                                </t>
+                                                <t t-else="">All Time</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; padding: 5px 0;">Period To:</td>
+                                            <td style="color: #212529; padding: 5px 0;">
+                                                <t t-if="o.date_to">
+                                                    <t t-esc="o.date_to" t-options="{'widget': 'date'}"/>
+                                                </t>
+                                                <t t-else="">Present</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bold; color: #495057; padding: 5px 0;">Print Date:</td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statement Lines Table -->
+                        <table class="table table-sm" style="font-size: 11px; border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #4472C4; color: white;">
+                                    <th style="padding: 10px 8px; text-align: center; border: 1px solid #3d66b0; width: 10%;">Date</th>
+                                    <th style="padding: 10px 8px; text-align: left; border: 1px solid #3d66b0; width: 12%;">JV Reference</th>
+                                    <th style="padding: 10px 8px; text-align: left; border: 1px solid #3d66b0; width: 12%;">Journal</th>
+                                    <th style="padding: 10px 8px; text-align: left; border: 1px solid #3d66b0; width: 18%;">Account</th>
+                                    <th style="padding: 10px 8px; text-align: left; border: 1px solid #3d66b0; width: 20%;">Description</th>
+                                    <th style="padding: 10px 8px; text-align: right; border: 1px solid #3d66b0; width: 10%;">Debit</th>
+                                    <th style="padding: 10px 8px; text-align: right; border: 1px solid #3d66b0; width: 10%;">Credit</th>
+                                    <th style="padding: 10px 8px; text-align: right; border: 1px solid #3d66b0; width: 10%;">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="row_count" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <t t-set="row_count" t-value="row_count + 1"/>
+                                    <tr t-attf-style="background-color: {{ 'white' if row_count % 2 == 1 else '#f8f9fa' }};">
+                                        <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">
+                                            <t t-esc="line.date" t-options="{'widget': 'date'}"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
+                                            <t t-esc="line.move_id.name"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
+                                            <t t-esc="line.journal_id.name"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
+                                            <t t-esc="line.account_id.display_name"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
+                                            <t t-esc="line.label or '-'"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6;">
+                                            <t t-esc="'{:,.2f}'.format(line.debit)"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6;">
+                                            <t t-esc="'{:,.2f}'.format(line.credit)"/>
+                                        </td>
+                                        <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6; font-weight: 500;">
+                                            <t t-esc="'{:,.2f}'.format(line.running_balance)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <!-- Totals Footer -->
+                            <tfoot>
+                                <tr style="background-color: #2c3e50; color: white; font-weight: bold;">
+                                    <td colspan="5" style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
+                                        TOTALS:
+                                    </td>
+                                    <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
+                                        <t t-esc="'{:,.2f}'.format(o.total_debit)"/>
+                                    </td>
+                                    <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
+                                        <t t-esc="'{:,.2f}'.format(o.total_credit)"/>
+                                    </td>
+                                    <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
+                                        <t t-esc="'{:,.2f}'.format(o.balance)"/>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <!-- Summary Box -->
+                        <div style="margin-top: 30px;">
+                            <div class="row">
+                                <div class="col-6"/>
+                                <div class="col-6">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr style="background-color: #e8f4fd;">
+                                            <td style="padding: 10px; font-weight: bold; border: 1px solid #bee5eb;">Total Debit:</td>
+                                            <td style="padding: 10px; text-align: right; border: 1px solid #bee5eb;">
+                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.total_debit)"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="background-color: #fff3cd;">
+                                            <td style="padding: 10px; font-weight: bold; border: 1px solid #ffeeba;">Total Credit:</td>
+                                            <td style="padding: 10px; text-align: right; border: 1px solid #ffeeba;">
+                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.total_credit)"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-attf-style="background-color: {{ '#d4edda' if o.balance >= 0 else '#f8d7da' }};">
+                                            <td style="padding: 12px; font-weight: bold; font-size: 14px; border: 1px solid #c3e6cb;">
+                                                Net Balance:
+                                            </td>
+                                            <td style="padding: 12px; text-align: right; font-weight: bold; font-size: 14px; border: 1px solid #c3e6cb;">
+                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.balance)"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Note -->
+                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6;">
+                            <p style="font-size: 10px; color: #6c757d; text-align: center; margin: 0;">
+                                This is a computer-generated document. No signature is required.
+                            </p>
+                            <p style="font-size: 10px; color: #6c757d; text-align: center; margin: 5px 0 0 0;">
+                                Generated by <t t-esc="o.env.company.name"/> on <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
