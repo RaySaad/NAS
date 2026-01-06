@@ -744,10 +744,25 @@ class JVAPI(http.Controller):
 							if branch:
 								analytic_distribution[str(branch.id)] = 100.0
 
+							existing_employee = False
+							if line.get('employee_code'):
+								employee_code = str(line['employee_code'])
+								existing_employee = request.env['hr.employee'].sudo().search([
+									('employee_code', '=', employee_code), ('active', '=', True)
+								], limit=1)
+								if not existing_employee:
+									return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+										'success': False,
+										'error': True,
+										'message': 'Employee does not exists with code (%s)' % (employee_code),
+										'data': {}
+									}})
+
 							vals = {
 								'account_id': request.env['account.account'].sudo().search([
 									('code', '=', line['account_id'])]).id,
 								'name': line['name'],
+								'employee_id': existing_employee.id if existing_employee else False,
 								'employee_code': line.get('employee_code', ''),
 								"customer_code": line.get('customer_code', ''),
 								"operating_unit_id": line_operating_unit.id,
