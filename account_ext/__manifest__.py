@@ -6,8 +6,10 @@
 
     'depends': ['accountant', 'contacts_ext', 'account_operating_unit','employees_ext','account_accountant'],
     'data': [
+        'security/ir.model.access.csv',
         'views/account_account.xml',
-        'views/account_move.xml'
+        'views/account_move.xml',
+        'views/excel_jv_import_wizard_view.xml'
     ],
     'assets': {
         'web.assets_backend': [

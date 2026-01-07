@@ -79,18 +79,18 @@ class PettyCashPurchase(models.Model):
 	total_amount = fields.Monetary(
 		string="Total",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True,
 		tracking=True,
 	)
 	untaxed_amount = fields.Monetary(
 		string="Untaxed Amount",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True
 	)
 	total_tax_amount = fields.Monetary(
 		string="Taxes",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True
 	)
 
 	company_currency_id = fields.Many2one(
@@ -360,6 +360,7 @@ class ExpenseLines(models.Model):
 		compute='_compute_amount',
 		store=True,
 		tracking=True,
+		precompute=True,
 	)
 	
 	tax_amount = fields.Monetary(
@@ -368,13 +369,16 @@ class ExpenseLines(models.Model):
 		compute='_compute_amount',
 		store=True,
 		tracking=True,
+		precompute=True,
 	)
 	
 	total_amount = fields.Monetary(
 		string="Total",
 		currency_field='company_currency_id',
 		compute='_compute_amount',
+		store=True,
 		tracking=True,
+		precompute=True,
 	)
 
 	vendor_vat = fields.Char(string='Vendor Vat', store=True)
