@@ -13,7 +13,7 @@
                         <button name="approve" string="Approve" groups="petty_cash_purchases.group_pcp_approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" string="Reject" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" groups="petty_cash_purchases.group_pcp_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state == 'cancel'" />
-                        <button name="post" string="Post" type="object" class="oe_highlight" invisible="state != 'approve'" />
+                        <button name="post" string="Create JV" type="object" class="oe_highlight" invisible="state != 'approve'" />
                         <button name="done" string="Done" type="object" class="oe_highlight" invisible="state != 'post'" />
                         <button name="draft" string="Set to Draft" type="object" class="oe_highlight" invisible="state != 'cancel'" />
                         <field name="state" widget="statusbar" />

@@ -26,7 +26,7 @@ class PettyCashPurchase(models.Model):
 			('draft', 'To Submit'),
 			('submit', 'Submitted'),
 			('approve', 'Approved'),
-			('post', 'Posted'),
+			('post', 'JV Created'),
 			('done', 'Done'),
 			('cancel', 'Refused')
 		],
