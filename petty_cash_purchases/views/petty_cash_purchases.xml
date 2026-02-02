@@ -10,7 +10,7 @@
                     <field name="move_id" invisible="1" />
                     <header>
                         <button name="submit" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'" />
-                        <button name="approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
+                        <button name="approve" string="Approve" groups="petty_cash_purchases.group_pcp_approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" string="Reject" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" groups="petty_cash_purchases.group_pcp_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state == 'cancel'" />
                         <button name="post" string="Post" type="object" class="oe_highlight" invisible="state != 'approve'" />
