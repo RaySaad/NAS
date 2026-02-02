@@ -93,14 +93,15 @@
             <field name="arch" type="xml">
                 <list>
                     <field name="name" />
-                    <field name="employee_id" />
+<!--                    <field name="employee_id" />-->
                     <!--                    <field name="payment_mode"/>-->
                     <field name="employee_journal_id" />
-                    <field name="company_id" />
+<!--                    <field name="company_id" />-->
                     <field name="total_tax_amount" sum="total" />
                     <field name="untaxed_amount" sum="total" />
                     <field name="total_amount" sum="total" />
-                    <field name="state" />
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'" decoration-warning="state in ['submit','approve','post']" decoration-success="state == 'done'" decoration-danger="state == 'cancel'"/>
                 </list>
             </field>
         </record>
