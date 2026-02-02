@@ -83,6 +83,7 @@
                             <!--                            <field name="amount_residual" class="oe_subtotal_footer_separator" invisible="state not in ('post', 'done')"/>-->
                         </group>
                     </sheet>
+                    <chatter/>
                 </form>
             </field>
         </record>
