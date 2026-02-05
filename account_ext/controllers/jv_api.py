@@ -431,12 +431,12 @@ class JVAPI(http.Controller):
 							'ref': post.get('ref_number', False),
 							"line_ids": line_val
 						}
-						user = request.env['res.users'].search([('login', '=', 'a.ashraf@naas.com.sa')])
+						user = request.env['res.users'].browse(6)
 						if not user:
 							return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
 								'success': False,
 								'error': True,
-								'message': "User Ashraf does not exist anymore. It was a concrete behaviour associated to Ashraf only.",
+								'message': f"User Ashraf does not exist anymore. It was a concrete behaviour associated to Ashraf only.",
 								'data': {}
 							}})
 
