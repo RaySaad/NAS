@@ -431,7 +431,7 @@ class JVAPI(http.Controller):
 							'ref': post.get('ref_number', False),
 							"line_ids": line_val
 						}
-						user = request.env['res.users'].browse(6)
+						user = request.env['res.users'].sudo().browse(6)
 						if not user:
 							return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
 								'success': False,
