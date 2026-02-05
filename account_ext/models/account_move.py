@@ -144,8 +144,8 @@ class AccountMoveLine(models.Model):
 		for line in self:
 			move = line.move_id
 			if move:
-				if 'partner_id' in vals and not self._context.get('bypass', False):
-					if not line.partner_id:
+				if 'partner_id' in vals:
+					if not line.partner_id and move.partner_id:
 						line.partner_id = move.partner_id.id
 						line.customer_code = move.partner_id.customer_code or move.customer_code
 					if not line.customer_account:
