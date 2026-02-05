@@ -425,7 +425,7 @@ class JVAPI(http.Controller):
 
 						jv_data = {
 							"operating_unit_id": operating_unit.id if operating_unit else operating_unit,
-							"journal_id": request.env.ref('account.1_general').id,
+							"journal_id": request.env.ref('account.1_sale').id if post['type'] == 'multi-invoice' else request.env.ref('account.1_general').id,
 							"date": post.get('date', False),
 							'jv_type': post['type'],
 							'ref': post.get('ref_number', False),
