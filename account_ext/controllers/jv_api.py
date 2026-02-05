@@ -431,7 +431,7 @@ class JVAPI(http.Controller):
 							'ref': post.get('ref_number', False),
 							"line_ids": line_val
 						}
-						jv = request.env['account.move'].sudo().create(jv_data)
+						jv = request.env['account.move'].create(jv_data)
 						response.append({
 							'success': True,
 							'error': False,
