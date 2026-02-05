@@ -146,11 +146,11 @@ class ExcelJVImportWizard(models.TransientModel):
         for line in jv.line_ids:
             if line.employee_id:
                 line.customer_account = line.employee_id.customer_account.id
-                line.partner_id = line.employee_id.customer_account.partner_id.id
+                line.partner_id = line.with_context(bypass=True).employee_id.customer_account.partner_id.id
                 line.customer_code = line.employee_id.customer_account.partner_id.customer_code
             elif line.customer_account:
                 line.partner_id = line.with_context(bypass=True).customer_account.partner_id.id
-                line.customer_code = line.with_context(bypass=True).customer_account.partner_id.customer_code
+                line.customer_code = line.customer_account.partner_id.customer_code
         try:
             jv.ref = str(int(float(jv.ref)))
         except:
