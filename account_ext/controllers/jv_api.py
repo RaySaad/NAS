@@ -280,6 +280,29 @@ class JVAPI(http.Controller):
 							}})
 
 						line_val = []
+						failure_validation = []
+						for line in post['line_ids']:
+							if line.get('customer_account', False):
+								existing = request.env['partner.subscription'].sudo().search([
+									('name', '=', line['customer_account'])
+								], limit=1)
+
+								if not existing:
+									failure_validation.append(
+										f"Partner having Customer Contract: {line['customer_account']} does not exists")
+									continue
+							else:
+								failure_validation.append(
+									f"Customer Contract is required. Its Missing")
+								continue
+						if len(failure_validation) > 0:
+							return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+								'success': False,
+								'error': True,
+								'message': failure_validation,
+								'data': {}
+							}})
+
 						for line in post['line_ids']:
 							if line.get('customer_account', False):
 								existing = request.env['partner.subscription'].sudo().search([
