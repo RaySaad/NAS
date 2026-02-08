@@ -148,6 +148,7 @@ class ExcelJVImportWizard(models.TransientModel):
                 line.customer_account = line.employee_id.customer_account.id
                 line.partner_id = line.with_context(bypass=True).employee_id.customer_account.partner_id.id
                 line.customer_code = line.employee_id.customer_account.partner_id.customer_code
+                line.operating_unit_id = line.employee_id.operating_unit_id.id
             elif line.customer_account:
                 line.partner_id = line.with_context(bypass=True).customer_account.partner_id.id
                 line.customer_code = line.customer_account.partner_id.customer_code
