@@ -78,6 +78,11 @@ Both PDF and Excel require balanced entries:
 
 ## Changelog
 
+### Version 18.0.1.0.2
+- **Fixed**: Excel totals formula bug - last row was not included in SUM
+- **Fixed**: Corrected data_start_row calculation (removed double increment)
+- Formula now correctly includes all data rows from first to last
+
 ### Version 18.0.1.0.1
 - **Fixed**: Draft entry filename error in Excel export
 - **Improved**: Filename handling for entries without numbers

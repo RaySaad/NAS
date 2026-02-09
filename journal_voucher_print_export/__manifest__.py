@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Voucher Print & Excel Export',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     'category': 'Accounting',
     'summary': 'Professional PDF print and Excel export for journal entries with smart size detection',
     'description': """
@@ -39,6 +39,10 @@
         
         Changelog:
         ----------
+        Version 18.0.1.0.2:
+        - Fixed Excel totals formula bug (last row not included in sum)
+        - Corrected data_start_row calculation
+        
         Version 18.0.1.0.1:
         - Fixed draft entry filename issue in Excel export
         - Improved filename handling for entries without numbers

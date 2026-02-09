@@ -279,10 +279,10 @@ class AccountMove(models.Model):
                 sheet.write(row, col, header, column_header_format)
             
             sheet.set_row(row, 35)
-            data_start_row = row + 1
             
             # ==================== DATA ROWS ====================
-            row += 1
+            row += 1  # Move to first data row
+            data_start_row = row  # This is now the first data row
             chunk_size = 500
             total_lines = len(self.line_ids)
             
