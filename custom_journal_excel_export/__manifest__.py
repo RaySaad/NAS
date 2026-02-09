@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Voucher Excel Export',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     'category': 'Accounting',
     'summary': 'Export large journal entries to Excel with professional formatting',
     'description': """
@@ -17,12 +17,15 @@
         * Frozen headers for easy navigation
         * Optimized chunk processing for memory efficiency
         * Odoo 18 compatible with analytic distribution support
+        * Balance validation before export (allows draft but checks balance)
+        * Visual warnings for non-posted entries
         
         Usage:
         ------
         1. Open any posted journal entry
         2. Click "Print Voucher" for auto-detection (PDF or Excel based on size)
         3. Or click "Export to Excel" to force Excel export
+        4. Draft entries can be exported if balanced
         
         Perfect for:
         ------------

@@ -59,6 +59,30 @@ class AccountMove(models.Model):
         """
         self.ensure_one()
         
+        # Check if entry is balanced before export
+        total_debit = sum(self.line_ids.mapped('debit'))
+        total_credit = sum(self.line_ids.mapped('credit'))
+        balance_diff = abs(total_debit - total_credit)
+        
+        # Allow for small rounding differences (0.01 SR tolerance)
+        if balance_diff > 0.01:
+            raise UserError(_(
+                'Journal Entry is NOT Balanced!\n\n'
+                'Total Debit: %s SR\n'
+                'Total Credit: %s SR\n'
+                'Difference: %s SR\n\n'
+                'Please balance the entry before exporting.\n'
+                'TIP: If this entry is in DRAFT state, posting it will automatically add balancing lines.'
+            ) % (
+                '{:,.2f}'.format(total_debit),
+                '{:,.2f}'.format(total_credit),
+                '{:,.2f}'.format(balance_diff)
+            ))
+        
+        # Show warning if exporting draft entry
+        if self.state != 'posted':
+            _logger.warning(f'Exporting DRAFT journal entry {self.name}. Entry may be incomplete.')
+        
         try:
             output = BytesIO()
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
@@ -85,6 +109,14 @@ class AccountMove(models.Model):
             header_info_value_format = workbook.add_format({
                 'font_size': 11,
                 'border': 1
+            })
+            
+            # Add warning format for draft entries
+            header_warning_format = workbook.add_format({
+                'font_size': 11,
+                'border': 1,
+                'bg_color': '#FFC7CE',  # Light red background
+                'font_color': '#9C0006'  # Dark red text
             })
             
             column_header_format = workbook.add_format({
@@ -122,6 +154,7 @@ class AccountMove(models.Model):
                 'align': 'right'
             })
             
+            # Balance check format - Green if balanced
             balance_check_format = workbook.add_format({
                 'bold': True,
                 'bg_color': '#92D050',
@@ -166,11 +199,16 @@ class AccountMove(models.Model):
             sheet.write(row, 0, 'Total Lines:', header_info_label_format)
             sheet.write(row, 1, len(self.line_ids), header_info_value_format)
             
-            # State
+            # State - with warning if draft
             row += 1
             sheet.write(row, 0, 'Status:', header_info_label_format)
             status_text = dict(self._fields['state'].selection).get(self.state, self.state)
-            sheet.write(row, 1, status_text.upper(), header_info_value_format)
+            
+            if self.state == 'posted':
+                sheet.write(row, 1, status_text.upper(), header_info_value_format)
+            else:
+                # Highlight draft/cancelled status in red
+                sheet.write(row, 1, status_text.upper(), header_warning_format)
             
             # Blank row
             row += 2

@@ -26,9 +26,9 @@
                             string="Export to Excel" 
                             type="object" 
                             class="btn-success"
-                            invisible="move_type != 'entry' or state != 'draft'"
+                            invisible="move_type != 'entry'"
                             icon="fa-file-excel-o"
-                            help="Export journal entry to professionally formatted Excel file"/>
+                            help="Export journal entry to professionally formatted Excel file. Works on both draft and posted entries if balanced."/>
                     
                 </xpath>
                 
