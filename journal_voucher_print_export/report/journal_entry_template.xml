@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_journal_entry_voucher">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <!-- Voucher Title -->
+                            <div class="text-center" style="margin-bottom: 25px; border-bottom: 3px solid #2c3e50; padding-bottom: 15px;">
+                                <h2 style="color: #2c3e50; font-weight: bold; margin-bottom: 5px; font-size: 24px;">
+                                    <t t-if="o.move_type == 'entry'">JOURNAL VOUCHER</t>
+                                    <t t-elif="o.move_type in ('out_invoice', 'out_refund')">SALES INVOICE</t>
+                                    <t t-elif="o.move_type in ('in_invoice', 'in_refund')">PURCHASE INVOICE</t>
+                                    <t t-else="">JOURNAL ENTRY</t>
+                                </h2>
+                                <div style="font-size: 12px; color: #7f8c8d;">
+                                    <t t-if="o.state == 'posted'">
+                                        <span style="background-color: #27ae60; color: white; padding: 3px 10px; border-radius: 3px;">POSTED</span>
+                                    </t>
+                                    <t t-elif="o.state == 'draft'">
+                                        <span style="background-color: #f39c12; color: white; padding: 3px 10px; border-radius: 3px;">DRAFT</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span style="background-color: #e74c3c; color: white; padding: 3px 10px; border-radius: 3px; text-transform: uppercase;">
+                                            <t t-esc="o.state"/>
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!-- Header Information -->
+                            <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="font-weight: bold; color: #495057; width: 140px; padding: 8px 0; vertical-align: top;">Voucher No:</td>
+                                                <td style="color: #212529; padding: 8px 0; font-weight: bold; font-size: 16px;">
+                                                    <t t-esc="o.name or 'Draft'"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold; color: #495057; padding: 8px 0; vertical-align: top;">Date:</td>
+                                                <td style="color: #212529; padding: 8px 0;">
+                                                    <t t-esc="o.date" t-options="{'widget': 'date'}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold; color: #495057; padding: 8px 0; vertical-align: top;">Journal:</td>
+                                                <td style="color: #212529; padding: 8px 0;">
+                                                    <t t-esc="o.journal_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table style="width: 100%;">
+                                            <tr t-if="o.partner_id">
+                                                <td style="font-weight: bold; color: #495057; width: 140px; padding: 8px 0; vertical-align: top;">Partner:</td>
+                                                <td style="color: #212529; padding: 8px 0;">
+                                                    <t t-esc="o.partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold; color: #495057; padding: 8px 0; vertical-align: top;">Currency:</td>
+                                                <td style="color: #212529; padding: 8px 0;">
+                                                    <t t-esc="o.currency_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr t-if="o.ref">
+                                                <td style="font-weight: bold; color: #495057; padding: 8px 0; vertical-align: top;">Reference:</td>
+                                                <td style="color: #212529; padding: 8px 0;">
+                                                    <t t-esc="o.ref"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Narration/Memo -->
+                            <t t-if="o.narration">
+                                <div style="margin-bottom: 20px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+                                    <strong style="color: #856404;">Narration / Memo:</strong>
+                                    <p style="margin: 10px 0 0 0; color: #856404;" t-field="o.narration"/>
+                                </div>
+                            </t>
+
+                            <!-- Journal Items Table -->
+                            <table class="table table-sm" style="font-size: 11px; border-collapse: collapse; width: 100%; margin-bottom: 0;">
+                                <thead>
+                                    <tr style="background-color: #34495e; color: #ffffff !important;">
+                                        <th style="padding: 12px 8px; text-align: center; border: 1px solid #2c3e50; width: 5%; color: #ffffff; font-weight: bold;">#</th>
+                                        <th style="padding: 12px 8px; text-align: left; border: 1px solid #2c3e50; width: 20%; color: #ffffff; font-weight: bold;">Account</th>
+                                        <th style="padding: 12px 8px; text-align: left; border: 1px solid #2c3e50; width: 15%; color: #ffffff; font-weight: bold;">Partner</th>
+                                        <th style="padding: 12px 8px; text-align: left; border: 1px solid #2c3e50; width: 25%; color: #ffffff; font-weight: bold;">Label / Description</th>
+                                        <th style="padding: 12px 8px; text-align: right; border: 1px solid #2c3e50; width: 15%; color: #ffffff; font-weight: bold;">Debit</th>
+                                        <th style="padding: 12px 8px; text-align: right; border: 1px solid #2c3e50; width: 15%; color: #ffffff; font-weight: bold;">Credit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="line_num" t-value="0"/>
+                                    <t t-set="total_debit" t-value="0"/>
+                                    <t t-set="total_credit" t-value="0"/>
+                                    <t t-foreach="o.line_ids.sorted(key=lambda l: (l.debit == 0, l.id))" t-as="line">
+                                        <t t-set="line_num" t-value="line_num + 1"/>
+                                        <t t-set="total_debit" t-value="total_debit + line.debit"/>
+                                        <t t-set="total_credit" t-value="total_credit + line.credit"/>
+                                        <tr t-attf-style="background-color: {{ 'white' if line_num % 2 == 1 else '#f8f9fa' }};">
+                                            <td style="padding: 10px 8px; text-align: center; border: 1px solid #dee2e6;">
+                                                <t t-esc="line_num"/>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: left; border: 1px solid #dee2e6;">
+                                                <span style="font-weight: 500;"><t t-esc="line.account_id.code"/></span><br/>
+                                                <span style="font-size: 10px; color: #6c757d;"><t t-esc="line.account_id.name"/></span>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: left; border: 1px solid #dee2e6;">
+                                                <t t-esc="line.partner_id.name or '-'"/>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: left; border: 1px solid #dee2e6;">
+                                                <t t-esc="line.name or '-'"/>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: right; border: 1px solid #dee2e6; font-family: monospace;">
+                                                <t t-if="line.debit">
+                                                    <t t-esc="'{:,.2f}'.format(line.debit)"/>
+                                                </t>
+                                                <t t-else="">-</t>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: right; border: 1px solid #dee2e6; font-family: monospace;">
+                                                <t t-if="line.credit">
+                                                    <t t-esc="'{:,.2f}'.format(line.credit)"/>
+                                                </t>
+                                                <t t-else="">-</t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <!-- Totals Row -->
+                                    <tr style="background-color: #34495e; color: #ffffff !important; font-weight: bold;">
+                                        <td colspan="4" style="padding: 12px 8px; text-align: right; border: 1px solid #2c3e50; font-size: 13px; color: #ffffff; font-weight: bold;">
+                                            TOTAL
+                                        </td>
+                                        <td style="padding: 12px 8px; text-align: right; border: 1px solid #2c3e50; font-family: monospace; font-size: 13px; color: #ffffff; font-weight: bold;">
+                                            <t t-esc="'{:,.2f}'.format(total_debit)"/>
+                                        </td>
+                                        <td style="padding: 12px 8px; text-align: right; border: 1px solid #2c3e50; font-family: monospace; font-size: 13px; color: #ffffff; font-weight: bold;">
+                                            <t t-esc="'{:,.2f}'.format(total_credit)"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <!-- Amount in Words (optional) -->
+                            <div style="margin-top: 20px; padding: 15px; background-color: #e8f4fd; border: 1px solid #bee5eb; border-radius: 5px;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong style="color: #0c5460;">Total Amount:</strong>
+                                        <span style="font-size: 18px; font-weight: bold; color: #0c5460; margin-left: 10px;">
+                                            <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.amount_total)"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <t t-if="abs(total_debit - total_credit) &lt; 0.01">
+                                            <span style="color: #155724; font-weight: bold;">
+                                                ✓ Balanced
+                                            </span>
+                                        </t>
+                                        <t t-else="">
+                                            <span style="color: #721c24; font-weight: bold;">
+                                                ✗ Unbalanced (Diff: <t t-esc="'{:,.2f}'.format(abs(total_debit - total_credit))"/>)
+                                            </span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Signature Section -->
+                            <div style="margin-top: 50px;">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <div style="border-top: 1px solid #000; padding-top: 10px; margin: 0 20px;">
+                                            <strong>Prepared By</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <div style="border-top: 1px solid #000; padding-top: 10px; margin: 0 20px;">
+                                            <strong>Reviewed By</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <div style="border-top: 1px solid #000; padding-top: 10px; margin: 0 20px;">
+                                            <strong>Approved By</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Info -->
+                            <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid #dee2e6;">
+                                <div class="row" style="font-size: 10px; color: #6c757d;">
+                                    <div class="col-6">
+                                        <t t-if="o.create_uid">
+                                            Created by: <t t-esc="o.create_uid.name"/> on <t t-esc="o.create_date" t-options="{'widget': 'datetime'}"/>
+                                        </t>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        Printed on: <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
