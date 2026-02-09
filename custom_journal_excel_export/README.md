@@ -2,6 +2,8 @@
 
 Export large journal entries to professionally formatted Excel files.
 
+**Author:** Fakhraddin A. Sa'ad
+
 ## Features
 
 - **Smart Print Detection**: Automatically uses PDF for small entries (<1000 lines) and Excel for large entries
@@ -9,12 +11,13 @@ Export large journal entries to professionally formatted Excel files.
 - **Memory Efficient**: Handles 5000+ line entries without memory issues using chunk processing
 - **Balance Validation**: Automatic balance check with visual indicators
 - **Easy Navigation**: Frozen headers for easy scrolling through thousands of lines
+- **Odoo 18 Compatible**: Full support for new analytic distribution field structure
 
 ## Installation
 
 1. Install `xlsxwriter` Python library:
    ```bash
-   pip install xlsxwriter
+   pip3 install xlsxwriter --break-system-packages
    ```
 
 2. Copy this module to your Odoo addons directory
@@ -44,10 +47,10 @@ Export large journal entries to professionally formatted Excel files.
   - Partner
   - Employee
   - Label/description
-  - Debit and Credit amounts
-  - Analytic account
+  - Debit and Credit amounts (in SR)
+  - Analytic account(s)
 - Automatic totals with formulas
-- Balance validation
+- Balance validation (Debit - Credit = 0.00)
 - Professional color scheme
 
 ## Technical Details
@@ -56,15 +59,26 @@ Export large journal entries to professionally formatted Excel files.
 - **Max Recommended**: Tested up to 10,000 lines
 - **File Size**: ~1-2 MB for 5000 lines
 - **Processing Time**: ~5-10 seconds for 5000 lines
+- **Odoo Version**: 18.0+
+
+## Changelog
+
+### Version 18.0.1.0.1
+- Fixed Odoo 18 compatibility issue with analytic_distribution field
+- Updated to handle multiple analytic accounts per line
+- Improved error handling for analytic processing
+- Updated author information
+
+### Version 18.0.1.0.0
+- Initial release
+- Smart print detection
+- Professional Excel formatting
+- Chunk processing for large datasets
 
 ## Support
 
-For issues or feature requests, contact your system administrator.
+For issues or feature requests, contact: Fakhraddin A. Sa'ad
 
 ## License
 
 LGPL-3
-
-## Author
-
-Your Company

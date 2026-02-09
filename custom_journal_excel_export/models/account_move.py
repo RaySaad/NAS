@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Author: Fakhraddin A. Sa'ad
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import xlsxwriter
@@ -52,6 +54,8 @@ class AccountMove(models.Model):
         """
         Export journal voucher to professionally formatted Excel file
         Handles large datasets (5000+ lines) efficiently with chunk processing
+        
+        Author: Fakhraddin A. Sa'ad
         """
         self.ensure_one()
         
@@ -200,6 +204,22 @@ class AccountMove(models.Model):
             for i in range(0, total_lines, chunk_size):
                 chunk = self.line_ids[i:i+chunk_size]
                 for line in chunk:
+                    # Get analytic account name (Odoo 18 compatible)
+                    # In Odoo 18, analytic_distribution is a JSON field: {"analytic_account_id": percentage}
+                    analytic_name = ''
+                    if line.analytic_distribution:
+                        try:
+                            # Extract analytic account IDs from the distribution dict
+                            analytic_ids = [int(k) for k in line.analytic_distribution.keys()]
+                            if analytic_ids:
+                                # Fetch all analytic accounts at once
+                                analytic_accounts = self.env['account.analytic.account'].browse(analytic_ids)
+                                # Join multiple analytic accounts with comma
+                                analytic_name = ', '.join(analytic_accounts.mapped('name'))
+                        except Exception as e:
+                            _logger.warning(f'Error processing analytic distribution for line {line.id}: {str(e)}')
+                            pass
+                    
                     sheet.write(row, 0, line.account_id.code or '', data_format)
                     sheet.write(row, 1, line.account_id.name or '', data_format)
                     sheet.write(row, 2, line.partner_id.name or '', data_format)
@@ -207,7 +227,7 @@ class AccountMove(models.Model):
                     sheet.write(row, 4, line.name or '', data_format)
                     sheet.write(row, 5, line.debit or 0, money_format)
                     sheet.write(row, 6, line.credit or 0, money_format)
-                    sheet.write(row, 7, line.analytic_account_id.name or '', data_format)
+                    sheet.write(row, 7, analytic_name, data_format)
                     row += 1
                 
                 _logger.info(f'Processed {min(i + chunk_size, total_lines)}/{total_lines} lines')

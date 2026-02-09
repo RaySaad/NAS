@@ -2,6 +2,7 @@
 <odoo>
     <data>
         <!-- Add Excel Export Buttons to Journal Entry Form -->
+        <!-- Author: Fakhraddin A. Sa'ad -->
         <record id="view_move_form_excel_export" model="ir.ui.view">
             <field name="name">account.move.form.excel.export</field>
             <field name="model">account.move</field>
@@ -25,7 +26,7 @@
                             string="Export to Excel" 
                             type="object" 
                             class="btn-success"
-                            invisible="move_type != 'entry' or state != 'posted'"
+                            invisible="move_type != 'entry' or state != 'draft'"
                             icon="fa-file-excel-o"
                             help="Export journal entry to professionally formatted Excel file"/>
                     
