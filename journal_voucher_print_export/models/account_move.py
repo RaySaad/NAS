@@ -320,7 +320,7 @@ class AccountMove(models.Model):
                 
                 _logger.info(f'Processed {min(i + chunk_size, total_lines)}/{total_lines} lines')
             
-            data_end_row = row - 2
+            data_end_row = row
             
             # ==================== TOTALS ROW ====================
             sheet.write(row, 0, '', total_label_format)
