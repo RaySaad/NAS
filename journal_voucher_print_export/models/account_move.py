@@ -338,7 +338,7 @@ class AccountMove(models.Model):
             # ==================== BALANCE CHECK ====================
             row += 2
             sheet.write(row, 3, 'Balance Check (Debit - Credit):', header_info_label_format)
-            sheet.write_formula(row, 4, f'=F{total_row}-G{total_row}', balance_check_format)
+            sheet.write_formula(row, 4, f'=F{total_row+1}-G{total_row+1}', balance_check_format)
             sheet.write(row, 5, 'Should be 0.00', header_info_value_format)
             
             # ==================== COLUMN WIDTHS ====================
