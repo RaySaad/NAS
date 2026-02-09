@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Voucher Print & Excel Export',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'category': 'Accounting',
     'summary': 'Professional PDF print and Excel export for journal entries with smart size detection',
     'description': """
@@ -36,6 +36,15 @@
         * Large payroll entries (5000+ lines)
         * Mass invoice imports
         * Financial reporting and auditing
+        
+        Changelog:
+        ----------
+        Version 18.0.1.0.1:
+        - Fixed draft entry filename issue in Excel export
+        - Improved filename handling for entries without numbers
+        
+        Version 18.0.1.0.0:
+        - Initial unified release
     """,
     'author': 'Fakhraddin A. Sa\'ad',
     'website': 'https://www.yourcompany.com',

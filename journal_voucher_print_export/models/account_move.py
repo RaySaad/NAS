@@ -225,7 +225,8 @@ class AccountMove(models.Model):
             # Journal Entry Number
             row += 1
             sheet.write(row, 0, 'Journal Entry:', header_info_label_format)
-            sheet.merge_range(row, 1, row, 3, self.name or '', header_info_value_format)
+            entry_display = self.name if self.name else 'Draft'
+            sheet.merge_range(row, 1, row, 3, entry_display, header_info_value_format)
             
             # Date
             row += 1
@@ -358,8 +359,15 @@ class AccountMove(models.Model):
             workbook.close()
             output.seek(0)
             
-            # Create attachment
-            filename = f'Journal_Voucher_{self.name.replace("/", "_")}.xlsx'
+            # Create attachment with safe filename handling
+            # Handle draft entries that don't have a name yet
+            if self.name:
+                entry_name = self.name.replace("/", "_")
+            else:
+                entry_name = f"Draft_{self.id}"
+            
+            filename = f'Journal_Voucher_{entry_name}.xlsx'
+            
             attachment = self.env['ir.attachment'].create({
                 'name': filename,
                 'type': 'binary',

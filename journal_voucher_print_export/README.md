@@ -22,6 +22,7 @@ Complete solution for journal entry printing and exporting with professional PDF
 - **Draft Support**: Can export draft entries if balanced
 - **Visual Warnings**: Red highlighting for non-posted entries
 - **Odoo 18 Compatible**: Full support for analytic distribution
+- **Safe Filename Handling**: Works with draft entries (no name yet)
 
 ### Smart Detection
 - **Auto-Choose Format**: PDF for entries <1000 lines, Excel for larger
@@ -57,6 +58,7 @@ Complete solution for journal entry printing and exporting with professional PDF
 3. System validates balance
 4. Excel file downloads if validation passes
 5. Perfect for entries with 1000+ lines
+6. Draft entries export as "Journal_Voucher_Draft_[ID].xlsx"
 
 #### Option 3: Smart Print (Recommended)
 1. Open any journal entry
@@ -74,48 +76,22 @@ Both PDF and Excel require balanced entries:
 - **Error Message**: Shows exact debit, credit, and difference
 - **Helpful Tip**: Suggests posting draft entries to auto-balance
 
-**Example Error:**
-```
-Journal Entry is NOT Balanced!
+## Changelog
 
-Total Debit: 494,977.52
-Total Credit: 480,331.00
-Difference: 14,646.52
+### Version 18.0.1.0.1
+- **Fixed**: Draft entry filename error in Excel export
+- **Improved**: Filename handling for entries without numbers
+- Draft entries now export with format: `Journal_Voucher_Draft_{ID}.xlsx`
 
-Please balance the entry before exporting.
-```
-
-## PDF Output Includes
-
-- Professional voucher title with status badge
-- Company and journal entry details
-- Narration/memo section (if present)
-- Complete line items table with:
-  - Line numbers
-  - Account code and name
-  - Partner
-  - Label/description
-  - Debit and Credit amounts
-- Totals row with balance indicator
-- Signature section (Prepared/Reviewed/Approved)
-- Footer with creation and print timestamps
-
-## Excel Output Includes
-
-- Company name and branding
-- Journal entry details (number, date, journal, reference)
-- Status indicator (red highlight if draft)
-- Complete line items with:
-  - Account code and name
-  - Partner
-  - Employee
-  - Label/description
-  - Debit and Credit amounts
-  - Analytic account(s)
-- Automatic totals with formulas
-- Balance validation (Debit - Credit = 0.00)
-- Frozen headers for easy scrolling
-- Professional color scheme
+### Version 18.0.1.0.0
+- Initial unified release
+- Merged PDF printing and Excel export modules
+- Added smart print auto-detection
+- Balance validation for both formats
+- Draft entry support
+- Professional QWeb PDF template
+- Memory-efficient Excel export
+- Odoo 18 analytic distribution support
 
 ## Technical Details
 
@@ -127,34 +103,6 @@ Please balance the entry before exporting.
 - **Processing Time**: ~5-10 seconds for 5000 lines
 - **Odoo Version**: 18.0+
 - **Balance Tolerance**: 0.01
-
-## Module Structure
-
-```
-journal_voucher_print_export/
-├── __init__.py
-├── __manifest__.py
-├── models/
-│   ├── __init__.py
-│   └── account_move.py          # PDF & Excel methods
-├── report/
-│   ├── journal_entry_reports.xml    # Report definition
-│   └── journal_entry_template.xml   # QWeb template
-└── views/
-    └── account_move_views.xml       # Buttons
-```
-
-## Changelog
-
-### Version 18.0.1.0.0
-- Initial unified release
-- Merged PDF printing and Excel export modules
-- Added smart print auto-detection
-- Balance validation for both formats
-- Draft entry support
-- Professional QWeb PDF template
-- Memory-efficient Excel export
-- Odoo 18 analytic distribution support
 
 ## Support
 
