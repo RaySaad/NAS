@@ -1201,7 +1201,6 @@ class JVAPI(http.Controller):
 
 						jv_data = {
 							"partner_id": partner_id.id,
-							'contract_type': existing.contract_type if existing else '',
 							"customer_code": partner_id.customer_code,
 							"customer_account": existing.id,
 							"operating_unit_id": operating_unit.id,
