@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_postpone_request_form" model="ir.ui.view">
+        <field name="name">postpone.request.form</field>
+        <field name="model">postpone.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Postpone Request">
+                <sheet>
+                    <group>
+                        <field name="reason" required="True"/>
+                        <field name="adjustment_type"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_submit" type="object" string="Confirm" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

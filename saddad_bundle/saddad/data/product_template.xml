@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    <data noupdate="1">-->
+    <data>
+        <!--Iqama Renewal Default Product-->
+        <record id="product_template_iqama_renewal" model="product.template">
+            <field name="name">Iqama Renewal</field>
+            <field name="categ_id" ref="product.cat_expense"/>
+            <field name="renewal_item" eval="True"/>
+            <field name="renewal_type">iqama_renewal</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+        </record>
+        <!--Work Permit Renewal Default Product-->
+        <record id="product_template_work_permit_renewal" model="product.template">
+            <field name="name">Work permit Renewal</field>
+            <field name="categ_id" ref="product.cat_expense"/>
+            <field name="renewal_item" eval="True"/>
+            <field name="renewal_type">work_permit_renewal</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+        </record>
+
+        <record id="product_template_fee_for_family_iqama" model="product.template">
+            <field name="name">Fees For Family Iqama</field>
+            <field name="categ_id" ref="product.cat_expense"/>
+            <field name="renewal_item" eval="True"/>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+        </record>
+
+        <record id="iqama_renewal_doc_type_3_months" model="renewal.document.type">
+            <field name="name">Iqama Renewal (for 3month)</field>
+            <field name="period">3month</field>
+            <field name="amount">1250.00</field>
+            <field name="type">iqama_renewal</field>
+        </record>
+
+        <record id="iqama_renewal_doc_type_6_months" model="renewal.document.type">
+            <field name="name">Iqama Renewal (for 6month)</field>
+            <field name="period">6month</field>
+            <field name="amount">2500.00</field>
+            <field name="type">iqama_renewal</field>
+        </record>
+
+        <record id="work_permit_renewal_doc_type_3_months" model="renewal.document.type">
+            <field name="name">Work Permit Renewal (for 3month)</field>
+            <field name="period">3month</field>
+            <field name="amount">2425.00</field>
+            <field name="type">work_permit</field>
+        </record>
+        <record id="work_permit_renewal_doc_type_6_months" model="renewal.document.type">
+            <field name="name">Work Permit Renewal (for 6month)</field>
+            <field name="period">6month</field>
+            <field name="amount">4850.00</field>
+            <field name="type">work_permit</field>
+        </record>
+
+        <record id="fees_for_family_iqama_doc_type" model="renewal.document.type">
+            <field name="name">Fees For Family Iqama</field>
+            <field name="amount">400</field>
+            <field name="type">other</field>
+        </record>
+    </data>
+</odoo>

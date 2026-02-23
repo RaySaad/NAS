@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="hr_payslip_run_form_inherit_inherit_ext">
+            <field name="name">hr.payslip.run inherit ext</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="saudi_hr_payroll.hr_payslip_run_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Other Inputs">
+                        <group>
+                            <field name="input_line_ids" colspan="4" nolabel="1">
+                                <list string="Input Data" editable="bottom">
+                                    <!--
+                                        Required 0 to force client to send on change request even when not defined
+                                        Salary Attachments would otherwise not properly be computed and payslip_id is
+                                        required for _allowed_input_type_ids to work..
+                                    -->
+                                    <field name="payslip_id" invisible="1" required="0"/>
+                                    <field name="_allowed_input_type_ids" invisible="1"/>
+                                    <field name="employee_id"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                    <field name="input_type_id"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                    <field name="loan_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                                    <field name="name"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                    <field name="installment_amount" readonly="1"/>
+                                    <field name="amount" string="Dedution Amount"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                    <field name="contract_id" invisible="True"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                    <field name="sequence" invisible="True"
+                                           attrs="{'readonly':[('parent.state', '=', 'draft')]}"/>
+                                </list>
+                                <form string="Payslip Line">
+                                    <group col="4">
+                                        <field name="payslip_id" invisible="1"/>
+                                        <field name="_allowed_input_type_ids" invisible="1"/>
+                                        <field name="input_type_id"/>
+                                        <field name="name"/>
+                                        <field name="sequence"/>
+                                        <field name="amount"/>
+                                        <field name="contract_id"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

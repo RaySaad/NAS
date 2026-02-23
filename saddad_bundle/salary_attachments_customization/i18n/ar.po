@@ -1,0 +1,934 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* salary_attachments_customization
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-14 07:43+0000\n"
+"PO-Revision-Date: 2025-11-14 07:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__payslip_count
+msgid "# Payslips"
+msgstr "# قسائم الراتب"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.loan_message_user_assigned
+msgid ""
+",\n"
+"            <br/>\n"
+"            <br/>"
+msgstr ""
+",\n"
+"            <br/>\n"
+"            <br/>"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.merge_attachment_wizard_form_view
+msgid ""
+"<b>Other Open Attachments Found for this employee with same deduction type/Over Lapping\n"
+"                            installments either merge the attachment or change start date after the last installment of\n"
+"                            first loan\n"
+"                        </b>"
+msgstr ""
+"<b>تم العثور على مرفقات أخرى مفتوحة لهذا الموظف بنفس نوع الخصم/أقساط متداخلة\n"
+"                            إما دمج المرفق أو تغيير تاريخ البداية بعد القسط الأخير من\n"
+"                            القرض الأول\n"
+"                        </b>"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_needaction
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__active
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__active_amount
+msgid "Active Amount"
+msgstr "المبلغ النشط"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__adjustment_type
+msgid "Adjustment Type"
+msgstr "نوع التعديل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__amount
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__installment_method__amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__paid_amount
+msgid "Amount already paid."
+msgstr "المبلغ المدفوع بالفعل."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__monthly_amount
+msgid "Amount to pay each month."
+msgstr "المبلغ المطلوب دفعه كل شهر."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__active_amount
+msgid ""
+"Amount to pay for this month, Monthly Amount or less depending on the "
+"Remaining Amount."
+msgstr ""
+"المبلغ المطلوب دفعه لهذا الشهر، المبلغ الشهري أو أقل حسب المبلغ المتبقي."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__date_estimated_end
+msgid "Approximated end date."
+msgstr "تاريخ الانتهاء التقريبي."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__attachment_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__attachment_id
+msgid "Attachment"
+msgstr "المرفق"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_attachment_count
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__attachment_lines
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Attachment Lines"
+msgstr "خطوط المرفق"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__attachment_name
+msgid "Attachment Name"
+msgstr "اسم المرفق"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__balance_amount
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__balance_amount
+msgid "Balance Amount"
+msgstr "المبلغ المتبقي"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__cancelled
+msgid "Cancelled"
+msgstr "ملغي"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.merge_attachment_wizard_form_view
+msgid "Change Date"
+msgstr "تغيير التاريخ"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input_type__company_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__completed
+msgid "Completed"
+msgstr "مكتمل"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Compute Installments"
+msgstr "حساب الأقساط"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_pardon_request_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_pardon_request_loan_line_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_postpone_request_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Create Payment"
+msgstr "إنشاء دفعة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__create_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__create_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__create_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__create_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__create_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__create_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__create_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__create_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__current_attachment_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__current_attachment_id
+msgid "Current Attachment"
+msgstr "المرفق الحالي"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__date_end
+msgid "Date at which this assignment has been set as completed or cancelled."
+msgstr "التاريخ الذي تم فيه تعيين هذا التكليف كمكتمل أو ملغي."
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.loan_message_user_assigned
+msgid "Dear"
+msgstr "عزيزي"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__department_id
+msgid "Department"
+msgstr "القسم"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__description
+msgid "Description"
+msgstr "الوصف"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__display_name
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__display_name
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__display_name
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__display_name
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__postpone_request__adjustment_type__distribution
+msgid "Distribution"
+msgstr "التوزيع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__attachment
+msgid "Document"
+msgstr "المستند"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment__state__draft
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: salary_attachments_customization
+#: model:ir.actions.server,name:salary_attachments_customization.action_duplicate_salary_attachment_request
+msgid "Duplicate"
+msgstr "تكرار"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__duration
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__installment_method__duration
+msgid "Duration"
+msgstr "المدة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip__employee_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input__employee_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__employee_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__employee_id
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_search
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__employee_company_id
+msgid "Employee Company"
+msgstr "شركة الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.ui.menu,name:salary_attachments_customization.employee_loan_root
+msgid "Employee Loan"
+msgstr "قرض الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.ui.menu,name:salary_attachments_customization.menu_hr_salary_attachment_line
+msgid "Employee Loan Installments"
+msgstr "أقساط قرض الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.actions.act_window,name:salary_attachments_customization.hr_salary_attachment_request_action
+#: model:ir.ui.menu,name:salary_attachments_customization.salary_attachments_requests_menu
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Employee Loan Request"
+msgstr "طلب قرض الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.actions.act_window,name:salary_attachments_customization.hr_salary_attachment_request_action_view_employee
+#: model:ir.model,name:salary_attachments_customization.model_hr_salary_attachment_request
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_list
+msgid "Employee Loan Requests"
+msgstr "طلبات قروض الموظفين"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__employee_payment_id
+msgid "Employee Payment"
+msgstr "دفعة الموظف"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__date_end
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__date_estimated_end
+msgid "Estimated End Date"
+msgstr "تاريخ الانتهاء المقدر"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__gender__female
+msgid "Female"
+msgstr "أنثى"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__finance_approval
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Finance Approval"
+msgstr "موافقة المالية"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_follower_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_partner_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__gender
+msgid "Gender"
+msgstr "الجنس"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__hr_approval
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "HR Approval"
+msgstr "موافقة الموارد البشرية"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__has_message
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__has_message
+msgid "Has Message"
+msgstr "له رسالة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__has_total_amount
+msgid "Has Total Amount"
+msgstr "له مبلغ إجمالي"
+
+#. module: salary_attachments_customization
+#: model:ir.module.category,description:salary_attachments_customization.module_category_salary_attachment
+msgid "Helps you manage your Salary Attachment Relevant Activities"
+msgstr "يساعدك في إدارة الأنشطة ذات الصلة بمرفق الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__message_needaction
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا تم تحديده، فإن الرسائل الجديدة تتطلب انتباهك."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__message_has_error
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__message_has_sms_error
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__message_has_error
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا تم تحديده، فإن بعض الرسائل بها خطأ في التسليم."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__input_line_id
+msgid "Input Line"
+msgstr "خط الإدخال"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input__installment_amount
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Installment Amount"
+msgstr "مبلغ القسط"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__installment_method
+msgid "Installment Method"
+msgstr "طريقة التقسيط"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_is_follower
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_account_payment__is_loan_payment
+msgid "Is Loan Payment"
+msgstr "دفعة قرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__job_id
+msgid "Job Title"
+msgstr "المسمى الوظيفي"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__write_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__write_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__write_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__write_uid
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__write_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__write_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__write_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__write_date
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input__loan_ids
+msgid "Loan"
+msgstr "القرض"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Loan Amount"
+msgstr "مبلغ القرض"
+
+#. module: salary_attachments_customization
+#: model:res.groups,name:salary_attachments_customization.loan_approvers
+msgid "Loan Approvers"
+msgstr "موافقو القروض"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_salary_attachment_line
+msgid "Loan Installment Line"
+msgstr "خط قسط القرض"
+
+#. module: salary_attachments_customization
+#: model:ir.actions.act_window,name:salary_attachments_customization.action_hr_salary_attachment_line
+msgid "Loan Installment Lines"
+msgstr "خطوط أقساط القرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__loan_line_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__loan_line_id
+msgid "Loan Line"
+msgstr "خط القرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_account_payment__loan_request_id
+msgid "Loan Request"
+msgstr "طلب القرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__loan_serial_number
+msgid "Loan Serial Number"
+msgstr "الرقم التسلسلي للقرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__loan_type_id
+msgid "Loan Type"
+msgstr "نوع القرض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__gender__male
+msgid "Male"
+msgstr "ذكر"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__management_approval
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Management Approval"
+msgstr "موافقة الإدارة"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Mark as Completed"
+msgstr "تحديد كمكتمل"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.merge_attachment_wizard_form_view
+msgid "Merge"
+msgstr "دمج"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.merge_attachment_wizard_form_view
+msgid "Merge Confirmation"
+msgstr "تأكيد الدمج"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__merge_note
+msgid "Merge Note"
+msgstr "ملاحظة الدمج"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_merge_attachment_wizard
+msgid "Merge Salary Attachment Wizard"
+msgstr "معالج دمج مرفق الراتب"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Merged & Archived"
+msgstr "مدموج ومؤرشف"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__parent_request_id
+msgid "Merged Request"
+msgstr "الطلب المدموج"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_has_error
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسالة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__monthly_amount
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_list
+msgid "Monthly Amount"
+msgstr "المبلغ الشهري"
+
+#. module: salary_attachments_customization
+#: model:ir.model.constraint,message:salary_attachments_customization.constraint_hr_salary_attachment_request_check_monthly_amount
+msgid "Monthly amount must be strictly positive."
+msgstr "يجب أن يكون المبلغ الشهري موجباً بشكل صارم."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__employee_nationality_id
+msgid "Nationality (Country)"
+msgstr "الجنسية (البلد)"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__postpone_request__adjustment_type__new_installment
+msgid "New Installment"
+msgstr "قسط جديد"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__note
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Note"
+msgstr "ملاحظة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_needaction_counter
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_has_error_counter
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الأخطاء"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__message_needaction_counter
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__message_has_error_counter
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__old_attachment_id
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_merge_attachment_wizard__old_attachment_id
+msgid "Old Attachment"
+msgstr "المرفق القديم"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__gender__other
+msgid "Other"
+msgstr "آخر"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_line__state__paid
+msgid "Paid"
+msgstr "مدفوع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__paid_amount
+msgid "Paid Amount"
+msgstr "المبلغ المدفوع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__pardon_amount
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__pardon_amount
+msgid "Pardon Amount"
+msgstr "مبلغ العفو"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__pardon_reason
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__pardon_reason
+msgid "Pardon Reason"
+msgstr "سبب العفو"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Pardon Refused"
+msgstr "رفض العفو"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_pardon_request
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_pardon_request_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_pardon_request_loan_line_form
+msgid "Pardon Request"
+msgstr "طلب العفو"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_line__state__pardoned
+msgid "Pardoned"
+msgstr "معفو عنه"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_payslip
+msgid "Pay Slip"
+msgstr "قسيمة الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__paid_amount
+msgid "Payment Amount"
+msgstr "مبلغ الدفع"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_account_payment
+msgid "Payments"
+msgstr "الدفعات"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__payslip_id
+msgid "Payslip"
+msgstr "قسيمة الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input__payslip_batch_id
+msgid "Payslip Batch"
+msgstr "دفعة قسائم الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_payslip_run
+msgid "Payslip Batches"
+msgstr "دفعات قسائم الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "مدخل قسيمة الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_payslip_input_type
+msgid "Payslip Input Type"
+msgstr "نوع مدخل قسيمة الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_run__input_line_ids
+msgid "Payslip Inputs"
+msgstr "مدخلات قسيمة الراتب"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Payslips"
+msgstr "قسائم الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__pending_payment
+msgid "Pending Payments"
+msgstr "المدفوعات المعلقة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__postpone_reason
+msgid "Postpone Reason"
+msgstr "سبب التأجيل"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_postpone_request
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_postpone_request_form
+msgid "Postpone Request"
+msgstr "طلب التأجيل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_line__state__postponed
+msgid "Postponed"
+msgstr "مؤجل"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Previous Attachment"
+msgstr "المرفق السابق"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__rating_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__rating_ids
+msgid "Ratings"
+msgstr "التقييمات"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_pardon_request__reason
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_postpone_request__reason
+msgid "Reason"
+msgstr "السبب"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.merge_attachment_wizard_form_view
+msgid "Refuse"
+msgstr "رفض"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__remaining_amount
+msgid "Remaining Amount"
+msgstr "المبلغ المتبقي"
+
+#. module: salary_attachments_customization
+#: model:ir.model.constraint,message:salary_attachments_customization.constraint_hr_salary_attachment_request_check_remaining_amount
+msgid "Remaining amount must be positive."
+msgstr "يجب أن يكون المبلغ المتبقي موجباً."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__remaining_amount
+msgid "Remaining amount to be paid."
+msgstr "المبلغ المتبقي المطلوب دفعه."
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Request Pardon"
+msgstr "طلب العفو"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Request Postpone"
+msgstr "طلب التأجيل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__requesting_user_id
+msgid "Requested By"
+msgstr "طلب من قبل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__requested_pardon
+msgid "Requested Pardon"
+msgstr "طلب العفو"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "Reset To Draft"
+msgstr "إعادة تعيين إلى مسودة"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Reset to Draft"
+msgstr "إعادة تعيين إلى مسودة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_request__state__confirmed
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Running"
+msgstr "قيد التشغيل"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__message_has_sms_error
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل النصية"
+
+#. module: salary_attachments_customization
+#: model:ir.model,name:salary_attachments_customization.model_hr_salary_attachment
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__salary_attachment_id
+msgid "Salary Attachment"
+msgstr "مرفق الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__salary_attachment_request_id
+msgid "Salary Attachment Request"
+msgstr "طلب مرفق الراتب"
+
+#. module: salary_attachments_customization
+#: model:ir.module.category,name:salary_attachments_customization.module_category_salary_attachment
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Salary Attachments"
+msgstr "مرفقات الراتب"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_search
+msgid "Search Employee Loan Request"
+msgstr "البحث في طلب قرض الموظف"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "Send for Approval"
+msgstr "إرسال للموافقة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__show_morror_button
+msgid "Show Morror Button"
+msgstr "إظهار زر المرآة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__date_start
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__state
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__state
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_search
+msgid "Status"
+msgstr "الحالة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment__merge_note
+msgid ""
+"This field would appear on the salary attachments which have been merged to "
+"a new salary attachment"
+msgstr ""
+"سيظهر هذا الحقل على مرفقات الراتب التي تم دمجها في "
+"مرفق راتب جديد"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__total_amount
+msgid "Total Amount"
+msgstr "المبلغ الإجمالي"
+
+#. module: salary_attachments_customization
+#: model:ir.model.constraint,message:salary_attachments_customization.constraint_hr_salary_attachment_request_check_total_amount
+msgid ""
+"Total amount must be strictly positive and greater than or equal to the "
+"monthly amount."
+msgstr ""
+"يجب أن يكون المبلغ الإجمالي موجباً بشكل صارم وأكبر من أو يساوي "
+"المبلغ الشهري."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__total_amount
+msgid "Total amount to be paid."
+msgstr "المبلغ الإجمالي المطلوب دفعه."
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_payslip_input_type__payment_type
+msgid "Type"
+msgstr "النوع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_salary_attachment_line__state__draft
+msgid "Unpaid"
+msgstr "غير مدفوع"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_view_form_ext
+msgid "View"
+msgstr "عرض"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.view_hr_salary_attachment_line_form
+msgid "View Attachment"
+msgstr "عرض المرفق"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.hr_salary_attachment_request_view_form
+msgid "View Payment"
+msgstr "عرض الدفعة"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_line__website_message_ids
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_line__website_message_ids
+#: model:ir.model.fields,help:salary_attachments_customization.field_hr_salary_attachment_request__website_message_ids
+msgid "Website communication history"
+msgstr "تاريخ التواصل عبر الموقع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_payslip_input_type__payment_type__with_payment
+msgid "With Payment"
+msgstr "مع الدفع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields.selection,name:salary_attachments_customization.selection__hr_payslip_input_type__payment_type__without_payment
+msgid "WithOut Payment"
+msgstr "بدون دفع"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment_request__years_of_service
+msgid "Years of Service"
+msgstr "سنوات الخدمة"
+
+#. module: salary_attachments_customization
+#: model_terms:ir.ui.view,arch_db:salary_attachments_customization.loan_message_user_assigned
+msgid "You have been assigned to the"
+msgstr "تم تعيينك إلى"
+
+#. module: salary_attachments_customization
+#: model:ir.model.fields,field_description:salary_attachments_customization.field_hr_salary_attachment__deduction_type_code
+msgid "deduction type code"
+msgstr "رمز نوع الخصم"

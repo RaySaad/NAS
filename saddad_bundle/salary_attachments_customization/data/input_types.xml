@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="input_type_employee_loan" model="hr.payslip.input.type">
+            <field name="name">Employee Loan</field>
+            <field name="code">EMP_LOAN</field>
+        </record>
+        <record id="input_type_morror_deduction" model="hr.payslip.input.type">
+            <field name="name">Morror Deduction</field>
+            <field name="code">Morror</field>
+        </record>
+    </data>
+</odoo>

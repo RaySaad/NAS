@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_salary_attachment_view_form_ext" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.view.form</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_attachment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="after">
+                <field name="active" invisible="1"/>
+                <widget name="web_ribbon" title="Merged &amp; Archived" bg_color="text-bg-danger" invisible="active"/>
+            </xpath>
+
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='other_input_type_id']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_done']" position="attributes">
+                <attribute name="invisible">state != 'open'</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='date_estimated_end']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+                <attribute name="invisible">date_estimated_end == False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+                <attribute name="invisible">date_end == False or state == 'open'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='monthly_amount']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='total_amount']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_ids']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+
+
+            <xpath expr="//header" position="inside">
+                <button name="action_confirm" type="object" string="Confirm" invisible="state in ('open','cancel','close')"/>
+                <button name="reset_to_draft" type="object" string="Reset To Draft" invisible="state != 'cancel'"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_open']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="salary_attachment_request_id" invisible="1"/>
+                <button name="action_open_salary_attachment_request"
+                        class="oe_stat_button"
+                        icon="fa-files-o"
+                        string="Employee Loan Request"
+                        type="object"
+                        invisible="salary_attachment_request_id == False"
+                        groups="hr_payroll.group_hr_payroll_user">
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='paid_amount']" position="attributes">
+                <attribute name="invisible">paid_amount == -1</attribute>
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='paid_amount']" position="after">
+                <field name="balance_amount"/>
+                <field name="pardon_amount" readonly="1" force_save="1"/>
+                <field name="merge_note" string="Note" readonly="1" decoration-success="merge_note != False"
+                       invisible="merge_note == False"/>
+                <field name="old_attachment_id" string="Previous Attachment" readonly="1"
+                       invisible="old_attachment_id == False"/>
+            </xpath>
+            <xpath expr="//group[1]" position="after">
+                <field name="deduction_type_code" force_save="1" invisible="1"/>
+                <button name="generate_installments"
+                        string="Compute Installments"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'open' or deduction_type_code == 'Morror'"/>
+                <notebook invisible="state == 'draft' or deduction_type_code == 'Morror'">
+                    <page string="Attachment Lines">
+                        <field name="attachment_lines" widget="one2many">
+                            <list editable="bottom" string="Attachment Lines" delete="0" edit="0" create="0">
+                                <field name="date"/>
+                                <field name="payslip_id"/>
+                                <field name="input_line_id" column_invisible="True"/>
+                                <field name="amount" string="Installment Amount"/>
+                                <field name="paid_amount"/>
+                                <field name="state"/>
+                                <button name="action_open_postpone_request"
+                                        string="Request Postpone"
+                                        type="object"
+                                        class="oe_link"
+                                        invisible="state in ('paid','postponed', 'pardoned')"
+                                />
+                                <button name="action_open_pardon_request"
+                                        string="Request Pardon"
+                                        type="object"
+                                        class="oe_link"
+                                        invisible="state in ('paid','postponed', 'pardoned')"
+                                />
+                                <button name="action_view_line"
+                                        string="View"
+                                        type="object"
+                                        class="oe_link"
+                                />
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

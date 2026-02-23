@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="employee_ext.hr_sponsors_form_view" model="ir.ui.view">
+            <field name="name">employee_ext.hr_sponsors_form_view</field>
+            <field name="model">hr.sponsors</field>
+            <field name="arch" type="xml">
+                <form string="HR Sponsors">
+                    <group>
+                        <group>
+                            <field name="identification_no"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </form>
+          </field>
+        </record>
+
+        <record id="employee_ext.hr_sponsors_list_view" model="ir.ui.view">
+          <field name="name">employee_ext.hr_sponsors_list_view</field>
+          <field name="model">hr.sponsors</field>
+          <field name="arch" type="xml">
+            <list string="HR Sponsors">
+              <field name="identification_no"/>
+              <field name="name"/>
+            </list>
+          </field>
+        </record>
+
+        <record id="hr_sponsors_action" model="ir.actions.act_window">
+          <field name="name">Sponsors Detail</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">hr.sponsors</field>
+          <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_sponsors" name="Sponsors Detail"
+                  action="hr_sponsors_action"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="hr.group_hr_manager" sequence="990"/>
+    </data>
+</odoo>

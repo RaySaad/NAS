@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="attachment_request_only_company" model="ir.rule">
+            <field name="name">Salary Attachments Requests: Only Company</field>
+            <field name="model_id" ref="model_hr_salary_attachment_request"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+<!--        <record id="loan_type_only_company" model="ir.rule">-->
+<!--            <field name="name">Loan Type: Only Company</field>-->
+<!--            <field name="model_id" ref="model_hr_salary_attachment_type"/>-->
+<!--            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

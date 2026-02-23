@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_salary_attachment_request_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.request.form.inherit</field>
+        <field name="model">hr.salary.attachment.request</field>
+        <field name="inherit_id" ref="salary_attachments_customization.hr_salary_attachment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <field name="show_morror_button" invisible="1"/>
+                <button name="action_get_morror_view" string="View Morror" type="object" icon="fa-file-text-o"
+                        invisible="show_morror_button == False"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='loan_type_id']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='installment_method']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='total_amount']" position="attributes">
+                <attribute name="readonly">state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='duration']" position="attributes">
+                <attribute name="readonly">installment_method != 'duration' or state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='monthly_amount']" position="attributes">
+                <attribute name="readonly">installment_method != 'amount' or state != 'draft' or show_morror_button == True</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

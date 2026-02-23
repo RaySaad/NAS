@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_hr_salary_attachment_line_tree" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.line.list</field>
+        <field name="model">hr.salary.attachment.line</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="attachment_id"/>
+                <field name="employee_ids" widget="many2many_tags"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <field name="payslip_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_hr_salary_attachment_line_form" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.line.form</field>
+        <field name="model">hr.salary.attachment.line</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_open_salary_attachment" type="object" string="View Attachment"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="attachment_id" readonly="1"/>
+                            <field name="employee_ids" widget="many2many_tags" readonly="1"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="payslip_id" readonly="1" invisible="payslip_id == False"/>
+                            <field name="state" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_salary_attachment_line" model="ir.actions.act_window">
+        <field name="name">EFT Installment Lines</field>
+        <field name="res_model">hr.salary.attachment.line</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_hr_salary_attachment_line"
+              name="EFT Installments"
+              parent="salary_attachments_customization.employee_loan_root" sequence="3"
+              action="action_hr_salary_attachment_line"/>
+</odoo>

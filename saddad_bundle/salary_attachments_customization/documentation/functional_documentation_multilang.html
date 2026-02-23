@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Attachments Customization - User Guide</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            line-height: 1.6; 
+            transition: all 0.3s ease; 
+        }
+        .header { 
+            background: #2c3e50; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 5px; 
+            position: relative; 
+        }
+        .lang-switcher { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+        }
+        .lang-switcher button { 
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 8px 12px; 
+            margin: 0 2px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        .lang-switcher button.active { 
+            background: #e74c3c; 
+        }
+        .section { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border-left: 4px solid #3498db; 
+            background: #f8f9fa; 
+        }
+        .step { 
+            background: #e8f5e8; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            border-left: 4px solid #3498db; 
+        }
+        .workflow { 
+            background: #fff3cd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+        }
+        .feature { 
+            background: #e3f2fd; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+        }
+        .warning { 
+            background: #ffebee; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            border-left: 4px solid #f44336; 
+        }
+        .toc { 
+            background: #ecf0f1; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 20px 0; 
+        }
+        .toc ul { 
+            list-style-type: none; 
+        }
+        .toc a { 
+            text-decoration: none; 
+            color: #2980b9; 
+        }
+        code { 
+            background: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            direction: ltr; 
+            display: inline-block; 
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] { 
+            text-align: right; 
+        }
+        [dir="rtl"] .section { 
+            border-left: none; 
+            border-right: 4px solid #3498db; 
+        }
+        [dir="rtl"] .step { 
+            border-left: none; 
+            border-right: 4px solid #3498db; 
+        }
+        [dir="rtl"] .warning { 
+            border-left: none; 
+            border-right: 4px solid #f44336; 
+        }
+        [dir="rtl"] .lang-switcher { 
+            right: auto; 
+            left: 20px; 
+        }
+        
+        .lang-content { 
+            display: none; 
+        }
+        .lang-content.active { 
+            display: block; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="lang-switcher">
+            <button onclick="switchLanguage('en')" id="btn-en" class="active">English</button>
+            <button onclick="switchLanguage('ar')" id="btn-ar">العربية</button>
+        </div>
+        <div class="lang-content active" id="content-en">
+            <h1>Salary Attachments Customization - User Guide</h1>
+            <p>Complete functional guide for end users</p>
+        </div>
+        <div class="lang-content" id="content-ar">
+            <h1>تخصيص مرفقات الراتب - دليل المستخدم</h1>
+            <p>دليل وظيفي شامل للمستخدمين النهائيين</p>
+        </div>
+    </div>
+
+    <div class="toc">
+        <div class="lang-content active" id="toc-en">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">1. System Overview</a></li>
+                <li><a href="#getting-started">2. Getting Started</a></li>
+                <li><a href="#loan-requests">3. Loan Request Workflow</a></li>
+                <li><a href="#payment-integration">4. Payment Integration</a></li>
+                <li><a href="#managing-attachments">5. Managing Salary Attachments</a></li>
+                <li><a href="#managing-installments">6. Managing Installments</a></li>
+                <li><a href="#installment-operations">7. Individual Installment Operations</a></li>
+                <li><a href="#postpone-pardon">8. Postpone & Pardon Operations</a></li>
+                <li><a href="#merge-functionality">9. Merge Functionality</a></li>
+                <li><a href="#payslip-integration">10. Payslip Integration</a></li>
+                <li><a href="#reporting">11. Reporting & Tracking</a></li>
+                <li><a href="#troubleshooting">12. Troubleshooting</a></li>
+            </ul>
+        </div>
+        <div class="lang-content" id="toc-ar">
+            <h2>جدول المحتويات</h2>
+            <ul>
+                <li><a href="#overview">1. نظرة عامة على النظام</a></li>
+                <li><a href="#getting-started">2. البدء</a></li>
+                <li><a href="#loan-requests">3. سير عمل طلبات القروض</a></li>
+                <li><a href="#payment-integration">4. تكامل المدفوعات</a></li>
+                <li><a href="#managing-attachments">5. إدارة مرفقات الراتب</a></li>
+                <li><a href="#managing-installments">6. إدارة الأقساط</a></li>
+                <li><a href="#installment-operations">7. عمليات الأقساط الفردية</a></li>
+                <li><a href="#postpone-pardon">8. عمليات التأجيل والعفو</a></li>
+                <li><a href="#merge-functionality">9. وظيفة الدمج</a></li>
+                <li><a href="#payslip-integration">10. تكامل كشف الراتب</a></li>
+                <li><a href="#reporting">11. التقارير والمتابعة</a></li>
+                <li><a href="#troubleshooting">12. استكشاف الأخطاء وإصلاحها</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="overview" class="section">
+        <div class="lang-content active" id="overview-en">
+            <h2>1. System Overview</h2>
+            <p>The Salary Attachments Customization module enhances Odoo's payroll system to manage employee loan deductions with advanced features:</p>
+            <div class="feature">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>📝 <strong>Loan Request Workflow:</strong> Multi-level approval process (Finance → Management → HR)</li>
+                    <li>💰 <strong>Payment Integration:</strong> Upfront payment processing with automatic loan confirmation</li>
+                    <li>📋 <strong>Installment Management:</strong> Break down loans into monthly installments with individual tracking</li>
+                    <li>⏸️ <strong>Postponement:</strong> Delay individual installments with distribution or new installment options</li>
+                    <li>🎯 <strong>Pardon System:</strong> Forgive individual installments or remaining loan amounts</li>
+                    <li>📊 <strong>Individual Installment Tracking:</strong> Dedicated view for managing each installment separately</li>
+                    <li>📊 <strong>Balance Tracking:</strong> Real-time balance calculations</li>
+                    <li>🔄 <strong>Payslip Integration:</strong> Automatic deduction processing</li>
+                    <li>📝 <strong>Audit Trail:</strong> Complete change tracking</li>
+                </ul>
+            </div>
+        </div>
+        <div class="lang-content" id="overview-ar">
+            <h2>1. نظرة عامة على النظام</h2>
+            <p>وحدة تخصيص مرفقات الراتب تعزز نظام الرواتب في أودو لإدارة خصومات قروض الموظفين مع ميزات متقدمة:</p>
+            <div class="feature">
+                <h4>الميزات الرئيسية:</h4>
+                <ul>
+                    <li>📝 <strong>سير عمل طلب القرض:</strong> عملية موافقة متعددة المستويات (المالية ← الإدارة ← الموارد البشرية)</li>
+                    <li>💰 <strong>تكامل المدفوعات:</strong> معالجة الدفع المسبق مع تأكيد القرض التلقائي</li>
+                    <li>📋 <strong>إدارة الأقساط:</strong> تقسيم القروض إلى أقساط شهرية مع تتبع فردي</li>
+                    <li>⏸️ <strong>التأجيل:</strong> تأخير الأقساط الفردية مع خيارات التوزيع أو القسط الجديد</li>
+                    <li>🎯 <strong>نظام العفو:</strong> إعفاء الأقساط الفردية أو مبالغ القروض المتبقية</li>
+                    <li>📊 <strong>تتبع الأقساط الفردية:</strong> عرض مخصص لإدارة كل قسط بشكل منفصل</li>
+                    <li>📊 <strong>تتبع الرصيد:</strong> حسابات الرصيد في الوقت الفعلي</li>
+                    <li>🔄 <strong>تكامل كشف الراتب:</strong> معالجة الخصم التلقائي</li>
+                    <li>📝 <strong>مسار المراجعة:</strong> تتبع كامل للتغييرات</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="getting-started" class="section">
+        <div class="lang-content active" id="getting-started-en">
+            <h2>2. Getting Started</h2>
+            <div class="step">
+                <h4>Step 1: Access Salary Attachments</h4>
+                <p>Navigate to: <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></p>
+            </div>
+            <div class="step">
+                <h4>Step 2: Understanding States</h4>
+                <ul>
+                    <li><strong>Draft:</strong> Initial state, can be edited</li>
+                    <li><strong>Open:</strong> Active attachment, deductions will be processed</li>
+                    <li><strong>Done:</strong> Completed attachment</li>
+                    <li><strong>Cancelled:</strong> Cancelled attachment</li>
+                </ul>
+            </div>
+        </div>
+        <div class="lang-content" id="getting-started-ar">
+            <h2>2. البدء</h2>
+            <div class="step">
+                <h4>الخطوة 1: الوصول إلى مرفقات الراتب</h4>
+                <p>انتقل إلى: <code>قروض الموظفين</code> أو <code>الرواتب ← الموظفون ← مرفقات الراتب</code></p>
+            </div>
+            <div class="step">
+                <h4>الخطوة 2: فهم الحالات</h4>
+                <ul>
+                    <li><strong>مسودة:</strong> الحالة الأولية، يمكن تعديلها</li>
+                    <li><strong>مفتوح:</strong> مرفق نشط، سيتم معالجة الخصومات</li>
+                    <li><strong>منجز:</strong> مرفق مكتمل</li>
+                    <li><strong>ملغي:</strong> مرفق ملغي</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="loan-requests" class="section">
+        <div class="lang-content active" id="loan-requests-en">
+            <h2>3. Loan Request Workflow</h2>
+            <div class="workflow">
+                <h4>Complete Approval Workflow:</h4>
+                <ol>
+                    <li><strong>Draft</strong> → Employee creates loan request</li>
+                    <li><strong>Finance Approval</strong> → Finance team reviews and approves</li>
+                    <li><strong>Management Approval</strong> → Management team approves</li>
+                    <li><strong>HR Approval</strong> → HR team gives final approval</li>
+                    <li><strong>Confirmed</strong> → Request approved, awaiting payment (if required)</li>
+                    <li><strong>Completed</strong> → Payment processed, salary attachment created</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>Step 1: Create Loan Request</h4>
+                <ol>
+                    <li>Navigate to <code>Employee Loan → Employee Loan Request</code></li>
+                    <li>Click <strong>"Create"</strong> button</li>
+                    <li>Fill required fields</li>
+                    <li>Save the record</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="loan-requests-ar">
+            <h2>3. سير عمل طلبات القروض</h2>
+            <div class="workflow">
+                <h4>سير عمل الموافقة الكامل:</h4>
+                <ol>
+                    <li><strong>مسودة</strong> ← الموظف ينشئ طلب قرض</li>
+                    <li><strong>موافقة مالية</strong> ← الفريق المالي يراجع ويوافق</li>
+                    <li><strong>موافقة إدارية</strong> ← فريق الإدارة يوافق</li>
+                    <li><strong>موافقة الموارد البشرية</strong> ← فريق الموارد البشرية يعطي الموافقة النهائية</li>
+                    <li><strong>مؤكد</strong> ← الطلب موافق عليه، في انتظار الدفع (إذا كان مطلوباً)</li>
+                    <li><strong>مكتمل</strong> ← تم معالجة الدفع، تم إنشاء مرفق الراتب</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>الخطوة 1: إنشاء طلب قرض</h4>
+                <ol>
+                    <li>انتقل إلى <code>قروض الموظفين ← طلب قرض موظف</code></li>
+                    <li>انقر على زر <strong>"إنشاء"</strong></li>
+                    <li>املأ الحقول المطلوبة</li>
+                    <li>احفظ السجل</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-integration" class="section">
+        <div class="lang-content active" id="payment-integration-en">
+            <h2>4. Payment Integration</h2>
+            <div class="step">
+                <h4>Creating Payment for Loan</h4>
+                <ol>
+                    <li>Navigate to <code>Accounting → Vendors → Payments</code></li>
+                    <li>Click <strong>"Create"</strong></li>
+                    <li>Fill payment details</li>
+                    <li>Save and post the payment</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="payment-integration-ar">
+            <h2>4. تكامل المدفوعات</h2>
+            <div class="step">
+                <h4>إنشاء دفع للقرض</h4>
+                <ol>
+                    <li>انتقل إلى <code>المحاسبة ← الموردون ← المدفوعات</code></li>
+                    <li>انقر على <strong>"إنشاء"</strong></li>
+                    <li>املأ تفاصيل الدفع</li>
+                    <li>احفظ وأرسل الدفع</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="managing-attachments" class="section">
+        <div class="lang-content active" id="managing-attachments-en">
+            <h2>5. Managing Salary Attachments</h2>
+            <div class="step">
+                <h4>Create New Salary Attachment</h4>
+                <ol>
+                    <li>Navigate to <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></li>
+                    <li>Click <strong>"Create"</strong> button</li>
+                    <li>Fill required fields</li>
+                    <li>Save and confirm the attachment</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="managing-attachments-ar">
+            <h2>5. إدارة مرفقات الراتب</h2>
+            <div class="step">
+                <h4>إنشاء مرفق راتب جديد</h4>
+                <ol>
+                    <li>انتقل إلى <code>قروض الموظفين</code> أو <code>الرواتب ← الموظفون ← مرفقات الراتب</code></li>
+                    <li>انقر على زر <strong>"إنشاء"</strong></li>
+                    <li>املأ الحقول المطلوبة</li>
+                    <li>احفظ وأكد المرفق</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="managing-installments" class="section">
+        <div class="lang-content active" id="managing-installments-en">
+            <h2>6. Managing Installments</h2>
+            <div class="step">
+                <h4>Viewing Installments</h4>
+                <ol>
+                    <li>Open salary attachment record</li>
+                    <li>Go to <strong>"Attachment Lines"</strong> tab</li>
+                    <li>View all installments with dates, amounts, and status</li>
+                    <li>Each installment line has individual tracking and management options</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>Installment States</h4>
+                <ul>
+                    <li><strong>Unpaid (Draft):</strong> Ready for processing in next payslip</li>
+                    <li><strong>Paid:</strong> Successfully deducted from payslip</li>
+                    <li><strong>Postponed:</strong> Delayed to future with amount redistribution</li>
+                    <li><strong>Pardoned:</strong> Forgiven amount, excluded from future processing</li>
+                </ul>
+            </div>
+        </div>
+        <div class="lang-content" id="managing-installments-ar">
+            <h2>6. إدارة الأقساط</h2>
+            <div class="step">
+                <h4>عرض الأقساط</h4>
+                <ol>
+                    <li>افتح سجل مرفق الراتب</li>
+                    <li>انتقل إلى تبويب <strong>"خطوط المرفق"</strong></li>
+                    <li>اعرض جميع الأقساط مع التواريخ والمبالغ والحالة</li>
+                    <li>كل خط قسط له خيارات تتبع وإدارة فردية</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>حالات الأقساط</h4>
+                <ul>
+                    <li><strong>غير مدفوع (مسودة):</strong> جاهز للمعالجة في كشف الراتب التالي</li>
+                    <li><strong>مدفوع:</strong> تم خصمه بنجاح من كشف الراتب</li>
+                    <li><strong>مؤجل:</strong> مؤجل للمستقبل مع إعادة توزيع المبلغ</li>
+                    <li><strong>معفو:</strong> مبلغ معفو، مستبعد من المعالجة المستقبلية</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="installment-operations" class="section">
+        <div class="lang-content active" id="installment-operations-en">
+            <h2>7. Individual Installment Operations</h2>
+            <div class="step">
+                <h4>Accessing Individual Installments</h4>
+                <ol>
+                    <li>Navigate to <code>Employee Loan → Employee Loan Installments</code></li>
+                    <li>Or access from salary attachment "Attachment Lines" tab</li>
+                    <li>Filter by employee, date, or state as needed</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>Installment Form View</h4>
+                <p>Each installment line provides:</p>
+                <ul>
+                    <li><strong>Attachment Details:</strong> Link to parent salary attachment</li>
+                    <li><strong>Employee Information:</strong> Associated employees</li>
+                    <li><strong>Amount & Date:</strong> Installment amount and due date</li>
+                    <li><strong>Payslip Link:</strong> Connected payslip when processed</li>
+                    <li><strong>State Tracking:</strong> Current status with history</li>
+                    <li><strong>Action Buttons:</strong> Postpone, pardon, and view attachment options</li>
+                </ul>
+            </div>
+        </div>
+        <div class="lang-content" id="installment-operations-ar">
+            <h2>7. عمليات الأقساط الفردية</h2>
+            <div class="step">
+                <h4>الوصول إلى الأقساط الفردية</h4>
+                <ol>
+                    <li>انتقل إلى <code>قروض الموظفين ← أقساط قروض الموظفين</code></li>
+                    <li>أو الوصول من تبويب "خطوط المرفق" في مرفق الراتب</li>
+                    <li>قم بالتصفية حسب الموظف أو التاريخ أو الحالة حسب الحاجة</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>عرض نموذج القسط</h4>
+                <p>كل خط قسط يوفر:</p>
+                <ul>
+                    <li><strong>تفاصيل المرفق:</strong> رابط إلى مرفق الراتب الأصلي</li>
+                    <li><strong>معلومات الموظف:</strong> الموظفون المرتبطون</li>
+                    <li><strong>المبلغ والتاريخ:</strong> مبلغ القسط وتاريخ الاستحقاق</li>
+                    <li><strong>رابط كشف الراتب:</strong> كشف الراتب المرتبط عند المعالجة</li>
+                    <li><strong>تتبع الحالة:</strong> الحالة الحالية مع التاريخ</li>
+                    <li><strong>أزرار الإجراءات:</strong> خيارات التأجيل والعفو وعرض المرفق</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="postpone-pardon" class="section">
+        <div class="lang-content active" id="postpone-pardon-en">
+            <h2>8. Postpone & Pardon Operations</h2>
+            <div class="step">
+                <h4>Postponing Installments</h4>
+                <ol>
+                    <li>From installment line, click <strong>"Request Postpone"</strong> button</li>
+                    <li>Postpone wizard opens with options</li>
+                    <li>Enter reason for postponement</li>
+                    <li>Choose adjustment type:
+                        <ul>
+                            <li><strong>Distribution:</strong> Spread postponed amount across remaining unpaid installments</li>
+                            <li><strong>New Installment:</strong> Create new installment at the end with same amount</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Submit"</strong> to confirm</li>
+                    <li>System updates installment state to "Postponed"</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>Pardoning Installments</h4>
+                <ol>
+                    <li>From installment line, click <strong>"Request Pardon"</strong> button</li>
+                    <li>Pardon wizard opens</li>
+                    <li>Enter reason for pardon</li>
+                    <li>Click <strong>"Submit"</strong> to confirm</li>
+                    <li>System updates installment state to "Pardoned"</li>
+                    <li>Amount is added to attachment's pardon total</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="postpone-pardon-ar">
+            <h2>8. عمليات التأجيل والعفو</h2>
+            <div class="step">
+                <h4>تأجيل الأقساط</h4>
+                <ol>
+                    <li>من خط القسط، انقر على زر <strong>"طلب تأجيل"</strong></li>
+                    <li>يفتح معالج التأجيل مع الخيارات</li>
+                    <li>أدخل سبب التأجيل</li>
+                    <li>اختر نوع التعديل:
+                        <ul>
+                            <li><strong>التوزيع:</strong> توزيع المبلغ المؤجل على الأقساط المتبقية غير المدفوعة</li>
+                            <li><strong>قسط جديد:</strong> إنشاء قسط جديد في النهاية بنفس المبلغ</li>
+                        </ul>
+                    </li>
+                    <li>انقر على <strong>"إرسال"</strong> للتأكيد</li>
+                    <li>النظام يحدث حالة القسط إلى "مؤجل"</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>عفو الأقساط</h4>
+                <ol>
+                    <li>من خط القسط، انقر على زر <strong>"طلب عفو"</strong></li>
+                    <li>يفتح معالج العفو</li>
+                    <li>أدخل سبب العفو</li>
+                    <li>انقر على <strong>"إرسال"</strong> للتأكيد</li>
+                    <li>النظام يحدث حالة القسط إلى "معفو"</li>
+                    <li>يتم إضافة المبلغ إلى إجمالي العفو للمرفق</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="merge-functionality" class="section">
+        <div class="lang-content active" id="merge-functionality-en">
+            <h2>9. Merge Functionality</h2>
+            <div class="step">
+                <h4>Merge Process</h4>
+                <ol>
+                    <li>System detects conflicting attachments</li>
+                    <li>Merge wizard appears automatically</li>
+                    <li>Choose to merge or return to existing attachment</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="merge-functionality-ar">
+            <h2>9. وظيفة الدمج</h2>
+            <div class="step">
+                <h4>عملية الدمج</h4>
+                <ol>
+                    <li>النظام يكتشف المرفقات المتضاربة</li>
+                    <li>معالج الدمج يظهر تلقائياً</li>
+                    <li>اختر الدمج أو العودة للمرفق الموجود</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="payslip-integration" class="section">
+        <div class="lang-content active" id="payslip-integration-en">
+            <h2>10. Payslip Integration</h2>
+            <div class="step">
+                <h4>Automatic Processing</h4>
+                <ol>
+                    <li>When payslip is created, system checks for active attachments</li>
+                    <li>Finds installment lines due for that month (date matches payslip date_from)</li>
+                    <li>Adds deduction to payslip input lines with attachment details</li>
+                    <li>Links installment line to payslip input line</li>
+                    <li>Marks installment as "Paid" when payslip is confirmed</li>
+                    <li>Records actual paid amount in installment line</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>Special Handling</h4>
+                <ul>
+                    <li><strong>Postponed Installments:</strong> Automatically excluded from payslip processing</li>
+                    <li><strong>Pardoned Installments:</strong> Automatically excluded from payslip processing</li>
+                    <li><strong>Draft Installments:</strong> Amount updated in payslip if installment amount changed</li>
+                    <li><strong>Loan Serial Numbers:</strong> Added to input line names for tracking</li>
+                </ul>
+            </div>
+        </div>
+        <div class="lang-content" id="payslip-integration-ar">
+            <h2>10. تكامل كشف الراتب</h2>
+            <div class="step">
+                <h4>المعالجة التلقائية</h4>
+                <ol>
+                    <li>عند إنشاء كشف الراتب، النظام يتحقق من المرفقات النشطة</li>
+                    <li>يجد خطوط الأقساط المستحقة لذلك الشهر (التاريخ يطابق تاريخ بداية كشف الراتب)</li>
+                    <li>يضيف الخصم إلى خطوط إدخال كشف الراتب مع تفاصيل المرفق</li>
+                    <li>يربط خط القسط بخط إدخال كشف الراتب</li>
+                    <li>يحدد القسط كـ "مدفوع" عند تأكيد كشف الراتب</li>
+                    <li>يسجل المبلغ المدفوع الفعلي في خط القسط</li>
+                </ol>
+            </div>
+            <div class="step">
+                <h4>المعالجة الخاصة</h4>
+                <ul>
+                    <li><strong>الأقساط المؤجلة:</strong> مستبعدة تلقائياً من معالجة كشف الراتب</li>
+                    <li><strong>الأقساط المعفوة:</strong> مستبعدة تلقائياً من معالجة كشف الراتب</li>
+                    <li><strong>الأقساط المسودة:</strong> يتم تحديث المبلغ في كشف الراتب إذا تغير مبلغ القسط</li>
+                    <li><strong>أرقام القروض التسلسلية:</strong> تضاف إلى أسماء خطوط الإدخال للتتبع</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="reporting" class="section">
+        <div class="lang-content active" id="reporting-en">
+            <h2>11. Reporting & Tracking</h2>
+            <div class="feature">
+                <h4>Balance Tracking</h4>
+                <p>The system automatically calculates balance amounts and tracks all changes.</p>
+            </div>
+            <div class="step">
+                <h4>Accessing Reports</h4>
+                <ol>
+                    <li><strong>Loan Requests:</strong> <code>Employee Loan → Employee Loan Request</code></li>
+                    <li><strong>Salary Attachments:</strong> <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></li>
+                    <li><strong>Individual Installments:</strong> <code>Employee Loan → Employee Loan Installments</code></li>
+                    <li>Filter by employee, state, date range, or attachment</li>
+                    <li>Export data for external analysis</li>
+                    <li>Track individual installment history through chatter</li>
+                </ol>
+            </div>
+        </div>
+        <div class="lang-content" id="reporting-ar">
+            <h2>11. التقارير والمتابعة</h2>
+            <div class="feature">
+                <h4>تتبع الرصيد</h4>
+                <p>النظام يحسب تلقائياً مبالغ الرصيد ويتتبع جميع التغييرات.</p>
+            </div>
+            <div class="step">
+                <h4>الوصول إلى التقارير</h4>
+                <ol>
+                    <li><strong>طلبات القروض:</strong> <code>قروض الموظفين ← طلب قرض موظف</code></li>
+                    <li><strong>مرفقات الراتب:</strong> <code>قروض الموظفين</code> أو <code>الرواتب ← الموظفون ← مرفقات الراتب</code></li>
+                    <li><strong>الأقساط الفردية:</strong> <code>قروض الموظفين ← أقساط قروض الموظفين</code></li>
+                    <li>التصفية حسب الموظف أو الحالة أو نطاق التاريخ أو المرفق</li>
+                    <li>تصدير البيانات للتحليل الخارجي</li>
+                    <li>تتبع تاريخ الأقساط الفردية من خلال المحادثة</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="troubleshooting" class="section">
+        <div class="lang-content active" id="troubleshooting-en">
+            <h2>12. Troubleshooting</h2>
+            <div class="warning">
+                <h4>Common Issues & Solutions</h4>
+                
+                <h5>Issue: Postpone/Pardon buttons not working</h5>
+                <p><strong>Cause:</strong> Payslip already generated and confirmed for that month</p>
+                <p><strong>Solution:</strong> Cancel the payslip, perform operation, then regenerate</p>
+
+                <h5>Issue: Cannot access individual installment</h5>
+                <p><strong>Cause:</strong> Installments not generated yet</p>
+                <p><strong>Solution:</strong> Confirm attachment and click "Compute Installments" first</p>
+
+                <h5>Issue: Installment amount not updating in payslip</h5>
+                <p><strong>Cause:</strong> Installment state is postponed or pardoned</p>
+                <p><strong>Solution:</strong> Check installment state in Employee Loan Installments menu</p>
+            </div>
+        </div>
+        <div class="lang-content" id="troubleshooting-ar">
+            <h2>12. استكشاف الأخطاء وإصلاحها</h2>
+            <div class="warning">
+                <h4>المشاكل الشائعة والحلول</h4>
+                
+                <h5>المشكلة: أزرار التأجيل/العفو لا تعمل</h5>
+                <p><strong>السبب:</strong> تم إنشاء وتأكيد كشف الراتب لذلك الشهر</p>
+                <p><strong>الحل:</strong> إلغاء كشف الراتب، تنفيذ العملية، ثم إعادة الإنشاء</p>
+
+                <h5>المشكلة: لا يمكن الوصول إلى القسط الفردي</h5>
+                <p><strong>السبب:</strong> لم يتم إنشاء الأقساط بعد</p>
+                <p><strong>الحل:</strong> تأكيد المرفق والنقر على "حساب الأقساط" أولاً</p>
+
+                <h5>المشكلة: مبلغ القسط لا يتحدث في كشف الراتب</h5>
+                <p><strong>السبب:</strong> حالة القسط مؤجلة أو معفوة</p>
+                <p><strong>الحل:</strong> تحقق من حالة القسط في قائمة أقساط قروض الموظفين</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            // Hide all content
+            document.querySelectorAll('.lang-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected language content
+            document.querySelectorAll(`[id$="-${lang}"]`).forEach(el => {
+                el.classList.add('active');
+            });
+            
+            // Update button states
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            // Update document direction and language
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+            }
+            
+            // Save preference
+            localStorage.setItem('preferred-language', lang);
+        }
+        
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'en';
+            switchLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
