@@ -96,7 +96,7 @@ class EmployeeExt(models.Model):
         code_map = {m.project_code: m.operating_unit_id for m in mappings}
 
         # Get default and empty fallbacks
-        default_mapping = Mapping.search([('project_code', '=', 'DEFAULT')], limit=1)
+        default_mapping = mapping_model.search([('project_code', '=', 'DEFAULT')], limit=1)
 
         default_ou = default_mapping.operating_unit_id if default_mapping else False
 
