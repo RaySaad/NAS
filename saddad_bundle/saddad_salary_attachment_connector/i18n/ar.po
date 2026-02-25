@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* saddad_salary_attachment_connector
+# 
+# Translators:
+# Waseem Abbas
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-19 12:00+0000\n"
+"PO-Revision-Date: 2024-12-19 12:00+0000\n"
+"Last-Translator: Waseem Abbas\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+######################## Saddad Salary Attachment Connector ############################
+
+#. module: saddad_salary_attachment_connector
+#: model:ir.model.fields,field_description:saddad_salary_attachment_connector.field_hr_salary_attachment_request__morror_id
+msgid "Morror Id"
+msgstr "رقم المرور"
+
+#. module: saddad_salary_attachment_connector
+#: model:ir.model.fields,field_description:saddad_salary_attachment_connector.field_hr_salary_attachment_request__show_morror_button
+msgid "Show Morror Button"
+msgstr "إظهار زر المرور"
+
+#. module: saddad_salary_attachment_connector
+#: model:ir.model.fields,field_description:saddad_salary_attachment_connector.field_morror__loan_advance_request_id
+msgid "Loan Advance Request"
+msgstr "طلب السلفة"
+
+######################## UI Elements ############################
+
+#. module: saddad_salary_attachment_connector
+#: model_terms:ir.ui.view,arch_db:saddad_salary_attachment_connector.morror_form_view_inherit
+msgid "Loan Request"
+msgstr "طلب القرض"
+
+#. module: saddad_salary_attachment_connector
+#: model_terms:ir.ui.view,arch_db:saddad_salary_attachment_connector.hr_salary_attachment_request_view_form_inherit
+msgid "View Morror"
+msgstr "عرض المرور"
+
+#. module: saddad_salary_attachment_connector
+#: code:addons/saddad_salary_attachment_connector/models/salary_attachment_request.py:0
+#, python-format
+msgid "Mirror View"
+msgstr "عرض المرآة"

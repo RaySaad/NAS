@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_salary_attachment_request_view_list" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.request.list</field>
+        <field name="model">hr.salary.attachment.request</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Employee Financial Transactions Requests">
+                <field name="loan_serial_number" readonly="1" invisible="loan_serial_number == False"/>
+                <field name="employee_id" widget="many2one_avatar_employee"/>
+                <field name="description"/>
+                <field name="monthly_amount" sum="Monthly Amount" widget="monetary"/>
+                <field name="total_amount" optional="hide" widget="monetary"/>
+                <field name="paid_amount" optional="hide" widget="monetary"/>
+                <field name="date_start"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'confirmed'"
+                       decoration-info="state in ('requested_pardon', 'completed')"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_salary_attachment_request_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.request.form</field>
+        <field name="model">hr.salary.attachment.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Employee Financial Transactions Requests" duplicate="false">
+                <header>
+                    <button name="action_open_employee_payment" type="object" string="Create Payment"
+                            class="btn-primary"
+                            invisible="employee_payment_id != False or state != 'pending_payment'"/>
+                    <button name="send_for_approval" type="object" string="Send for Approval"
+                            class="btn-primary" invisible="state != 'draft' or id==False"/>
+                    <button name="action_hr_approval" type="object" string="HR Approval"
+                            class="btn-primary" invisible="state != 'hr_approval'"/>
+                    <button name="action_finance_approval" type="object" string="Finance Approval"
+                            class="btn-primary" invisible="state != 'finance_approval'"/>
+                    <button name="action_management_approval" type="object" string="Management Approval"
+                            class="btn-primary" invisible="state != 'management_approval'"/>
+                    <button name="action_cancel" type="object" string="Refuse"
+                            class="btn-danger"
+                            invisible="state not in ['hr_approval', 'finance_approval', 'management_approval','pending_payment']"/>
+                    <!--                    <button name="action_confirm" type="object" string="Confirm"-->
+                    <!--                            class="btn-success"-->
+                    <!--                            invisible="state != 'management_approval'"/>-->
+                    <button name="open_pardon_request" type="object" string="Request Pardon"
+                            class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_done" type="object" string="Mark as Completed"
+                            class="btn-primary" invisible="state != 'requested_pardon'"/>
+                    <button name="action_pardon_refused" type="object" string="Pardon Refused"
+                            class="btn-danger" invisible="state != 'requested_pardon'"/>
+                    <button name="action_open" type="object" string="Running"
+                            invisible="1"/>
+                    <button name="reset_to_draft" type="object" string="Reset to Draft"
+                            class="btn-secondary" invisible="state != 'cancelled'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            class="btn-danger" invisible="state != 'draft' or id==False"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="salary_attachment_id" invisible="1"/>
+                        <button type="object" name="action_open_payslips" class="oe_stat_button" icon="fa-money"
+                                id="open_payslips" invisible="payslip_count == 0">
+                            <field name="payslip_count" widget="statinfo" string="Payslips"/>
+                        </button>
+                        <button name="action_open_salary_attachments"
+                                class="oe_stat_button"
+                                invisible="salary_attachment_id == False"
+                                icon="fa-files-o"
+                                string="Salary Attachments"
+                                type="object"/>
+                        <button name="view_payments" type="object" class="oe_state_button" icon="fa-money"
+                                string="View Payment" invisible="employee_payment_id == False"/>
+                    </div>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Merged &amp; Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="loan_serial_number" invisible="loan_serial_number == False"/>
+                        <h1>
+                            <field name="loan_serial_number" readonly="1" invisible="loan_serial_number == False"/>
+                        </h1>
+                    </div>
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="has_total_amount" invisible="1"/>
+                    <field name="attachment_name" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="employee_payment_id" invisible="1"/>
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="department_id" invisible="department_id == False"/>
+                            <field name="job_id" invisible="job_id == False"/>
+                            <field name="employee_nationality_id" invisible="employee_nationality_id == False"/>
+                            <field name="gender" invisible="gender == False"/>
+                            <field name="years_of_service" invisible="years_of_service == 0" readonly="1"
+                                   force_save="1"/>
+                            <field name="employee_company_id" invisible="employee_company_id == False"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                            <field name="date_start" readonly="state != 'draft'"/>
+                            <field name="date_estimated_end" invisible="state == 'completed'"/>
+                            <field name="date_end" invisible="date_end == False"/>
+                            <field name="attachment" filename="attachment_name"/>
+                            <field name="parent_request_id" readonly="1"
+                                   invisible="parent_request_id == False"/>
+                            <field name="note" string="Note" readonly="1" decoration-success="note != False"
+                                   invisible="note == False"/>
+                        </group>
+                        <group>
+                            <field name="loan_type_id" required="1"
+                                   readonly="state != 'draft'"/>
+                            <field name="installment_method" readonly="state != 'draft'"/>
+                            <field name="total_amount" string="Loan Amount"
+                                   required="has_total_amount == True"
+                                   readonly="state != 'draft'"/>
+                            <field name="duration"
+                                   readonly="installment_method != 'duration' or state != 'draft'"/>
+                            <field name="monthly_amount"
+                                   readonly="installment_method != 'amount' or state != 'draft'"
+                                   force_save="1"/>
+                            <field name="paid_amount" readonly="1" force_save="1"/>
+                            <field name="balance_amount" readonly="1" force_save="1"/>
+                            <field name="pardon_amount" readonly="1" force_save="1" invisible="pardon_amount == 0"/>
+                            <field name="pardon_reason" invisible="pardon_reason == False"/>
+                            <field name="requesting_user_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_salary_attachment_request_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.request.search</field>
+        <field name="model">hr.salary.attachment.request</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Employee Financial Transactions Requests">
+                <field name="employee_id"/>
+                <field name="description"/>
+                <field name="state"/>
+                <filter string="Employee" name="employee_id_group" context="{'group_by': 'employee_id'}"/>
+                <filter string="Status" name="state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ir_sequence_salary_attachment" model="ir.sequence">
+        <field name="name">EFT Request</field>
+        <field name="code">salary.attachment.request</field>
+        <field name="prefix">LSN/%(year)s/</field>
+        <field name="padding">2</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="hr_salary_attachment_request_action" model="ir.actions.act_window">
+        <field name="name">Employee Financial Transactions Requests</field>
+        <field name="res_model">hr.salary.attachment.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="hr_salary_attachment_request_action_view_employee" model="ir.actions.act_window">
+        <field name="name">Employee Financial Transactions Requests</field>
+        <field name="res_model">hr.salary.attachment.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{"search_default_employee_id": [active_id]}</field>
+    </record>
+
+    <menuitem id="employee_loan_root" name="EFT"
+              action="salary_attachments_customization.hr_salary_attachment_request_action"
+              web_icon="salary_attachments_customization,static/description/eft.jpeg"/>
+
+    <menuitem id="salary_attachments_requests_menu" name="EFT Request"
+              action="salary_attachments_customization.hr_salary_attachment_request_action"
+              parent="salary_attachments_customization.employee_loan_root" sequence="2"/>
+</odoo>

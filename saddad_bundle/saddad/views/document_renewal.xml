@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Document renewal request form view-->
+    <record id="document_renewal_form_view" model="ir.ui.view">
+        <field name="name">document.renewal.form.view</field>
+        <field name="model">document.renewal</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form class="document_renewal_form" string="Document Renewal Request" create="0" edit="0" delete="0">
+                <header>
+                    <widget id="attach_document" name="attach_document" string="Attach Receipt" class="oe_highlight"
+                            type="attach_document"/>
+                    <button string="Submit" groups="saddad.muqeem_expenses_user,saddad.group_saddad_administrator"
+                            name="action_submit" type="object"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button string="Hr Assistant" name="confirm_by_hr" type="object"
+                            groups="saddad.group_saddad_hr_assistant,saddad.group_saddad_administrator"
+                            class="oe_highlight" invisible="state != 'hr_assistant'"/>
+                    <button string="Hr Approval" name="approved_by_manager" type="object"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_administrator"
+                            class="oe_highlight" invisible="state != 'hr_confirm'"/>
+                    <button string="Cancel" name="cancel_request" type="object"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_administrator"
+                            class="oe_highlight" invisible="state != 'hr_confirm'"/>
+                    <button string="Refuse" name="action_refuse" type="object"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_administrator"
+                            class="oe_highlight"
+                            invisible="state not in ('hr_assistant','hr_confirm')"/>
+                    <button string="Reset To Draft" name="reset_to_draft" type="object"
+                            groups="saddad.group_saddad_administrator"
+                            invisible="state not in ('cancel','refused')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,hr_assistant,hr_confirm,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="attachment_number" invisible="1"/>
+                        <button name="action_get_attachment_view" string="View Documents" type="object"
+                                icon="fa-paperclip" invisible="attachment_number == 0"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="period" readonly="state == 'done'"/>
+                            <field name="unit_price" readonly="1" force_save="1"/>
+                            <field name="days_left_to_expire" readonly="1" force_save="1"/>
+                            <field name="iqama_expiry_date" readonly="1" force_save="1"/>
+                            <field name="total_amount" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" readonly="state == 'done'"
+                                   options="{'no_create':true,'no_open':true}"/>
+                            <field name="identification_id" readonly="1" force_save="1"/>
+                            <field name="reference"
+                                   readonly="state == 'done'"/>
+                            <field name="company_id" readonly="1" force_save="1"
+                                   options="{'no_create':true,'no_open':true}"/>
+                            <field name="work_permit_included" readonly="state == 'done'"/>
+                            <field name="fee_for_family" readonly="state == 'done'"/>
+                            <field name="no_of_dependents"
+                                   invisible="not fee_for_family"
+                                   required="fee_for_family"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <!--Document renewal request tree view-->
+    <record id="document_renewal_list_view" model="ir.ui.view">
+        <field name="name">document.renewal.list.view</field>
+        <field name="model">document.renewal</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Document Renewal Request" create="0" edit="0" delete="0">
+                <field name="date" widget="badge" decoration-info="1==1"/>
+                <field name="product_id"/>
+                <field name="employee_id"/>
+                <field name="identification_id"/>
+                <field name="company_id"/>
+                <field name="days_left_to_expire"/>
+                <field name="total_amount"/>
+                <field name="attachment_number" invisible="1"/>
+                <button name="action_get_attachment_view" string="View Documents" type="object"
+                        icon="fa-paperclip" invisible="attachment_number == 0"/>
+                <field name="state" widget="badge" decoration-danger="state == 'draft'"
+                       decoration-info="state == 'hr_confirm'"
+                       decoration-success="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+    <!--document renewal expense search view-->
+    <record id="document_renewal_expense_search_view" model="ir.ui.view">
+        <field name="name">document_renewal_expense_search_view</field>
+        <field name="model">document.renewal</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="identification_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="hr_confirmed" string="Hr Confirmed" domain="[('state', '=', 'hr_confirm')]"/>
+                <filter name="done" string="Done" domain="[('active', '=', False),('state', '=', 'done')]"/>
+                <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!--Document renewal request action-->
+    <record id="document_renewal_action" model="ir.actions.act_window">
+        <field name="name">Pending To Renew</field>
+        <field name="res_model">document.renewal</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Pending To Renew Record
+            </p>
+        </field>
+    </record>
+    <!--Document renewal request sequence-->
+    <record id="ir_sequence_document_renewal" model="ir.sequence">
+        <field name="name">Document Renewal Request Seq</field>
+        <field name="code">document.renewal</field>
+        <field name="prefix">PTR/%(year)s/</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!--Document renewal request menu items-->
+    <menuitem
+            id="document_renewal_root"
+            name="Saddad"
+            web_icon="saddad,static/description/icon.png"
+            sequence="1"
+            groups="base.group_system,saddad.group_saddad_administrator,saddad.muqeem_expenses_user,saddad.morror_user,saddad.saddad_services_user,,saddad.group_saddad_accountant,saddad.saddad_services_create_payment,saddad.saddad_post_entries,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.fleet_manager_group,saddad.group_saddad_financial_approval"/>
+    <menuitem id="menu_document_renewal_muqeem" name="Muqeem" sequence="2"
+              groups="base.group_system,saddad.group_saddad_administrator,saddad.muqeem_expenses_user,saddad.group_saddad_accountant,saddad.saddad_post_entries,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              parent="saddad.document_renewal_root"/>
+    <menuitem id="menu_document_renewal_action_pending" name="pending to Renew" sequence="4"
+              groups="base.group_system,saddad.group_saddad_administrator,saddad.muqeem_expenses_user,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              action="saddad.document_renewal_action" parent="saddad.menu_document_renewal_muqeem"/>
+</odoo>

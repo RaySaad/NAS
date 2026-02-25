@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_pardon_request_form" model="ir.ui.view">
+        <field name="name">pardon.request.form</field>
+        <field name="model">pardon.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Pardon Request">
+                <sheet>
+                    <group>
+                        <field name="reason" required="True"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_submit" type="object" string="Confirm" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pardon_request_loan_line_form" model="ir.ui.view">
+        <field name="name">pardon.request.loan.line.form</field>
+        <field name="model">pardon.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Pardon Request">
+                <sheet>
+                    <group>
+                        <field name="reason" required="True"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_loan_line_pardon" type="object" string="Confirm" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

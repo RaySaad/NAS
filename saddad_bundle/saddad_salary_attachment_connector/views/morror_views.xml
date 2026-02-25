@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="morror_form_view_inherit" model="ir.ui.view">
+        <field name="name">morror.form.inherit</field>
+        <field name="model">morror</field>
+        <field name="inherit_id" ref="saddad.morror_form_view"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" position="inside">
+                <button name="action_open_employee_loan_request" class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        invisible="loan_advance_request_id == False or state not in ('done','posted')"
+                        type="object">
+                    Loan Request
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

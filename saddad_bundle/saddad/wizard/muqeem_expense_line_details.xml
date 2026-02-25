@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- form view-->
+    <record id="muqeem_expense_line_details_tree_view" model="ir.ui.view">
+        <field name="name">muqeem_expense_line_details_tree_view</field>
+        <field name="model">muqeem.expense.line.details</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Invoice Details" create="0">
+                <field name="expense_number"/>
+                <field name="employee_id"/>
+                <field name="unit_price"/>
+                <field name="identification_id"/>
+                <field name="company_id"/>
+                <field name="status"/>
+                <field name="remarks"/>
+            </list>
+        </field>
+    </record>
+</odoo>

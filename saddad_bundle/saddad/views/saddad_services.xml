@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Saddad Services form view-->
+    <record id="saddad_services_from_view" model="ir.ui.view">
+        <field name="name">saddad_services_from_view</field>
+        <field name="model">saddad.services</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--empty commit to update the staging branch state-->
+                    <widget id="attach_document" name="attach_document" string="Attach Receipt" class="oe_highlight"
+                            type="attach_document" invisible="not id"/>
+                    <button name="action_confirm" type="object" string="Submit" invisible="state != 'draft' or not id" class="oe_highlight"
+                            groups="saddad.saddad_services_user,saddad.group_saddad_gm,saddad.group_saddad_administrator"/>
+                    <button name="action_review" type="object" string="Review" invisible="state != 'reviewed'"
+                            groups="saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            class="oe_highlight"/>
+                    <button name="action_financial_approval" type="object" string="Financial Approval"
+                            groups="saddad.group_saddad_gm,saddad.group_saddad_administrator, saddad.group_saddad_financial_approval"
+                            invisible="state != 'financial_approval'"
+                            class="oe_highlight"/>
+                    <button name="gm_approval" type="object" string="Approve"
+                            groups="saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state != 'gm'"
+                            class="oe_highlight"/>
+                    <button name="create_payment" type="object" string="Create Payment"
+                            groups="saddad.saddad_services_create_payment,saddad.group_saddad_administrator"
+                            invisible="state not in ('done') or payment_id or payment_type != 'direct_payment'"
+                            class="oe_highlight"/>
+                    <button name="create_jv" type="object" string="Create JV"
+                            groups="saddad.saddad_services_create_payment,saddad.group_saddad_administrator"
+                            invisible="state not in ('done') or account_move_id or payment_type != 'with_jv'"
+                            class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="oe_highlight"
+                            groups="saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state in ('draft','cancel','refused')"/>
+                    <button name="action_refuse" type="object" string="Refuse" class="oe_highlight"
+                            groups="saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state not in ('reviewed','financial_approval','gm','pending_payment')"/>
+
+
+                    <button name="action_reset_to_draft" type="object" string="Reset To Draft"
+                            invisible="state not in ('cancel','refused')"
+                            groups="saddad.group_saddad_administrator"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,refused,done,posted,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="payment_id" invisible="1"/>
+                        <field name="account_move_id" invisible="1"/>
+                        <button name="action_open_account_payment" class="oe_stat_button" icon="fa-file-text-o"
+                                type="object" invisible="not payment_id">
+                            Payment
+                        </button>
+                        <button name="action_open_journal_entry" class="oe_stat_button" icon="fa-book"
+                                type="object" invisible="not account_move_id">
+                            Journal Entry
+                        </button>
+                        <button name="action_get_attachment_view" string="View Documents" type="object"
+                                icon="fa-paperclip" invisible="attachment_number == 0"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" required="1" readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="payment_type" readonly="state != 'draft'"/>
+                            <field name="account_id" required="payment_type == 'with_jv'" 
+                                   invisible="payment_type != 'with_jv'"
+                                   readonly="state != 'draft'"/>
+                            <field name="biller_id" options="{'no_create': True}" 
+                                   required="payment_type == 'direct_payment'"
+                                   invisible="payment_type == 'with_jv'"
+                                   readonly="state != 'draft'"/>
+                            <field name="bank_journal_id" options="{'no_create': True}"
+                                   required="1"
+                                   readonly="state not in ('pending_payment', 'done', 'posted')"/>
+                        </group>
+                        <group>
+                            <field name="company_id" readonly="1" options="{'no_create':true,'no_open':true}"/>
+                            <field name="attachment_number" invisible="1"/>
+                            <field name="is_gm_user" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expenses" name="expense_line_ids">
+                            <field name="service_line_ids"
+                                   readonly="state != 'draft' and not is_gm_user">
+                                <list decoration-success="is_paid == True" editable="bottom">
+                                    <field name="date"/>
+                                    <field name="is_paid" column_invisible="True"/>
+                                    <field name="product_id" options="{'no_create': True}"/>
+                                    <field name="invoice_number"/>
+                                    <field name="analytic_account_id"/>
+                                    <field name="unit_price" force_save="1"/>
+                                    <field name="vat_id" widget="many2many_tags" string="Taxes"/>
+                                    <field name="total_amount" force_save="1"/>
+                                    <field name="remarks" invisible="1"/>
+                                    <button name="service_paid" type="object"
+                                            string="Paid"
+                                            groups="saddad.group_saddad_administrator,saddad.group_saddad_accountant"
+                                            invisible="is_paid or parent.state != 'pending_payment'"
+                                            class="oe_highlight"/>
+                                </list>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="1" name="total_amount">
+                                    <field name="currency_id" invisible="1"/>
+                                    <div class="o_td_label"></div>
+                                    <field name="unit_price" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="vat_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="total_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!--Saddad Services tree view-->
+    <record id="saddad_services_tree_view" model="ir.ui.view">
+        <field name="name">saddad_services_tree_view</field>
+        <field name="model">saddad.services</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="date"/>
+                <field name="biller_id"/>
+                <field name="product_id"/>
+                <field name="remarks" invisible="1"/>
+                <field name="name"/>
+                <field name="total_amount"/>
+                <field name="attachment_number" invisible="1"/>
+                <button name="action_get_attachment_view" string="View Documents" type="object"
+                        icon="fa-paperclip" invisible="attachment_number == 0"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Saddad Services Search View-->
+    <record id="saddad_services_search_view" model="ir.ui.view">
+        <field name="name">saddad_services_search_view</field>
+        <field name="model">saddad.services</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="review" string="Reviewed" domain="[('state', '=', 'reviewed')]"/>
+                <filter name="financial_approval" string="Financial Approval"
+                        domain="[('state', '=', 'financial_approval')]"/>
+                <filter name="gm" string="GM" domain="[('state', '=', 'gm')]"/>
+                <filter name="payment" string="Payment" domain="[('state', '=', 'payment_pending')]"/>
+                <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
+                <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
+                <field name="name" string="Sequence Number"/>
+                <field name="product_id"/>
+                <field name="biller_id"/>
+                <field name="remarks"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Saddad Services action-->
+    <record id="saddad_services_action" model="ir.actions.act_window">
+        <field name="name">Saddad Services</field>
+        <field name="res_model">saddad.services</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Saddad Service
+            </p>
+        </field>
+    </record>
+
+    <!--Saddad Services sequence-->
+    <record id="ir_sequence_saddad_services" model="ir.sequence">
+        <field name="name">Saddad Services</field>
+        <field name="code">saddad.services</field>
+        <field name="prefix">SS/%(year)s/</field>
+        <field name="padding">2</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!--Saddad services Menu Items-->
+    <menuitem id="saddad_services_menu" name="Saddad Services" sequence="4"
+              groups="base.group_system,saddad.saddad_services_user,saddad.group_saddad_administrator,saddad.group_saddad_accountant,saddad.saddad_services_create_payment,saddad.group_saddad_gm,saddad.saddad_post_entries,saddad.group_saddad_financial_approval"
+              action="saddad.saddad_services_action" parent="saddad.document_renewal_root"/>
+</odoo>
