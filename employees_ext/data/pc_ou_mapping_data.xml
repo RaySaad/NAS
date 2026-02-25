@@ -1,0 +1,39 @@
+<odoo>
+    <data noupdate="1">
+        <!--  BU01 - Project Code 100  -->
+        <record id="pc_ou_mapping_100" model="pc.ou.mapping">
+            <field name="project_code">100</field>
+            <field name="operating_unit_id" search="[('code','=','BU01')]"/>
+        </record>
+        <!--  BU03 - Project Code 152  -->
+        <record id="pc_ou_mapping_152" model="pc.ou.mapping">
+            <field name="project_code">152</field>
+            <field name="operating_unit_id" search="[('code','=','BU03')]"/>
+        </record>
+        <!--  BU03 - Project Code 150  -->
+        <record id="pc_ou_mapping_150" model="pc.ou.mapping">
+            <field name="project_code">150</field>
+            <field name="operating_unit_id" search="[('code','=','BU03')]"/>
+        </record>
+        <!--  BU03 - Project Code 1000  -->
+        <record id="pc_ou_mapping_1000" model="pc.ou.mapping">
+            <field name="project_code">1000</field>
+            <field name="operating_unit_id" search="[('code','=','BU03')]"/>
+        </record>
+        <!--  BU03 - Project Code 10000  -->
+        <record id="pc_ou_mapping_10000" model="pc.ou.mapping">
+            <field name="project_code">10000</field>
+            <field name="operating_unit_id" search="[('code','=','BU03')]"/>
+        </record>
+        <!--  BU04 - Project Code 5000  -->
+        <record id="pc_ou_mapping_5000" model="pc.ou.mapping">
+            <field name="project_code">5000</field>
+            <field name="operating_unit_id" search="[('code','=','BU04')]"/>
+        </record>
+        <!--  BU02 - All Other Codes (empty project_code means fallback)  -->
+        <record id="pc_ou_mapping_default" model="pc.ou.mapping">
+            <field name="project_code">DEFAULT</field>
+            <field name="operating_unit_id" search="[('code','=','BU02')]"/>
+        </record>
+    </data>
+</odoo>
