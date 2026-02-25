@@ -805,13 +805,14 @@ class JVAPI(http.Controller):
 									}})
 
 							if partner_contract:
+								customer_code = partner_contract.partner_id.customer_code or line.get('customer_code', '')
 								vals = {
 									'account_id': request.env['account.account'].sudo().search([
 										('code', '=', line['account_id'])]).id,
 									'name': line['name'],
 									'employee_id': existing_employee.id if existing_employee else False,
 									'employee_code': line.get('employee_code', ''),
-									"customer_code": line.get('customer_code', ''),
+									"customer_code": customer_code,
 									"operating_unit_id": line_operating_unit.id,
 									"customer_account": partner_contract.id if partner_contract else False,
 									'contract_type': partner_contract.contract_type if partner_contract else '',
