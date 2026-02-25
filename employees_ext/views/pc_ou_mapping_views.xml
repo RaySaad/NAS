@@ -4,28 +4,12 @@
         <field name="name">pc.ou.mapping.list</field>
         <field name="model">pc.ou.mapping</field>
         <field name="arch" type="xml">
-            <list string="PC to OU Mapping">
+            <list string="PC to OU Mapping" editable="bottom">
                 <field name="project_code"/>
                 <field name="operating_unit_id"/>
             </list>
         </field>
     </record>
-<!--    &lt;!&ndash;  Form View  &ndash;&gt;-->
-<!--    <record id="pc_ou_mapping_view_form" model="ir.ui.view">-->
-<!--        <field name="name">pc.ou.mapping.form</field>-->
-<!--        <field name="model">pc.ou.mapping</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form string="PC to OU Mapping">-->
-<!--                <sheet>-->
-<!--                    <group>-->
-<!--                        <field name="name"/>-->
-<!--                        <field name="project_code"/>-->
-<!--                        <field name="operating_unit_id"/>-->
-<!--                    </group>-->
-<!--                </sheet>-->
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
     <!--  Action  -->
     <record id="pc_ou_mapping_action" model="ir.actions.act_window">
         <field name="name">PC to OU Mapping</field>
@@ -33,6 +17,6 @@
         <field name="view_mode">list</field>
     </record>
     <!--  Menu Item under Configuration  -->
-    <menuitem id="menu_pc_ou_mapping" name="PC to OU Mapping" parent="hr.hr_menu_configuration"
+    <menuitem id="menu_pc_ou_mapping" name="PC to OU Mapping" parent="hr.menu_config_employee"
               action="pc_ou_mapping_action" sequence="20"/>
 </odoo>
