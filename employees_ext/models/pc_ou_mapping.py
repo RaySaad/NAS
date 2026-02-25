@@ -27,4 +27,4 @@ class PcOuMapping(models.Model):
     def unlink(self):
         if self.project_code == 'DEFAULT':
             raise ValidationError(_('You cannot delete the DEFAULT mapping, you can only edit it!'))
-        super().unlink()
+        return super().unlink()
