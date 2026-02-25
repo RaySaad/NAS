@@ -5,7 +5,6 @@ from odoo.exceptions import ValidationError
 class PcOuMapping(models.Model):
     _name = "pc.ou.mapping"
     _description = "Project Code to Operating Unit Mapping"
-    _rec_name = "name"
 
     project_code = fields.Char(
         string="Project Code",
