@@ -34,7 +34,7 @@
                                 <field name="identification_expiry_date_hijri" class="block"
                                        placeholder="Hijri 'YYYY-MM-DD'" readonly="1" force_save="1"/>
                             </div>
-                            <field name="sponsor_id" readonly="employee_type == 'internal'"/>
+                            <!--                            <field name="sponsor_id" readonly="employee_type == 'internal'"/>-->
                             <field name="company_id" readonly="1"/>
                         </group>
                     </group>
@@ -51,7 +51,8 @@
         <field name="arch" type="xml">
             <list>
                 <header>
-                    <button name="action_bulk_update_from_hr" type="object" string="Bulk Update from HR" class="btn-primary"/>
+                    <button name="action_bulk_update_from_hr" type="object" string="Bulk Update from HR"
+                            class="btn-primary"/>
                 </header>
                 <field name="identification_id"/>
                 <field name="employee_name"/>

@@ -83,7 +83,7 @@ class Morror(models.Model):
     product_id = fields.Char(string="Product", store=True, compute='_compute_product')
     identification_id = fields.Char(string="Iqama Number")
     deduction_date = fields.Date('Deduction Date')
-    sponsor_id = fields.Char()
+    # sponsor_id = fields.Char()
     bank_journal_id = fields.Many2one('account.journal', 'Account Journal',
                                       domain=[('type', '=', 'bank')], default=default_bank_journal)
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.company.id)
@@ -108,7 +108,7 @@ class Morror(models.Model):
     @api.onchange('employee_id')
     def _onchange_employee(self):
         if self.employee_id:
-            self.sponsor_id = s = self.employee_id.sponsor_id
+            # self.sponsor_id = s = self.employee_id.sponsor_id
             self.identification_id = self.employee_id.identification_id
 
     def _compute_gm_user(self):
