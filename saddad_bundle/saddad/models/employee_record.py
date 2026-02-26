@@ -2,6 +2,7 @@
 from odoo import models, fields, exceptions, api, _
 from datetime import date
 from odoo.exceptions import ValidationError
+
 try:
     from hijri_converter import Gregorian
 except ImportError:
@@ -24,7 +25,7 @@ class EmployeeRecord(models.Model):
     _description = 'Employee Record'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'employee_id'
-    _rec_names_search = ['employee_name','employee_number']
+    _rec_names_search = ['employee_name', 'employee_number']
 
     identification_id = fields.Char(string="Iqama Number")
     start_date = fields.Date(tracking=True)
@@ -38,17 +39,17 @@ class EmployeeRecord(models.Model):
         ('external', 'External')
     ])
     employee_id = fields.Many2one('hr.employee')
-    sponsor_id = fields.Char(string="Sponsor Name")
+    # sponsor_id = fields.Char(string="Sponsor Name")
     employee_number = fields.Char(string="Employee Number")
-
 
     @api.onchange('start_date', 'identification_expiry_date')
     def _onchange_dates(self):
         if self.start_date and self.identification_expiry_date and self.identification_expiry_date <= self.start_date:
             raise ValidationError("Identification expiry date must be greater than start date")
-        
+
         self.start_date_hijri = convert_to_hijri(self.start_date) if self.start_date else False
-        self.identification_expiry_date_hijri = convert_to_hijri(self.identification_expiry_date) if self.identification_expiry_date else False
+        self.identification_expiry_date_hijri = convert_to_hijri(
+            self.identification_expiry_date) if self.identification_expiry_date else False
 
     @api.onchange('employee_id')
     def _onchange_employee_id(self):
@@ -57,11 +58,11 @@ class EmployeeRecord(models.Model):
             self.employee_number = self.employee_id.registration_number
             self.company_id = self.employee_id.company_id.id
             self.identification_id = self.employee_id.identification_id
-            self.sponsor_id = self.employee_id.sponsor.identification_no if self.employee_id.sponsor else None
+            # self.sponsor_id = self.employee_id.sponsor.identification_no if self.employee_id.sponsor else None
 
     def sync_employees_from_hr(self):
-        employees = self.env['hr.employee'].search([('identification_id','!=', False)])
-        existing_employee_ids = self.search([('identification_id','!=', False)]).mapped('employee_id')
+        employees = self.env['hr.employee'].search([('identification_id', '!=', False)])
+        existing_employee_ids = self.search([('identification_id', '!=', False)]).mapped('employee_id')
 
         for employee in employees:
             if employee.id not in existing_employee_ids.ids:
@@ -70,7 +71,7 @@ class EmployeeRecord(models.Model):
                     'employee_name': employee.display_name,
                     'identification_id': employee.identification_id,
                     'employee_type': 'internal',
-                    'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
+                    # 'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
                     'company_id': employee.company_id.id,
                     'employee_number': employee.registration_number
                 })
@@ -91,7 +92,7 @@ class EmployeeRecord(models.Model):
         update_vals = {}
         update_vals['employee_name'] = employee.display_name
         update_vals['identification_id'] = employee.identification_id or ''
-        update_vals['sponsor_id'] = employee.sponsor.identification_no if employee.sponsor else None
+        # update_vals['sponsor_id'] = employee.sponsor.identification_no if employee.sponsor else None
         update_vals['company_id'] = employee.company_id.id
         update_vals['employee_number'] = employee.registration_number
 
@@ -127,13 +128,13 @@ class EmployeeRecord(models.Model):
                 update_vals = {
                     'employee_name': employee.display_name,
                     'identification_id': employee.identification_id or '',
-                    'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
+                    # 'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
                     'company_id': employee.company_id.id,
                     'employee_number': employee.registration_number
                 }
                 record.write(update_vals)
                 updated_count += 1
-        
+
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',

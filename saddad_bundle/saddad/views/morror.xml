@@ -61,7 +61,7 @@
                                    readonly="state != 'draft'"
                                    invisible="expense_type != 'traffic_violation'"
                                    required="expense_type == 'traffic_violation'"/>
-                            <field name="sponsor_id" force_save="1" readonly="1"/>
+                            <!--                            <field name="sponsor_id" force_save="1" readonly="1"/>-->
                             <field name="bank_journal_id"
                                    readonly="state not in ('payment_pending')"
                                    options="{'no_create':true,'no_open':true}"/>

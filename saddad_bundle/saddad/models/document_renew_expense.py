@@ -84,7 +84,8 @@ class DocumentRenewExpense(models.Model):
             return bank_mapping.bank_journal_id.id
 
     def employee_domain(self):
-        return ['|', ('company_id', '=', self.env.company.id), ('company_id', 'in', self.env.company.child_ids.ids), ('employee_type', '=', 'internal')]
+        return ['|', ('company_id', '=', self.env.company.id), ('company_id', 'in', self.env.company.child_ids.ids),
+                ('employee_type', '=', 'internal')]
 
     def compute_attachment_number(self):
         """Calculate number of attachments linked to this record"""
@@ -126,7 +127,7 @@ class DocumentRenewExpense(models.Model):
                                  help="Company associated with this expense")
     cancel_note = fields.Char('Cancel Note', help="Note explaining why the expense was cancelled")
     account_move_id = fields.Many2one('account.move', ondelete='cascade', help="Related journal entry")
-    sponsor_id = fields.Char(help="Sponsor identifier")
+    # sponsor_id = fields.Char(help="Sponsor identifier")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('hr_assistant', 'HR Assistant'),
@@ -160,7 +161,7 @@ class DocumentRenewExpense(models.Model):
     def _onchange_employee(self):
         if self.employee_id:
             self.iqama_expiry_date = self.employee_id.identification_expiry_date
-            self.sponsor_id = self.employee_id.sponsor_id
+            # self.sponsor_id = self.employee_id.sponsor_id
             self.identification_id = self.employee_id.identification_id
 
     def _compute_gm_user(self):

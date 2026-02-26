@@ -10,8 +10,9 @@
                 <header>
                     <widget id="attach_document" name="attach_document" string="Attach Receipt"
                             type="attach_document" invisible="not id"/>
-                    <button name="action_confirm" type="object" string="Submit" invisible="state != 'draft' or not id" class="btn-primary"
-                            groups="saddad.muqeem_expenses_user,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator" />
+                    <button name="action_confirm" type="object" string="Submit" invisible="state != 'draft' or not id"
+                            class="btn-primary"
+                            groups="saddad.muqeem_expenses_user,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"/>
                     <button name="hr_assistant_confirm" type="object" string="Hr Assistant Confirm" class="btn-primary"
                             groups="saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"
                             invisible="state != 'hr_assistant'"/>
@@ -27,7 +28,7 @@
                     <button name="post_entries" type="object" string="Post Entries" class="btn-primary"
                             invisible="state not in ('payment','done')"
                             groups="saddad.saddad_post_entries,saddad.group_saddad_administrator"/>
-                     <button name="action_reset_to_draft" type="object" string="Reset To Draft"
+                    <button name="action_reset_to_draft" type="object" string="Reset To Draft"
                             groups="saddad.group_saddad_administrator"
                             invisible="state not in ('cancel','refused')"/>
                     <button name="validate_expense" type="object" string="Validate Expense" class="btn-primary"
@@ -69,7 +70,7 @@
                                    readonly="state != 'draft'"/>
 
                             <field name="identification_id" readonly="1" force_save="1"/>
-                            <field name="sponsor_id" readonly="1" force_save="1"/>
+                            <!--                            <field name="sponsor_id" readonly="1" force_save="1"/>-->
                             <field name="bank_journal_id" options="{'no_create':true,'no_open':true}"
                                    readonly="state not in ('payment','draft')"/>
                             <field name="attachment_number" options="{'reload_on_button': true}" widget="statinfo"
