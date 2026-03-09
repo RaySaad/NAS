@@ -1,0 +1,14 @@
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_update_employee_operating_unit" model="ir.cron">
+            <field name="name">Naas OU: Update Employee Operating Unit from Project Code</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_operating_unit()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active">1</field>
+            <field name="nextcall">2026-02-25 00:00:00</field>
+        </record>
+    </data>
+</odoo>
