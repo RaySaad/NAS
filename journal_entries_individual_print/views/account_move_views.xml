@@ -46,7 +46,7 @@
 
     <!-- Register the wizard as a named action reachable from the Print dropdown -->
     <record id="action_print_separate_pdfs_from_print_menu" model="ir.actions.act_window">
-        <field name="name">Print Journal Entries Separate</field>
+        <field name="name">Print Individual Journal Entries</field>
         <field name="res_model">account.move.print.separate.pdf.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
