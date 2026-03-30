@@ -226,7 +226,7 @@ class PettyCashPurchase(models.Model):
 						'tax_tag_ids': [(6,0,inside_tags)] if inside_tags else False,
 					}))
 					amount_credit += tax_line['amount']
-		
+
 		line_ids.append((0, 0, {
 			'analytic_distribution': rec.analytic_distribution,
 			'account_id': self.account_id.id,
@@ -237,6 +237,7 @@ class PettyCashPurchase(models.Model):
 			'customer_code': rec.customer_code,
 			'employee_code': rec.employee_code,
 			'contract_type': rec.contract_type,
+			'operating_unit_id': False,
 		}))
 
 		jv = self.env['account.move'].create({
@@ -244,7 +245,7 @@ class PettyCashPurchase(models.Model):
 			'move_type': 'entry',
 			'ref': self.name,
 			'journal_id': self.employee_journal_id.id,
-			'operating_unit_id': self.expenses_line_ids.filtered(lambda m: m.operating_unit_id)[0].operating_unit_id.id if self.expenses_line_ids.filtered(lambda m: m.operating_unit_id) else False,
+			'operating_unit_id': False,
 			'date': fields.Datetime.now(),
 			'petty_id': self.id,
 			'line_ids': line_ids

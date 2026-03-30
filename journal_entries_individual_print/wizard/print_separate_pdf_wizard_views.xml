@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Server action with binding_type=report appears in the Print dropdown -->
+    <record id="action_open_separate_pdf_wizard" model="ir.actions.server">
+        <field name="name">Print Individual Journal Entries</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = env['account.move.print.separate.pdf.wizard'].action_print_separate(records.ids)
+        </field>
+    </record>
+
+</odoo>

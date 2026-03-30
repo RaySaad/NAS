@@ -1,0 +1,22 @@
+<odoo>
+    <!--  List View  -->
+    <record id="pc_ou_mapping_view_list" model="ir.ui.view">
+        <field name="name">pc.ou.mapping.list</field>
+        <field name="model">pc.ou.mapping</field>
+        <field name="arch" type="xml">
+            <list string="PC to OU Mapping" editable="bottom">
+                <field name="project_code"/>
+                <field name="operating_unit_id"/>
+            </list>
+        </field>
+    </record>
+    <!--  Action  -->
+    <record id="pc_ou_mapping_action" model="ir.actions.act_window">
+        <field name="name">PC to OU Mapping</field>
+        <field name="res_model">pc.ou.mapping</field>
+        <field name="view_mode">list</field>
+    </record>
+    <!--  Menu Item under Configuration  -->
+    <menuitem id="menu_pc_ou_mapping" name="PC to OU Mapping" parent="hr.menu_config_employee"
+              action="pc_ou_mapping_action" sequence="20"/>
+</odoo>
