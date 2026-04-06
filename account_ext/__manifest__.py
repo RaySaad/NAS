@@ -4,7 +4,8 @@
     'version': '1.0',
     'category': 'account',
 
-    'depends': ['accountant', 'contacts_ext', 'account_operating_unit','employees_ext','account_accountant'],
+    'depends': ['accountant', 'contacts_ext', 'account_operating_unit', 'employees_ext', 'account_accountant',
+                'account_reports'],
     'data': [
         'views/account_account.xml',
         'views/account_move.xml'
