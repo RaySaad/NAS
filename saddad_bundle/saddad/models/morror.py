@@ -105,6 +105,24 @@ class Morror(models.Model):
     is_gm_user = fields.Boolean(string='Is GM User', compute="_compute_gm_user")
     violation_number = fields.Char(string='Violation Number', compute="_compute_violation_number")
 
+    operating_unit_id = fields.Many2one(
+        comodel_name="operating.unit",
+        string="Operating Unit",
+        check_company=True,
+        readonly=True,
+        compute="_compute_operating_unit",
+        store=True,
+    )
+
+    # added method to fetch operating unit for emplyees when select
+    @api.depends('employee_id')
+    def _compute_operating_unit(self):
+        for rec in self:
+            if rec.employee_id:
+                rec.operating_unit_id = rec.employee_id.operating_unit_id or False
+            else:
+                rec.operating_unit_id = False
+
     @api.onchange('employee_id')
     def _onchange_employee(self):
         if self.employee_id:

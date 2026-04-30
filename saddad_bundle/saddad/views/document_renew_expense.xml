@@ -67,12 +67,14 @@
                     <group>
                         <group>
                             <field name="employee_id" options="{'no_create':true,'no_open':true}"
+                                   domain="[('identification_id', '=like', '2%')]"
                                    readonly="state != 'draft'"/>
 
                             <field name="identification_id" readonly="1" force_save="1"/>
                             <!--                            <field name="sponsor_id" readonly="1" force_save="1"/>-->
                             <field name="bank_journal_id" options="{'no_create':true,'no_open':true}"
                                    readonly="state not in ('payment','draft')"/>
+                            <field name="operating_unit_id" readonly="1"/>
                             <field name="attachment_number" options="{'reload_on_button': true}" widget="statinfo"
                                    invisible="1"/>
                         </group>
@@ -192,6 +194,27 @@
         </field>
     </record>
 
+    <!--Document renew expense linesss  list view-->
+    <record id="document_renew_expense_line_list_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.line.list.view</field>
+        <field name="model">document.renew.expense.line</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="analytic_account_id"/>
+                <field name="unit_price"/>
+                <field name="period"/>
+                <field name="visa_period"/>
+                <field name="payment_mode"/>
+                <field name="total_amount"/>
+                <field name="remarks"/>
+                <field name="is_paid"/>
+            </list>
+        </field>
+    </record>
+
     <!--Document renew expense action-->
     <record id="document_renew_expense_action" model="ir.actions.act_window">
         <field name="name">Muqeem Expenses</field>
@@ -217,6 +240,34 @@
     <menuitem id="menu_document_renew_expense" name="Muqeem Expenses" sequence="3"
               groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
               action="saddad.document_renew_expense_action" parent="saddad.menu_document_renewal_muqeem"/>
+
+    <!--Document renew expense lines menu items-->
+    <record id="document_renew_expense_line_action" model="ir.actions.act_window">
+        <field name="name">Muqeem Expenses Line</field>
+        <field name="res_model">document.renew.expense.line</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="document_renew_expense_line_list_view"/>
+        <field name="context">{"create": 0}</field>
+    </record>
+
+    <menuitem id="menu_document_renew_expense_line"
+          name="Muqeem Expenses Lines"
+          sequence="3"
+          groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+          action="document_renew_expense_line_action"
+          parent="saddad.menu_document_renewal_muqeem"/>
+
+    <!-- Export to Expense Transaction Action -->
+    <record id="action_export_to_expense_transaction" model="ir.actions.server">
+        <field name="name">Export to Expense Transaction</field>
+        <field name="model_id" ref="model_document_renew_expense_line"/>
+        <field name="binding_model_id" ref="model_document_renew_expense_line"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_export_to_expense_transaction()
+        </field>
+    </record>
 
     <record id="expense_validation_action" model="ir.actions.act_window">
         <field name="name">Muqeem Validation</field>

@@ -41,6 +41,11 @@ class EmployeeRecord(models.Model):
     employee_id = fields.Many2one('hr.employee')
     # sponsor_id = fields.Char(string="Sponsor Name")
     employee_number = fields.Char(string="Employee Number")
+    operating_unit_id = fields.Many2one(
+        comodel_name="operating.unit",
+        string="Operating Unit",
+        check_company=True,
+    )
 
     @api.onchange('start_date', 'identification_expiry_date')
     def _onchange_dates(self):

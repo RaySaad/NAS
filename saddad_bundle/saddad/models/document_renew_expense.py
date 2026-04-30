@@ -121,6 +121,15 @@ class DocumentRenewExpense(models.Model):
     bank_journal_id = fields.Many2one('account.journal', 'Account Journal', tracking=True,
                                       domain=[('type', '=', 'bank')], default=default_bank_journal,
                                       help="Bank journal for expense transactions")
+    # modify field to add method
+    operating_unit_id = fields.Many2one(
+        comodel_name="operating.unit",
+        string="Operating Unit",
+        check_company=True,
+        readonly=True,
+        compute="_compute_operating_unit",
+        store=True,
+    )
     expense_account_id = fields.Many2one('account.account', 'Expense Account',
                                          help="Account used to record the expense")
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.company.id, tracking=True,
@@ -156,6 +165,17 @@ class DocumentRenewExpense(models.Model):
     record_url = fields.Char(string="URL")
     remarks = fields.Char(compute="_compute_remarks", store=True)
     show_journal_entry_button = fields.Boolean()
+
+    # below method added for get auto fetch operating unit id against that employye we select in document renew expense form as per new changes in employee record model
+    @api.depends('employee_id')
+    def _compute_operating_unit(self):
+        for rec in self:
+            if rec.employee_id and rec.employee_id.employee_id:
+                rec.operating_unit_id = rec.employee_id.employee_id.operating_unit_id or False
+            elif rec.employee_id:
+                rec.operating_unit_id = rec.employee_id.operating_unit_id or False
+            else:
+                rec.operating_unit_id = False
 
     @api.onchange('employee_id')
     def _onchange_employee(self):
@@ -539,11 +559,17 @@ class DocumentRenewExpenseLines(models.Model):
         for expense in self:
             expense.total_amount = expense.unit_price * expense.quantity
 
+    # def _product_domain(self):
+    #     return [
+    #         '&',  # AND condition between the first condition and the result of the OR condition
+    #         ('categ_id.type', '=', 'muqeem_expenses'),
+    #         '|',  # OR condition for company_id
+    #         ('company_id', '=', self.env.company.id),
+    #         ('company_id', '=', False)
+    #     ]
     def _product_domain(self):
         return [
-            '&',  # AND condition between the first condition and the result of the OR condition
-            ('categ_id.type', '=', 'muqeem_expenses'),
-            '|',  # OR condition for company_id
+            '|',  # OR condition
             ('company_id', '=', self.env.company.id),
             ('company_id', '=', False)
         ]
@@ -752,3 +778,85 @@ class DocumentRenewExpenseLines(models.Model):
             tracking.write({
                 'mail_message_id': message_id
             })
+
+    # method for expense lines export to expense transactions
+
+    def action_export_to_expense_transaction(self):
+        """Export selected Muqeem Expense Lines to Expense Transaction"""
+        selected_line_ids = self.env.context.get('active_ids', [])
+        if not selected_line_ids:
+            raise ValidationError('No lines selected for export')
+
+        expense_lines = self.env['document.renew.expense.line'].browse(selected_line_ids)
+
+        if not expense_lines:
+            raise ValidationError('Selected lines not found')
+
+        # Prepare expense detail lines data
+        expense_detail_lines = []
+        for line in expense_lines:
+            # Get expense account from product
+            expense_account = line.product_id.property_account_expense_id or False
+            if not expense_account:
+                raise ValidationError(
+                    f"Product '{line.product_id.name}' does not have an Expense Account configured. "
+                    f"Please configure it in the product's Accounting tab."
+                )
+
+            # Use same account for both fields (or configure separately if needed)
+            prepaid_account = expense_account
+
+            # Create analytic distribution if analytic account exists
+            analytic_dist = False
+            if line.analytic_account_id:
+                analytic_dist = {str(line.analytic_account_id.id): 100}
+
+            expense_detail_lines.append((0, 0, {
+                'description': line.product_id.name,
+                'employee_id': line.expense_id.employee_id.id,
+                'operating_unit_id': line.expense_id.operating_unit_id.id,
+                'prepaid_expense_account_id': prepaid_account.id,
+                'expense_account_id': expense_account.id,
+                'analytic_distribution': analytic_dist,
+                'start_date': line.date,
+                'end_date': line.date,
+                'quantity': 1,
+                'price_unit': line.unit_price,
+                'price_total': line.total_amount,
+                'company_id': line.expense_id.company_id.id,
+            }))
+
+        # Get company from first line
+        company_id = expense_lines[0].expense_id.company_id.id
+
+        # Find a general journal for the company
+        journal = self.env['account.journal'].search([
+            ('type', '=', 'general'),
+            ('company_id', '=', company_id)
+        ], limit=1)
+
+        if not journal:
+            raise ValidationError(
+                f'No General Journal found for company {expense_lines[0].expense_id.company_id.name}')
+
+        # Create new Expense Transaction
+        expense_transaction = self.env['account.expense.transaction'].create({
+            'date': fields.Date.today(),
+            'expense_nature': 'accrual',
+            'amortization_method': 'on_time',
+            'reference': f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}',
+            'company_id': company_id,
+            'expense_detail_ids': expense_detail_lines,
+            'type_jv': 'each_line',
+            'journal_id': journal.id,
+        })
+
+        # Return form view of created transaction
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.expense.transaction',
+            'res_id': expense_transaction.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'current',
+        }
