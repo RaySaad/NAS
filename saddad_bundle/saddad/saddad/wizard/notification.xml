@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- form view-->
+    <record id="notification_form_view" model="ir.ui.view">
+        <field name="name">notification.form.view</field>
+        <field name="model">show.notification</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <sheet>
+                    <div><b>No email configuration Available please contact your admin for email configuration</b></div>
+                </sheet>
+                <footer>
+                    <button string="Close" type="object" name="close_wizard" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

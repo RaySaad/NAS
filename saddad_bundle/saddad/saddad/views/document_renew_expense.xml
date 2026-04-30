@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Document renew expense form view-->
+    <record id="document_renew_expense_form_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.form.view</field>
+        <field name="model">document.renew.expense</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <widget id="attach_document" name="attach_document" string="Attach Receipt"
+                            type="attach_document" invisible="not id"/>
+                    <button name="action_confirm" type="object" string="Submit" invisible="state != 'draft' or not id"
+                            class="btn-primary"
+                            groups="saddad.muqeem_expenses_user,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"/>
+                    <button name="hr_assistant_confirm" type="object" string="Hr Assistant Confirm" class="btn-primary"
+                            groups="saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state != 'hr_assistant'"/>
+                    <button name="hr_approval" type="object" string="Hr Approval" class="btn-primary"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state != 'hr_confirm'"/>
+                    <button name="financial_approval" type="object" string="Financial Approval"
+                            groups="saddad.group_saddad_administrator,saddad.group_saddad_financial_approval"
+                            invisible="state != 'financial_approval'" class="oe_highlight"/>
+                    <button name="gm_approval" type="object" string="Approve" class="btn-primary"
+                            groups="saddad.group_saddad_gm,saddad.group_assistant_gm,saddad.group_saddad_administrator"
+                            invisible="state != 'gm'"/>
+                    <button name="post_entries" type="object" string="Post Entries" class="btn-primary"
+                            invisible="state not in ('payment','done')"
+                            groups="saddad.saddad_post_entries,saddad.group_saddad_administrator"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset To Draft"
+                            groups="saddad.group_saddad_administrator"
+                            invisible="state not in ('cancel','refused')"/>
+                    <button name="validate_expense" type="object" string="Validate Expense" class="btn-primary"
+                            invisible="validated or state not in ('done', 'posted') or not show_validate_expense_button"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state in ('draft','cancel','refused')"/>
+                    <button name="action_refuse" type="object" string="Refuse" class="oe_highlight"
+                            groups="saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_administrator"
+                            invisible="state not in ('hr_assistant','hr_confirm','gm','financial_approval','payment')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,refused,done,posted,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="show_validate_expense_button" invisible="1"/>
+                        <field name="validated" invisible="1"/>
+                        <field name="account_move_id" invisible="1"/>
+                        <field name="document_renewal_request_id" invisible="1"/>
+                        <field name="show_journal_entry_button" invisible="1"/>
+                        <button name="action_open_account_move" class="oe_stat_button" icon="fa-th-list"
+                                type="object" invisible="not show_journal_entry_button">
+                            <field name="jv_count" widget="statinfo" string="Journal Entry"/>
+                        </button>
+                        <field name="has_loan_requests" invisible="1"/>
+                        <button name="action_open_loan_request" class="oe_stat_button" icon="fa-th-list"
+                                type="object" invisible="not has_loan_requests">
+                            <field name="loan_request_count" widget="statinfo" string="Loan Request"/>
+                        </button>
+                        <button name="action_open_pending_to_renew" class="oe_stat_button" icon="fa-th-list"
+                                type="object" invisible="not document_renewal_request_id"
+                                string="Pending To Renew"/>
+                        <button name="action_get_attachment_view" string="View Documents" type="object"
+                                icon="fa-paperclip" invisible="attachment_number == 0"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create':true,'no_open':true}"
+                                   domain="[('identification_id', '=like', '2%')]"
+                                   readonly="state != 'draft'"/>
+
+                            <field name="identification_id" readonly="1" force_save="1"/>
+                            <!--                            <field name="sponsor_id" readonly="1" force_save="1"/>-->
+                            <field name="bank_journal_id" options="{'no_create':true,'no_open':true}"
+                                   readonly="state not in ('payment','draft')"/>
+                            <field name="operating_unit_id" readonly="1"/>
+                            <field name="attachment_number" options="{'reload_on_button': true}" widget="statinfo"
+                                   invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="company_id" readonly="1" options="{'no_create':true,'no_open':true}"/>
+                            <field name="paid_by" readonly="state != 'draft'"/>
+                            <field name="cancel_note" readonly="state != 'draft'"/>
+                            <field name="iqama_expiry_date" readonly="1" force_save="1"/>
+                            <field name="is_gm_user" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expenses" name="expense_line_ids">
+                            <field name="expense_line_ids"
+                                   readonly="state not in ('draft') and not is_gm_user">
+                                <list decoration-success="is_paid == True" editable="bottom">
+                                    <field name="date" readonly="1"/>
+                                    <field name="is_paid" column_invisible="True"/>
+                                    <field name="product_id" options="{'no_create': True}"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="analytic_account_id"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="unit_price" force_save="1"
+                                           readonly="is_paid"/>
+                                    <field name="iqama_period_readonly" column_invisible="1"/>
+                                    <field name="visa_period_readonly" column_invisible="1"/>
+                                    <field name="no_of_family_members"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="period"
+                                           readonly="not iqama_period_readonly or parent.state in ('done','payment','posted')"
+                                           required="iqama_period_readonly"/>
+                                    <field name="visa_period"
+                                           readonly="not visa_period_readonly"/>
+                                    <field name="total_amount" force_save="1" optional="hide"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="payment_mode"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="remarks"
+                                           readonly="parent.state != 'draft'"/>
+                                    <button name="service_paid" type="object"
+                                            string="Paid"
+                                            groups="saddad.group_saddad_accountant,saddad.group_saddad_administrator"
+                                            invisible="is_paid or parent.state != 'payment'"/>
+                                    <field name="show_button" column_invisible="1"/>
+                                    <button name="open_invoice_details" type="object"
+                                            string="See Similar"
+                                            groups="saddad.group_saddad_accountant,saddad.group_saddad_administrator"
+                                            invisible="not show_button"/>
+                                </list>
+                            </field>
+                            <group name="note_group" col="6">
+                                <group colspan="4"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="1" name="total_amount">
+                                    <field name="currency_id" invisible="1"/>
+                                    <div class="o_td_label"/>
+                                    <field name="total_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!--Document renew expense tree view-->
+    <record id="document_renew_expense_list_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.list.view</field>
+        <field name="model">document.renew.expense</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="state == 'draft'"
+                  decoration-info="state not in ('draft','done','posted','cancel')"
+                  decoration-success="state in ('posted','done')">
+                <field name="serial_number"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="remarks" invisible="1"/>
+                <field name="employee_id"/>
+
+                <field name="identification_id"/>
+                <field name="total_amount"/>
+                <field name="attachment_number" invisible="1"/>
+                <button name="action_get_attachment_view" string="View Documents" type="object"
+                        icon="fa-paperclip" invisible="attachment_number == 0"/>
+                <field name="state" decoration-danger="state == 'draft'"
+                       decoration-info="state not in ('draft','done','posted','cancel')"
+                       decoration-success="state in ('posted','done')"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Muqeem expense filters-->
+    <record id="muqeem_expense_search_view" model="ir.ui.view">
+        <field name="name">muqeem_expense_search_view</field>
+        <field name="model">document.renew.expense</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="serial_number"/>
+                <field name="product_id"/>
+                <field name="employee_id"/>
+                <field name="remarks"/>
+                <field name="identification_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="hr_assistant" string="Hr Assistant" domain="[('state', '=', 'hr_assistant')]"/>
+                <filter name="hr_confirm" string="Hr Approved" domain="[('state', '=', 'hr_confirm')]"/>
+                <filter name="gm" string="GM" domain="[('state', '=', 'gm')]"/>
+                <filter name="payment" string="Payment" domain="[('state', '=', 'payment')]"/>
+                <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Document renew expense linesss  list view-->
+    <record id="document_renew_expense_line_list_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.line.list.view</field>
+        <field name="model">document.renew.expense.line</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="analytic_account_id"/>
+                <field name="unit_price"/>
+                <field name="period"/>
+                <field name="visa_period"/>
+                <field name="payment_mode"/>
+                <field name="total_amount"/>
+                <field name="remarks"/>
+                <field name="is_paid"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Document renew expense action-->
+    <record id="document_renew_expense_action" model="ir.actions.act_window">
+        <field name="name">Muqeem Expenses</field>
+        <field name="res_model">document.renew.expense</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Document Renew Expense
+            </p>
+        </field>
+    </record>
+
+    <!--Document renew expense sequence-->
+    <record id="ir_sequence_document_renew_expense" model="ir.sequence">
+        <field name="name">Document Renew Expense Seq</field>
+        <field name="code">document.renew.expense</field>
+        <field name="prefix">ME/%(year)s/</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!--Document renew expense menu items-->
+    <menuitem id="menu_document_renew_expense" name="Muqeem Expenses" sequence="3"
+              groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              action="saddad.document_renew_expense_action" parent="saddad.menu_document_renewal_muqeem"/>
+
+    <!--Document renew expense lines menu items-->
+    <record id="document_renew_expense_line_action" model="ir.actions.act_window">
+        <field name="name">Muqeem Expenses Line</field>
+        <field name="res_model">document.renew.expense.line</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="document_renew_expense_line_list_view"/>
+        <field name="context">{"create": 0}</field>
+    </record>
+
+    <menuitem id="menu_document_renew_expense_line"
+          name="Muqeem Expenses Lines"
+          sequence="3"
+          groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+          action="document_renew_expense_line_action"
+          parent="saddad.menu_document_renewal_muqeem"/>
+
+    <!-- Export to Expense Transaction Action -->
+    <record id="action_export_to_expense_transaction" model="ir.actions.server">
+        <field name="name">Export to Expense Transaction</field>
+        <field name="model_id" ref="model_document_renew_expense_line"/>
+        <field name="binding_model_id" ref="model_document_renew_expense_line"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_export_to_expense_transaction()
+        </field>
+    </record>
+
+    <record id="expense_validation_action" model="ir.actions.act_window">
+        <field name="name">Muqeem Validation</field>
+        <field name="res_model">document.renew.expense</field>
+        <field name="view_mode">list</field>
+        <field name="context">{"create":0}</field>
+        <field name="domain">[('state','in',('posted','done')),('validated', '=',
+            False),('show_validate_expense_button','=', True)]
+        </field>
+        <field name="view_id" ref="saddad.document_renew_expense_list_view"/>
+    </record>
+
+    <!--Document renew expense menu items-->
+    <menuitem id="expense_validation_menu" name="Expense Validation" sequence="5"
+              groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              action="saddad.expense_validation_action" parent="saddad.menu_document_renewal_muqeem"/>
+
+</odoo>
