@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="custom_header">
+        <div class="header">
+            <div class="o_clean_header">
+                <div class="row" style="font-family:'Roboto',sans-serif">
+                    <div class="col-7">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="col-5" name="company_address" style="font-size:20px; text-align:right;">
+                        <ul class="list-unstyled">
+                            <strong>
+                                <li t-if="company.name">
+                                    <span t-field="company.name"/>
+                                </li>
+                            </strong>
+                            <li t-if="company.street">
+                                <span t-field="company.street"/>
+                            </li>
+                            <li t-if="company.street2">
+                                <span t-field="company.street2"/>
+                                <span t-field="company.city"/>
+                            </li>
+                            <li t-if="company.country_id">
+                                <span t-field="company.country_id.name"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="custom_footer">
+        <div class="footer">
+            <div style="font-size:16px;font-family:'Roboto',sans-serif;color:black;">
+                <hr/>
+                <div class="text-center">
+                    <t t-if="company.city">
+                        <b>
+                            <span t-field="company.city"/>
+                        </b>
+                    </t>
+                    <t t-if="company.state_id">
+                        <b>
+                            ,
+                            <span t-field="company.state_id.name"/>
+                        </b>
+                    </t>
+                    <t t-if="company.country_id">
+                        <b>
+                            ,
+                            <span t-field="company.country_id.name"/>
+                        </b>
+                    </t>
+                    <t t-if="company.mobile">
+                        <b>
+                            ,
+                            <span t-field="company.mobile"/>
+                        </b>
+                    </t>
+                    <t t-if="company.email">
+                        <b>
+                            ,
+                            <span t-field="company.email"/>
+                        </b>
+                    </t>
+                    <t t-if="company.website">
+                        <b>
+                            <span t-field="company.website"/>
+                        </b>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <record id="muqeem_expense_report_template" model="ir.ui.view">
+        <field name="name">Muqeem Expense Report</field>
+        <field name="model">document.renew.expense</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-call="web.html_container">
+                <t t-call="saddad.custom_header"/>
+                <t t-call="saddad.custom_footer"/>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page text-dark" style="font-family:'Roboto',sans-serif;font-size:15px;margin-top:5px;">
+                        <div class="row text-center" style="color:#191970">
+                            <div class="col-3"/>
+                            <div class="col-5" style="margin-left:50px">
+                                <h3 class="text-capitalize">
+                                    <strong>Muqeem Expenses</strong>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-2">
+                                <b>Employee Id</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.employee_id.name"/>
+                            </div>
+                            <div class="col-2">
+                                <b>Company Id</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.company_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-2">
+                                <b>Iqama No</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.identification_id"/>
+                            </div>
+                            <div class="col-2">
+                                <b>Paid By</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.paid_by"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-2">
+                                <b>Sponsor Id</b>
+                            </div>
+                            <!--                            <div class="col-4">-->
+                            <!--                                <span t-field="o.sponsor_id"/>-->
+                            <!--                            </div>-->
+                            <div class="col-2">
+                                <b>Cancel Note</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.cancel_note"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-2">
+                                <b>Bank Journal</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.bank_journal_id.name"/>
+                            </div>
+                            <div class="col-2">
+                                <b>Source Document</b>
+                            </div>
+                            <div class="col-4">
+                                <span t-field="o.serial_number"/>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Date</th>
+                                    <th>Product</th>
+                                    <th>Analytic Account</th>
+                                    <th>Unit Price</th>
+                                    <th>Iqama Period</th>
+                                    <th>Visa Period</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.expense_line_ids" t-as="expense">
+                                    <td>
+                                        <span t-field="expense.date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.product_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.analytic_account_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.unit_price"/>
+                                        <span t-field="expense.currency_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.period"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.visa_period"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="expense.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="muqeem_expenses_report_action" model="ir.actions.report">
+        <field name="name">Muqeem Expenses</field>
+        <field name="model">document.renew.expense</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">saddad.muqeem_expense_report_template</field>
+        <field name="report_file">saddad.muqeem_expense_report_template</field>
+        <field name="binding_model_id" ref="model_document_renew_expense"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

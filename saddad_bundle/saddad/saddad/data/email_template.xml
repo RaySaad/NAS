@@ -1,0 +1,515 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="pending_to_renew_email_template" model="mail.template">
+            <field name="name">Documents Pending To Renew Approval Request</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="email_from">erp@dalba.com.sa</field>
+            <field name="subject">📋 Document Renewal Approval Required - {{object.name}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #ffffff;">
+                    <!-- Company Header -->
+                    <div style="background: #ffffff; padding: 25px 30px; border-bottom: 1px solid #e9ecef; text-align: right;">
+                        <div style="color: #2c3e50;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a;"><t t-esc="object.company_id.name"/></h2>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #6c757d;">
+                                <t t-if="object.company_id.street"><t t-esc="object.company_id.street"/><br/></t>
+                                <t t-if="object.company_id.city"><t t-esc="object.company_id.city"/>, </t>
+                                <t t-if="object.company_id.country_id"><t t-esc="object.company_id.country_id.name"/></t>
+                            </p>
+                            <t t-if="object.company_id.phone">
+                                <p style="margin: 2px 0 0 0; font-size: 13px; color: #6c757d;">📞 <t t-esc="object.company_id.phone"/></p>
+                            </t>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Header -->
+                    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 30px; text-align: center;">
+                        <h1 style="color: black; margin: 0; font-size: 26px; font-weight: 700;">📋 Document Renewal Request</h1>
+                        <p style="color: black; margin: 8px 0 0 0; font-size: 16px; font-weight: 500;">Approval Required</p>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div style="background: white; padding: 35px 30px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #2c3e50; margin: 0 0 25px 0; font-size: 20px; font-weight: 600; border-bottom: 3px solid #dc3545; padding-bottom: 12px; display: inline-block;">Request Details</h3>
+                            
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 1px solid #e9ecef;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; width: 35%; font-size: 15px;">📋 Reference Number:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;">
+                                            <a t-attf-href="{{object.record_url}}" target="_blank" 
+                                               style="color: #dc3545; text-decoration: none; font-weight: 600; background: #fff5f5; padding: 6px 12px; border-radius: 6px; border: 1px solid #fecaca;">
+                                                <t t-esc="object.name"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">👤 Employee:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.employee_id.employee_name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏷️ Product/Service:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-esc="object.product_id.name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">💰 Total Amount:</td>
+                                        <td style="padding: 15px 0;">
+                                            <span style="color: #dc3545; font-weight: 700; font-size: 18px; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 2px solid #dc3545;">
+                                                <t t-esc="object.total_amount"/> SAR
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Company:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.company_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Required Notice -->
+                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 20px 25px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 25px;">
+                            <div style="display: flex; align-items: center;">
+                                <div style="font-size: 24px; margin-right: 15px;">⚠️</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; color: #856404; font-size: 16px; font-weight: 600;">Action Required</h4>
+                                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.5;">This document renewal request requires your immediate review and approval. Please click the reference number above to access the system and process this request.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="background: #f8f9fa; text-align: center; padding: 25px; border-top: 1px solid #e9ecef;">
+                        <p style="margin: 0 0 8px 0; color: #6c757d; font-size: 13px; font-weight: 500;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="muqeem_expense_email_template" model="mail.template">
+            <field name="name">Muqeem Expense Approval Request</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="email_from">erp@dalba.com.sa</field>
+            <field name="subject">💰 Expense Approval Required - {{object.name}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #ffffff;">
+                    <!-- Company Header -->
+                    <div style="background: #ffffff; padding: 25px 30px; border-bottom: 1px solid #e9ecef; text-align: right;">
+                        <div style="color: #2c3e50;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a;"><t t-esc="object.company_id.name"/></h2>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #6c757d;">
+                                <t t-if="object.company_id.street"><t t-esc="object.company_id.street"/><br/></t>
+                                <t t-if="object.company_id.city"><t t-esc="object.company_id.city"/>, </t>
+                                <t t-if="object.company_id.country_id"><t t-esc="object.company_id.country_id.name"/></t>
+                            </p>
+                            <t t-if="object.company_id.phone">
+                                <p style="margin: 2px 0 0 0; font-size: 13px; color: #6c757d;">📞 <t t-esc="object.company_id.phone"/></p>
+                            </t>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Header -->
+                    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 30px; text-align: center;">
+                        <h2 style="color: black; margin: 0; font-size: 26px; font-weight: 700;">💰 Muqeem Expense Approval Request</h2>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div style="background: white; padding: 35px 30px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #2c3e50; margin: 0 0 25px 0; font-size: 20px; font-weight: 600; border-bottom: 3px solid #dc3545; padding-bottom: 12px; display: inline-block;">Expense Details</h3>
+                            
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 1px solid #e9ecef;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; width: 35%; font-size: 15px;">📋 Reference Number:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;">
+                                            <a t-attf-href="{{object.record_url}}" target="_blank" 
+                                               style="color: #dc3545; text-decoration: none; font-weight: 600; background: #fff5f5; padding: 6px 12px; border-radius: 6px; border: 1px solid #fecaca;">
+                                                <t t-esc="object.name"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">👤 Employee:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.employee_id.employee_name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏷️ Product/Service:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-foreach="object.expense_line_ids" t-as="pro"><span t-esc="pro.product_id.name"/><br/></t></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">💰 Total Amount:</td>
+                                        <td style="padding: 15px 0;">
+                                            <span style="color: #dc3545; font-weight: 700; font-size: 18px; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 2px solid #dc3545;">
+                                                <t t-esc="object.total_amount"/> SAR
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Company:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.company_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Required Notice -->
+                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 20px 25px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 25px;">
+                            <div style="display: flex; align-items: center;">
+                                <div style="font-size: 24px; margin-right: 15px;">⚠️</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; color: #856404; font-size: 16px; font-weight: 600;">Action Required</h4>
+                                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.5;">This expense request requires your immediate review and approval. Please click the reference number above to access the system and process this request.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="background: #f8f9fa; text-align: center; padding: 25px; border-top: 1px solid #e9ecef;">
+                        <p style="margin: 0 0 8px 0; color: #6c757d; font-size: 13px; font-weight: 500;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="morror_email_template" model="mail.template">
+            <field name="name">Morror Approval Request</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="email_from">erp@dalba.com.sa</field>
+            <field name="subject">🔄 Morror Request Approval - {{object.serial_number}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #ffffff;">
+                    <!-- Company Header -->
+                    <div style="background: #ffffff; padding: 25px 30px; border-bottom: 1px solid #e9ecef; text-align: right;">
+                        <div style="color: #2c3e50;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a;"><t t-esc="object.company_id.name"/></h2>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #6c757d;">
+                                <t t-if="object.company_id.street"><t t-esc="object.company_id.street"/><br/></t>
+                                <t t-if="object.company_id.city"><t t-esc="object.company_id.city"/>, </t>
+                                <t t-if="object.company_id.country_id"><t t-esc="object.company_id.country_id.name"/></t>
+                            </p>
+                            <t t-if="object.company_id.phone">
+                                <p style="margin: 2px 0 0 0; font-size: 13px; color: #6c757d;">📞 <t t-esc="object.company_id.phone"/></p>
+                            </t>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Header -->
+                    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 30px; text-align: center;">
+                        <h2 style="color: black; margin: 0; font-size: 26px; font-weight: 700;">💰 Morror Approval Request</h2>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div style="background: white; padding: 35px 30px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #2c3e50; margin: 0 0 25px 0; font-size: 20px; font-weight: 600; border-bottom: 3px solid #dc3545; padding-bottom: 12px; display: inline-block;">Request Details</h3>
+                            
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 1px solid #e9ecef;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; width: 35%; font-size: 15px;">📋 Reference Number:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;">
+                                            <a t-attf-href="{{object.record_url}}" target="_blank" 
+                                               style="color: #dc3545; text-decoration: none; font-weight: 600; background: #fff5f5; padding: 6px 12px; border-radius: 6px; border: 1px solid #fecaca;">
+                                                <t t-esc="object.serial_number"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">👤 Employee:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.employee_id.name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏷️ Product/Service:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-foreach="object.morror_line_ids" t-as="prod"><span t-esc="prod.product_id.name"/><br/></t></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">💰 Total Amount:</td>
+                                        <td style="padding: 15px 0;">
+                                            <span style="color: #dc3545; font-weight: 700; font-size: 18px; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 2px solid #dc3545;">
+                                                <t t-esc="object.total_amount"/> SAR
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Company:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.company_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Required Notice -->
+                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 20px 25px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 25px;">
+                            <div style="display: flex; align-items: center;">
+                                <div style="font-size: 24px; margin-right: 15px;">⚠️</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; color: #856404; font-size: 16px; font-weight: 600;">Action Required</h4>
+                                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.5;">This morror request requires your immediate review and approval. Please click the reference number above to access the system and process this request.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="background: #f8f9fa; text-align: center; padding: 25px; border-top: 1px solid #e9ecef;">
+                        <p style="margin: 0 0 8px 0; color: #6c757d; font-size: 13px; font-weight: 500;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="saddad_services_email_template" model="mail.template">
+            <field name="name">Saddad Services Approval Request</field>
+            <field name="model_id" ref="saddad.model_saddad_services"/>
+            <field name="email_from">erp@dalba.com.sa</field>
+            <field name="subject">🏢 Service Request Approval - {{object.serial_number}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #ffffff;">
+                    <!-- Company Header -->
+                    <div style="background: #ffffff; padding: 25px 30px; border-bottom: 1px solid #e9ecef; text-align: right;">
+                        <div style="color: #2c3e50;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a;"><t t-esc="object.company_id.name"/></h2>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #6c757d;">
+                                <t t-if="object.company_id.street"><t t-esc="object.company_id.street"/><br/></t>
+                                <t t-if="object.company_id.city"><t t-esc="object.company_id.city"/>, </t>
+                                <t t-if="object.company_id.country_id"><t t-esc="object.company_id.country_id.name"/></t>
+                            </p>
+                            <t t-if="object.company_id.phone">
+                                <p style="margin: 2px 0 0 0; font-size: 13px; color: #6c757d;">📞 <t t-esc="object.company_id.phone"/></p>
+                            </t>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Header -->
+                    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 30px; text-align: center;">
+                        <h1 style="color: black; margin: 0; font-size: 26px; font-weight: 700;">🏢 Saddad Services</h1>
+                        <p style="color: black; margin: 8px 0 0 0; font-size: 16px; font-weight: 500;">Service Request Approval</p>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div style="background: white; padding: 35px 30px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #2c3e50; margin: 0 0 25px 0; font-size: 20px; font-weight: 600; border-bottom: 3px solid #dc3545; padding-bottom: 12px; display: inline-block;">Service Request Details</h3>
+                            
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 1px solid #e9ecef;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; width: 35%; font-size: 15px;">📋 Reference Number:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;">
+                                            <a t-attf-href="{{object.record_url}}" target="_blank" 
+                                               style="color: #dc3545; text-decoration: none; font-weight: 600; background: #fff5f5; padding: 6px 12px; border-radius: 6px; border: 1px solid #fecaca;">
+                                                <t t-esc="object.serial_number"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Service Provider:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.biller_id.name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">📝 Service Description:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-esc="object.name"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏷️ Products/Services:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-esc="object.product_id"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">💰 Total Amount:</td>
+                                        <td style="padding: 15px 0;">
+                                            <span style="color: #dc3545; font-weight: 700; font-size: 18px; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 2px solid #dc3545;">
+                                                <t t-esc="object.total_amount"/> SAR
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Company:</td>
+                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.company_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Required Notice -->
+                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 20px 25px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 25px;">
+                            <div style="display: flex; align-items: center;">
+                                <div style="font-size: 24px; margin-right: 15px;">⚠️</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; color: #856404; font-size: 16px; font-weight: 600;">Action Required</h4>
+                                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.5;">This service request requires your immediate review and approval. Please click the reference number above to access the system and process this request.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="background: #f8f9fa; text-align: center; padding: 25px; border-top: 1px solid #e9ecef;">
+                        <p style="margin: 0 0 8px 0; color: #6c757d; font-size: 13px; font-weight: 500;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+<!--        <record id="morror_email_template" model="mail.template">-->
+<!--            <field name="name">Morror Approval Request</field>-->
+<!--            <field name="model_id" ref="saddad.model_morror"/>-->
+<!--            <field name="email_from">erp@dalba.com.sa</field>-->
+<!--            <field name="subject">🔄 Morror Request Approval - {{object.serial_number}}</field>-->
+<!--            <field name="auto_delete" eval="False"/>-->
+<!--            <field name="body_html" type="html">-->
+<!--                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #ffffff;">-->
+<!--                    &lt;!&ndash; Company Header &ndash;&gt;-->
+<!--                    <div style="background: #ffffff; padding: 25px 30px; border-bottom: 1px solid #e9ecef; text-align: right;">-->
+<!--                        <div style="color: #2c3e50;">-->
+<!--                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a;"><t t-esc="object.company_id.name"/></h2>-->
+<!--                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #6c757d;">-->
+<!--                                <t t-if="object.company_id.street"><t t-esc="object.company_id.street"/><br/></t>-->
+<!--                                <t t-if="object.company_id.city"><t t-esc="object.company_id.city"/>, </t>-->
+<!--                                <t t-if="object.company_id.country_id"><t t-esc="object.company_id.country_id.name"/></t>-->
+<!--                            </p>-->
+<!--                            <t t-if="object.company_id.phone">-->
+<!--                                <p style="margin: 2px 0 0 0; font-size: 13px; color: #6c757d;">📞 <t t-esc="object.company_id.phone"/></p>-->
+<!--                            </t>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    &lt;!&ndash; Main Header &ndash;&gt;-->
+<!--                    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 30px; text-align: center;">-->
+<!--                        <h1 style="color: black; margin: 0; font-size: 26px; font-weight: 700;">🔄 Morror Request</h1>-->
+<!--                        <p style="color: black; margin: 8px 0 0 0; font-size: 16px; font-weight: 500;">Approval Required</p>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    &lt;!&ndash; Content &ndash;&gt;-->
+<!--                    <div style="background: white; padding: 35px 30px;">-->
+<!--                        <div style="margin-bottom: 30px;">-->
+<!--                            <h3 style="color: #2c3e50; margin: 0 0 25px 0; font-size: 20px; font-weight: 600; border-bottom: 3px solid #dc3545; padding-bottom: 12px; display: inline-block;">Request Details</h3>-->
+<!--                            -->
+<!--                            <div style="background: #f8f9fa; border-radius: 10px; padding: 25px; border: 1px solid #e9ecef;">-->
+<!--                                <table style="width: 100%; border-collapse: collapse;">-->
+<!--                                    <tr style="border-bottom: 1px solid #dee2e6;">-->
+<!--                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; width: 35%; font-size: 15px;">📋 Reference Number:</td>-->
+<!--                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;">-->
+<!--                                            <a t-attf-href="{{object.record_url}}" target="_blank" -->
+<!--                                               style="color: #dc3545; text-decoration: none; font-weight: 600; background: #fff5f5; padding: 6px 12px; border-radius: 6px; border: 1px solid #fecaca;">-->
+<!--                                                <t t-esc="object.serial_number"/>-->
+<!--                                            </a>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr style="border-bottom: 1px solid #dee2e6;">-->
+<!--                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">👤 Employee:</td>-->
+<!--                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.employee_id.employee_name"/></td>-->
+<!--                                    </tr>-->
+<!--                                    <tr style="border-bottom: 1px solid #dee2e6;">-->
+<!--                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏷️ Service Type:</td>-->
+<!--                                        <td style="padding: 15px 0; color: #212529; font-size: 15px;"><t t-esc="object.product_id"/></td>-->
+<!--                                    </tr>-->
+<!--                                    <tr style="border-bottom: 1px solid #dee2e6;">-->
+<!--                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">💰 Total Amount:</td>-->
+<!--                                        <td style="padding: 15px 0;">-->
+<!--                                            <span style="color: #dc3545; font-weight: 700; font-size: 18px; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 2px solid #dc3545;">-->
+<!--                                                <t t-esc="object.total_amount"/> SAR-->
+<!--                                            </span>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td style="padding: 15px 20px 15px 0; font-weight: 600; color: #495057; font-size: 15px;">🏢 Company:</td>-->
+<!--                                        <td style="padding: 15px 0; color: #212529; font-size: 15px; font-weight: 500;"><t t-esc="object.company_id.name"/></td>-->
+<!--                                    </tr>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        -->
+<!--                        &lt;!&ndash; Action Required Notice &ndash;&gt;-->
+<!--                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 20px 25px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 25px;">-->
+<!--                            <div style="display: flex; align-items: center;">-->
+<!--                                <div style="font-size: 24px; margin-right: 15px;">⚠️</div>-->
+<!--                                <div>-->
+<!--                                    <h4 style="margin: 0 0 8px 0; color: #856404; font-size: 16px; font-weight: 600;">Action Required</h4>-->
+<!--                                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.5;">This morror request requires your immediate review and approval. Please click the reference number above to access the system and process this request.</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--                    <div style="background: #f8f9fa; text-align: center; padding: 25px; border-top: 1px solid #e9ecef;">-->
+<!--                        <p style="margin: 0 0 8px 0; color: #6c757d; font-size: 13px; font-weight: 500;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="saddad_services_email_template" model="mail.template">-->
+<!--            <field name="name">Saddad Services Approval Request</field>-->
+<!--            <field name="model_id" ref="saddad.model_saddad_services"/>-->
+<!--            <field name="email_from">erp@dalba.com.sa</field>-->
+<!--            <field name="subject">🏢 Service Request Approval - {{object.serial_number}}</field>-->
+<!--            <field name="auto_delete" eval="False"/>-->
+<!--            <field name="body_html" type="html">-->
+<!--                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; background: #f8f9fa;">-->
+<!--                    &lt;!&ndash; Header &ndash;&gt;-->
+<!--                    <div style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%); padding: 30px 20px; text-align: center; border-radius: 8px 8px 0 0;">-->
+<!--                        <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">🏢 Saddad Services</h1>-->
+<!--                        <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0 0; font-size: 16px;">Service Request Approval</p>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    &lt;!&ndash; Content &ndash;&gt;-->
+<!--                    <div style="background: white; padding: 30px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">-->
+<!--                        <div style="margin-bottom: 25px;">-->
+<!--                            <h3 style="color: #2c3e50; margin: 0 0 20px 0; font-size: 18px; border-bottom: 2px solid #e9ecef; padding-bottom: 10px;">Service Request Details</h3>-->
+<!--                            -->
+<!--                            <table style="width: 100%; border-collapse: collapse;">-->
+<!--                                <tr style="border-bottom: 1px solid #e9ecef;">-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057; width: 40%;">Reference Number:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #212529;">-->
+<!--                                        <a t-attf-href="{{object.record_url}}" target="_blank" style="color: #007bff; text-decoration: none; font-weight: 500;">-->
+<!--                                            <t t-esc="object.serial_number"/>-->
+<!--                                        </a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr style="border-bottom: 1px solid #e9ecef;">-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057;">Service Provider:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #212529;"><t t-esc="object.biller_id.name"/></td>-->
+<!--                                </tr>-->
+<!--                                <tr style="border-bottom: 1px solid #e9ecef;">-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057;">Service Description:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #212529;"><t t-esc="object.name"/></td>-->
+<!--                                </tr>-->
+<!--                                <tr style="border-bottom: 1px solid #e9ecef;">-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057;">Products/Services:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #212529;"><t t-esc="object.product_id"/></td>-->
+<!--                                </tr>-->
+<!--                                <tr style="border-bottom: 1px solid #e9ecef;">-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057;">Total Amount:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #6f42c1; font-weight: 600; font-size: 16px;"><t t-esc="object.total_amount"/> SAR</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td style="padding: 12px 0; font-weight: 600; color: #495057;">Company:</td>-->
+<!--                                    <td style="padding: 12px 0; color: #212529;"><t t-esc="object.company_id.name"/></td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                        -->
+<!--                        <div style="background: #e2e3f0; padding: 20px; border-radius: 6px; border-left: 4px solid #6f42c1;">-->
+<!--                            <p style="margin: 0; color: #4a4a68; font-size: 14px;">📋 <strong>Review Required:</strong> This service request is pending your approval to proceed with the requested services.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--                    <div style="text-align: center; padding: 20px; color: #6c757d; font-size: 12px;">-->
+<!--                        <p style="margin: 0;">This is an automated message from <t t-esc="object.company_id.name"/> ERP System</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>
