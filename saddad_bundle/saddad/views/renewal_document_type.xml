@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="renewal_document_type_form_view" model="ir.ui.view">
+        <field name="name">renewal.document.type.form.view</field>
+        <field name="model">renewal.document.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Renewal Document Type">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="period"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="renewal_document_type_list_view" model="ir.ui.view">
+        <field name="name">renewal.document.type.list.view</field>
+        <field name="model">renewal.document.type</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="renewal_document_type_action" model="ir.actions.act_window">
+        <field name="name">Document Types</field>
+        <field name="res_model">renewal.document.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Renewal Document Type
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_document_renewal_configuration" name="Configuration" groups="base.group_system,saddad.group_saddad_administrator"
+              parent="saddad.document_renewal_root"/>
+    <menuitem id="menu_renewal_document_type" name="Document Type" action="saddad.renewal_document_type_action"
+              parent="saddad.menu_document_renewal_configuration"/>
+</odoo>

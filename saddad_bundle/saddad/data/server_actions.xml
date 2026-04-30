@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+
+        <record id="action_validate_muqeem_expense" model="ir.actions.server">
+            <field name="name">Validate Expense</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.action_validate_expense()
+            </field>
+        </record>
+
+        <record id="action_hr_assistant_approval" model="ir.actions.server">
+            <field name="name">Approve All</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('saddad.group_saddad_hr_assistant'))]"/>
+            <field name="code">
+                if records:
+                action = records.hr_assistant_approve()
+            </field>
+        </record>
+
+        <record id="action_hr_approval" model="ir.actions.server">
+            <field name="name">Approve All</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('saddad.group_saddad_hr'))]"/>
+            <field name="code">
+                if records:
+                action = records.hr_approvals()
+            </field>
+        </record>
+
+        <record id="action_gm_approval" model="ir.actions.server">
+            <field name="name">Approve All</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('saddad.group_saddad_gm'))]"/>
+            <field name="code">
+                if records:
+                action = records.gm_approvals()
+            </field>
+        </record>
+
+        <record id="action_fleet_manager_approval" model="ir.actions.server">
+            <field name="name">Approve All</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('saddad.fleet_manager_group'))]"/>
+            <field name="code">
+                if records:
+                action = records.fleet_manager_approvals()
+            </field>
+        </record>
+
+        <record id="action_gm_approvals" model="ir.actions.server">
+            <field name="name">Approve All</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('saddad.group_saddad_gm'))]"/>
+            <field name="code">
+                if records:
+                action = records.gm_approvals()
+            </field>
+        </record>
+
+    </data>
+</odoo>
