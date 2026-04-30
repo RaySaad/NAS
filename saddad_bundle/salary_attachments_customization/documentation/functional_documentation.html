@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Attachments Customization - User Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; }
+        .section { margin: 20px 0; padding: 15px; border-left: 4px solid #3498db; background: #f8f9fa; }
+        .step { background: #e8f5e8; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #3498db; }
+        .workflow { background: #fff3cd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .feature { background: #e3f2fd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .warning { background: #ffebee; padding: 10px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #f44336; }
+        .toc { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .toc ul { list-style-type: none; }
+        .toc a { text-decoration: none; color: #2980b9; }
+        .screenshot { border: 1px solid #ddd; padding: 10px; margin: 10px 0; background: #f9f9f9; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Salary Attachments Customization - User Guide</h1>
+        <p>Complete functional guide for end users</p>
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">1. System Overview</a></li>
+            <li><a href="#getting-started">2. Getting Started</a></li>
+            <li><a href="#loan-requests">3. Loan Request Workflow</a></li>
+            <li><a href="#payment-integration">4. Payment Integration</a></li>
+            <li><a href="#managing-attachments">5. Managing Salary Attachments</a></li>
+            <li><a href="#managing-installments">6. Managing Installments</a></li>
+            <li><a href="#installment-operations">7. Individual Installment Operations</a></li>
+            <li><a href="#postpone-pardon">8. Postpone & Pardon Operations</a></li>
+            <li><a href="#merge-functionality">9. Merge Functionality</a></li>
+            <li><a href="#payslip-integration">10. Payslip Integration</a></li>
+            <li><a href="#reporting">11. Reporting & Tracking</a></li>
+            <li><a href="#troubleshooting">12. Troubleshooting</a></li>
+        </ul>
+    </div>
+
+    <div id="overview" class="section">
+        <h2>1. System Overview</h2>
+        <p>The Salary Attachments Customization module enhances Odoo's payroll system to manage employee loan deductions with advanced features:</p>
+        <div class="feature">
+            <h4>Key Features:</h4>
+            <ul>
+                <li>📝 <strong>Loan Request Workflow:</strong> Multi-level approval process (Finance → Management → HR)</li>
+                <li>💰 <strong>Payment Integration:</strong> Upfront payment processing with automatic loan confirmation</li>
+                <li>📋 <strong>Installment Management:</strong> Break down loans into monthly installments with individual tracking</li>
+                <li>⏸️ <strong>Postponement:</strong> Delay individual installments with distribution or new installment options</li>
+                <li>🎯 <strong>Pardon System:</strong> Forgive individual installments or remaining loan amounts</li>
+                <li>📊 <strong>Individual Installment Tracking:</strong> Dedicated view for managing each installment separately</li>
+                <li>📊 <strong>Balance Tracking:</strong> Real-time balance calculations</li>
+                <li>🔄 <strong>Payslip Integration:</strong> Automatic deduction processing</li>
+                <li>📝 <strong>Audit Trail:</strong> Complete change tracking</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="getting-started" class="section">
+        <h2>2. Getting Started</h2>
+        
+        <div class="step">
+            <h4>Step 1: Access Salary Attachments</h4>
+            <p>Navigate to: <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></p>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Understanding States</h4>
+            <ul>
+                <li><strong>Draft:</strong> Initial state, can be edited</li>
+                <li><strong>Open:</strong> Active attachment, deductions will be processed</li>
+                <li><strong>Done:</strong> Completed attachment</li>
+                <li><strong>Cancelled:</strong> Cancelled attachment</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loan-requests" class="section">
+        <h2>3. Loan Request Workflow</h2>
+
+        <div class="workflow">
+            <h4>Complete Approval Workflow:</h4>
+            <ol>
+                <li><strong>Draft</strong> → Employee creates loan request</li>
+                <li><strong>Finance Approval</strong> → Finance team reviews and approves</li>
+                <li><strong>Management Approval</strong> → Management team approves</li>
+                <li><strong>HR Approval</strong> → HR team gives final approval</li>
+                <li><strong>Confirmed</strong> → Request approved, awaiting payment (if required)</li>
+                <li><strong>Completed</strong> → Payment processed, salary attachment created</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 1: Create Loan Request</h4>
+            <ol>
+                <li>Navigate to <code>Employee Loan → Employee Loan Request</code></li>
+                <li>Click <strong>"Create"</strong> button</li>
+                <li>Fill required fields:
+                    <ul>
+                        <li><strong>Employee:</strong> Select requesting employee</li>
+                        <li><strong>Request Date:</strong> Date of request</li>
+                        <li><strong>Loan Amount:</strong> Total requested amount</li>
+                        <li><strong>Monthly Deduction:</strong> Monthly installment amount</li>
+                        <li><strong>Loan Type:</strong> Select deduction type</li>
+                        <li><strong>Reason:</strong> Justification for loan</li>
+                        <li><strong>Start Date:</strong> When deductions should begin</li>
+                    </ul>
+                </li>
+                <li>Save the record</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Finance Approval</h4>
+            <ol>
+                <li>Finance team receives notification</li>
+                <li>Reviews loan request details</li>
+                <li>Clicks <strong>"Finance Approve"</strong> or <strong>"Reject"</strong></li>
+                <li>State changes to "Finance Approval"</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 3: Management Approval</h4>
+            <ol>
+                <li>Management team reviews approved request</li>
+                <li>Clicks <strong>"Management Approve"</strong> or <strong>"Reject"</strong></li>
+                <li>State changes to "Management Approval"</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 4: HR Approval</h4>
+            <ol>
+                <li>HR team gives final approval</li>
+                <li>Clicks <strong>"HR Approve"</strong> or <strong>"Reject"</strong></li>
+                <li>State changes to "HR Approval"</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 5: Confirmation</h4>
+            <ol>
+                <li>HR clicks <strong>"Confirm"</strong> button</li>
+                <li>State changes to "Confirmed"</li>
+                <li>If loan type requires payment, awaits payment processing</li>
+                <li>If no payment required, salary attachment created immediately</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <h4>⚠️ Important Notes:</h4>
+            <ul>
+                <li>Rejected requests can be reset to draft for resubmission</li>
+                <li>Each approval level can add comments</li>
+                <li>Email notifications sent at each approval stage</li>
+                <li>Loan types are configured with payment requirements</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="payment-integration" class="section">
+        <h2>4. Payment Integration</h2>
+
+        <div class="step">
+            <h4>Payment Processing Workflow</h4>
+            <ol>
+                <li>Confirmed loan request awaits payment (if required)</li>
+                <li>Finance team creates payment record</li>
+                <li>Links payment to loan request via <strong>"Loan Request"</strong> field</li>
+                <li>When payment is posted, system automatically:
+                    <ul>
+                        <li>Changes request state to "Completed"</li>
+                        <li>Creates salary attachment</li>
+                        <li>Calculates start date based on payment date</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Creating Payment for Loan</h4>
+            <ol>
+                <li>Navigate to <code>Accounting → Vendors → Payments</code></li>
+                <li>Create new payment record</li>
+                <li>Select <strong>"Send Money"</strong> payment type</li>
+                <li>Choose employee as partner</li>
+                <li>Enter loan amount</li>
+                <li>In <strong>"Loan Request"</strong> field, select the confirmed request</li>
+                <li>Post the payment</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Automatic Start Date Calculation</h4>
+            <p>When payment is processed, the system calculates the attachment start date:</p>
+            <ul>
+                <li><strong>Payment before 15th:</strong> Deductions start same month</li>
+                <li><strong>Payment after 15th:</strong> Deductions start next month</li>
+                <li>This ensures proper payroll processing timing</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <h4>Payment Types Configuration</h4>
+            <p>Loan types can be configured as:</p>
+            <ul>
+                <li><strong>With Payment:</strong> Requires upfront payment processing</li>
+                <li><strong>Without Payment:</strong> Direct salary attachment creation</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="managing-attachments" class="section">
+        <h2>5. Managing Salary Attachments</h2>
+
+        <div class="step">
+            <h4>Accessing from Loan Request</h4>
+            <ol>
+                <li>Open completed loan request from <code>Employee Loan → Employee Loan Request</code></li>
+                <li>Click <strong>"Salary Attachments"</strong> button</li>
+                <li>This opens the automatically created attachment</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Direct Access</h4>
+            <ol>
+                <li>Navigate to <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></li>
+                <li>Filter by employee or state as needed</li>
+            </ol>
+        </div>
+
+        <div class="workflow">
+            <h4>Complete Workflow:</h4>
+            <ol>
+                <li><strong>Create New Attachment</strong> → Fill basic information</li>
+                <li><strong>Confirm Attachment</strong> → System validates and activates</li>
+                <li><strong>Generate Installments</strong> → Create monthly payment schedule</li>
+                <li><strong>Process Payslips</strong> → Automatic deductions begin</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 1: Create New Salary Attachment</h4>
+            <ol>
+                <li>Navigate to <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></li>
+                <li>Click <strong>"Create"</strong> button</li>
+                <li>Fill required fields:
+                    <ul>
+                        <li><strong>Employee:</strong> Select employee(s)</li>
+                        <li><strong>Description:</strong> Loan description</li>
+                        <li><strong>Other Input Type:</strong> Deduction type</li>
+                        <li><strong>Total Amount:</strong> Total loan amount</li>
+                        <li><strong>Monthly Amount:</strong> Monthly deduction</li>
+                        <li><strong>Start Date:</strong> When deductions begin</li>
+                    </ul>
+                </li>
+                <li>Save the record</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Confirm Attachment</h4>
+            <ol>
+                <li>Click <strong>"Confirm"</strong> button</li>
+                <li>System checks for existing open attachments</li>
+                <li>If conflicts exist, merge wizard appears</li>
+                <li>State changes to "Open"</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Step 3: Generate Installments</h4>
+            <ol>
+                <li>Click <strong>"Compute Installments"</strong> button</li>
+                <li>System creates monthly installment lines automatically</li>
+                <li>Review installments in "Attachment Lines" tab</li>
+                <li>Each installment line has individual tracking and management options</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <h4>⚠️ Important Notes:</h4>
+            <ul>
+                <li>Monthly amount cannot be changed after any installment is paid</li>
+                <li>Attachments in draft state can be deleted</li>
+                <li>Confirmed attachments cannot be deleted if linked to payslips</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+        <div class="step">
+            <h4>Accessing Salary Attachments</h4>
+            <ol>
+                <li>Navigate to <code>Payroll → Employees → Salary Attachments</code></li>
+                <li>Or click "View Salary Attachment" button from loan request</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Attachment States</h4>
+            <ul>
+                <li><strong>Draft:</strong> Initial state, can be edited</li>
+                <li><strong>Open:</strong> Active attachment, deductions processing</li>
+                <li><strong>Done:</strong> Completed attachment</li>
+                <li><strong>Cancelled:</strong> Cancelled attachment</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Key Actions</h4>
+            <ul>
+                <li><strong>Confirm:</strong> Activates the attachment</li>
+                <li><strong>Generate Installments:</strong> Creates monthly payment schedule</li>
+                <li><strong>Reset to Draft:</strong> Returns to editable state (deletes installments)</li>
+                <li><strong>Done:</strong> Completes and pardons remaining amounts</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="managing-installments" class="section">
+        <h2>6. Managing Installments</h2>
+
+        <div class="step">
+            <h4>Viewing Installments</h4>
+            <ol>
+                <li>Open salary attachment record</li>
+                <li>Go to <strong>"Attachment Lines"</strong> tab</li>
+                <li>View all installments with dates, amounts, and status</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Installment States</h4>
+            <ul>
+                <li><strong>Unpaid (Draft):</strong> Not yet processed</li>
+                <li><strong>Paid:</strong> Deducted from payslip</li>
+                <li><strong>Postponed:</strong> Delayed to future</li>
+                <li><strong>Pardoned:</strong> Forgiven amount</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Individual Line Actions</h4>
+            <p>For each installment line, you can:</p>
+            <ul>
+                <li>Click <strong>"View"</strong> to open detailed form with full tracking</li>
+                <li>Click <strong>"Request Postpone"</strong> to delay payment</li>
+                <li>Click <strong>"Request Pardon"</strong> to forgive amount</li>
+                <li>View related payslip information when processed</li>
+                <li>Track state changes through chatter</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="installment-operations" class="section">
+        <h2>7. Individual Installment Operations</h2>
+
+        <div class="step">
+            <h4>Accessing Individual Installments</h4>
+            <ol>
+                <li>Navigate to <code>Employee Loan → Employee Loan Installments</code></li>
+                <li>Or access from salary attachment "Attachment Lines" tab</li>
+                <li>Filter by employee, date, or state as needed</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Installment Form View</h4>
+            <p>Each installment line provides:</p>
+            <ul>
+                <li><strong>Attachment Details:</strong> Link to parent salary attachment</li>
+                <li><strong>Employee Information:</strong> Associated employees</li>
+                <li><strong>Amount & Date:</strong> Installment amount and due date</li>
+                <li><strong>Payslip Link:</strong> Connected payslip when processed</li>
+                <li><strong>State Tracking:</strong> Current status with history</li>
+                <li><strong>Action Buttons:</strong> Postpone, pardon, and view attachment options</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>State Management</h4>
+            <p>Individual installments can be in the following states:</p>
+            <ul>
+                <li><strong>Unpaid (Draft):</strong> Ready for processing in next payslip</li>
+                <li><strong>Paid:</strong> Successfully deducted from payslip</li>
+                <li><strong>Postponed:</strong> Delayed to future with amount redistribution</li>
+                <li><strong>Pardoned:</strong> Forgiven amount, excluded from future processing</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="postpone-pardon" class="section">
+        <h2>8. Postpone & Pardon Operations</h2>
+
+        <div class="step">
+            <h4>Postponing Installments</h4>
+            <ol>
+                <li>From installment line, click <strong>"Request Postpone"</strong> button</li>
+                <li>Postpone wizard opens with options</li>
+                <li>Enter reason for postponement</li>
+                <li>Choose adjustment type:
+                    <ul>
+                        <li><strong>Distribution:</strong> Spread postponed amount across remaining unpaid installments</li>
+                        <li><strong>New Installment:</strong> Create new installment at the end with same amount</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"Submit"</strong> to confirm</li>
+                <li>System updates installment state to "Postponed"</li>
+                <li>Amount is redistributed according to selected option</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Pardoning Installments</h4>
+            <ol>
+                <li>From installment line, click <strong>"Request Pardon"</strong> button</li>
+                <li>Pardon wizard opens</li>
+                <li>Enter reason for pardon</li>
+                <li>Click <strong>"Submit"</strong> to confirm</li>
+                <li>System updates installment state to "Pardoned"</li>
+                <li>Amount is added to attachment's pardon total</li>
+                <li>Pardoned installments are excluded from future payslip processing</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <h4>⚠️ Restrictions:</h4>
+            <ul>
+                <li>Cannot postpone/pardon if payslip already generated and confirmed for that month</li>
+                <li>Cannot postpone/pardon already paid installments</li>
+                <li>System validates payslip state before allowing operations</li>
+                <li>All operations are tracked in installment line chatter</li>
+                <li>Distribution option requires other unpaid installments to exist</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="merge-functionality" class="section">
+        <h2>9. Merge Functionality</h2>
+
+        <div class="step">
+            <h4>When Merge Occurs</h4>
+            <p>When confirming a new salary attachment, if an existing open attachment is found for the same employee and deduction type, the system will prompt to merge them.</p>
+        </div>
+
+        <div class="step">
+            <h4>Merge Process</h4>
+            <ol>
+                <li>System detects conflicting attachments</li>
+                <li>Merge wizard appears automatically</li>
+                <li>Choose to merge or return to existing attachment</li>
+                <li>If merging:
+                    <ul>
+                        <li>Old attachment balance added to new attachment</li>
+                        <li>Old attachment marked as completed and archived</li>
+                        <li>New attachment becomes active with combined amount</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <h4>⚠️ Merge Notes:</h4>
+            <ul>
+                <li>Only unpaid installments from old attachment are considered</li>
+                <li>Merge notes are added to both attachments for audit trail</li>
+                <li>Original loan requests are linked via parent_request_id</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="payslip-integration" class="section">
+        <h2>10. Payslip Integration</h2>
+
+        <div class="step">
+            <h4>Automatic Processing</h4>
+            <ol>
+                <li>When payslip is created, system checks for active attachments</li>
+                <li>Finds installment lines due for that month (date matches payslip date_from)</li>
+                <li>Adds deduction to payslip input lines with attachment details</li>
+                <li>Links installment line to payslip input line</li>
+                <li>Marks installment as "Paid" when payslip is confirmed</li>
+                <li>Records actual paid amount in installment line</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Special Handling</h4>
+            <ul>
+                <li><strong>Postponed Installments:</strong> Automatically excluded from payslip processing</li>
+                <li><strong>Pardoned Installments:</strong> Automatically excluded from payslip processing</li>
+                <li><strong>Draft Installments:</strong> Amount updated in payslip if installment amount changed</li>
+                <li><strong>Loan Serial Numbers:</strong> Added to input line names for tracking</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Payslip States Impact</h4>
+            <ul>
+                <li><strong>Cancel Payslip:</strong> Installment returns to "Draft" state, payslip link removed</li>
+                <li><strong>Reset to Draft:</strong> Installment maintains "Paid" state if payslip in draft</li>
+                <li><strong>Delete Input Line:</strong> Installment automatically returns to "Draft" state</li>
+                <li><strong>Payslip Confirmation:</strong> Installment locked as "Paid" with amount tracking</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="reporting" class="section">
+        <h2>11. Reporting & Tracking</h2>
+
+        <div class="feature">
+            <h4>Balance Tracking</h4>
+            <p>The system automatically calculates:</p>
+            <ul>
+                <li><strong>Balance Amount:</strong> Total - Paid - Pardoned</li>
+                <li><strong>Paid Amount:</strong> Sum of all paid installments</li>
+                <li><strong>Pardon Amount:</strong> Sum of all pardoned amounts</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <h4>Change Tracking</h4>
+            <p>All changes are logged in the chatter:</p>
+            <ul>
+                <li>Installment state changes</li>
+                <li>Amount modifications</li>
+                <li>Date adjustments</li>
+                <li>Postpone/pardon operations</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Accessing Reports</h4>
+            <ol>
+                <li><strong>Loan Requests:</strong> <code>Employee Loan → Employee Loan Request</code></li>
+                <li><strong>Salary Attachments:</strong> <code>Employee Loan</code> menu or <code>Payroll → Employees → Salary Attachments</code></li>
+                <li><strong>Individual Installments:</strong> <code>Employee Loan → Employee Loan Installments</code></li>
+                <li>Filter by employee, state, date range, or attachment</li>
+                <li>Export data for external analysis</li>
+                <li>Track individual installment history through chatter</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="troubleshooting" class="section">
+        <h2>12. Troubleshooting</h2>
+
+        <div class="warning">
+            <h4>Common Issues & Solutions</h4>
+            
+            <h5>Issue: Cannot modify monthly amount</h5>
+            <p><strong>Cause:</strong> Some installments are already paid</p>
+            <p><strong>Solution:</strong> Reset to draft (if no payslips processed) or create new attachment</p>
+
+            <h5>Issue: Cannot delete salary attachment</h5>
+            <p><strong>Cause:</strong> Attachment is linked to payslips</p>
+            <p><strong>Solution:</strong> Cancel related payslips first, then delete</p>
+
+            <h5>Issue: Postpone/Pardon buttons not working</h5>
+            <p><strong>Cause:</strong> Payslip already generated and confirmed for that month</p>
+            <p><strong>Solution:</strong> Cancel the payslip, perform operation, then regenerate</p>
+
+            <h5>Issue: Cannot access individual installment</h5>
+            <p><strong>Cause:</strong> Installments not generated yet</p>
+            <p><strong>Solution:</strong> Confirm attachment and click "Compute Installments" first</p>
+
+            <h5>Issue: Installment amount not updating in payslip</h5>
+            <p><strong>Cause:</strong> Installment state is postponed or pardoned</p>
+            <p><strong>Solution:</strong> Check installment state in Employee Loan Installments menu</p>
+
+            <h5>Issue: Installments not appearing in payslip</h5>
+            <p><strong>Cause:</strong> Attachment not confirmed or installments postponed/pardoned</p>
+            <p><strong>Solution:</strong> Confirm attachment and check installment states</p>
+
+            <h5>Issue: Loan request stuck in approval</h5>
+            <p><strong>Cause:</strong> Waiting for approver action</p>
+            <p><strong>Solution:</strong> Contact appropriate approver or reset to draft if needed</p>
+
+            <h5>Issue: Payment not triggering attachment creation</h5>
+            <p><strong>Cause:</strong> Loan request field not set in payment</p>
+            <p><strong>Solution:</strong> Edit payment and link to loan request, then re-post</p>
+
+            <h5>Issue: Cannot create loan request</h5>
+            <p><strong>Cause:</strong> Missing loan type configuration</p>
+            <p><strong>Solution:</strong> Configure salary attachment types with payment requirements</p>
+        </div>
+
+        <div class="step">
+            <h4>Getting Help</h4>
+            <ul>
+                <li>Check the chatter for change history</li>
+                <li>Verify attachment and installment states</li>
+                <li>Review payslip input lines</li>
+                <li>Contact system administrator for complex issues</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

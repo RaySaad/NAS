@@ -280,6 +280,29 @@ class JVAPI(http.Controller):
 							}})
 
 						line_val = []
+						failure_validation = []
+						for line in post['line_ids']:
+							if line.get('customer_account', False):
+								existing = request.env['partner.subscription'].sudo().search([
+									('name', '=', line['customer_account'])
+								], limit=1)
+
+								if not existing:
+									failure_validation.append(
+										f"Partner having Customer Contract: {line['customer_account']} does not exists")
+									continue
+							else:
+								failure_validation.append(
+									f"Customer Contract is required. Its Missing")
+								continue
+						if len(failure_validation) > 0:
+							return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+								'success': False,
+								'error': True,
+								'message': failure_validation,
+								'data': {}
+							}})
+
 						for line in post['line_ids']:
 							if line.get('customer_account', False):
 								existing = request.env['partner.subscription'].sudo().search([
@@ -425,13 +448,23 @@ class JVAPI(http.Controller):
 
 						jv_data = {
 							"operating_unit_id": operating_unit.id if operating_unit else operating_unit,
-							"journal_id": request.env.ref('account.1_general').id,
+							"journal_id": request.env.ref('account.1_sale').id if post['type'] == 'multi-invoice' else request.env.ref('account.1_general').id,
 							"date": post.get('date', False),
 							'jv_type': post['type'],
 							'ref': post.get('ref_number', False),
 							"line_ids": line_val
 						}
-						jv = request.env['account.move'].sudo().create(jv_data)
+						user = request.env['res.users'].sudo().browse(6)
+						if not user:
+							return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+								'success': False,
+								'error': True,
+								'message': f"User Ashraf does not exist anymore. It was a concrete behaviour associated to Ashraf only.",
+								'data': {}
+							}})
+
+
+						jv = request.env['account.move'].with_user(user).create(jv_data)
 						response.append({
 							'success': True,
 							'error': False,
@@ -632,6 +665,7 @@ class JVAPI(http.Controller):
 								'data': {}
 							}})
 						partner_id = False
+						existing = False
 						if post.get('customer_account', False):
 							existing = request.env['partner.subscription'].sudo().search([
 								('name', '=', post['customer_account'])
@@ -743,27 +777,76 @@ class JVAPI(http.Controller):
 							if branch:
 								analytic_distribution[str(branch.id)] = 100.0
 
-							vals = {
-								'account_id': request.env['account.account'].sudo().search([
-									('code', '=', line['account_id'])]).id,
-								'name': line['name'],
-								'employee_code': line.get('employee_code', ''),
-								"customer_code": line.get('customer_code', ''),
-								"operating_unit_id": line_operating_unit.id,
-								"customer_account": existing.id,
-								'analytic_distribution': analytic_distribution or {},
-								'tax_ids': [[4, line['tax_id']]] if line.get('tax_id', False) else [],
-								'debit': line['amount'] if line['type'] == 'debit' else 0,
-								'credit': line['amount'] if line['type'] == 'credit' else 0
-							}
+							existing_employee = False
+							if line.get('employee_code'):
+								employee_code = str(line['employee_code'])
+								existing_employee = request.env['hr.employee'].sudo().search([
+									('employee_code', '=', employee_code), ('active', '=', True)
+								], limit=1)
+								if not existing_employee:
+									return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+										'success': False,
+										'error': True,
+										'message': 'Employee does not exists with code (%s)' % (employee_code),
+										'data': {}
+									}})
+
+							partner_contract = False
+							if line.get('customer_account'):
+								partner_contract = request.env['partner.subscription'].sudo().search([
+									('name', '=', line['customer_account'])
+								], limit=1)
+								if not partner_contract:
+									return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+										'success': False,
+										'error': True,
+										'message': f"Partner having Customer Contract: {line['customer_account']} does not exists",
+										'data': {}
+									}})
+
+							if partner_contract:
+								customer_code = partner_contract.partner_id.customer_code or line.get('customer_code', '')
+								vals = {
+									'account_id': request.env['account.account'].sudo().search([
+										('code', '=', line['account_id'])]).id,
+									'name': line['name'],
+									'employee_id': existing_employee.id if existing_employee else False,
+									'employee_code': line.get('employee_code', ''),
+									"customer_code": customer_code,
+									"operating_unit_id": line_operating_unit.id,
+									"customer_account": partner_contract.id if partner_contract else False,
+									'contract_type': partner_contract.contract_type if partner_contract else '',
+									'partner_id': partner_contract.partner_id.id if partner_contract else '',
+									'analytic_distribution': analytic_distribution or {},
+									'tax_ids': [[4, line['tax_id']]] if line.get('tax_id', False) else [],
+									'debit': line['amount'] if line['type'] == 'debit' else 0,
+									'credit': line['amount'] if line['type'] == 'credit' else 0
+								}
+							else:
+								vals = {
+									'account_id': request.env['account.account'].sudo().search([
+										('code', '=', line['account_id'])]).id,
+									'name': line['name'],
+									'employee_id': existing_employee.id if existing_employee else False,
+									'employee_code': line.get('employee_code', ''),
+									"customer_code": line.get('customer_code', ''),
+									"operating_unit_id": line_operating_unit.id,
+									"customer_account": partner_contract.id if partner_contract else False,
+									'contract_type': partner_contract.contract_type if partner_contract else '',
+									'analytic_distribution': analytic_distribution or {},
+									'tax_ids': [[4, line['tax_id']]] if line.get('tax_id', False) else [],
+									'debit': line['amount'] if line['type'] == 'debit' else 0,
+									'credit': line['amount'] if line['type'] == 'credit' else 0
+								}
 
 							line_val.append((0, 0, vals))
 
 						auto_line = [
 							(0, 0, {
 								'account_id': bank_id.default_account_id.id,
-								'name': '',
-								"customer_account": existing.id,
+								'name': post['line_ids'][0]['name'],
+								"customer_account": existing.id if existing else False,
+								'contract_type': existing.contract_type if existing else '',
 								'debit': amount if list(side)[0] != 'debit' else 0,
 								'credit': amount if list(side)[0] != 'credit' else 0
 							})]
@@ -1150,7 +1233,6 @@ class JVAPI(http.Controller):
 
 						jv_data = {
 							"partner_id": partner_id.id,
-							'contract_type': partner_contract.contract_type if partner_contract else '',
 							"customer_code": partner_id.customer_code,
 							"customer_account": existing.id,
 							"operating_unit_id": operating_unit.id,

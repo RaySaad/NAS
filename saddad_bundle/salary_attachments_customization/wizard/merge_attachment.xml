@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- form view-->
+    <record id="merge_attachment_wizard_form_view" model="ir.ui.view">
+        <field name="name">merge.attachment.wizard.form.view</field>
+        <field name="model">merge.attachment.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Merge Confirmation">
+                <sheet>
+                    <field name="old_attachment_id"/>
+                    <field name="current_attachment_id"/>
+                    <div>
+                        <b>Other Open Attachments Found for this employee with same deduction type/Over Lapping
+                            installments either merge the attachment or change start date after the last installment of
+                            first loan
+                        </b>
+                    </div>
+                    <footer>
+                        <button string="Change Date" type="object" name="return_to_existing_attachment"
+                                class="btn-primary"/>
+                        <button string="Merge" type="object" name="merge_attachment" class="btn-primary"/>
+                        <button string="Refuse" type="object" name="return_to_existing_attachment"
+                                class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

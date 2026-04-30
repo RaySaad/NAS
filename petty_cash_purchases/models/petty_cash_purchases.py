@@ -26,7 +26,7 @@ class PettyCashPurchase(models.Model):
 			('draft', 'To Submit'),
 			('submit', 'Submitted'),
 			('approve', 'Approved'),
-			('post', 'Posted'),
+			('post', 'JV Created'),
 			('done', 'Done'),
 			('cancel', 'Refused')
 		],
@@ -79,18 +79,18 @@ class PettyCashPurchase(models.Model):
 	total_amount = fields.Monetary(
 		string="Total",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True,
 		tracking=True,
 	)
 	untaxed_amount = fields.Monetary(
 		string="Untaxed Amount",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True
 	)
 	total_tax_amount = fields.Monetary(
 		string="Taxes",
 		currency_field='company_currency_id',
-		compute='_compute_amount', store=True, readonly=True,
+		compute='_compute_amount', store=True, readonly=True, precompute=True
 	)
 
 	company_currency_id = fields.Many2one(
@@ -226,7 +226,7 @@ class PettyCashPurchase(models.Model):
 						'tax_tag_ids': [(6,0,inside_tags)] if inside_tags else False,
 					}))
 					amount_credit += tax_line['amount']
-		
+
 		line_ids.append((0, 0, {
 			'analytic_distribution': rec.analytic_distribution,
 			'account_id': self.account_id.id,
@@ -237,6 +237,7 @@ class PettyCashPurchase(models.Model):
 			'customer_code': rec.customer_code,
 			'employee_code': rec.employee_code,
 			'contract_type': rec.contract_type,
+			'operating_unit_id': False,
 		}))
 
 		jv = self.env['account.move'].create({
@@ -244,7 +245,7 @@ class PettyCashPurchase(models.Model):
 			'move_type': 'entry',
 			'ref': self.name,
 			'journal_id': self.employee_journal_id.id,
-			'operating_unit_id': self.expenses_line_ids.filtered(lambda m: m.operating_unit_id)[0].operating_unit_id.id if self.expenses_line_ids.filtered(lambda m: m.operating_unit_id) else False,
+			'operating_unit_id': False,
 			'date': fields.Datetime.now(),
 			'petty_id': self.id,
 			'line_ids': line_ids
@@ -360,6 +361,7 @@ class ExpenseLines(models.Model):
 		compute='_compute_amount',
 		store=True,
 		tracking=True,
+		precompute=True,
 	)
 	
 	tax_amount = fields.Monetary(
@@ -368,13 +370,16 @@ class ExpenseLines(models.Model):
 		compute='_compute_amount',
 		store=True,
 		tracking=True,
+		precompute=True,
 	)
 	
 	total_amount = fields.Monetary(
 		string="Total",
 		currency_field='company_currency_id',
 		compute='_compute_amount',
+		store=True,
 		tracking=True,
+		precompute=True,
 	)
 
 	vendor_vat = fields.Char(string='Vendor Vat', store=True)

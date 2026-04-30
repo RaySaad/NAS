@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Item under Accounting Reports -->
+    <menuitem id="menu_employee_statement_main"
+              name="Employee Statement"
+              parent="account.menu_finance_reports"
+              action="action_employee_statement_wizard"
+              sequence="100"/>
+</odoo>

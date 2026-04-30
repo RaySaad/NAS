@@ -83,11 +83,11 @@ class ExpenseDetailsLine(models.Model):
              "when this journal is used.",
     )
     
-    partner_id = fields.Many2one('res.partner', string='Customer', store=True, tracking=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', store=True)
     customer_code = fields.Char(string='Customer Code', store=True)
     customer_account_domain = fields.Char(compute="_compute_customer_account_domain", readonly=True, store=False)
     customer_account = fields.Many2one('partner.subscription', string='Customer Contract', store=True)
-    contract_type = fields.Char("Contract Type", tracking=True)
+    contract_type = fields.Char("Contract Type")
 
     @api.depends('partner_id')
     def _compute_customer_account_domain(self):

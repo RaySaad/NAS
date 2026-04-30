@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="loan_request_header">
+            <div class="header">
+                <div class="o_clean_header">
+
+                </div>
+            </div>
+        </template>
+        <template id="loan_request_footer">
+            <div class="footer">
+                <div class="row" style="font-size:14px;font-family:'Roboto',sans-serif;color:#294E73;">
+                    <div class="col-4 text-center">
+                        <span>Printed By:
+                            <span t-esc="request.env.user.name"/>
+                        </span>
+                    </div>
+                    <div class="col-4 text-center"/>
+                    <div class="col-4 text-center">
+                        <span>Print Date:
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="letter_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="salary_attachments_customization.loan_request_header"/>
+                    <t t-call="salary_attachments_customization.loan_request_footer"/>
+                    <t t-call="web.internal_layout">
+                        <style>
+                            .table-striped tbody tr:nth-of-type(odd) {
+                            background-color: rgba(0,0,0,.05) !important;
+                            }
+                        </style>
+                        <div class="page" style="font-family:'Roboto',sans-serif;font-size:22px;">
+                            <div class="row" style="margin-left:-30px;">
+                                <div class="col-8 text-left">
+                                    <img src="/salary_attachments_customization/static/src/img/dalba_header_1.png"/>
+                                </div>
+                                <div class="col-4"/>
+                            </div>
+                            <div class="row" style="margin-top:-130px;">
+                                <div class="col-10"/>
+                                <div class="col-2 text-center">
+                                    <img src="/salary_attachments_customization/static/src/img/dalba.jpeg" width="175"
+                                         height="175"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <h1 style="color:#ffffff;width:100%;text-align:center;">
+                                        <strong style=" background-color:#294E73;">
+                                            &#160; LOAN REQUEST FORM &#160;-&#160;نموذج طلب سلفه
+                                        </strong>
+                                    </h1>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row text-left">
+                                        <div class="col-5">
+                                            <b>LOAN CODE / رقم الطلب :</b>
+                                        </div>
+                                        <div class="col-5 text-uppercase" style="background-color:#F6F6F6;">
+                                            <b>
+                                                <span t-field="o.loan_serial_number"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div class="row text-left">
+                                        <div class="col-5">
+                                            <b>REQUEST STATUS / حالة الطلب :</b>
+                                        </div>
+                                        <div class="col-5 text-uppercase" style="background-color:#F6F6F6;">
+                                            <b>
+                                                <span t-field="o.state"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <table class="table table-bordered table-striped">
+                                <thead></thead>
+                                <tbody>
+                                    <tr rowspan="2">
+                                        <th class="text-center" colspan="12"
+                                            style="color:#ffffff;background-color:#294E73;font-size:30px !important;">
+                                            <span>Employee Details &#160;&#160;/&#160;&#160; تفاصيل
+                                                الموظف
+                                            </span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Employee Name :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.employee_id.name"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: إاسم الموظف
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Employee No. :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.employee_id.employee_number"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: الرقم الوظيفي
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Employee Identification No. :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.employee_id.identification_id"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: رقم هوية الموظف
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Company :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.employee_id.company_id.name"></span>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: شركة</b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Department :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.department_id.name"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: الادارة
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Job Title :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.job_id.name"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: المسمى الوظيفي
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Total Salary :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.employee_id.sudo().contract_id.wage"
+                                                  t-options='{"widget": "float", "precision": 2}'
+                                            />
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: اجمالي الراتب
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr rowspan="2">
+                                        <th class="text-center" colspan="12"
+                                            style="color:#ffffff;background-color:#294E73;font-size:30px !important;">
+                                            <span>Loan Details &#160;&#160;/&#160;&#160;تفاصيل السلفه
+                                            </span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Date :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.create_date"
+                                                  t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: التاريخ
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Requested Amount :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.total_amount"
+                                                  t-options='{"widget": "float", "precision": 2}'/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: المبلغ المطلوب
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Advance Loan Reason :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.description"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: اسباب السلفه
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Installment Start Date :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-field="o.date_start"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: بداية اول قسط
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>No. Of Installments :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.duration"/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: عدد الاقساط
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Installment Amount :</b>
+                                            </span>
+                                        </td>
+                                        <td class="text-center" colspan="4" style="width:60.33% !important;">
+                                            <span t-esc="o.monthly_amount"
+                                                  t-options='{"widget": "float", "precision": 2}'/>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: مبلغ القسط
+                                                </b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>Employee Signature :</b>
+                                            </span>
+                                        </td>
+                                        <td colspan="4" style="height:100px !important;width:30.33% !important;">
+                                            <span></span>
+                                        </td>
+                                        <td class="text-right" colspan="4" style="width:15% !important;">
+                                            <span>
+                                                <b>: توقيع الموظف</b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <t t-esc="o.create_uid.name"/>
+                                </div>
+                                <div class="col-4"/>
+                                <div class="col-4"/>
+                            </div>
+                            <div class="row" style="font-family:'Roboto',sans-serif;color:#393A41;">
+                                <div class="col-4 text-center" style="text-decoration:overline">Created By</div>
+                                <div class="col-4"/>
+                                <div class="col-4 text-center" style="text-decoration:overline">HR Approval</div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <report id="loan_request_report_action"
+                string="Loan Request"
+                model="hr.salary.attachment.request"
+                report_type="qweb-pdf"
+                file="salary_attachments_customization.letter_report"
+                name="salary_attachments_customization.letter_report"
+                menu="True"
+        />
+    </data>
+</odoo>

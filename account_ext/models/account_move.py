@@ -31,7 +31,7 @@ class AccountMove(models.Model):
 		compute='_compute_journal_id', inverse='_inverse_journal_id', store=True, readonly=False, precompute=True,
 		required=True,
 		check_company=True,
-		domain="[('id', 'not in', suitable_journal_ids)]",
+        domain=[]
 	)
 
 	jv_type = fields.Selection(
@@ -145,7 +145,7 @@ class AccountMoveLine(models.Model):
 			move = line.move_id
 			if move:
 				if 'partner_id' in vals:
-					if not line.partner_id:
+					if not line.partner_id and move.partner_id:
 						line.partner_id = move.partner_id.id
 						line.customer_code = move.partner_id.customer_code or move.customer_code
 					if not line.customer_account:

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Journal Entry Voucher Report -->
+        <record id="action_report_journal_entry_voucher" model="ir.actions.report">
+            <field name="name">Journal Entry Voucher</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">journal_voucher_print_export.report_journal_entry_voucher</field>
+            <field name="report_file">journal_voucher_print_export.report_journal_entry_voucher</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'Journal Voucher - %s' % (object.name)</field>
+        </record>
+    </data>
+</odoo>

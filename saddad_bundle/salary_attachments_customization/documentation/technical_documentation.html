@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Attachments Customization - Technical Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; }
+        .section { margin: 20px 0; padding: 15px; border-left: 4px solid #3498db; background: #f8f9fa; }
+        .class-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .step { background: #e8f5e8; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #3498db; }
+        .workflow { background: #fff3cd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .feature { background: #e3f2fd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .method { background: #e8f4fd; padding: 10px; margin: 10px 0; border-radius: 3px; }
+        .field { background: #f0f8e8; padding: 8px; margin: 5px 0; border-radius: 3px; }
+        .warning { background: #ffebee; padding: 10px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #f44336; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+        .toc { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .toc ul { list-style-type: none; }
+        .toc a { text-decoration: none; color: #2980b9; }
+        .screenshot { border: 1px solid #ddd; padding: 10px; margin: 10px 0; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Salary Attachments Customization - Technical Documentation</h1>
+        <p>Version 1.0 | Developer Guide</p>
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">1. Module Overview</a></li>
+            <li><a href="#models">2. Models</a></li>
+            <li><a href="#views">3. Views</a></li>
+            <li><a href="#wizards">4. Wizards</a></li>
+            <li><a href="#security">5. Security</a></li>
+            <li><a href="#data">6. Data Files</a></li>
+        </ul>
+    </div>
+
+    <div id="overview" class="section">
+        <h2>1. Module Overview</h2>
+        <p><strong>Module Name:</strong> salary_attachments_customization</p>
+        <p><strong>Purpose:</strong> Extends Odoo's HR Payroll module to provide enhanced salary attachment management with installment tracking, postponement, and pardon functionality.</p>
+        <p><strong>Dependencies:</strong> hr_payroll, account</p>
+    </div>
+
+    <div id="models" class="section">
+        <h2>2. Models</h2>
+
+        <div class="class-section">
+            <h3>2.1 HrSalaryAttachmentRequest (hr.salary.attachment.request)</h3>
+            <p><strong>Inherits:</strong> mail.thread</p>
+            <p><strong>Purpose:</strong> Main model for managing employee loan requests with approval workflow.</p>
+
+            <h4>Key Fields:</h4>
+            <div class="field">
+                <strong>loan_serial_number</strong> (Char): Unique identifier for loan requests
+            </div>
+            <div class="field">
+                <strong>employee_id</strong> (Many2one): Employee requesting the loan
+            </div>
+            <div class="field">
+                <strong>total_amount</strong> (Monetary): Total loan amount
+            </div>
+            <div class="field">
+                <strong>monthly_amount</strong> (Monetary): Monthly deduction amount
+            </div>
+            <div class="field">
+                <strong>state</strong> (Selection): Workflow states - draft, finance_approval, management_approval, hr_approval, confirmed, completed, cancelled
+            </div>
+            <div class="field">
+                <strong>loan_type_id</strong> (Many2one): Type of loan/deduction
+            </div>
+            <div class="field">
+                <strong>salary_attachment_id</strong> (Many2one): Generated salary attachment
+            </div>
+
+            <h4>Key Methods:</h4>
+            <div class="method">
+                <strong>send_for_approval()</strong>
+                <br>Initiates approval workflow and generates serial number
+            </div>
+            <div class="method">
+                <strong>action_confirm()</strong>
+                <br>Creates salary attachment and confirms the request
+            </div>
+            <div class="method">
+                <strong>action_done()</strong>
+                <br>Completes the loan request
+            </div>
+        </div>
+
+        <div class="class-section">
+            <h3>2.2 HrSalaryAttachmentExt (hr.salary.attachment)</h3>
+            <p><strong>Inherits:</strong> hr.salary.attachment</p>
+            <p><strong>Purpose:</strong> Extends the base salary attachment model with installment management.</p>
+
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>balance_amount</strong> (Monetary): Computed remaining balance
+            </div>
+            <div class="field">
+                <strong>pardon_amount</strong> (Monetary): Amount that has been pardoned
+            </div>
+            <div class="field">
+                <strong>salary_attachment_request_id</strong> (Many2one): Link to original request
+            </div>
+            <div class="field">
+                <strong>attachment_lines</strong> (One2many): Individual installment lines
+            </div>
+            <div class="field">
+                <strong>state</strong> (Selection): Extended with 'draft' state
+            </div>
+
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>generate_installments()</strong>
+                <br>Creates monthly installment lines based on total and monthly amounts
+            </div>
+            <div class="method">
+                <strong>action_done()</strong>
+                <br>Pardons all unpaid installments and completes attachment
+            </div>
+        </div>
+
+        <div class="class-section">
+            <h3>2.3 HrSalaryAttachmentLine (hr.salary.attachment.line)</h3>
+            <p><strong>Inherits:</strong> mail.thread</p>
+            <p><strong>Purpose:</strong> Individual installment lines with postpone/pardon functionality.</p>
+
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>attachment_id</strong> (Many2one): Parent salary attachment (tracking=True)
+            </div>
+            <div class="field">
+                <strong>date</strong> (Date): Installment due date (tracking=True)
+            </div>
+            <div class="field">
+                <strong>amount</strong> (Float): Installment amount (tracking=True)
+            </div>
+            <div class="field">
+                <strong>state</strong> (Selection): draft, paid, postponed, pardoned (tracking=True)
+            </div>
+
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>action_open_postpone_request()</strong>
+                <br>Opens postpone wizard with payslip validation
+            </div>
+            <div class="method">
+                <strong>action_open_pardon_request()</strong>
+                <br>Opens pardon wizard with payslip validation
+            </div>
+        </div>
+
+        <div class="class-section">
+            <h3>2.4 HrSalaryAttachmentType (hr.payslip.input.type)</h3>
+            <p><strong>Inherits:</strong> hr.payslip.input.type</p>
+            <p><strong>Purpose:</strong> Extends input types with payment configuration.</p>
+
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>payment_type</strong> (Selection): 'with_payment' or 'without_payment'
+                <br>Determines if upfront payment is required
+            </div>
+        </div>
+
+        <div class="class-section">
+            <h3>2.5 AccountPaymentExt (account.payment)</h3>
+            <p><strong>Inherits:</strong> account.payment</p>
+            <p><strong>Purpose:</strong> Handles loan payments and triggers loan confirmation.</p>
+
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>is_loan_payment</strong> (Boolean): Identifies loan payments
+            </div>
+            <div class="field">
+                <strong>loan_request_id</strong> (Many2one): Related loan request
+            </div>
+
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>action_post()</strong>
+                <br>Confirms loan request when payment is posted
+            </div>
+        </div>
+
+        <div class="class-section">
+            <h3>2.6 Payroll (hr.payslip)</h3>
+            <p><strong>Inherits:</strong> hr.payslip</p>
+            <p><strong>Purpose:</strong> Integrates salary attachments with payslip processing.</p>
+
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>_compute_input_line_ids()</strong>
+                <br>Updates payslip inputs based on attachment line states
+            </div>
+            <div class="method">
+                <strong>_update_attachment_lines()</strong>
+                <br>Helper method to update attachment line states
+            </div>
+        </div>
+    </div>
+
+    <div id="views" class="section">
+        <h2>3. Views</h2>
+        <h4>Key View Extensions:</h4>
+        <ul>
+            <li><strong>hr_salary_attachment_view_form_ext:</strong> Adds new fields, buttons, and installment lines tab</li>
+            <li><strong>view_hr_salary_attachment_line_form:</strong> Form view for installment lines with statusbar</li>
+            <li><strong>view_hr_payslip_form_ext:</strong> Makes payslip input amounts readonly</li>
+        </ul>
+    </div>
+
+    <div id="wizards" class="section">
+        <h2>4. Wizards</h2>
+        <div class="class-section">
+            <h3>4.1 PardonRequest (pardon.request)</h3>
+            <p><strong>Purpose:</strong> Handles pardon requests for installments or entire attachments.</p>
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>reason</strong> (Char): Reason for pardon request
+            </div>
+            <div class="field">
+                <strong>loan_line_id</strong> (Many2one): Target installment line
+            </div>
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>action_submit()</strong> - For attachment-level pardons
+            </div>
+            <div class="method">
+                <strong>action_loan_line_pardon()</strong> - For line-level pardons
+            </div>
+        </div>
+        <div class="class-section">
+            <h3>4.2 PostponeRequest (postpone.request)</h3>
+            <p><strong>Purpose:</strong> Handles postponement of installments with adjustment options.</p>
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>reason</strong> (Char): Reason for postponement
+            </div>
+            <div class="field">
+                <strong>adjustment_type</strong> (Selection): 'distribution' or 'new_installment'
+            </div>
+            <div class="field">
+                <strong>loan_line_id</strong> (Many2one): Target installment line
+            </div>
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>action_submit()</strong>
+                <br>Processes postponement based on adjustment type
+            </div>
+        </div>
+        <div class="class-section">
+            <h3>4.3 MergeAttachmentWizard (merge.attachment.wizard)</h3>
+            <p><strong>Purpose:</strong> Handles merging of conflicting salary attachments.</p>
+            <h4>Fields:</h4>
+            <div class="field">
+                <strong>old_attachment_id</strong> (Many2one): Existing attachment to merge
+            </div>
+            <div class="field">
+                <strong>current_attachment_id</strong> (Many2one): New attachment
+            </div>
+            <h4>Methods:</h4>
+            <div class="method">
+                <strong>merge_attachment()</strong>
+                <br>Combines old attachment balance with new attachment
+            </div>
+        </div>
+    </div>
+
+    <div id="security" class="section">
+        <h2>5. Security</h2>
+        <p>Access rights defined in <code>ir.model.access.csv</code> for all models with appropriate group permissions.</p>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ Important Notes for Developers</h3>
+        <ul>
+            <li>Always check payslip state before allowing postpone/pardon operations</li>
+            <li>Use the validation_message helper function for consistent error handling</li>
+            <li>Tracking is enabled on key fields - changes are logged in chatter</li>
+            <li>Database operations are optimized to reduce multiple writes</li>
+        </ul>
+    </div>
+</body>
+</html>

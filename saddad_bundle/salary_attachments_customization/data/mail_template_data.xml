@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="loan_message_user_assigned">
+        <div>
+            Dear<t t-esc="assignee_name"/>,
+            <br/>
+            <br/>
+            <span style="margin-top: 8px;">You have been assigned to the
+                <t t-esc="model_description or 'document'"/>
+                <t t-esc="object.display_name"/>.
+            </span>
+        </div>
+    </template>
+</odoo>

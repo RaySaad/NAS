@@ -74,5 +74,16 @@
                 </xpath>
             </field>
         </record>
+        <record id="action_move_set_to_draft" model="ir.actions.server">
+            <field name="name">Set to Draft</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+        if records:
+            records.button_draft()
+            </field>
+        </record>
     </data>
 </odoo>

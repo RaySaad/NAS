@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_customer_statement_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="partner">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Custom CSS -->
+                        <style>
+                            .statement-header {
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                color: white;
+                                padding: 30px;
+                                margin: -40px -40px 30px -40px;
+                                border-radius: 0;
+                            }
+                            .statement-title {
+                                font-size: 28px;
+                                font-weight: bold;
+                                margin-bottom: 5px;
+                                text-align: center;
+                            }
+                            .statement-subtitle {
+                                text-align: center;
+                                opacity: 0.9;
+                                font-size: 14px;
+                            }
+                            .info-box {
+                                background: #f8f9fa;
+                                border-left: 4px solid #667eea;
+                                padding: 15px;
+                                margin-bottom: 20px;
+                            }
+                            .info-row {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 8px;
+                            }
+                            .info-label {
+                                font-weight: 600;
+                                color: #495057;
+                            }
+                            .info-value {
+                                color: #212529;
+                            }
+                            .summary-boxes {
+                                display: flex;
+                                gap: 15px;
+                                margin: 20px 0;
+                            }
+                            .summary-box {
+                                flex: 1;
+                                padding: 20px;
+                                border-radius: 8px;
+                                text-align: center;
+                            }
+                            .summary-box.total {
+                                background: #e3f2fd;
+                                border: 2px solid #2196f3;
+                            }
+                            .summary-box.balance {
+                                background: #fff3e0;
+                                border: 2px solid #ff9800;
+                            }
+                            .summary-label {
+                                font-size: 12px;
+                                color: #666;
+                                margin-bottom: 5px;
+                            }
+                            .summary-amount {
+                                font-size: 24px;
+                                font-weight: bold;
+                            }
+                            .statement-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-top: 20px;
+                            }
+                            .statement-table thead {
+                                background: #667eea;
+                                color: white;
+                            }
+                            .statement-table th {
+                                padding: 12px 8px;
+                                text-align: left;
+                                font-weight: 600;
+                                font-size: 13px;
+                            }
+                            .statement-table td {
+                                padding: 10px 8px;
+                                border-bottom: 1px solid #e0e0e0;
+                                font-size: 12px;
+                            }
+                            .statement-table tbody tr:hover {
+                                background: #f5f5f5;
+                            }
+                            .amount-debit {
+                                color: #d32f2f;
+                                font-weight: 500;
+                            }
+                            .amount-credit {
+                                color: #388e3c;
+                                font-weight: 500;
+                            }
+                            .total-row {
+                                background: #f8f9fa;
+                                font-weight: bold;
+                                border-top: 2px solid #667eea;
+                            }
+                            .text-right {
+                                text-align: right;
+                            }
+                            .text-center {
+                                text-align: center;
+                            }
+                            .aging-section {
+                                margin-top: 30px;
+                                padding: 20px;
+                                background: #f8f9fa;
+                                border-radius: 8px;
+                            }
+                            .aging-title {
+                                font-size: 16px;
+                                font-weight: bold;
+                                margin-bottom: 15px;
+                                color: #667eea;
+                            }
+                            .aging-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            .aging-table td {
+                                padding: 8px;
+                                border: 1px solid #dee2e6;
+                                text-align: center;
+                            }
+                            .aging-header {
+                                background: #667eea;
+                                color: white;
+                                font-weight: 600;
+                            }
+                        </style>
+
+                        <!-- Header Section -->
+                        <div class="statement-header">
+                            <div class="statement-title">CUSTOMER STATEMENT</div>
+                            <div class="statement-subtitle">Account Activity Report</div>
+                        </div>
+
+                        <!-- Customer Information -->
+                        <div class="info-box">
+                            <div class="info-row">
+                                <span class="info-label">Customer:</span>
+                                <span class="info-value"><t t-esc="partner.name"/></span>
+                            </div>
+                            <div class="info-row" t-if="partner.street">
+                                <span class="info-label">Address:</span>
+                                <span class="info-value">
+                                    <t t-esc="partner.street"/>
+                                    <t t-if="partner.street2">, <t t-esc="partner.street2"/></t>
+                                </span>
+                            </div>
+                            <div class="info-row" t-if="partner.city or partner.country_id">
+                                <span class="info-label">Location:</span>
+                                <span class="info-value">
+                                    <t t-if="partner.city" t-esc="partner.city"/>
+                                    <t t-if="partner.state_id">, <t t-esc="partner.state_id.name"/></t>
+                                    <t t-if="partner.country_id">, <t t-esc="partner.country_id.name"/></t>
+                                </span>
+                            </div>
+                            <div class="info-row" t-if="partner.vat">
+                                <span class="info-label">VAT Number:</span>
+                                <span class="info-value"><t t-esc="partner.vat"/></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Statement Date:</span>
+                                <span class="info-value"><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></span>
+                            </div>
+                        </div>
+
+                        <!-- Get account move lines -->
+                        <t t-set="move_lines" t-value="env['account.move.line'].search([
+                            ('partner_id', '=', partner.id),
+                            ('account_id.account_type', 'in', ['asset_receivable', 'liability_payable']),
+                            ('parent_state', '=', 'posted')
+                        ], order='date asc, move_id asc')"/>
+
+                        <!-- Calculate totals -->
+                        <t t-set="total_debit" t-value="sum(move_lines.mapped('debit'))"/>
+                        <t t-set="total_credit" t-value="sum(move_lines.mapped('credit'))"/>
+                        <t t-set="balance" t-value="total_debit - total_credit"/>
+
+                        <!-- Summary Boxes -->
+                        <div class="summary-boxes">
+                            <div class="summary-box total">
+                                <div class="summary-label">Total Invoiced</div>
+                                <div class="summary-amount">
+                                    <t t-esc="'%.2f SR' % total_debit"/>
+                                </div>
+                            </div>
+                            <div class="summary-box balance">
+                                <div class="summary-label">Current Balance</div>
+                                <div class="summary-amount">
+                                    <t t-esc="'%.2f SR' % abs(balance)"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transactions Table -->
+                        <table class="statement-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 12%;">Date</th>
+                                    <th style="width: 15%;">Reference</th>
+                                    <th style="width: 35%;">Description</th>
+                                    <th style="width: 12%;" class="text-right">Debit</th>
+                                    <th style="width: 12%;" class="text-right">Credit</th>
+                                    <th style="width: 14%;" class="text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="running_balance" t-value="0"/>
+                                <t t-foreach="move_lines" t-as="line">
+                                    <t t-set="running_balance" t-value="running_balance + line.debit - line.credit"/>
+                                    <tr>
+                                        <td><t t-esc="line.date.strftime('%d/%m/%Y')"/></td>
+                                        <td><t t-esc="line.move_id.name"/></td>
+                                        <td>
+                                            <t t-if="line.move_id.invoice_origin">
+                                                <t t-esc="line.move_id.invoice_origin"/> - 
+                                            </t>
+                                            <t t-esc="line.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-if="line.debit > 0" class="amount-debit">
+                                                <t t-esc="'%.2f SR' % line.debit"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-if="line.credit > 0" class="amount-credit">
+                                                <t t-esc="'%.2f SR' % line.credit"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f SR' % running_balance"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                
+                                <!-- Total Row -->
+                                <tr class="total-row">
+                                    <td colspan="3" class="text-right"><strong>TOTAL</strong></td>
+                                    <td class="text-right amount-debit">
+                                        <t t-esc="'%.2f SR' % total_debit"/>
+                                    </td>
+                                    <td class="text-right amount-credit">
+                                        <t t-esc="'%.2f SR' % total_credit"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f SR' % balance"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Aging Analysis -->
+                        <div class="aging-section">
+                            <div class="aging-title">Aging Analysis</div>
+                            <t t-set="current_date" t-value="datetime.datetime.now().date()"/>
+                            <t t-set="aging_0_30" t-value="0"/>
+                            <t t-set="aging_31_60" t-value="0"/>
+                            <t t-set="aging_61_90" t-value="0"/>
+                            <t t-set="aging_over_90" t-value="0"/>
+                            
+                            <t t-foreach="move_lines.filtered(lambda l: l.debit > l.credit)" t-as="line">
+                                <t t-set="days_due" t-value="(current_date - line.date).days"/>
+                                <t t-set="line_balance" t-value="line.debit - line.credit"/>
+                                <t t-if="days_due &lt;= 30">
+                                    <t t-set="aging_0_30" t-value="aging_0_30 + line_balance"/>
+                                </t>
+                                <t t-elif="days_due &lt;= 60">
+                                    <t t-set="aging_31_60" t-value="aging_31_60 + line_balance"/>
+                                </t>
+                                <t t-elif="days_due &lt;= 90">
+                                    <t t-set="aging_61_90" t-value="aging_61_90 + line_balance"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="aging_over_90" t-value="aging_over_90 + line_balance"/>
+                                </t>
+                            </t>
+
+                            <table class="aging-table">
+                                <tr>
+                                    <td class="aging-header">Current (0-30 days)</td>
+                                    <td class="aging-header">31-60 days</td>
+                                    <td class="aging-header">61-90 days</td>
+                                    <td class="aging-header">Over 90 days</td>
+                                </tr>
+                                <tr>
+                                    <td><t t-esc="'%.2f SR' % aging_0_30"/></td>
+                                    <td><t t-esc="'%.2f SR' % aging_31_60"/></td>
+                                    <td><t t-esc="'%.2f SR' % aging_61_90"/></td>
+                                    <td><t t-esc="'%.2f SR' % aging_over_90"/></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Footer Note -->
+                        <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 12px;">
+                            <strong>Note:</strong> This statement reflects all posted transactions. Please verify and contact us if you have any questions.
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add Print and Export Buttons to Journal Entry Form -->
+        <!-- Author: Fakhraddin A. Sa'ad -->
+        <record id="view_move_form_print_export" model="ir.ui.view">
+            <field name="name">account.move.form.print.export</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Add buttons in header -->
+                <xpath expr="//header" position="inside">
+                    
+                    <!-- Print Voucher Button (PDF) -->
+                    <button name="action_print_voucher" 
+                            string="Print Voucher" 
+                            type="object" 
+                            class="btn-primary"
+                            invisible="move_type != 'entry'"
+                            icon="fa-print"
+                            help="Print journal voucher as PDF (works for all balanced entries)"/>
+                    
+                    <!-- Export to Excel Button -->
+                    <button name="export_voucher_excel" 
+                            string="Export to Excel" 
+                            type="object" 
+                            class="btn-success"
+                            invisible="move_type != 'entry'"
+                            icon="fa-file-excel-o"
+                            help="Export journal entry to Excel format. Perfect for entries with 1000+ lines."/>
+                    
+                    <!-- Smart Print Button (Auto-detect) -->
+                    <button name="action_smart_print" 
+                            string="Smart Print" 
+                            type="object" 
+                            class="btn-info"
+                            invisible="move_type != 'entry'"
+                            icon="fa-magic"
+                            help="Auto-detects entry size: PDF for small entries, Excel for large entries (1000+ lines)"/>
+                    
+                </xpath>
+                
+            </field>
+        </record>
+        
+    </data>
+</odoo>

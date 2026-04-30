@@ -10,10 +10,10 @@
                     <field name="move_id" invisible="1" />
                     <header>
                         <button name="submit" string="Submit" type="object" class="oe_highlight" invisible="state != 'draft'" />
-                        <button name="approve" string="Approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
+                        <button name="approve" string="Approve" groups="petty_cash_purchases.group_pcp_approve" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" string="Reject" type="object" class="oe_highlight" invisible="state != 'submit'" />
                         <button name="cancel" groups="petty_cash_purchases.group_pcp_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state == 'cancel'" />
-                        <button name="post" string="Post" type="object" class="oe_highlight" invisible="state != 'approve'" />
+                        <button name="post" string="Create JV" type="object" class="oe_highlight" invisible="state != 'approve'" />
                         <button name="done" string="Done" type="object" class="oe_highlight" invisible="state != 'post'" />
                         <button name="draft" string="Set to Draft" type="object" class="oe_highlight" invisible="state != 'cancel'" />
                         <field name="state" widget="statusbar" />
@@ -83,6 +83,7 @@
                             <!--                            <field name="amount_residual" class="oe_subtotal_footer_separator" invisible="state not in ('post', 'done')"/>-->
                         </group>
                     </sheet>
+                    <chatter/>
                 </form>
             </field>
         </record>
@@ -92,13 +93,15 @@
             <field name="arch" type="xml">
                 <list>
                     <field name="name" />
-                    <field name="employee_id" />
+<!--                    <field name="employee_id" />-->
                     <!--                    <field name="payment_mode"/>-->
                     <field name="employee_journal_id" />
-                    <field name="company_id" />
+<!--                    <field name="company_id" />-->
                     <field name="total_tax_amount" sum="total" />
                     <field name="untaxed_amount" sum="total" />
                     <field name="total_amount" sum="total" />
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'" decoration-warning="state in ['submit','approve','post']" decoration-success="state == 'done'" decoration-danger="state == 'cancel'"/>
                 </list>
             </field>
         </record>

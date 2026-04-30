@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add Excel Export Buttons to Journal Entry Form -->
+        <!-- Author: Fakhraddin A. Sa'ad -->
+        <record id="view_move_form_excel_export" model="ir.ui.view">
+            <field name="name">account.move.form.excel.export</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Add buttons in header -->
+                <xpath expr="//header" position="inside">
+                    
+                    <!-- Smart Print Button - Auto-detects size -->
+                    <button name="action_print_voucher" 
+                            string="Print Voucher" 
+                            type="object" 
+                            class="btn-primary"
+                            invisible="move_type != 'entry' or state != 'posted'"
+                            icon="fa-print"
+                            help="Automatically uses PDF for entries under 1000 lines, Excel for larger entries"/>
+                    
+                    <!-- Explicit Excel Export Button -->
+                    <button name="export_voucher_excel" 
+                            string="Export to Excel" 
+                            type="object" 
+                            class="btn-success"
+                            invisible="move_type != 'entry'"
+                            icon="fa-file-excel-o"
+                            help="Export journal entry to professionally formatted Excel file. Works on both draft and posted entries if balanced."/>
+                    
+                </xpath>
+                
+            </field>
+        </record>
+        
+    </data>
+</odoo>

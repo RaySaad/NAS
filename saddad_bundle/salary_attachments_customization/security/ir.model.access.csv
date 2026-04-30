@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_salary_attachment_line,hr.salary.attachment.line,model_hr_salary_attachment_line,,1,1,1,1
+access_hr_salary_assignment_request,hr.salary.attachment.request,model_hr_salary_attachment_request,,1,1,1,1
+access_pardon_request,pardon.request,model_pardon_request,base.group_user,1,1,1,1
+access_postpone_request,postpone.request,model_postpone_request,base.group_user,1,1,1,1
+access_merge_attachment_wizard,merge.attachment.wizard,model_merge_attachment_wizard,base.group_user,1,1,1,1
+
