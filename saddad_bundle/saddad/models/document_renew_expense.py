@@ -311,9 +311,14 @@ class DocumentRenewExpense(models.Model):
         self.write({
             'state': 'refused'
         })
-
+    # remove lines from muqeem expenses line list view when reset to draft
     def action_reset_to_draft(self):
-        """Reset state to draft"""
+        """Reset state to draft and reset entry_created flag on all expense lines"""
+        # Reset entry_created flag for all expense lines
+        self.expense_line_ids.write({
+            'entry_created': False
+        })
+        # Reset state to draft
         self.write({
             'state': 'draft'
         })
@@ -567,9 +572,12 @@ class DocumentRenewExpenseLines(models.Model):
     #         ('company_id', '=', self.env.company.id),
     #         ('company_id', '=', False)
     #     ]
+    # set domain in products cat for only show related products in muqeem expense lines
     def _product_domain(self):
         return [
-            '|',  # OR condition
+            '&',
+            ('categ_id.type', '=', 'muqeem_expenses'),
+            '|',
             ('company_id', '=', self.env.company.id),
             ('company_id', '=', False)
         ]
@@ -619,6 +627,8 @@ class DocumentRenewExpenseLines(models.Model):
     ], default='company_account', string="Paid For", required=True)
     entry_created = fields.Boolean(default=False)
     created_loan_request = fields.Boolean(default=False)
+    # adding this field for track if muqeem expense lines are exported than it will removed
+    exported_to_transaction = fields.Boolean(default=False)
 
     @api.depends('remarks')
     def _compute_show_button(self):
@@ -781,82 +791,68 @@ class DocumentRenewExpenseLines(models.Model):
 
     # method for expense lines export to expense transactions
 
+    # def action_export_to_expense_transaction(self):
+    #     """Open wizard to configure and export to Expense Transaction"""
+    #     selected_line_ids = self.env.context.get('active_ids', [])
+    #     if not selected_line_ids:
+    #         raise ValidationError('No lines selected for export')
+    #
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'res_model': 'muqeem.expense.export.wizard',
+    #         'view_mode': 'form',
+    #         'target': 'new',  # This makes it a popup wizard
+    #         'context': {'active_ids': selected_line_ids},
+    #     }
+
     def action_export_to_expense_transaction(self):
-        """Export selected Muqeem Expense Lines to Expense Transaction"""
-        selected_line_ids = self.env.context.get('active_ids', [])
-        if not selected_line_ids:
-            raise ValidationError('No lines selected for export')
+        """Open the export wizard with selected lines"""
+        # Create wizard with required fields
+        wizard = self.env['muqeem.expense.export.wizard'].create({
+            'amortization_method': 'monthly',  # Add default value
+        })
 
-        expense_lines = self.env['document.renew.expense.line'].browse(selected_line_ids)
+        # Populate lines manually
+        for line in self:
+            product = line.product_id.with_company(self.env.company)
+            expense_account = product.property_account_expense_id
 
-        if not expense_lines:
-            raise ValidationError('Selected lines not found')
+            if not expense_account:
+                expense_account = product.categ_id.property_account_expense_categ_id
 
-        # Prepare expense detail lines data
-        expense_detail_lines = []
-        for line in expense_lines:
-            # Get expense account from product
-            expense_account = line.product_id.property_account_expense_id or False
             if not expense_account:
                 raise ValidationError(
-                    f"Product '{line.product_id.name}' does not have an Expense Account configured. "
-                    f"Please configure it in the product's Accounting tab."
+                    f"Product '{line.product_id.name}' does not have an Expense Account configured."
                 )
 
-            # Use same account for both fields (or configure separately if needed)
-            prepaid_account = expense_account
-
-            # Create analytic distribution if analytic account exists
-            analytic_dist = False
+            analytic_dist = None
             if line.analytic_account_id:
                 analytic_dist = {str(line.analytic_account_id.id): 100}
 
-            expense_detail_lines.append((0, 0, {
+            self.env['muqeem.expense.export.wizard.line'].create({
+                'wizard_id': wizard.id,
                 'description': line.product_id.name,
-                'employee_id': line.expense_id.employee_id.id,
-                'operating_unit_id': line.expense_id.operating_unit_id.id,
-                'prepaid_expense_account_id': prepaid_account.id,
+                'employee_id': line.expense_id.employee_id.employee_id.id if line.expense_id and line.expense_id.employee_id and line.expense_id.employee_id.employee_id else False,
+                'operating_unit_id': line.expense_id.operating_unit_id.id if line.expense_id and line.expense_id.operating_unit_id else False,
+                'prepaid_expense_account_id': expense_account.id,
                 'expense_account_id': expense_account.id,
                 'analytic_distribution': analytic_dist,
                 'start_date': line.date,
                 'end_date': line.date,
-                'quantity': 1,
+                'quantity': line.quantity,
                 'price_unit': line.unit_price,
                 'price_total': line.total_amount,
-                'company_id': line.expense_id.company_id.id,
-            }))
+                'expense_line_id': line.id,
+                'expense_type_id': line.expense_type_id.id if getattr(line, "expense_type_id", False) else False,
+            })
 
-        # Get company from first line
-        company_id = expense_lines[0].expense_id.company_id.id
-
-        # Find a general journal for the company
-        journal = self.env['account.journal'].search([
-            ('type', '=', 'general'),
-            ('company_id', '=', company_id)
-        ], limit=1)
-
-        if not journal:
-            raise ValidationError(
-                f'No General Journal found for company {expense_lines[0].expense_id.company_id.name}')
-
-        # Create new Expense Transaction
-        expense_transaction = self.env['account.expense.transaction'].create({
-            'date': fields.Date.today(),
-            'expense_nature': 'accrual',
-            'amortization_method': 'on_time',
-            'reference': f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}',
-            'company_id': company_id,
-            'expense_detail_ids': expense_detail_lines,
-            'type_jv': 'each_line',
-            'journal_id': journal.id,
-        })
-
-        # Return form view of created transaction
+        # Open wizard with lines already populated
         return {
             'type': 'ir.actions.act_window',
-            'res_model': 'account.expense.transaction',
-            'res_id': expense_transaction.id,
+            'name': 'Export to Expense Transaction',
+            'res_model': 'muqeem.expense.export.wizard',
+            'res_id': wizard.id,
             'view_mode': 'form',
             'view_type': 'form',
-            'target': 'current',
+            'target': 'new',
         }

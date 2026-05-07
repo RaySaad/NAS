@@ -94,6 +94,7 @@
                                     <field name="date" readonly="1"/>
                                     <field name="is_paid" column_invisible="True"/>
                                     <field name="product_id" options="{'no_create': True}"
+                                           domain="[('categ_id.type', '=', 'muqeem_expenses')]"
                                            readonly="parent.state != 'draft'"/>
                                     <field name="analytic_account_id"
                                            readonly="parent.state != 'draft'"/>
@@ -248,14 +249,16 @@
         <field name="view_mode">list</field>
         <field name="view_id" ref="document_renew_expense_line_list_view"/>
         <field name="context">{"create": 0}</field>
+        <!-- Filter to display only expense lines after post entries and not already exported -->
+        <field name="domain">[('entry_created', '=', True), ('exported_to_transaction', '=', False)]</field>
     </record>
 
     <menuitem id="menu_document_renew_expense_line"
-          name="Muqeem Expenses Lines"
-          sequence="3"
-          groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
-          action="document_renew_expense_line_action"
-          parent="saddad.menu_document_renewal_muqeem"/>
+              name="Muqeem Expenses Lines"
+              sequence="3"
+              groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              action="document_renew_expense_line_action"
+              parent="saddad.menu_document_renewal_muqeem"/>
 
     <!-- Export to Expense Transaction Action -->
     <record id="action_export_to_expense_transaction" model="ir.actions.server">
@@ -266,6 +269,56 @@
         <field name="state">code</field>
         <field name="code">
             action = records.action_export_to_expense_transaction()
+        </field>
+    </record>
+    <!-- Muqeem Expense Export Wizard -->
+    <record id="muqeem_expense_export_wizard_view" model="ir.ui.view">
+        <field name="name">muqeem.expense.export.wizard.form</field>
+        <field name="model">muqeem.expense.export.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export to Expense Transaction">
+                <group>
+                    <group>
+                        <field name="date"/>
+                        <field name="expense_nature" widget="radio"/>
+                        <field name="amortization_method"/>
+                        <field name="reference"/>
+                    </group>
+                    <group>
+                        <field name="journal_id" options="{'no_create': True}"/>
+                        <field name="type_jv"/>
+                        <field name="expense_type_id" options="{'no_create': True}"/>
+                    </group>
+                </group>
+
+                <!-- ADD THIS PART -->
+                <notebook>
+                    <page string="Expense Lines">
+                        <field name="wizard_line_ids">
+                            <list editable="bottom">
+                                <field name="description" readonly="1"/>
+                                <field name="expense_type_id"/>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="operating_unit_id" readonly="1"/>
+                                <field name="expense_account_id" readonly="1"/>
+                                <field name="prepaid_expense_account_id" readonly="1"/>
+                                <field name="start_date" readonly="1"/>
+                                <field name="end_date" readonly="1"/>
+                                <field name="quantity" readonly="1"/>
+                                <field name="price_unit" readonly="1"/>
+                                <field name="price_total" readonly="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Export" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
         </field>
     </record>
 

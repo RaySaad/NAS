@@ -14,3 +14,5 @@ access_product_category_mapping,access_product_category_mapping,model_product_ca
 access_show_notification,access_show_notification,model_show_notification,,1,1,1,1
 access_muqeem_expense_line_details,access_muqeem_expense_line_details,model_muqeem_expense_line_details,,1,1,1,1
 access_employee_record,access_employee_record,model_employee_record,base.group_user,1,1,1,1
+access_muqeem_expense_export_wizard,muqeem.expense.export.wizard,model_muqeem_expense_export_wizard,base.group_user,1,1,1,1
+access_muqeem_expense_export_wizard_line,muqeem.expense.export.wizard.line,model_muqeem_expense_export_wizard_line,base.group_user,1,1,1,1

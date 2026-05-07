@@ -14,3 +14,4 @@ from . import hr_employee_ext
 from . import account_move_ext
 from . import account_payment_ext
 from . import employee_record
+from . import muqeem_expense_export_wizard
