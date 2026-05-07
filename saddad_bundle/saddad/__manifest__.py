@@ -25,6 +25,7 @@
         'fleet',
         'hr',
         'product',
+        'account_expense_transaction',
         'account',
     ],
     'data': [
