@@ -1058,7 +1058,7 @@ class JVAPI(http.Controller):
 						response.append({
 							'success': True,
 							'error': False,
-							'message': "Cost Invoice created successfully",
+							'message': "Clearance created successfully",
 							'data': {
 								'contact_id': jv.id,
 								'crm_number': jv.crm_number
