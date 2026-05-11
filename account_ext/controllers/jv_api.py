@@ -889,6 +889,190 @@ class JVAPI(http.Controller):
 							'data': {}
 						}})
 
+				elif post['type'] == 'clearance':
+					try:
+						required_field = {
+							'crm_number': "CRM Number is required",
+							'customer_account': "Customer Contract is required",
+							'operating_unit_id': "Operation Unit is required",
+							'line_ids': "Line IDs are required",
+							'bank_id': "Bank ID is required"
+						}
+						for key, value in required_field.items():
+							if not post.get(key):
+								return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+									'success': False,
+									'error': True,
+									'message': f"{value}",
+									'data': {}
+								}})
+
+						existing_crm = request.env['account.move'].sudo().search([
+							('crm_number', '=', post['crm_number']),('jv_type','=',post['type'])
+						], limit=1)
+						if existing_crm:
+							return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+								'success': False,
+								'error': True,
+								'message': 'CRM Number already exists',
+								'data': {}
+							}})
+						existing = request.env['partner.subscription'].sudo().search([
+							('name', '=', post['customer_account'])
+						], limit=1)
+						if not existing:
+							return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+								'success': False,
+								'error': True,
+								'message': f"Partner having Customer Contract: {post['customer_account']} does not exists",
+								'data': {}
+							}})
+						partner_id = existing.partner_id
+
+						operating_unit_id = post.get('operating_unit_id', False)
+						if not operating_unit_id:
+							return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+								'success': False,
+								'error': True,
+								'message': 'Operation Unit Not Provided',
+								'data': {}
+							}})
+
+						operating_unit = request.env['operating.unit'].sudo().search([('code', '=', operating_unit_id)])
+						if operating_unit_id and len(operating_unit) == 0:
+							return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+								'success': False,
+								'error': True,
+								'message': 'Wrong code in Operation Unit',
+								'data': {}
+							}})
+						line_val=[]
+						for line in post['line_ids']:
+							line_operating_unit_id = line.get('operating_unit_id', False)
+							line_operating_unit = request.env['operating.unit'].sudo().search(
+								[('code', '=', line_operating_unit_id)])
+							if line_operating_unit_id and len(line_operating_unit) == 0:
+								return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+									'success': False,
+									'error': True,
+									'message': 'Wrong code in Operation Unit',
+									'data': {}
+								}})
+
+							if not request.env['account.account'].sudo().search([('code', '=', line['account_id'])]):
+								return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+									'success': False,
+									'error': True,
+									'message': f"CoA have code: {line['account_id']} does not exist.",
+									'data': {}
+								}})
+							if 'employee_code' in line:
+								employee_code = str(line['employee_code'])
+								existing_employee = request.env['hr.employee'].sudo().search([
+									('employee_code', '=', employee_code), ('active', '=', True)
+								], limit=1)
+								if not existing_employee:
+									return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+										'success': False,
+										'error': True,
+										'message': 'Employee does not exists with code (%s)' % (employee_code),
+										'data': {}
+									}})
+								line['employee_id'] = existing_employee.id
+
+							analytic_dept = False
+							if line.get('department', False):
+								analytic_dept = request.env['account.analytic.account'].sudo().search([
+									('code', '=', line['department'])
+								], limit=1)
+								if not analytic_dept:
+									return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+										'success': False,
+										'error': True,
+										'message': f"Department Analytic account {line['department']} does not exist",
+										'data': {}
+									}})
+							analytic_cost = False
+							if line.get('cost_center', False):
+								analytic_cost = request.env['account.analytic.account'].sudo().search([
+									('code', '=', line['cost_center'])
+								], limit=1)
+								if not analytic_cost:
+									return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+										'success': False,
+										'error': True,
+										'message': f"Cost Center Analytic account {line['cost_center']} does not exist",
+										'data': {}
+									}})
+							branch = False
+							if line.get('branch', False):
+								branch = request.env['account.analytic.account'].sudo().search([
+									('code', '=', line['branch'])
+								], limit=1)
+								if not branch:
+									return request.make_json_response({"jsonrpc": "2.0", "id": 1, "result": {
+										'success': False,
+										'error': True,
+										'message': f"Branch Analytic account {line['branch']} does not exist",
+										'data': {}
+									}})
+							analytic_distribution = {}
+							if analytic_dept:
+								analytic_distribution[str(analytic_dept.id)] = 100.0
+							if analytic_cost:
+								analytic_distribution[str(analytic_cost.id)] = 100.0
+							if branch:
+								analytic_distribution[str(branch.id)] = 100.0
+
+							vals = {
+								'account_id': request.env['account.account'].sudo().search([
+									('code', '=', line['account_id'])]).id,
+								'name': line['name'],
+								'employee_id': line.get('employee_id', False),
+								'employee_code': line.get('employee_code', ''),
+								"customer_account": existing.id,
+								"customer_code": line.get('customer_code', ''),
+								"operating_unit_id": line_operating_unit.id,
+								'analytic_distribution': analytic_distribution or {},
+								'tax_ids': [[4, line['tax_id']]] if line.get('tax_id', False) else [],
+								'debit': line['amount'] if line['type'] == 'debit' else 0,
+								'credit': line['amount'] if line['type'] == 'credit' else 0
+							}
+
+							line_val.append((0, 0, vals))
+
+						jv_data = {
+							"partner_id": partner_id.id,
+							"customer_code": partner_id.customer_code,
+							"customer_account": existing.id,
+							"operating_unit_id": operating_unit.id,
+							"project_group_id": partner_id.project_group_id,
+							"invoice_project_id": partner_id.invoice_project_id,
+							"crm_number": post.get("crm_number"),
+							"journal_id": request.env.ref('account.1_general').id,
+							"date": post['date'],
+							'jv_type': post['type'],
+							"line_ids": line_val
+						}
+						jv = request.env['account.move'].sudo().create(jv_data)
+						response.append({
+							'success': True,
+							'error': False,
+							'message': "Cost Invoice created successfully",
+							'data': {
+								'contact_id': jv.id,
+								'crm_number': jv.crm_number
+							}
+						})
+					except Exception as e:
+						_logger.error("Error creating Cost Invoice: %s", str(e))
+						return request.make_json_response({"jsonrpc": "2.0", "id":1,"result":{
+							'success': False,
+							'error': True,
+							'message': str(e),
+							'data': {}
+						}})
+
 				elif post['type'] == 'insurance_payment':
 					try:
 						required_field = {
