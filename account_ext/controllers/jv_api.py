@@ -895,8 +895,7 @@ class JVAPI(http.Controller):
 							'crm_number': "CRM Number is required",
 							'customer_account': "Customer Contract is required",
 							'operating_unit_id': "Operation Unit is required",
-							'line_ids': "Line IDs are required",
-							'bank_id': "Bank ID is required"
+							'line_ids': "Line IDs are required"
 						}
 						for key, value in required_field.items():
 							if not post.get(key):
