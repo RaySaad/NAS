@@ -571,6 +571,26 @@ class DocumentRenewal(models.Model):
                         'message': _("For the external employee, the request is directly approved."),
                     }
                 }
+            # Block if employee has an existing Muqeem Expense not in cancel, posted or done
+            existing_expense = self.env['document.renew.expense'].sudo().search([
+                ('employee_id', '=', self.employee_id.id),
+                ('state', 'not in', ('cancel', 'posted', 'done')),
+            ], limit=1)
+            if existing_expense:
+                raise ValidationError(
+                    _(
+                        "Cannot create Muqeem Expense for employee: %s\n"
+                        "An existing Muqeem Expense [%s] is already exist in state: [%s].\n"
+                        "It must be cancelled, posted, or done before a new one can be created."
+                    ) % (
+                        self.employee_id.employee_name,
+                        existing_expense.name,
+                        dict(existing_expense._fields['state'].selection).get(
+                            existing_expense.state,
+                            existing_expense.state
+                        ),
+                    )
+                )
             bank_mapping = self.env['default.journal.mapping'].search([('company_id', '=', self.env.company.id)])
             if bank_mapping:
                 self.bank_journal_id = bank_mapping.bank_journal_id.id
@@ -593,3 +613,24 @@ class DocumentRenewal(models.Model):
             if req.employee_id.days_left_to_expire >= 1:
                 req.unlink()
 
+    # Bulk Action Methods (List View Server Actions)
+    def bulk_action_submit(self):
+
+        valid_records = self.filtered(lambda r: r.state == 'draft')
+        if valid_records:
+            valid_records.write({'state': 'hr_assistant'})
+
+    def bulk_approved_by_manager(self):
+        if not self.env.user.has_group('hr.group_hr_manager'):
+            raise ValidationError(_('You do not have permission to perform this action. Only HR Manager can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'hr_confirm')
+        if valid_records:
+            valid_records.write({'state': 'done'})
+
+    def bulk_confirm_by_hr(self):
+        if not self.env.user.has_group('hr.group_hr_user'):
+            raise ValidationError(
+                _('You do not have permission to perform this action. Only HR Assistant can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'hr_assistant')
+        if valid_records:
+            valid_records.write({'state': 'hr_confirm'})
