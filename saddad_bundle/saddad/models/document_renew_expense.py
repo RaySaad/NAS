@@ -311,6 +311,7 @@ class DocumentRenewExpense(models.Model):
         self.write({
             'state': 'refused'
         })
+
     # remove lines from muqeem expenses line list view when reset to draft
     def action_reset_to_draft(self):
         """Reset state to draft and reset entry_created flag on all expense lines"""
@@ -401,14 +402,14 @@ class DocumentRenewExpense(models.Model):
                 'expense_id': self.id,
                 'line_ids': self._create_move_lines(available_lines),
             })
+            self.account_move_id = move.id  # ADD THIS: link journal entry to muqeem expense
             available_lines.write({
                 'entry_created': True
             })
             if any(self.expense_line_ids.mapped('entry_created')):
                 self.update({
                     'show_journal_entry_button': True
-                }
-                )
+                })
             self.update_request_status()
         else:
             raise ValidationError('Bank Journal Missing')
@@ -552,6 +553,48 @@ class DocumentRenewExpense(models.Model):
         expense_ids = expense_ids.filtered(lambda l: l.state == 'gm')
         for expense in expense_ids:
             expense.gm_approval()
+
+    # Bulk Action Methods (List View Server Actions)
+
+    def bulk_action_confirm(self):
+        valid_records = self.filtered(lambda r: r.state == 'draft')
+        if valid_records:
+            valid_records.write({'state': 'hr_assistant'})
+
+    def bulk_hr_assistant_confirm(self):
+        if not self.env.user.has_group('saddad.group_saddad_hr_assistant'):
+            raise ValidationError(_('You do not have permission. Only HR Assistant can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'hr_assistant')
+        if valid_records:
+            valid_records.write({'state': 'hr_confirm'})
+
+    def bulk_hr_approval(self):
+        if not self.env.user.has_group('saddad.group_saddad_hr'):
+            raise ValidationError(_('You do not have permission. Only HR can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'hr_confirm')
+        if valid_records:
+            valid_records.write({'state': 'financial_approval'})
+
+    def bulk_financial_approval(self):
+        if not self.env.user.has_group('saddad.group_saddad_financial_approval'):
+            raise ValidationError(_('You do not have permission. Only Financial team can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'financial_approval')
+        if valid_records:
+            valid_records.write({'state': 'gm'})
+
+    def bulk_gm_approval(self):
+        if not self.env.user.has_group('saddad.group_saddad_gm'):
+            raise ValidationError(_('You do not have permission. Only GM can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'gm')
+        if valid_records:
+            valid_records.write({'state': 'payment'})
+
+    def bulk_refuse(self):
+        if not self.env.user.has_group('saddad.group_saddad_gm'):
+            raise ValidationError(_('You do not have permission. Only GM can refuse.'))
+        valid_records = self.filtered(lambda r: r.state == 'payment')
+        if valid_records:
+            valid_records.write({'state': 'refused'})
 
 
 class DocumentRenewExpenseLines(models.Model):
@@ -789,46 +832,41 @@ class DocumentRenewExpenseLines(models.Model):
                 'mail_message_id': message_id
             })
 
-    # method for expense lines export to expense transactions
-
-    # def action_export_to_expense_transaction(self):
-    #     """Open wizard to configure and export to Expense Transaction"""
-    #     selected_line_ids = self.env.context.get('active_ids', [])
-    #     if not selected_line_ids:
-    #         raise ValidationError('No lines selected for export')
-    #
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'res_model': 'muqeem.expense.export.wizard',
-    #         'view_mode': 'form',
-    #         'target': 'new',  # This makes it a popup wizard
-    #         'context': {'active_ids': selected_line_ids},
-    #     }
-
     def action_export_to_expense_transaction(self):
         """Open the export wizard with selected lines"""
-        # Create wizard with required fields
-        wizard = self.env['muqeem.expense.export.wizard'].create({
-            'amortization_method': 'monthly',  # Add default value
-        })
+        # Get Muqeem serial number for reference (Point 2 fix)
+        serial_ref = self.mapped('expense_id.name')
+        serial_ref = serial_ref[0] if serial_ref else ''
 
+        # Get journal entry from Muqeem Expense
+        move_ids = self.mapped('expense_id.account_move_id')
+        move_id = move_ids[0].id if move_ids else False
+
+        wizard = self.env['muqeem.expense.export.wizard'].with_context(
+            default_reference=serial_ref,
+            default_move_id=move_id,  # ADD THIS
+        ).create({
+            'amortization_method': 'monthly',
+        })
         # Populate lines manually
         for line in self:
             product = line.product_id.with_company(self.env.company)
             expense_account = product.property_account_expense_id
-
             if not expense_account:
                 expense_account = product.categ_id.property_account_expense_categ_id
-
             if not expense_account:
                 raise ValidationError(
                     f"Product '{line.product_id.name}' does not have an Expense Account configured."
                 )
-
             analytic_dist = None
             if line.analytic_account_id:
                 analytic_dist = {str(line.analytic_account_id.id): 100}
-
+            # fix  start_date from iqama expiry, end_date from renewal period
+            iqama_expiry = line.expense_id.iqama_expiry_date
+            period_str = line.period
+            period_days = set_period(int(period_str[0])) if period_str else 0
+            start_date = iqama_expiry or line.date
+            end_date = (start_date + timedelta(days=period_days)) if period_days else start_date
             self.env['muqeem.expense.export.wizard.line'].create({
                 'wizard_id': wizard.id,
                 'description': line.product_id.name,
@@ -837,15 +875,14 @@ class DocumentRenewExpenseLines(models.Model):
                 'prepaid_expense_account_id': expense_account.id,
                 'expense_account_id': expense_account.id,
                 'analytic_distribution': analytic_dist,
-                'start_date': line.date,
-                'end_date': line.date,
+                'start_date': start_date,
+                'end_date': end_date,
                 'quantity': line.quantity,
                 'price_unit': line.unit_price,
                 'price_total': line.total_amount,
                 'expense_line_id': line.id,
                 'expense_type_id': line.expense_type_id.id if getattr(line, "expense_type_id", False) else False,
             })
-
         # Open wizard with lines already populated
         return {
             'type': 'ir.actions.act_window',
@@ -856,3 +893,5 @@ class DocumentRenewExpenseLines(models.Model):
             'view_type': 'form',
             'target': 'new',
         }
+
+

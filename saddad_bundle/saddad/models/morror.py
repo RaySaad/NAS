@@ -434,6 +434,39 @@ class Morror(models.Model):
         for morror in morror_ids:
             morror.gm_approval()
 
+    # Bulk Action Methods (List View Server Actions)
+
+    def bulk_action_submit(self):
+        valid_records = self.filtered(lambda r: r.state == 'draft')
+        if valid_records:
+            valid_records.write({'state': 'fleet'})
+
+    def bulk_fleet_manager_approval(self):
+        if not self.env.user.has_group('saddad.fleet_manager_group'):
+            raise ValidationError(_('You do not have permission. Only Fleet Manager can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'fleet')
+        if valid_records:
+            valid_records.write({'state': 'financial_approval'})
+
+    def bulk_financial_approval(self):
+        if not self.env.user.has_group('saddad.group_saddad_financial_approval'):
+            raise ValidationError(_('You do not have permission. Only Financial team can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'financial_approval')
+        if valid_records:
+            valid_records.write({'state': 'gm'})
+
+    def bulk_gm_approval(self):
+        if not self.env.user.has_group('saddad.group_saddad_gm'):
+            raise ValidationError(_('You do not have permission. Only GM can approve.'))
+        valid_records = self.filtered(lambda r: r.state == 'gm')
+        if valid_records:
+            valid_records.write({'state': 'payment_pending'})
+
+    def bulk_refuse(self):
+        valid_records = self.filtered(lambda r: r.state == 'payment_pending')
+        if valid_records:
+            valid_records.write({'state': 'refused'})
+
 
 class MorrorLines(models.Model):
     _name = 'morror.line'
@@ -529,3 +562,6 @@ class MorrorLines(models.Model):
             line.update({
                 'total_amount': line.unit_price or 0.0
             })
+
+
+

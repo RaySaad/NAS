@@ -21,14 +21,15 @@ class MuqeemExpenseExportWizard(models.TransientModel):
     company_id = fields.Many2one('res.company', 'Company', required=True, default=lambda self: self.env.company)
     expense_type_id = fields.Many2one("account.expense.type", string="Expense Type",
                                       domain=[('state', '=', 'confirmed')])
+    move_id = fields.Many2one('account.move', string='Journal Entry')
     wizard_line_ids = fields.One2many('muqeem.expense.export.wizard.line', 'wizard_id',
                                       string="Expense Lines")
 
     @api.model
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
-        # Auto generate reference
-        res['reference'] = f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}'
+        # generate reference from Muqeem expenses
+        res['reference'] = self.env.context.get('default_reference') or f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}'
         # Auto set journal
         journal = self.env['account.journal'].search([
             ('type', '=', 'general'),
@@ -36,6 +37,7 @@ class MuqeemExpenseExportWizard(models.TransientModel):
         ], limit=1)
         if journal:
             res['journal_id'] = journal.id
+        res['move_id'] = self.env.context.get('default_move_id', False)
         return res
 
     @api.model
@@ -85,6 +87,7 @@ class MuqeemExpenseExportWizard(models.TransientModel):
             'journal_id': self.journal_id.id,
             'type_jv': self.type_jv,
             'company_id': self.company_id.id,
+            'move_id': self.move_id.id if self.move_id else False,
             'expense_detail_ids': expense_detail_lines,
         })
 

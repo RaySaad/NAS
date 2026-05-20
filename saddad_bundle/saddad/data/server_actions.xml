@@ -1,80 +1,360 @@
 <odoo>
     <data>
-
         <record id="action_validate_muqeem_expense" model="ir.actions.server">
             <field name="name">Validate Expense</field>
             <field name="model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">21</field>
             <field name="code">
                 if records:
                 action = records.action_validate_expense()
             </field>
         </record>
-
         <record id="action_hr_assistant_approval" model="ir.actions.server">
             <field name="name">Approve All</field>
             <field name="model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">22</field>
             <field name="groups_id" eval="[(4, ref('saddad.group_saddad_hr_assistant'))]"/>
             <field name="code">
                 if records:
                 action = records.hr_assistant_approve()
             </field>
         </record>
-
         <record id="action_hr_approval" model="ir.actions.server">
             <field name="name">Approve All</field>
             <field name="model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">23</field>
             <field name="groups_id" eval="[(4, ref('saddad.group_saddad_hr'))]"/>
             <field name="code">
                 if records:
                 action = records.hr_approvals()
             </field>
         </record>
-
         <record id="action_gm_approval" model="ir.actions.server">
             <field name="name">Approve All</field>
             <field name="model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">24</field>
             <field name="groups_id" eval="[(4, ref('saddad.group_saddad_gm'))]"/>
             <field name="code">
                 if records:
                 action = records.gm_approvals()
             </field>
         </record>
-
         <record id="action_fleet_manager_approval" model="ir.actions.server">
             <field name="name">Approve All</field>
             <field name="model_id" ref="saddad.model_morror"/>
             <field name="binding_model_id" ref="saddad.model_morror"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">21</field>
             <field name="groups_id" eval="[(4, ref('saddad.fleet_manager_group'))]"/>
             <field name="code">
                 if records:
                 action = records.fleet_manager_approvals()
             </field>
         </record>
-
         <record id="action_gm_approvals" model="ir.actions.server">
             <field name="name">Approve All</field>
             <field name="model_id" ref="saddad.model_morror"/>
             <field name="binding_model_id" ref="saddad.model_morror"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
+            <field name="sequence">22</field>
             <field name="groups_id" eval="[(4, ref('saddad.group_saddad_gm'))]"/>
             <field name="code">
                 if records:
                 action = records.gm_approvals()
+            </field>
+        </record>
+
+        <!-- Bulk cancel action for selected Muqeem Expenses from list view -->
+        <record id="action_muqeem_expense_bulk_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">20</field>
+            <field name="code">
+                if records:
+                records.action_cancel()
+            </field>
+        </record>
+
+        <!-- Bulk reset to draft action for selected Muqeem Expenses from list view -->
+        <record id="action_muqeem_expense_bulk_draft" model="ir.actions.server">
+            <field name="name">Set to Draft</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">19</field>
+            <field name="code">
+                if records:
+                records.action_reset_to_draft()
+            </field>
+        </record>
+
+        <!-- Bulk cancel action for selected Morro records from list view -->
+        <record id="action_morror_bulk_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">20</field>
+            <field name="code">
+                if records:
+                records.action_cancel()
+            </field>
+        </record>
+
+        <!-- Bulk reset to draft action for selected Morro records from list view -->
+        <record id="action_morror_bulk_draft" model="ir.actions.server">
+            <field name="name">Set to Draft</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">19</field>
+            <field name="code">
+                if records:
+                records.action_reset_to_draft()
+            </field>
+        </record>
+
+        <!-- Bulk cancel action for selected PTR records from list view -->
+        <record id="action_ptr_bulk_cancel" model="ir.actions.server">
+            <field name="name">Cancel</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">20</field>
+            <field name="code">
+                if records:
+                records.cancel_request()
+            </field>
+        </record>
+
+        <!-- Bulk reset to draft action for selected PTR records from list view -->
+        <record id="action_ptr_bulk_draft" model="ir.actions.server">
+            <field name="name">Set to Draft</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">19</field>
+            <field name="code">
+                if records:
+                records.reset_to_draft()
+            </field>
+        </record>
+
+        <!-- Bulk Hr Assistant Approve for PTR records -->
+        <record id="action_ptr_bulk_hr_assistant" model="ir.actions.server">
+            <field name="name">Hr Assistant Approve</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">10</field>
+            <field name="code">
+                if records:
+                records.bulk_action_submit()
+            </field>
+        </record>
+
+        <!-- Bulk HR Confirmed Approve for PTR records -->
+        <record id="action_ptr_bulk_hr_confirm" model="ir.actions.server">
+            <field name="name">HR Approve</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">11</field>
+            <field name="groups_id" eval="[(4, ref('hr.group_hr_user'))]"/>
+            <field name="code">
+                if records:
+                records.bulk_confirm_by_hr()
+            </field>
+        </record>
+
+        <!-- Bulk HR Manager Approve (Done) for PTR records -->
+        <record id="action_ptr_bulk_done" model="ir.actions.server">
+            <field name="name">HR Manager Approve</field>
+            <field name="model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_model_id" ref="saddad.model_document_renewal"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">12</field>
+            <field name="groups_id" eval="[(4, ref('hr.group_hr_manager'))]"/>
+            <field name="code">
+                if records:
+                records.bulk_approved_by_manager()
+            </field>
+        </record>
+
+        <!-- Bulk Submit for Muqeem Expense records -->
+        <record id="action_muqeem_expense_bulk_submit" model="ir.actions.server">
+            <field name="name">Submit</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">10</field>
+            <field name="code">
+                if records:
+                records.bulk_action_confirm()
+            </field>
+        </record>
+
+        <!-- Bulk HR Assistant Confirm for Muqeem Expense records -->
+        <record id="action_muqeem_expense_bulk_hr_assistant" model="ir.actions.server">
+            <field name="name">Hr Assistant Confirm</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">11</field>
+            <field name="code">
+                if records:
+                records.bulk_hr_assistant_confirm()
+            </field>
+        </record>
+
+        <!-- Bulk HR Approval for Muqeem Expense records -->
+        <record id="action_muqeem_expense_bulk_hr_approval" model="ir.actions.server">
+            <field name="name">HR Approval</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">12</field>
+            <field name="code">
+                if records:
+                records.bulk_hr_approval()
+            </field>
+        </record>
+
+        <!-- Bulk Financial Approval for Muqeem Expense records -->
+        <record id="action_muqeem_expense_bulk_financial" model="ir.actions.server">
+            <field name="name">Financial Approval</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">13</field>
+            <field name="code">
+                if records:
+                records.bulk_financial_approval()
+            </field>
+        </record>
+
+        <!-- Bulk GM Approval for Muqeem Expense records -->
+        <record id="action_muqeem_expense_bulk_gm" model="ir.actions.server">
+            <field name="name">GM Approval</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">14</field>
+            <field name="code">
+                if records:
+                records.bulk_gm_approval()
+            </field>
+        </record>
+
+        <record id="action_muqeem_expense_bulk_refuse" model="ir.actions.server">
+            <field name="name">Refuse</field>
+            <field name="model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_model_id" ref="saddad.model_document_renew_expense"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">15</field>
+            <field name="code">
+                if records:
+                records.bulk_refuse()
+            </field>
+        </record>
+
+        <!-- Bulk Submit for Morror records -->
+        <record id="action_morror_bulk_submit" model="ir.actions.server">
+            <field name="name">Submit</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">10</field>
+            <field name="code">
+                if records:
+                records.bulk_action_submit()
+            </field>
+        </record>
+
+        <!-- Bulk Fleet Manager Approval for Morror records -->
+        <record id="action_morror_bulk_fleet_manager" model="ir.actions.server">
+            <field name="name">Fleet Manager Approval</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">11</field>
+            <field name="code">
+                if records:
+                records.bulk_fleet_manager_approval()
+            </field>
+        </record>
+
+        <!-- Bulk Financial Approval for Morror records -->
+        <record id="action_morror_bulk_financial" model="ir.actions.server">
+            <field name="name">Financial Approval</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">12</field>
+            <field name="code">
+                if records:
+                records.bulk_financial_approval()
+            </field>
+        </record>
+
+        <!-- Bulk GM Approval for Morror records -->
+        <record id="action_morror_bulk_gm" model="ir.actions.server">
+            <field name="name">GM Approval</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">13</field>
+            <field name="code">
+                if records:
+                records.bulk_gm_approval()
+            </field>
+        </record>
+
+        <record id="action_morror_bulk_refuse" model="ir.actions.server">
+            <field name="name">Refuse</field>
+            <field name="model_id" ref="saddad.model_morror"/>
+            <field name="binding_model_id" ref="saddad.model_morror"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="sequence">14</field>
+            <field name="code">
+                if records:
+                records.bulk_refuse()
             </field>
         </record>
 

@@ -262,7 +262,7 @@
 
     <!-- Export to Expense Transaction Action -->
     <record id="action_export_to_expense_transaction" model="ir.actions.server">
-        <field name="name">Export to Expense Transaction</field>
+        <field name="name">Create Expense Transaction</field>
         <field name="model_id" ref="model_document_renew_expense_line"/>
         <field name="binding_model_id" ref="model_document_renew_expense_line"/>
         <field name="binding_type">action</field>
@@ -314,7 +314,7 @@
 
                 <footer>
                     <button name="action_confirm" type="object"
-                            string="Export" class="btn-primary"/>
+                            string="Create" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary"
                             special="cancel"/>
                 </footer>
