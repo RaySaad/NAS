@@ -16,3 +16,7 @@ access_muqeem_expense_line_details,access_muqeem_expense_line_details,model_muqe
 access_employee_record,access_employee_record,model_employee_record,base.group_user,1,1,1,1
 access_muqeem_expense_export_wizard,muqeem.expense.export.wizard,model_muqeem_expense_export_wizard,base.group_user,1,1,1,1
 access_muqeem_expense_export_wizard_line,muqeem.expense.export.wizard.line,model_muqeem_expense_export_wizard_line,base.group_user,1,1,1,1
+
+access_document_renew_expense_batch,document.renew.expense.batch,model_document_renew_expense_batch,base.group_user,1,1,1,1
+access_muqeem_generate_expense_wizard,muqeem.generate.expense.wizard,model_muqeem_generate_expense_wizard,base.group_user,1,1,1,1
+access_muqeem_generate_expense_wizard_line,muqeem.generate.expense.wizard.line,model_muqeem_generate_expense_wizard_line,base.group_user,1,1,1,1

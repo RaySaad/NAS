@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Batch Form View -->
+    <record id="document_renew_expense_batch_form_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.batch.form.view</field>
+        <field name="model">document.renew.expense.batch</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_expenses"
+                            type="object"
+                            string="Generate Expenses"
+                            class="btn-primary"
+                            icon="fa-plus"
+                            invisible="state != 'new'"/>
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirm"
+                            class="btn-secondary"
+                            invisible="state != 'new'"/>
+                    <!--                    <button name="action_create_expense_transactions"-->
+                    <!--                            type="object"-->
+                    <!--                            string="Create Expense Transactions"-->
+                    <!--                            class="btn-primary"-->
+                    <!--                            invisible="state != 'confirmed'"/>-->
+
+
+                    <button name="action_mark_paid"
+                            type="object"
+                            string="Mark as Paid"
+                            class="btn-primary"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_reset_to_new"
+                            type="object"
+                            string="Reset to New"
+                            invisible="state not in ('confirmed',)"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="new,confirmed,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_expenses"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list">
+                            <field name="expense_count"
+                                   widget="statinfo"
+                                   string="Expenses"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="product_id"
+                                   options="{'no_create': True}"/>
+
+                        </group>
+                        <group>
+                            <field name="company_id"
+                                   options="{'no_create': True}"
+                                   readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_amount"/>
+                            <field name="iqama_period"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Expenses" name="expense_ids"
+                              invisible="expense_count == 0">
+                            <field name="expense_ids" readonly="1">
+                                <list decoration-success="state in ('posted','done')"
+                                      decoration-info="state == 'payment'"
+                                      decoration-danger="state == 'draft'">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="employee_id"/>
+                                    <field name="identification_id"/>
+                                    <field name="product_id"/>
+                                    <field name="total_amount"/>
+                                    <field name="state"
+                                           decoration-success="state in ('posted','done')"
+                                           decoration-info="state == 'payment'"
+                                           decoration-danger="state == 'draft'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch List View -->
+    <record id="document_renew_expense_batch_list_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.batch.list.view</field>
+        <field name="model">document.renew.expense.batch</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'new'"
+                  decoration-warning="state == 'confirmed'"
+                  decoration-success="state == 'paid'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="iqama_period"/>
+                <field name="expense_count"/>
+                <field name="total_amount"/>
+                <field name="company_id"/>
+                <field name="state"
+                       decoration-info="state == 'new'"
+                       decoration-warning="state == 'confirmed'"
+                       decoration-success="state == 'paid'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Batch Search View -->
+    <record id="document_renew_expense_batch_search_view" model="ir.ui.view">
+        <field name="name">document.renew.expense.batch.search.view</field>
+        <field name="model">document.renew.expense.batch</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="new"
+                        string="New"
+                        domain="[('state', '=', 'new')]"/>
+                <filter name="confirmed"
+                        string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+
+                <filter name="paid"
+                        string="Paid"
+                        domain="[('state', '=', 'paid')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state"
+                            string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_by_company"
+                            string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Batch Action -->
+    <record id="document_renew_expense_batch_action" model="ir.actions.act_window">
+        <field name="name">Expense Batches</field>
+        <field name="res_model">document.renew.expense.batch</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Expense Batch
+            </p>
+        </field>
+    </record>
+
+    <!-- Batch Menu Item -->
+    <menuitem id="menu_document_renew_expense_batch"
+              name="Muqeem Expense Batches"
+              sequence="4"
+              groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.saddad_post_entries,saddad.group_saddad_accountant,saddad.group_saddad_hr_assistant,saddad.group_saddad_hr,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
+              action="saddad.document_renew_expense_batch_action"
+              parent="saddad.menu_document_renewal_muqeem"/>
+
+</odoo>

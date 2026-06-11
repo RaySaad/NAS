@@ -35,6 +35,13 @@ class ExpenseDetailsLine(models.Model):
     company_id = fields.Many2one(string="Company", related='expense_transaction_id.company_id', store=True,
                                  readonly=True)
     employee_id = fields.Many2one('hr.employee', domain="[('company_id', '=', company_id)]")
+    # this is for adding in lines column a field employee_code
+    employee_code = fields.Char(string="Employee Code", compute='_compute_employee_code', store=True)
+
+    @api.depends('employee_id', 'employee_id.employee_code')
+    def _compute_employee_code(self):
+        for rec in self:
+            rec.employee_code = rec.employee_id.employee_code or False
 
     _sql_constraints = [
         ('expense_date_greater', 'check(end_date >= start_date)',

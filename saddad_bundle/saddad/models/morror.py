@@ -61,6 +61,18 @@ class Morror(models.Model):
     date = fields.Date(readonly=True, default=fields.Date.context_today,
                        string="Date")
     employee_id = fields.Many2one('hr.employee', string='Employee', domain=employee_domain)
+    # this field add for employee_code in muqeem expense form
+    employee_code = fields.Char(
+        string="Employee Code",
+        compute='_compute_employee_code',
+        store=True,
+        readonly=True,
+    )
+
+    @api.depends('employee_id', 'employee_id.employee_code')
+    def _compute_employee_code(self):
+        for rec in self:
+            rec.employee_code = rec.employee_id.employee_code or False
 
     expense_type = fields.Selection([
         ('traffic_violation', 'Traffic Violation'),
@@ -562,6 +574,3 @@ class MorrorLines(models.Model):
             line.update({
                 'total_amount': line.unit_price or 0.0
             })
-
-
-
