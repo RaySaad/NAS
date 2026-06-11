@@ -71,6 +71,7 @@
                                    readonly="state != 'draft'"/>
 
                             <field name="identification_id" readonly="1" force_save="1"/>
+                            <field name="employee_code" readonly="1"/>
                             <!--                            <field name="sponsor_id" readonly="1" force_save="1"/>-->
                             <field name="bank_journal_id" options="{'no_create':true,'no_open':true}"
                                    readonly="state not in ('payment','draft')"/>
@@ -183,6 +184,7 @@
                 <field name="employee_id"/>
                 <field name="remarks"/>
                 <field name="identification_id"/>
+                <field name="employee_code" filter_domain="[('employee_code', 'ilike', self)]"/>
                 <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
                 <filter name="hr_assistant" string="Hr Assistant" domain="[('state', '=', 'hr_assistant')]"/>
                 <filter name="hr_confirm" string="Hr Approved" domain="[('state', '=', 'hr_confirm')]"/>
@@ -299,6 +301,8 @@
                                 <field name="description" readonly="1"/>
                                 <field name="expense_type_id"/>
                                 <field name="employee_id" readonly="1"/>
+                                <field name="employee_code" readonly="1"/>
+
                                 <field name="operating_unit_id" readonly="1"/>
                                 <field name="expense_account_id" readonly="1"/>
                                 <field name="prepaid_expense_account_id" readonly="1"/>
@@ -337,5 +341,6 @@
     <menuitem id="expense_validation_menu" name="Expense Validation" sequence="5"
               groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
               action="saddad.expense_validation_action" parent="saddad.menu_document_renewal_muqeem"/>
+    
 
 </odoo>

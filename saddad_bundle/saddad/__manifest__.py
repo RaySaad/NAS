@@ -36,6 +36,7 @@
         'views/renewal_document_type.xml',
         'views/product_category_ext.xml',
         'views/document_renew_expense.xml',
+        'wizard/muqeem_generate_expense_wizard_view.xml',
         'data/ir_cron_data.xml',
         'data/employee_sync_cron.xml',
         'views/billers.xml',
@@ -44,9 +45,12 @@
         'views/default_journal_mapping.xml',
         'views/morror.xml',
         'views/product_template_ext.xml',
+
+        'views/document_renew_expense_batch_views.xml',
         'reports/muqeem_expenses.xml',
         'data/server_actions.xml',
         'wizard/muqeem_expense_line_details.xml',
+
         'views/employee_record.xml',
         'views/res_company_ext.xml',
         'data/product_template.xml',

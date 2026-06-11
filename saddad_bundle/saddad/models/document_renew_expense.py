@@ -165,6 +165,25 @@ class DocumentRenewExpense(models.Model):
     record_url = fields.Char(string="URL")
     remarks = fields.Char(compute="_compute_remarks", store=True)
     show_journal_entry_button = fields.Boolean()
+    # For batch muqeem expense renew field
+    batch_id = fields.Many2one(
+        'document.renew.expense.batch',
+        string='Batch',
+        tracking=True
+    )
+
+    # this field add for employee_code in muqeem expense form
+    employee_code = fields.Char(
+        string="Employee Code",
+        compute='_compute_employee_code',
+        store=True,
+        readonly=True,
+    )
+
+    @api.depends('employee_id', 'employee_id.employee_id', 'employee_id.employee_id.employee_code')
+    def _compute_employee_code(self):
+        for rec in self:
+            rec.employee_code = rec.employee_id.employee_id.employee_code or False
 
     # below method added for get auto fetch operating unit id against that employye we select in document renew expense form as per new changes in employee record model
     @api.depends('employee_id')
@@ -834,20 +853,25 @@ class DocumentRenewExpenseLines(models.Model):
 
     def action_export_to_expense_transaction(self):
         """Open the export wizard with selected lines"""
-        # Get Muqeem serial number for reference (Point 2 fix)
-        serial_ref = self.mapped('expense_id.name')
-        serial_ref = serial_ref[0] if serial_ref else ''
+        # Get unique Muqeem Expenses from selected lines
+        expense_ids = self.mapped('expense_id')
 
-        # Get journal entry from Muqeem Expense
-        move_ids = self.mapped('expense_id.account_move_id')
-        move_id = move_ids[0].id if move_ids else False
+        # Get Muqeem serial number for reference
+        # If single expense → use its serial, if multiple → join them
+        serial_ref = expense_ids[0].name if len(expense_ids) == 1 else ', '.join(expense_ids.mapped('name'))
+
+        # Assign JV only if lines belong to a single Muqeem Expense, leave empty for multiple
+        move_id = False
+        if len(expense_ids) == 1:
+            move_id = expense_ids.account_move_id.id or False
 
         wizard = self.env['muqeem.expense.export.wizard'].with_context(
             default_reference=serial_ref,
-            default_move_id=move_id,  # ADD THIS
+            default_move_id=move_id,
         ).create({
             'amortization_method': 'monthly',
         })
+
         # Populate lines manually
         for line in self:
             product = line.product_id.with_company(self.env.company)
@@ -861,12 +885,14 @@ class DocumentRenewExpenseLines(models.Model):
             analytic_dist = None
             if line.analytic_account_id:
                 analytic_dist = {str(line.analytic_account_id.id): 100}
-            # fix  start_date from iqama expiry, end_date from renewal period
+
+            # Start date from iqama expiry, end date from renewal period
             iqama_expiry = line.expense_id.iqama_expiry_date
             period_str = line.period
             period_days = set_period(int(period_str[0])) if period_str else 0
             start_date = iqama_expiry or line.date
             end_date = (start_date + timedelta(days=period_days)) if period_days else start_date
+
             self.env['muqeem.expense.export.wizard.line'].create({
                 'wizard_id': wizard.id,
                 'description': line.product_id.name,
@@ -883,6 +909,7 @@ class DocumentRenewExpenseLines(models.Model):
                 'expense_line_id': line.id,
                 'expense_type_id': line.expense_type_id.id if getattr(line, "expense_type_id", False) else False,
             })
+
         # Open wizard with lines already populated
         return {
             'type': 'ir.actions.act_window',
@@ -893,5 +920,3 @@ class DocumentRenewExpenseLines(models.Model):
             'view_type': 'form',
             'target': 'new',
         }
-
-

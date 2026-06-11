@@ -29,7 +29,8 @@ class MuqeemExpenseExportWizard(models.TransientModel):
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
         # generate reference from Muqeem expenses
-        res['reference'] = self.env.context.get('default_reference') or f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}'
+        res['reference'] = self.env.context.get(
+            'default_reference') or f'MUQEEM-{fields.Date.today().strftime("%Y%m%d")}-{self.env.user.id}'
         # Auto set journal
         journal = self.env['account.journal'].search([
             ('type', '=', 'general'),
@@ -114,6 +115,13 @@ class MuqeemExpenseExportWizardLine(models.TransientModel):
     expense_type_id = fields.Many2one("account.expense.type", string="Expense Type")
     employee_id = fields.Many2one('hr.employee', string='Employee')
     employee_id = fields.Many2one('hr.employee', string='Employee')
+    employee_code = fields.Char(string="Employee Code", compute='_compute_employee_code', store=True)
+
+    @api.depends('employee_id', 'employee_id.employee_code')
+    def _compute_employee_code(self):
+        for rec in self:
+            rec.employee_code = rec.employee_id.employee_code or False
+
     operating_unit_id = fields.Many2one('operating.unit', string='Operating Unit')
     expense_account_id = fields.Many2one("account.account", string="Expense Account")
     prepaid_expense_account_id = fields.Many2one("account.account", string="Prepaid/Accrual Expense Account")

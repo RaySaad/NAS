@@ -322,14 +322,14 @@ class DocumentRenewal(models.Model):
             cache_data = company_renewal_cache[rec.company_id.id]
             if rec.id not in cache_data['existing_employee_ids']:
                 self.create_document_renewal_expense(rec, cache_data['product'], doc_type)
-            
 
+    # Cron entry point: syncs, cleans, and creates PTR records based on company expiry criteria
     @api.model
     def check_document_expiry(self):
         """Check for documents expiring based on company-specific ptr_days and create renewal records"""
         companies = self.env['res.company'].search([('ptr_days', '>', 0)])
         all_iqama_records = self.env['employee.record']
-        
+
         for company in companies:
             date_after_ptr_days = datetime.date.today() + timedelta(days=company.ptr_days)
             company_iqama_records = self.env['employee.record'].search(
@@ -338,18 +338,72 @@ class DocumentRenewal(models.Model):
                  ('company_id', '=', company.id)
                  ])
             all_iqama_records |= company_iqama_records
-        
+
         iqama_records = all_iqama_records
         doc_type = self.env['renewal.document.type'].search([
             ('name', 'ilike', 'Iqama Renewal')
         ])
         doc_type = doc_type[0] if doc_type else False
         if doc_type:
+            # Step 1: Sync latest employee data into all existing draft PTR records
+            self._update_existing_ptr_records()
+            # Step 2: Drop PTR records whose employees no longer meet the expiry criteria
+            self._remove_invalid_ptr_records()
+            # Step 3: Create missing PTR records for employees now within the expiry window
             if iqama_records:
                 self.create_decument_renewal_request(iqama_records, doc_type)
                 self._generate_excel_report(iqama_records)
         else:
             raise ValidationError(_("There is no Document type name Iqama Renewal. Please create document type"))
+
+    # Syncs iqama number and expiry date from employee into all draft PTR records
+    def _update_existing_ptr_records(self):
+        """Sync ALL draft PTR records with latest employee data"""
+        existing_records = self.search([('state', '=', 'draft')])
+        if not existing_records:
+            return
+        for ptr in existing_records:
+            emp = ptr.employee_id
+            if emp:
+                ptr.write({
+                    'identification_id': emp.identification_id,
+                    'iqama_expiry_date': emp.identification_expiry_date,
+                })
+
+    # Removes draft PTR records that fall outside the company's configured ptr_days window
+    def _remove_invalid_ptr_records(self):
+        """Remove draft PTR records that no longer meet configured criteria"""
+        existing_records = self.search([('state', '=', 'draft')])
+        to_delete = self.env['document.renewal']
+
+        for ptr in existing_records:
+            emp = ptr.employee_id
+
+            # No employee linked — remove it
+            if not emp:
+                to_delete |= ptr
+                continue
+
+            company = emp.company_id
+            ptr_days = company.ptr_days or 0
+
+            # Company has no ptr_days configured — skip
+            if not ptr_days:
+                continue
+
+            date_after_ptr_days = datetime.date.today() + timedelta(days=ptr_days)
+
+            # No expiry date on employee — remove it
+            if not emp.identification_expiry_date:
+                to_delete |= ptr
+                continue
+
+            # Expiry is beyond the configured window — remove it
+            if emp.identification_expiry_date > date_after_ptr_days:
+                to_delete |= ptr
+
+        if to_delete:
+            to_delete.unlink()
 
     def _generate_excel_report(self, iqama_records):
         """Generate professional Excel report and send via email"""
@@ -607,7 +661,7 @@ class DocumentRenewal(models.Model):
         return len(
             self.env['document.renewal'].search([('state', '=', 'draft'), ('company_id', '=', self.env.company.id)]))
 
-    def delete_renewal_request(self):
+    def delete_renewal_requests(self):
         requests = self.search([('state', '=', 'draft')])
         for req in requests:
             if req.employee_id.days_left_to_expire >= 1:

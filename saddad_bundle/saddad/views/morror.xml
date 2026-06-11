@@ -57,6 +57,7 @@
                                    readonly="state != 'draft'"
                                    domain="[('identification_id', '=like', '2%')]"/>
                             <field name="identification_id" force_save="1" readonly="1"/>
+                            <field name="employee_code" filter_domain="[('employee_code', 'ilike', self)]"/>
                             <field name="deduction_date"
                                    readonly="state != 'draft'"
                                    invisible="expense_type != 'traffic_violation'"
@@ -175,6 +176,7 @@
                 <field name="fleet_id"/>
                 <field name="employee_id"/>
                 <field name="identification_id"/>
+                <field name="employee_code"/>
                 <field name="violation_number"/>
             </search>
         </field>
