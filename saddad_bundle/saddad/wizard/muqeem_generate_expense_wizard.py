@@ -53,6 +53,7 @@ class MuqeemGenerateExpenseWizard(models.TransientModel):
                     'iqama_expiry_date': expense.iqama_expiry_date,
                     'expense_id': expense.id,
                     'selected': True,
+                    'employee_code': expense.employee_id.employee_number,
                 }))
             res['line_ids'] = lines
         return res
@@ -82,6 +83,11 @@ class MuqeemGenerateExpenseWizardLine(models.TransientModel):
     employee_id = fields.Many2one(
         'employee.record',
         string='Employee'
+    )
+    employee_code = fields.Char(
+        string='Employee Code',
+        related='employee_id.employee_number',
+        store=True
     )
     identification_id = fields.Char(
         string='Iqama Number'

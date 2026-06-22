@@ -17,12 +17,12 @@
                 </group>
                 <separator string="Employees - Pending Payment"/>
                 <field name="line_ids">
-                    <list>
-                        <field name="selected"/>
+                    <list editable="bottom">
                         <field name="employee_id"/>
                         <field name="identification_id"/>
-                        <field name="iqama_expiry_date"/>
-                        <field name="expense_id"/>
+                        <field name="iqama_expiry_date" optional="hide"/>
+                        <field name="employee_code"/>
+                        <field name="expense_id" optional="hide"/>
                     </list>
                 </field>
                 <footer>

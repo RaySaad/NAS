@@ -60,7 +60,7 @@ class EmployeeRecord(models.Model):
     def _onchange_employee_id(self):
         if self.employee_id:
             self.employee_name = self.employee_id.display_name
-            self.employee_number = self.employee_id.registration_number
+            self.employee_number = self.employee_id.employee_code
             self.company_id = self.employee_id.company_id.id
             self.identification_id = self.employee_id.identification_id
             # self.sponsor_id = self.employee_id.sponsor.identification_no if self.employee_id.sponsor else None
@@ -78,7 +78,8 @@ class EmployeeRecord(models.Model):
                     'employee_type': 'internal',
                     # 'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
                     'company_id': employee.company_id.id,
-                    'employee_number': employee.registration_number
+                    'employee_number': employee.employee_code
+
                 })
 
     @api.model
@@ -99,7 +100,7 @@ class EmployeeRecord(models.Model):
         update_vals['identification_id'] = employee.identification_id or ''
         # update_vals['sponsor_id'] = employee.sponsor.identification_no if employee.sponsor else None
         update_vals['company_id'] = employee.company_id.id
-        update_vals['employee_number'] = employee.registration_number
+        update_vals['employee_number'] = employee.employee_code
 
         if update_vals:
             self.write(update_vals)
@@ -135,7 +136,7 @@ class EmployeeRecord(models.Model):
                     'identification_id': employee.identification_id or '',
                     # 'sponsor_id': employee.sponsor.identification_no if employee.sponsor else None,
                     'company_id': employee.company_id.id,
-                    'employee_number': employee.registration_number
+                    'employee_number': employee.employee_code
                 }
                 record.write(update_vals)
                 updated_count += 1

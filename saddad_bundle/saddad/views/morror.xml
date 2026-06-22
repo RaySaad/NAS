@@ -142,12 +142,13 @@
                 <field name="date" widget="badge" decoration-info="1"/>
                 <field name="product_id"/>
                 <field name="employee_id"/>
+                <field name="employee_code"/>
                 <field name="violation_number" invisible="1"/>
 
                 <field name="fleet_id"/>
                 <field name="expense_type"/>
                 <field name="total_amount"/>
-                <field name="attachment_number" invisible="1"/>
+                <field name="attachment_number" optional="hide"/>
                 <button name="action_get_attachment_view" string="View Documents" type="object"
                         icon="fa-paperclip" invisible="attachment_number == 0"/>
                 <field name="state" widget="badge" decoration-danger="state == 'draft'"
