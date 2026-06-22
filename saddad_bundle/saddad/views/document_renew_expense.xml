@@ -81,6 +81,7 @@
                         </group>
                         <group>
                             <field name="company_id" readonly="1" options="{'no_create':true,'no_open':true}"/>
+                            <field name="batch_id" readonly="1"/>
                             <field name="paid_by" readonly="state != 'draft'"/>
                             <field name="cancel_note" readonly="state != 'draft'"/>
                             <field name="iqama_expiry_date" readonly="1" force_save="1"/>
@@ -157,12 +158,13 @@
                 <field name="serial_number"/>
                 <field name="date"/>
                 <field name="product_id"/>
-                <field name="remarks" invisible="1"/>
+                <field name="remarks" optional="hide"/>
                 <field name="employee_id"/>
 
                 <field name="identification_id"/>
+                <field name="employee_code"/>
                 <field name="total_amount"/>
-                <field name="attachment_number" invisible="1"/>
+                <field name="attachment_number" optional="hide"/>
                 <button name="action_get_attachment_view" string="View Documents" type="object"
                         icon="fa-paperclip" invisible="attachment_number == 0"/>
                 <field name="state" decoration-danger="state == 'draft'"
@@ -341,6 +343,6 @@
     <menuitem id="expense_validation_menu" name="Expense Validation" sequence="5"
               groups="base.group_system,saddad.muqeem_expenses_user,saddad.group_saddad_administrator,saddad.group_saddad_gm,saddad.group_saddad_financial_approval"
               action="saddad.expense_validation_action" parent="saddad.menu_document_renewal_muqeem"/>
-    
+
 
 </odoo>

@@ -57,7 +57,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            # Add any JS or CSS files to be included in the backend
+            'saddad/static/src/scss/muqeem_wizard.css',
         ],
         'web.assets_frontend': [
             # Add any JS or CSS files to be included in the frontend

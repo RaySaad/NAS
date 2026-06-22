@@ -1,0 +1,3 @@
+.modal .o_list_record_remove .fa-trash-o::before {
+    content: "\f00d";
+}
