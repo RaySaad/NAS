@@ -73,6 +73,16 @@ class ExcelJVImportWizard(models.TransientModel):
         errors = []
         first_data_row = None
 
+        # Per-import lookup caches so a repeated code/name across rows only
+        # hits the database once instead of on every occurrence.
+        caches = {
+            'account': {},
+            'operating_unit': {},
+            'customer_account': {},
+            'vehicle': {},
+            'employee': {},
+        }
+
         for row in range(header_row + 1, worksheet.max_row + 1):
             # Check if row is empty
             row_empty = True
@@ -120,7 +130,7 @@ class ExcelJVImportWizard(models.TransientModel):
 
             # Process line item
             try:
-                line_val = self._process_line_item(line_data, line_fields, row)
+                line_val = self._process_line_item(line_data, line_fields, row, caches)
                 if line_val:
                     line_vals_list.append((0, 0, line_val))
             except ValidationError as e:
@@ -143,15 +153,6 @@ class ExcelJVImportWizard(models.TransientModel):
         # Create Journal Entry
         move_data['line_ids'] = line_vals_list
         jv = self.env['account.move'].create(move_data)
-        for line in jv.line_ids:
-            if line.employee_id:
-                line.customer_account = line.employee_id.customer_account.id
-                line.partner_id = line.with_context(bypass=True).employee_id.customer_account.partner_id.id
-                line.customer_code = line.employee_id.customer_account.partner_id.customer_code
-                line.operating_unit_id = line.employee_id.operating_unit_id.id
-            elif line.customer_account:
-                line.partner_id = line.with_context(bypass=True).customer_account.partner_id.id
-                line.customer_code = line.customer_account.partner_id.customer_code
         try:
             jv.ref = str(int(float(jv.ref)))
         except:
@@ -188,17 +189,26 @@ class ExcelJVImportWizard(models.TransientModel):
                     continue
         return fields.Date.today()
 
-    def _process_line_item(self, line_data, line_fields, row_num):
+    def _process_line_item(self, line_data, line_fields, row_num, caches):
         """
         Process a single line item from Excel and return line values.
-        
+
         Special handling:
         - Account Code -> search account.account by code
         - Operating Unit Code -> search operating.unit by code
         - All other fields -> dynamic mapping based on header name
+
+        `caches` holds per-import lookup dicts (keyed by code/name) so a
+        value repeated across many rows only hits the database once.
         """
         line_val = {}
         row_info = ' (Row %s)' % row_num if row_num else ''
+
+        account_cache = caches['account']
+        ou_cache = caches['operating_unit']
+        customer_account_cache = caches['customer_account']
+        vehicle_cache = caches['vehicle']
+        employee_cache = caches['employee']
 
         # Special handling for Account Code
         account_found = False
@@ -207,9 +217,11 @@ class ExcelJVImportWizard(models.TransientModel):
             if 'account_id' == header_lower:
                 account_code = str(int(value)).strip()
                 if account_code:
-                    account = self.env['account.account'].search([
-                        ('code', '=', account_code)
-                    ], limit=1)
+                    if account_code not in account_cache:
+                        account_cache[account_code] = self.env['account.account'].search([
+                            ('code', '=', account_code)
+                        ], limit=1)
+                    account = account_cache[account_code]
                     if not account:
                         raise ValidationError(_('Account with code "%s" not found%s') % (account_code, row_info))
                     line_val['account_id'] = account.id
@@ -225,71 +237,79 @@ class ExcelJVImportWizard(models.TransientModel):
             if 'operating_unit_id' in header_lower:
                 ou_code = str(value).strip()
                 if ou_code:
-                    operating_unit = self.env['operating.unit'].search([
-                        ('code', '=', ou_code)
-                    ], limit=1)
+                    if ou_code not in ou_cache:
+                        ou_cache[ou_code] = self.env['operating.unit'].search([
+                            ('code', '=', ou_code)
+                        ], limit=1)
+                    operating_unit = ou_cache[ou_code]
                     if not operating_unit:
                         raise ValidationError(_('Operating Unit with code "%s" not found%s') % (ou_code, row_info))
                     line_val['operating_unit_id'] = operating_unit.id
                     break
 
-        # Special handling for Operating Unit Code
+        # Special handling for Customer Account
+        customer_account = None
         for header, value in line_data.items():
             header_lower = header.lower().strip()
             if 'customer_account' in header_lower:
                 name = str(value).strip()
                 if name:
-                    customer_account = self.env['partner.subscription'].search([
-                        ('name', '=', name)
-                    ], limit=1)
+                    if name not in customer_account_cache:
+                        customer_account_cache[name] = self.env['partner.subscription'].search([
+                            ('name', '=', name)
+                        ], limit=1)
+                    customer_account = customer_account_cache[name]
                     if not customer_account:
                         raise ValidationError(
                             _('Customer Account with name "%s" not found%s') % (name, row_info))
                     line_val['customer_account'] = customer_account.id
                     break
 
-        # Special handling for Operating Unit Code
+        # Special handling for Vehicle
         for header, value in line_data.items():
             header_lower = header.lower().strip()
             if 'vehicle_id' in header_lower:
                 name = value
                 if name:
-                    vehicle_id = self.env['fleet.vehicle'].search([
-                        ('display_name', '=', name)
-                    ], limit=1)
+                    if name not in vehicle_cache:
+                        vehicle_cache[name] = self.env['fleet.vehicle'].search([
+                            ('display_name', '=', name)
+                        ], limit=1)
+                    vehicle_id = vehicle_cache[name]
                     if not vehicle_id:
                         raise ValidationError(
                             _('Vehicle with display name "%s" not found%s') % (name, row_info))
                     line_val['vehicle_id'] = vehicle_id.id
                     break
-        # Special handling for Operating Unit Code
+
+        # Special handling for Employee Code
+        employee = None
         for header, value in line_data.items():
             header_lower = header.lower().strip()
             if 'employee_code' in header_lower:
                 name = value
                 if name:
-                    employee_id = self.env['hr.employee'].search([
-                        ('employee_code', '=', name)
-                    ], limit=1)
-                    if not employee_id:
+                    if name not in employee_cache:
+                        employee_cache[name] = self.env['hr.employee'].search([
+                            ('employee_code', '=', name)
+                        ], limit=1)
+                    employee = employee_cache[name]
+                    if not employee:
                         raise ValidationError(
                             _('Employee having employee_code "%s" not found%s') % (name, row_info))
-                    line_val['employee_id'] = employee_id.id
+                    line_val['employee_id'] = employee.id
                     break
 
-        for header, value in line_data.items():
-            header_lower = header.lower().strip()
-            if 'employee_code' in header_lower:
-                name = value
-                if name:
-                    employee_id = self.env['hr.employee'].search([
-                        ('employee_code', '=', name)
-                    ], limit=1)
-                    if not employee_id:
-                        raise ValidationError(
-                            _('Employee having employee_code "%s" not found%s') % (name, row_info))
-                    line_val['employee_id'] = employee_id.id
-                    break
+        # Derive customer/partner fields from Employee or Customer Account.
+        # Employee-linked data takes precedence when both are present.
+        if employee:
+            line_val['customer_account'] = employee.customer_account.id
+            line_val['partner_id'] = employee.with_context(bypass=True).customer_account.partner_id.id
+            line_val['customer_code'] = employee.customer_account.partner_id.customer_code
+            line_val['operating_unit_id'] = employee.operating_unit_id.id
+        elif customer_account:
+            line_val['partner_id'] = customer_account.with_context(bypass=True).partner_id.id
+            line_val['customer_code'] = customer_account.partner_id.customer_code
 
         # Process all other fields dynamically
         for header, value in line_data.items():
@@ -297,14 +317,11 @@ class ExcelJVImportWizard(models.TransientModel):
                 continue
 
             header_lower = header.lower().strip()
-            
+
             # Skip already processed fields
             if header_lower in ['account_id', 'operating_unit_id', 'customer_account', 'vehicle_id', 'employee_code']:
                 continue
 
-            # Normalize field name
-            field_name = self._normalize_field_name(header)
-            
             # Try to find matching field
             mapped_field = self._map_header_to_field(header, line_fields)
             if not mapped_field:
