@@ -41,6 +41,7 @@ class AccountMove(models.Model):
 			('multi-payment', 'MultiPayment'),
 			('invoice_refund', 'Invoice Refund'),
 			('payment', 'Payment'),
+			('clearance', 'Clearance'),
 			('insurance_payment', 'Insurance Payment'),
 			('cost_invoice', 'Cost Invoice'),
 			('payroll', 'Payroll')
