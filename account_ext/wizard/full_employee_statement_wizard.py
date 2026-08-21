@@ -120,7 +120,7 @@ class FullEmployeeStatementWizard(models.TransientModel):
                 'debit': debit,
                 'credit': credit,
                 'net_diff': net_diff,
-                'balance': net_diff,
+                'balance': opening + net_diff,
             })
 
         if line_vals:
