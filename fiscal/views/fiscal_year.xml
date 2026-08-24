@@ -1,0 +1,233 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="fiscal_year_form">
+			<field name="name">Fiscal year form</field>
+			<field name="model">fiscal.year</field>
+			<field name="arch" type="xml">
+			    <form string="Fiscal year">
+			        <header>
+				        <button string="Active" invisible="state != 'new'" name="active" type="object" groups="account.group_account_manager" confirm="Are you sure you want to active this financial year (financial year number)?"/>
+				        <button string="Freeze" invisible="state != 'active'" name="freeze" type="object" groups="account.group_account_user" confirm="If you froze this financial year, no one will be able to record or post any journal entries until you re-activate it … other departments still can record transactions on dates belongs to this frozen year, but they will not be able to confirm those transactions if this transactions has any financial effects.You have the option to Re-activate this year after freezing it"/>
+				        <button string="Reopen" invisible="state != 'freeze'" name="reactive" type="object" groups="account.group_account_manager"/>
+				        <button string="Close" invisible="state not in ['active','freeze']" name="close" type="object" groups="account.group_account_manager" confirm="Are you sure that you want to close this financial year?                                     If you accept, you will not be able to create invoices, journal entries, …etc., for this financial year"/>
+				        <button string="Set to draft" invisible="state != 'active'" name="set_to_draft" type="object" groups="account.group_account_manager" confirm="Are you sure that you want to set this financial year to draft?                                     If you accept, you will not be able to create invoices, journal entries, …etc. for this financial year,                                     In order to continue recording transactions on this financial year, you have to activate it"/>
+				        <field name="state" widget="statusbar"/>
+			        </header>
+			        <sheet>
+				        <group>
+				            <group>
+					            <field name="name" required="1" readonly="state in ['close','freeze']"/>
+					            <field name="code"/>
+				            </group>
+				            <group>
+					            <field name="start_date" readonly="state in ['close','freeze']"/>
+					            <field name="start_end" readonly="state in ['close','freeze']"/>
+					            <field name="company_id" readonly="1"/>
+				            </group>
+				        </group>
+				        <notebook>
+				            <page string="Periods">
+			                    <group string="Periods">
+				                    <field name="period_ids" readonly="1" nolabel="1">
+				                        <list editable="top" delete="0" create="0" duplicate="0">
+											<field name="display_name" readonly="1"/>
+											<field name="name" readonly="1"/>
+											<field name="code" readonly="1"/>
+											<field name="date_start" readonly="1"/>
+											<field name="date_end" readonly="1"/>
+											<field name="company_id" readonly="1" column_invisible="1"/>
+											<field name="lock_date_access" invisible="state not in ['close','freeze']"/>
+											<field name="lock_journal_ids" widget="many2many_tags"
+											       domain="[('company_id','=',company_id)]"
+											       invisible="state not in ['close','freeze']"
+											       options="{'no_create':True,'no_create_edit':True}"/>
+											<field name="state" readonly="1"/>
+				                        </list>
+				                    </field>
+				                </group>
+				                <group>
+				                    <field name="periods_count"/>
+				                </group>
+				            </page>
+				            <page string="Opening journal entry">
+					            <group>
+					                <group>
+					                    <field name="open_journal_id"/>
+					                </group>
+					            </group>
+					            <group>
+					                <field name="open_journal_lines_ids" nolabel="1">
+						                <list editable="top" readonly="1">
+						                  <field name="name"/>
+						                  <field name="account_id"/>
+						                  <field name="company_id" invisible="1"/>
+						                  <field name="debit" sum="total_debit"/>
+						                  <field name="credit" sum="total credit"/>
+						                </list>
+					                </field>
+					            </group>
+				            </page>
+				            <page string="Closing journal entry">
+					            <group>
+					                <group>
+						                <field name="close_journal_id"/>
+						                <field name="close_account_id"/>
+						                <field name="close_move_id"/>
+					                    <button string="Generate close Journal entry" name="generate_close_move" type="object"/>
+					                </group>
+						              <group>
+					                <field name="total_expenses"/>
+					                <field name="total_income"/>
+					                <field name="net_profit"/>
+					              </group>
+					            </group>
+					            <group>
+					                <field name="close_journal_lines_ids" nolabel="1">
+						                <list editable="top" readonly="1">
+											<field name="name"/>
+											<field name="account_id"/>
+											<field name="company_id" invisible="1"/>
+											<field name="debit" sum="total_debit"/>
+											<field name="credit" sum="total credit"/>
+						                </list>
+					                </field>
+					            </group>
+				            </page>
+				            <page string="Notes">
+					            <group string="Notes">
+					                <field name="note" nolabel="1"/>
+					            </group>
+				            </page>
+				        </notebook>
+			        </sheet>
+			        <chatter/>
+			    </form>
+		    </field>
+		</record>
+		
+		<record model="ir.ui.view" id="fiscal_year_tree">
+		    <field name="name">Fiscal year tree</field>
+		    <field name="model">fiscal.year</field>
+		    <field name="arch" type="xml">
+			    <list string="Fiscal year">
+					<field name="display_name"/>
+					<field name="name"/>
+					<field name="code"/>
+					<field name="start_date"/>
+					<field name="start_end"/>
+					<field name="periods_count"/>
+					<field name="state"/>
+			    </list>
+		    </field>
+		</record>
+		
+		<record id="open_fiscal_year" model="ir.actions.act_window">
+			<field name="name">Fiscal Year</field>
+			<field name="res_model">fiscal.year</field>
+			<field name="context">{'group_by':'company_id'}</field>
+			<field name="view_mode">list,form</field>
+			<field name="view_id" ref="fiscal_year_tree"/>
+			<field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+		</record>
+		
+		<menuitem id="menu_fiscal_year_main" name="Fiscal Year"
+		          parent="account.menu_finance_configuration" sequence="6"/>
+		<menuitem id="menu_fiscal_year" name="Fiscal Year"
+		          parent="menu_fiscal_year_main" action="open_fiscal_year" sequence="0"/>
+		
+		<record model="ir.ui.view" id="period_form">
+			<field name="name">Periods form</field>
+			<field name="model">periods</field>
+			<field name="arch" type="xml">
+				<form string="Periods" delete="false">
+					<header>
+						<button string="Active" invisible="state != 'new'" name="active" type="object" groups="account.group_account_manager"/>
+						<button string="Freeze" invisible="state != 'active'" name="freeze" type="object" groups="account.group_account_manager"/>
+						<button string="Reopen" invisible="state not in ['close','freeze']" name="reactive" type="object" groups="account.group_account_manager"/>
+						<button string="Close" invisible="state not in ['active','freeze']" name="close" type="object" groups="account.group_account_manager"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="code"/>
+								<field name="year_id" readonly="1"/>
+							</group>
+							<group>
+								<field name="date_start"/>
+								<field name="date_end"/>
+								<field name="company_id" invisible="1"/>
+								<field name="lock_date_access" required="1"
+								       invisible="state not in ['close','freeze']"/>
+								<field name="lock_journal_ids" widget="many2many_tags"
+								       domain="[('company_id','=',company_id)]"
+								       options="{'no_create':True,'no_create_edit':True}"
+								       invisible="state not in ['close','freeze']"/>
+							</group>
+						</group>
+					</sheet>
+					<chatter/>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="period_tree">
+			<field name="name">Periods tree</field>
+			<field name="model">periods</field>
+			<field name="arch" type="xml">
+				<list string="Periods" delete="false">
+					<field name="company_id" invisible="1"/>
+					<field name="display_name"/>
+					<field name="name"/>
+					<field name="code"/>
+					<field name="year_id"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="lock_date_access" invisible="state not in ['close','freeze']"/>
+					<field name="lock_journal_ids" widget="many2many_tags"
+					       invisible="state not in ['close','freeze']"/>
+					<field name="state"/>
+				</list>
+			</field>
+		</record>
+		
+		<record id="open_period" model="ir.actions.act_window">
+			<field name="name">Periods</field>
+			<field name="res_model">periods</field>
+			<field name="view_mode">list,form</field>
+			<field name="context">{'group_by': ['company_id', 'year_id']}</field>
+			<field name="view_id" ref="period_tree"/>
+			<field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+		</record>
+		
+		<menuitem id="menu_periods" name="Periods" parent="menu_fiscal_year_main" action="open_period" sequence="5"/>
+		
+		<record id="action_bulk_close_all" model="ir.actions.server">
+			<field name="name">Close All</field>
+			<field name="model_id" ref="account_move.model_periods"/>
+			<field name="binding_model_id" ref="account_move.model_periods"/>
+			<field name="state">code</field>
+			<field name="code">action = records.close()</field>
+			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
+		</record>
+		
+		<record id="action_bulk_freeze_all" model="ir.actions.server">
+			<field name="name">Freeze All</field>
+			<field name="model_id" ref="account_move.model_periods"/>
+			<field name="binding_model_id" ref="account_move.model_periods"/>
+			<field name="state">code</field>
+			<field name="code">action = records.freeze()</field>
+			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
+		</record>
+		
+		<record id="action_bulk_active_all" model="ir.actions.server">
+			<field name="name">Active All</field>
+			<field name="model_id" ref="account_move.model_periods"/>
+			<field name="binding_model_id" ref="account_move.model_periods"/>
+			<field name="state">code</field>
+			<field name="code">action = records.active()</field>
+			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
+		</record>
+	</data>
+</odoo>

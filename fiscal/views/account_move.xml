@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_move_form" model="ir.ui.view">
+			<field name="name">view_move_form</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+				<field name="invoice_date" position="after">
+	                <field name="period_id" force_save="1" options="{'no_create':True}"/>
+	            </field>
+	            <xpath expr="//header" position="after">
+	                <div class="mb-2 alert alert-warning" style="border:1px solid #eee; padding-bottom:5px;"
+	                     role="alert" invisible="state != 'draft' or not fiscal_year_lock_date_message">
+	                    <field name="fiscal_year_lock_date_message" nolabel="1"/>
+	                </div>
+	            </xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>
