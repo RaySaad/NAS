@@ -1,2 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 account_ext.access_excel_jv_import_wizard,access_excel_jv_import_wizard,account_ext.model_excel_jv_import_wizard,base.group_user,1,1,1,0
+access_full_employee_statement_wizard,full.employee.statement.wizard,model_full_employee_statement_wizard,base.group_user,1,1,1,1
+access_full_employee_statement_line,full.employee.statement.line,model_full_employee_statement_line,base.group_user,1,1,1,1
