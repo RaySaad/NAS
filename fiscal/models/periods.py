@@ -34,7 +34,7 @@ class Periods(models.Model):
     def name_get(self, arab=False):
         result = []
         for record in self:
-            name = "%s- %s" % (record.company_id.short_name or '', record.read()[0]['name'])
+            name = "%s- %s" % (record.company_id.name or '', record.read()[0]['name'])
             result.append((record.id, name))
         return result
 

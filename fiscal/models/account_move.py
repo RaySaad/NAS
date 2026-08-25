@@ -32,7 +32,7 @@ class AccountMove(models.Model):
                                 raise ValidationError(
                                     _("This entry cannot be post because the period %(period_name)s "
                                       "(from %(date_start)s to %(date_end)s) is locked.",
-                                      period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                      period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                       date_start=format_date(move.env, move.period_id.date_start),
                                       date_end=format_date(move.env, move.period_id.date_end)
                                       )
@@ -44,7 +44,7 @@ class AccountMove(models.Model):
                                         _("This entry cannot be post because the period %(period_name)s "
                                           "(from %(date_start)s to %(date_end)s) is locked.",
                                           period_name="%s - %s" % (
-                                          move.company_id.short_name or '', move.period_id.name),
+                                          move.company_id.name or '', move.period_id.name),
                                           date_start=format_date(move.env, move.period_id.date_start),
                                           date_end=format_date(move.env, move.period_id.date_end)
                                           )
@@ -56,7 +56,7 @@ class AccountMove(models.Model):
                                 raise ValidationError(
                                     _("This entry cannot be post because the period %(period_name)s "
                                       "(from %(date_start)s to %(date_end)s) is locked.",
-                                      period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                      period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                       date_start=format_date(move.env, move.period_id.date_start),
                                       date_end=format_date(move.env, move.period_id.date_end)
                                       )
@@ -68,7 +68,7 @@ class AccountMove(models.Model):
                                         _("This entry cannot be post because the period %(period_name)s "
                                           "(from %(date_start)s to %(date_end)s) is locked.",
                                           period_name="%s - %s" % (
-                                          move.company_id.short_name or '', move.period_id.name),
+                                          move.company_id.name or '', move.period_id.name),
                                           date_start=format_date(move.env, move.period_id.date_start),
                                           date_end=format_date(move.env, move.period_id.date_end)
                                           )
@@ -90,7 +90,7 @@ class AccountMove(models.Model):
                             raise ValidationError(
                                 _("This entry cannot be reset to draft because the period %(period_name)s "
                                   "(from %(date_start)s to %(date_end)s) is locked.",
-                                  period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                  period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                   date_start=format_date(move.env, move.period_id.date_start),
                                   date_end=format_date(move.env, move.period_id.date_end)
                                   )
@@ -101,7 +101,7 @@ class AccountMove(models.Model):
                                 raise ValidationError(
                                     _("This entry cannot be reset to draft because the period %(period_name)s "
                                       "(from %(date_start)s to %(date_end)s) is locked.",
-                                      period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                      period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                       date_start=format_date(move.env, move.period_id.date_start),
                                       date_end=format_date(move.env, move.period_id.date_end)
                                       )
@@ -113,7 +113,7 @@ class AccountMove(models.Model):
                             raise ValidationError(
                                 _("This entry cannot be reset to draft because the period %(period_name)s "
                                   "(from %(date_start)s to %(date_end)s) is locked.",
-                                  period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                  period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                   date_start=format_date(move.env, move.period_id.date_start),
                                   date_end=format_date(move.env, move.period_id.date_end)
                                   )
@@ -124,7 +124,7 @@ class AccountMove(models.Model):
                                 raise ValidationError(
                                     _("This entry cannot be reset to draft because the period %(period_name)s "
                                       "(from %(date_start)s to %(date_end)s) is locked.",
-                                      period_name="%s - %s" % (move.company_id.short_name or '', move.period_id.name),
+                                      period_name="%s - %s" % (move.company_id.name or '', move.period_id.name),
                                       date_start=format_date(move.env, move.period_id.date_start),
                                       date_end=format_date(move.env, move.period_id.date_end)
                                       )
@@ -196,7 +196,7 @@ class AccountMove(models.Model):
                                         _("This entry cannot be edit/save because the period %(period_name)s "
                                           "(from %(date_start)s to %(date_end)s) is locked. Please update the accounting date.",
                                           period_name="%s - %s" % (
-                                          move.company_id.short_name or '', move.period_id.name),
+                                          move.company_id.name or '', move.period_id.name),
                                           date_start=format_date(move.env, move.period_id.date_start),
                                           date_end=format_date(move.env, move.period_id.date_end)
                                           )
@@ -208,7 +208,7 @@ class AccountMove(models.Model):
                                             _("This entry cannot be edit/save because the period %(period_name)s "
                                               "(from %(date_start)s to %(date_end)s) is locked. Please update the accounting date.",
                                               period_name="%s - %s" % (
-                                              move.company_id.short_name or '', move.period_id.name),
+                                              move.company_id.name or '', move.period_id.name),
                                               date_start=format_date(move.env, move.period_id.date_start),
                                               date_end=format_date(move.env, move.period_id.date_end)
                                               )
@@ -221,7 +221,7 @@ class AccountMove(models.Model):
                                         _("This entry cannot be edit/save because the period %(period_name)s "
                                           "(from %(date_start)s to %(date_end)s) is locked. Please update the accounting date.",
                                           period_name="%s - %s" % (
-                                          move.company_id.short_name or '', move.period_id.name),
+                                          move.company_id.name or '', move.period_id.name),
                                           date_start=format_date(move.env, move.period_id.date_start),
                                           date_end=format_date(move.env, move.period_id.date_end)
                                           )
@@ -233,7 +233,7 @@ class AccountMove(models.Model):
                                             _("This entry cannot be edit/save because the period %(period_name)s "
                                               "(from %(date_start)s to %(date_end)s) is locked. Please update the accounting date.",
                                               period_name="%s - %s" % (
-                                              move.company_id.short_name or '', move.period_id.name),
+                                              move.company_id.name or '', move.period_id.name),
                                               date_start=format_date(move.env, move.period_id.date_start),
                                               date_end=format_date(move.env, move.period_id.date_end)
                                               )
