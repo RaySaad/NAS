@@ -209,7 +209,6 @@
 			<field name="binding_model_id" ref="fiscal.model_periods"/>
 			<field name="state">code</field>
 			<field name="code">action = records.close()</field>
-			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
 		</record>
 		
 		<record id="action_bulk_freeze_all" model="ir.actions.server">
@@ -218,7 +217,6 @@
 			<field name="binding_model_id" ref="fiscal.model_periods"/>
 			<field name="state">code</field>
 			<field name="code">action = records.freeze()</field>
-			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
 		</record>
 		
 		<record id="action_bulk_active_all" model="ir.actions.server">
@@ -227,7 +225,6 @@
 			<field name="binding_model_id" ref="fiscal.model_periods"/>
 			<field name="state">code</field>
 			<field name="code">action = records.active()</field>
-			<field name="group_ids" eval="[(4, ref('account.group_account_manager'))]"/>
 		</record>
 	</data>
 </odoo>
