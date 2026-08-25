@@ -32,10 +32,7 @@ class FiscalYear(models.Model):
     total_income = fields.Float('Total Income', compute='_get_net_profit')
     net_profit = fields.Float('Net profit', compute='_get_net_profit')
 
-    _unique_names = models.Constraint(
-        'unique(name, company_id)',
-        'Period must be unique per company.'
-    )
+    _sql_constraints = [('name', 'unique(name, company_id)', 'Period must be unique per company.')]
 
     def name_get(self, arab=False):
         result = []
