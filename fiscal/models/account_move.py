@@ -38,7 +38,7 @@ class AccountMove(models.Model):
                                       )
                                 )
                             else:
-                                is_advisor = self.user_has_groups("account.group_account_manager")
+                                is_advisor = self.env.user.has_groups("account.group_account_manager")
                                 if not is_advisor:
                                     raise ValidationError(
                                         _("This entry cannot be post because the period %(period_name)s "
@@ -62,7 +62,7 @@ class AccountMove(models.Model):
                                       )
                                 )
                             else:
-                                is_advisor = self.user_has_groups("account.group_account_manager")
+                                is_advisor = self.env.user.has_groups("account.group_account_manager")
                                 if not is_advisor:
                                     raise ValidationError(
                                         _("This entry cannot be post because the period %(period_name)s "
@@ -96,7 +96,7 @@ class AccountMove(models.Model):
                                   )
                             )
                         else:
-                            is_advisor = self.user_has_groups("account.group_account_manager")
+                            is_advisor = self.env.user.has_groups("account.group_account_manager")
                             if not is_advisor:
                                 raise ValidationError(
                                     _("This entry cannot be reset to draft because the period %(period_name)s "
@@ -119,7 +119,7 @@ class AccountMove(models.Model):
                                   )
                             )
                         else:
-                            is_advisor = self.user_has_groups("account.group_account_manager")
+                            is_advisor = self.env.user.has_groups("account.group_account_manager")
                             if not is_advisor:
                                 raise ValidationError(
                                     _("This entry cannot be reset to draft because the period %(period_name)s "
@@ -202,7 +202,7 @@ class AccountMove(models.Model):
                                           )
                                     )
                                 else:
-                                    is_advisor = self.user_has_groups("account.group_account_manager")
+                                    is_advisor = self.env.user.has_groups("account.group_account_manager")
                                     if not is_advisor:
                                         raise ValidationError(
                                             _("This entry cannot be edit/save because the period %(period_name)s "
@@ -227,7 +227,7 @@ class AccountMove(models.Model):
                                           )
                                     )
                                 else:
-                                    is_advisor = self.user_has_groups("account.group_account_manager")
+                                    is_advisor = self.env.user.has_groups("account.group_account_manager")
                                     if not is_advisor:
                                         raise ValidationError(
                                             _("This entry cannot be edit/save because the period %(period_name)s "
