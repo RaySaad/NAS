@@ -4,13 +4,15 @@
     'version': '1.0',
     'category': 'account',
 
-    'depends': ['accountant', 'contacts_ext', 'account_operating_unit', 'employees_ext', 'account_accountant',
+    'depends': ['account', 'accountant', 'contacts_ext', 'account_operating_unit', 'employees_ext', 'account_accountant',
                 'account_reports'],
     'data': [
         'security/ir.model.access.csv',
         'views/account_account.xml',
         'views/account_move.xml',
         'views/excel_jv_import_wizard_view.xml',
+        'wizard/full_employee_statement_wizard_views.xml',
+        'views/full_employee_statement_menus.xml',
     ],
     'assets': {
         'web.assets_backend': [
