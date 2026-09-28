@@ -124,6 +124,21 @@ class AccountMoveLine(models.Model):
 		for rec in self:
 			rec.employee_code = rec.employee_id.employee_code if rec.employee_id else ''
 
+	@api.model
+	def _get_tax_repartition_line_from_tags(self, tag_ids):
+		"""Return the tax repartition line owning the given tax tags, if exactly one does.
+
+		Lines created with VAT tags but without a tax link are counted by the tax report
+		(tag based) but skipped by the tax closing entry (tax_line_id based).
+		"""
+		if not tag_ids:
+			return self.env['account.tax.repartition.line']
+		repartition_lines = self.env['account.tax.repartition.line'].sudo().search([
+			('repartition_type', '=', 'tax'),
+			('tag_ids', 'in', tag_ids),
+		])
+		return repartition_lines if len(repartition_lines) == 1 else self.env['account.tax.repartition.line']
+
 	@api.model_create_multi
 	def create(self, vals_list):
 		moves = super().create(vals_list)
