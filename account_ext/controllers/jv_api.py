@@ -442,7 +442,9 @@ class JVAPI(http.Controller):
 							}
 
 							if line.get('tax_tag_ids', False):
-								vals["tax_tag_ids"] =[(6, 0, [line['tax_tag_ids']])]
+								# Link the tag to its tax so the closing entry matches the VAT Filing Report
+								vals.update(request.env['account.move.line'].sudo()._get_tax_vals_from_tag(
+									int(line['tax_tag_ids']), vals['debit'], vals['credit']))
 
 							line_val.append((0, 0, vals))
 
@@ -464,7 +466,9 @@ class JVAPI(http.Controller):
 							}})
 
 
-						jv = request.env['account.move'].with_user(user).create(jv_data)
+						# VAT lines are sent explicitly: don't let Odoo regenerate tax lines from the base lines
+						tax_linked = any(v.get('tax_repartition_line_id') or v.get('tax_ids') for _c, _i, v in line_val)
+						jv = request.env['account.move'].with_user(user).with_context(skip_invoice_sync=tax_linked).create(jv_data)
 						response.append({
 							'success': True,
 							'error': False,

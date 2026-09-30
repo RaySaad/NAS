@@ -152,7 +152,10 @@ class ExcelJVImportWizard(models.TransientModel):
 
         # Create Journal Entry
         move_data['line_ids'] = line_vals_list
-        jv = self.env['account.move'].create(move_data)
+        # VAT lines are imported explicitly: don't let Odoo regenerate tax lines from the base lines
+        tax_linked = any(vals.get('tax_tag_ids') and (vals.get('tax_repartition_line_id') or vals.get('tax_ids'))
+                         for _c, _i, vals in line_vals_list)
+        jv = self.env['account.move'].with_context(skip_invoice_sync=tax_linked).create(move_data)
         try:
             jv.ref = str(int(float(jv.ref)))
         except:
@@ -202,6 +205,7 @@ class ExcelJVImportWizard(models.TransientModel):
         value repeated across many rows only hits the database once.
         """
         line_val = {}
+        tax_tag_id = False
         row_info = ' (Row %s)' % row_num if row_num else ''
 
         account_cache = caches['account']
@@ -329,11 +333,17 @@ class ExcelJVImportWizard(models.TransientModel):
                 _logger.debug('Field "%s" not found in account.move.line, skipping', header)
                 continue
             if mapped_field == 'tax_tag_ids':
-                line_val[mapped_field] = [(6, 0, [int(value)])]
+                # Resolved to tax + tag once debit/credit are known (see below)
+                tax_tag_id = int(value)
             elif mapped_field == 'analytic_distribution':
                 line_val[mapped_field] = json.loads(value)
             else:
                 line_val[mapped_field] = value
+
+        if tax_tag_id:
+            # Link the tag to its tax so the closing entry matches the VAT Filing Report
+            line_val.update(self.env['account.move.line']._get_tax_vals_from_tag(
+                tax_tag_id, line_val.get('debit'), line_val.get('credit')))
 
         return line_val
 
