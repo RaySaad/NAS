@@ -124,6 +124,43 @@ class AccountMoveLine(models.Model):
 		for rec in self:
 			rec.employee_code = rec.employee_id.employee_code if rec.employee_id else ''
 
+	@api.model
+	def _get_tax_vals_from_tag(self, tag_id, debit, credit):
+		"""Return the line values linking a tax tag to its tax, stored the way Odoo stores taxed lines.
+
+		A line with a VAT tag but no tax is counted by the VAT Filing Report (tag based)
+		but skipped by the Generic tax report and the tax closing entry (tax based).
+		The tag is replaced by the one of the matching invoice/refund repartition line so
+		that the computed tax_tag_invert keeps the VAT Filing Report amount unchanged.
+		Falls back to the bare tag when it does not belong to exactly one tax.
+		"""
+		fallback = {'tax_tag_ids': [(6, 0, [tag_id])]}
+		repartition_lines = self.env['account.tax.repartition.line'].sudo().with_context(active_test=False).search([
+			('tag_ids', 'in', [tag_id]),
+		])
+		tax = repartition_lines.tax_id
+		repartition_type = set(repartition_lines.mapped('repartition_type'))
+		if len(tax) != 1 or len(repartition_type) != 1 or tax.type_tax_use not in ('sale', 'purchase'):
+			return fallback
+		repartition_type = repartition_type.pop()
+
+		# Same rule as account.move.line._compute_is_refund for journal entries
+		if tax.type_tax_use == 'sale':
+			is_refund = not float(credit or 0)
+		else:
+			is_refund = not float(debit or 0)
+		document_lines = tax.refund_repartition_line_ids if is_refund else tax.invoice_repartition_line_ids
+		repartition_line = document_lines.filtered(lambda rl: rl.repartition_type == repartition_type)
+		if len(repartition_line) != 1:
+			return fallback
+
+		vals = {'tax_tag_ids': [(6, 0, repartition_line.tag_ids.ids)]}
+		if repartition_type == 'tax':
+			vals['tax_repartition_line_id'] = repartition_line.id
+		else:
+			vals['tax_ids'] = [(6, 0, tax.ids)]
+		return vals
+
 	@api.model_create_multi
 	def create(self, vals_list):
 		moves = super().create(vals_list)
