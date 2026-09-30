@@ -443,10 +443,6 @@ class JVAPI(http.Controller):
 
 							if line.get('tax_tag_ids', False):
 								vals["tax_tag_ids"] =[(6, 0, [line['tax_tag_ids']])]
-								# Link the line to its tax so it is picked up by the tax closing entry
-								repartition_line = request.env['account.move.line'].sudo()._get_tax_repartition_line_from_tags([line['tax_tag_ids']])
-								if repartition_line:
-									vals["tax_repartition_line_id"] = repartition_line.id
 
 							line_val.append((0, 0, vals))
 
