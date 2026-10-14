@@ -1,7 +1,7 @@
 # Copyright 2019 ForgeFlow S.L.
 # Copyright 2019 Serpent Consulting Services Pvt. Ltd.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo.models import Command
+from odoo.fields import Command
 
 from odoo.addons.operating_unit.tests.common import OperatingUnitCommon
 from odoo.addons.stock.tests import common
@@ -23,13 +23,16 @@ class TestStockOperatingUnit(common.TestStockCommon, OperatingUnitCommon):
         # Locations
         cls.b2c_wh = cls.env.ref("stock_operating_unit.stock_warehouse_b2c")
         cls.b2c_wh.lot_stock_id.write({"operating_unit_id": cls.b2c.id})
+        # Core Odoo 19 now supplies a dedicated test warehouse; its location
+        # is not the OU-tagged demo location assumed by the older tests.
+        cls.stock_location.write({"operating_unit_id": cls.ou1.id})
         cls.location_b2c_id = cls.b2c_wh.lot_stock_id.id
         cls.b2c_type_in_id = cls.b2c_wh.in_type_id.id
         cls.b2c_type_int_id = cls.b2c_wh.int_type_id.id
         # Update users
         cls.user1.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.group_stock_manager.id),
                 ],
                 "operating_unit_ids": [
@@ -40,11 +43,11 @@ class TestStockOperatingUnit(common.TestStockCommon, OperatingUnitCommon):
         )
         cls.user2.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.group_stock_manager.id),
                 ],
                 "operating_unit_ids": [
-                    Command.set(cls.b2c.id),
+                    Command.set(cls.b2c.ids),
                 ],
             }
         )
@@ -53,14 +56,14 @@ class TestStockOperatingUnit(common.TestStockCommon, OperatingUnitCommon):
             cls.user1,
             cls.b2c.id,
             cls.b2c_type_in_id,
-            cls.supplier_location,
-            cls.stock_location,
+            cls.supplier_location.id,
+            cls.stock_location.id,
         )
         cls.picking_in2 = cls._create_picking(
             cls.user2,
             cls.b2c.id,
             cls.b2c_type_in_id,
-            cls.supplier_location,
+            cls.supplier_location.id,
             cls.location_b2c_id,
         )
         # Create Internal Shipment
@@ -68,7 +71,7 @@ class TestStockOperatingUnit(common.TestStockCommon, OperatingUnitCommon):
             cls.user1,
             cls.b2c.id,
             cls.b2c_type_int_id,
-            cls.stock_location,
+            cls.stock_location.id,
             cls.location_b2c_id,
         )
 
@@ -85,7 +88,6 @@ class TestStockOperatingUnit(common.TestStockCommon, OperatingUnitCommon):
         )
         cls.MoveObj.with_user(user_id).create(
             {
-                "name": "a move",
                 "product_id": cls.productA.id,
                 "product_uom_qty": 3.0,
                 "product_uom": cls.productA.uom_id.id,

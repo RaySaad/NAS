@@ -4,15 +4,16 @@ import json
 import logging
 from odoo.http import request
 from odoo import http
+from .api_utils import parse_api_payload
 
 _logger = logging.getLogger(__name__)
 
 
 class ContactAPI(http.Controller):
 
-    @http.route('/api/contact/create', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/contact/create', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def create_contact(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -131,9 +132,9 @@ class ContactAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/contact/read', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/contact/read', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def read_contact(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -202,9 +203,9 @@ class ContactAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/contact/update', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/contact/update', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def update_contact(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -311,9 +312,9 @@ class ContactAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/contact/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/contact/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_contact(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -441,7 +442,7 @@ class ContactAPI(http.Controller):
 
     @http.route('/api/states/read', type='http', auth='public', methods=['POST'], csrf=False)
     def get_contacts_states(self, **kwargs):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -500,9 +501,9 @@ class ContactAPI(http.Controller):
 
 class CompanyAPI(http.Controller):
 
-    @http.route('/api/company/create', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/company/create', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def create_company(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
         provided_authorization = headers.get('Authorization')
@@ -606,9 +607,9 @@ class CompanyAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/company/read', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/company/read', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def read_company(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
         provided_authorization = headers.get('Authorization')
@@ -663,9 +664,9 @@ class CompanyAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/company/update', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/company/update', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def update_company(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
         provided_authorization = headers.get('Authorization')
@@ -733,9 +734,9 @@ class CompanyAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/company/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/company/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_company(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
         provided_authorization = headers.get('Authorization')

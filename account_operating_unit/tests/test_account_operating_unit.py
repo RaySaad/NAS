@@ -2,7 +2,7 @@
 # © 2019 Serpent Consulting Services Pvt. Ltd.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo.models import Command
+from odoo.fields import Command
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -40,7 +40,7 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
         # Add Operating Unit Manager group to env.user
         cls.env.user.write(
             {
-                "groups_id": [(4, cls.ou_manager_group.id)],
+                "group_ids": [(4, cls.ou_manager_group.id)],
                 "company_ids": [Command.link(cls.company.id)],
                 "company_id": cls.company.id,
             }
@@ -58,7 +58,7 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
         # Setup user1 with all required groups
         cls.user1.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.grp_acc_manager.id),
                     Command.link(cls.grp_acc_config.id),
                     Command.link(cls.ou_manager_group.id),
@@ -96,7 +96,7 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
         # Setup user2 with all required groups
         cls.user2.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.grp_acc_manager.id),
                     Command.link(cls.grp_acc_config.id),
                     Command.link(cls.ou_manager_group.id),
@@ -112,7 +112,7 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
             {
                 "name": "Cash 1 - Test",
                 "code": "test.cash.1",
-                "account_type": "asset_current",
+                "account_type": "asset_cash",
             }
         )
 
@@ -120,7 +120,7 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
             {
                 "name": "Cash 2 - Test",
                 "code": "cash2",
-                "account_type": "asset_current",
+                "account_type": "asset_cash",
             }
         )
 
@@ -145,6 +145,12 @@ class TestAccountOperatingUnit(AccountTestInvoicingCommon, OperatingUnitCommon):
 
         cls.cash_journal_ou1 = cls.journal_model.sudo().create(ou1_journal_vals)
         cls.cash2_journal_b2b = cls.journal_model.sudo().create(b2b_journal_vals)
+        # Odoo 19 only generates payment journal entries when a payment
+        # method has an outstanding account. Direct cash settlement uses cash.
+        for journal in (cls.cash_journal_ou1, cls.cash2_journal_b2b):
+            (journal.inbound_payment_method_line_ids | journal.outbound_payment_method_line_ids).write(
+                {"payment_account_id": journal.default_account_id.id}
+            )
 
     def _prepare_invoice(self, operating_unit_id, name="Test Supplier Invoice"):
         line_products = [

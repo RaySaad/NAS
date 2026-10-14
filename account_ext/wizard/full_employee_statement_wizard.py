@@ -12,6 +12,10 @@ class FullEmployeeStatementWizard(models.TransientModel):
     _name = 'full.employee.statement.wizard'
     _description = 'Full Employee Statement Wizard'
 
+    company_id = fields.Many2one(
+        'res.company', required=True, default=lambda self: self.env.company,
+    )
+
     account_ids = fields.Many2many(
         comodel_name='account.account',
         string='Accounts',
@@ -59,6 +63,7 @@ class FullEmployeeStatementWizard(models.TransientModel):
     def _base_domain(self):
         """Filters that apply to every query in this report."""
         return [
+            ('company_id', '=', self.company_id.id),
             ('account_id', 'in', self.account_ids.ids),
             ('employee_id', '!=', False),
             ('parent_state', '=', 'posted'),
@@ -71,30 +76,29 @@ class FullEmployeeStatementWizard(models.TransientModel):
         self.line_ids.unlink()
 
         # Movements inside the selected period
-        period_groups = self.env['account.move.line'].read_group(
+        period_groups = self.env['account.move.line']._read_group(
             domain=self._base_domain() + [
                 ('date', '>=', self.date_from),
                 ('date', '<=', self.date_to),
             ],
-            fields=['debit:sum', 'credit:sum'],
+            aggregates=['debit:sum', 'credit:sum'],
             groupby=['employee_id', 'account_id'],
-            lazy=False,
         )
 
         # Everything before the period start
-        opening_groups = self.env['account.move.line'].read_group(
+        opening_groups = self.env['account.move.line']._read_group(
             domain=self._base_domain() + [('date', '<', self.date_from)],
-            fields=['balance:sum'],
+            aggregates=['balance:sum'],
             groupby=['employee_id', 'account_id'],
-            lazy=False,
         )
 
         period_by_key = {
-            (g['employee_id'][0], g['account_id'][0]): g for g in period_groups
+            (employee.id, account.id): {'debit': debit, 'credit': credit}
+            for employee, account, debit, credit in period_groups
         }
         opening_by_key = {
-            (g['employee_id'][0], g['account_id'][0]): g['balance']
-            for g in opening_groups
+            (employee.id, account.id): balance
+            for employee, account, balance in opening_groups
         }
 
         keys = set(period_by_key) | set(opening_by_key)
@@ -140,9 +144,10 @@ class FullEmployeeStatementWizard(models.TransientModel):
         }
 
     def action_print_pdf(self):
-        """Placeholder — button is present but does nothing yet."""
         self.ensure_one()
-        return True
+        if not self.line_ids:
+            raise UserError(_('There is nothing to print. Generate the statement first.'))
+        return self.env.ref('account_ext.action_full_employee_statement_pdf').report_action(self)
 
     def action_export_excel(self):
         """Build the xlsx and hand it to the browser as a download."""
@@ -185,7 +190,7 @@ class FullEmployeeStatementWizard(models.TransientModel):
         sheet.set_column('B:B', 30)
         sheet.set_column('C:G', 18)
 
-        sheet.merge_range('A1:G1', self.env.company.name, title_format)
+        sheet.merge_range('A1:G1', self.company_id.name, title_format)
         sheet.merge_range('A2:G2', 'Full Employee Statement', subtitle_format)
         sheet.merge_range(
             'A3:G3',

@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class JVAPI(http.Controller):
 
-	@http.route('/api/tax/read', type='json', auth='public', methods=['POST'], csrf=False)
+	@http.route('/api/tax/read', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
 	def read_tax(self, **kw):
 		post = json.loads(request.httprequest.data.decode('utf-8'))
 		headers = request.httprequest.headers

@@ -36,21 +36,21 @@ class ExpenseDetailsLine(models.Model):
                                  readonly=True)
     employee_id = fields.Many2one('hr.employee', domain="[('company_id', '=', company_id)]")
 
-    _sql_constraints = [
-        ('expense_date_greater', 'check(end_date >= start_date)',
-         'Error ! Ending Date cannot be set before Start Date.')
-    ]
+    _expense_date_greater = models.Constraint(
+        'check(end_date >= start_date)',
+        'Error ! Ending Date cannot be set before Start Date.',
+    )
 
     @api.model
     def default_get(self, fields):
         res = super(ExpenseDetailsLine, self).default_get(fields)
-        if 'reference' in self._context:
+        if 'reference' in self.env.context:
             res.update({
-                'description': self._context.get('reference'),
+                'description': self.env.context.get('reference'),
             })
-        if 'company_id' in self._context:
+        if 'company_id' in self.env.context:
             res.update({
-                'company_id': self._context.get('company_id')
+                'company_id': self.env.context.get('company_id')
             })
         return res
 
@@ -67,6 +67,7 @@ class ExpenseDetailsLine(models.Model):
     @api.depends('start_date', 'end_date')
     def _compute_total_days(self):
         for expense_line in self:
+            expense_line.total_days = 0
             if expense_line.start_date and expense_line.end_date:
                 delta = expense_line.end_date - expense_line.start_date
                 expense_line.total_days = delta.days + 1
@@ -95,7 +96,7 @@ class ExpenseDetailsLine(models.Model):
             if rec.partner_id:
                 rec.customer_account_domain = json.dumps([('id', 'in', rec.partner_id.subscription_id.ids)])
             else:
-                rec.customer_account_domain = json.dumps(['id', 'in', []])
+                rec.customer_account_domain = json.dumps([('id', 'in', [])])
 
     @api.onchange('partner_id')
     def _get_partner_info(self):

@@ -21,7 +21,7 @@
                 <field name="arabic_name" />
 
                 <field name="prepaid_amortization_method"/>
-                <group expand="0" string="Group By...">
+                <group>
                     <filter string="Expense Nature" name="expense_nature"
                             domain="[]" context="{'group_by':'expense_nature'}"/>
                     <filter string="State" name="state"
@@ -108,6 +108,6 @@
     <!-- Expense Type Menu Item -->
     <menuitem action="action_expense_type_tree"
               id="menu_expense_type"
-              parent="account.account_management_menu"
+              parent="account.menu_finance_configuration"
               sequence="10" />
 </odoo>

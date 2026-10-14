@@ -132,7 +132,7 @@
                 <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]" />
                 <filter string="Final Approval" name="final_approval" domain="[('state', '=', 'final_approval')]" />
                 <filter string="Full Amortization" name="full_amortization" domain="[('state', '=', 'full_amortization')]" />
-                <group expand="0" string="Group By...">
+                <group>
                     <filter string="Expense Nature" name="expense_nature" domain="[]" context="{'group_by':'expense_nature'}" />
                     <filter string="State" name="state" domain="[]" context="{'group_by':'state'}" />
                     <filter string="Amortization Journal" name="journal_id" domain="[]" context="{'group_by':'journal_id'}" />

@@ -1,0 +1,14 @@
+{
+  "company_id": 1,
+  "country_code": "US",
+  "operating_unit_code": "REPLACE_WITH_EXISTING_OU_CODE",
+  "customer_contract": "REPLACE_WITH_EXISTING_SUBSCRIPTION_NAME",
+  "employee_code": "REPLACE_WITH_EXISTING_EMPLOYEE_CODE",
+  "debit_account_code": "REPLACE_WITH_EXISTING_EXPENSE_OR_ASSET_CODE",
+  "credit_account_code": "REPLACE_WITH_EXISTING_INCOME_OR_CLEARING_CODE",
+  "bank_journal_code": "REPLACE_WITH_EXISTING_BANK_OR_CASH_JOURNAL_CODE",
+  "department": null,
+  "cost_center": null,
+  "branch": null,
+  "tax_id": null
+}

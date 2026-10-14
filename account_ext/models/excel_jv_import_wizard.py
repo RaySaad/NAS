@@ -203,6 +203,10 @@ class ExcelJVImportWizard(models.TransientModel):
         """
         line_val = {}
         row_info = ' (Row %s)' % row_num if row_num else ''
+        mapped_headers = {
+            header: self._map_header_to_field(header, line_fields)
+            for header in line_data
+        }
 
         account_cache = caches['account']
         ou_cache = caches['operating_unit']
@@ -214,8 +218,8 @@ class ExcelJVImportWizard(models.TransientModel):
         account_found = False
         for header, value in line_data.items():
             header_lower = header.lower().strip()
-            if 'account_id' == header_lower:
-                account_code = str(int(value)).strip()
+            if mapped_headers[header] == 'account_id':
+                account_code = str(int(value) if isinstance(value, (int, float)) else value).strip()
                 if account_code:
                     if account_code not in account_cache:
                         account_cache[account_code] = self.env['account.account'].search([
@@ -234,7 +238,7 @@ class ExcelJVImportWizard(models.TransientModel):
         # Special handling for Operating Unit Code
         for header, value in line_data.items():
             header_lower = header.lower().strip()
-            if 'operating_unit_id' in header_lower:
+            if mapped_headers[header] == 'operating_unit_id':
                 ou_code = str(value).strip()
                 if ou_code:
                     if ou_code not in ou_cache:
@@ -251,7 +255,7 @@ class ExcelJVImportWizard(models.TransientModel):
         customer_account = None
         for header, value in line_data.items():
             header_lower = header.lower().strip()
-            if 'customer_account' in header_lower:
+            if mapped_headers[header] == 'customer_account':
                 name = str(value).strip()
                 if name:
                     if name not in customer_account_cache:
@@ -268,7 +272,7 @@ class ExcelJVImportWizard(models.TransientModel):
         # Special handling for Vehicle
         for header, value in line_data.items():
             header_lower = header.lower().strip()
-            if 'vehicle_id' in header_lower:
+            if mapped_headers[header] == 'vehicle_id':
                 name = value
                 if name:
                     if name not in vehicle_cache:
@@ -286,8 +290,8 @@ class ExcelJVImportWizard(models.TransientModel):
         employee = None
         for header, value in line_data.items():
             header_lower = header.lower().strip()
-            if 'employee_code' in header_lower:
-                name = value
+            if mapped_headers[header] == 'employee_code':
+                name = str(int(value) if isinstance(value, (int, float)) else value).strip()
                 if name:
                     if name not in employee_cache:
                         employee_cache[name] = self.env['hr.employee'].search([
@@ -300,17 +304,6 @@ class ExcelJVImportWizard(models.TransientModel):
                     line_val['employee_id'] = employee.id
                     break
 
-        # Derive customer/partner fields from Employee or Customer Account.
-        # Employee-linked data takes precedence when both are present.
-        if employee:
-            line_val['customer_account'] = employee.customer_account.id
-            line_val['partner_id'] = employee.with_context(bypass=True).customer_account.partner_id.id
-            line_val['customer_code'] = employee.customer_account.partner_id.customer_code
-            line_val['operating_unit_id'] = employee.operating_unit_id.id
-        elif customer_account:
-            line_val['partner_id'] = customer_account.with_context(bypass=True).partner_id.id
-            line_val['customer_code'] = customer_account.partner_id.customer_code
-
         # Process all other fields dynamically
         for header, value in line_data.items():
             if value is None or (isinstance(value, str) and not value.strip()):
@@ -319,7 +312,7 @@ class ExcelJVImportWizard(models.TransientModel):
             header_lower = header.lower().strip()
 
             # Skip already processed fields
-            if header_lower in ['account_id', 'operating_unit_id', 'customer_account', 'vehicle_id', 'employee_code']:
+            if mapped_headers[header] in ['account_id', 'operating_unit_id', 'customer_account', 'vehicle_id', 'employee_code']:
                 continue
 
             # Try to find matching field
@@ -331,10 +324,20 @@ class ExcelJVImportWizard(models.TransientModel):
             if mapped_field == 'tax_tag_ids':
                 line_val[mapped_field] = [(6, 0, [int(value)])]
             elif mapped_field == 'analytic_distribution':
-                line_val[mapped_field] = json.loads(value)
+                line_val[mapped_field] = json.loads(value) if isinstance(value, str) else value
             else:
                 line_val[mapped_field] = value
 
+        # Preserve the backup's post-create precedence without losing caching:
+        # employee-linked dimensions win over conflicting spreadsheet values.
+        if employee:
+            line_val['customer_account'] = employee.customer_account.id
+            line_val['partner_id'] = employee.with_context(bypass=True).customer_account.partner_id.id
+            line_val['customer_code'] = employee.customer_account.partner_id.customer_code
+            line_val['operating_unit_id'] = employee.operating_unit_id.id
+        elif customer_account:
+            line_val['partner_id'] = customer_account.with_context(bypass=True).partner_id.id
+            line_val['customer_code'] = customer_account.partner_id.customer_code
         return line_val
 
     def _normalize_field_name(self, header):
@@ -357,6 +360,9 @@ class ExcelJVImportWizard(models.TransientModel):
 
         # Common mappings
         mappings = {
+            'account_id': ['account_code', 'account code'],
+            'operating_unit_id': ['operating_unit_code', 'operating unit code'],
+            'customer_account': ['customer_contract', 'customer contract'],
             'name': ['name', 'description', 'label', 'narration'],
             'debit': ['debit', 'dr'],
             'credit': ['credit', 'cr'],

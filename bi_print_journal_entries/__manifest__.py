@@ -1,6 +1,6 @@
 {
     'name': 'Print Journal Entries Report in Odoo',
-    'version': '1.0',
+    'version': '19.0.1.0.0',
     'category': 'Account',
     'license': 'LGPL-3',
     'summary': 'Allow to print pdf report of Journal Entries.',
@@ -15,7 +15,7 @@
         account entry reports
 """,
     'author': 'AYYAN',
-    'depends': ['base','account','web'],
+    'depends': ['base', 'account', 'web', 'account_ext'],
     'data': [
             'report/report_journal_entries.xml',
             'report/report_journal_entries_view.xml',

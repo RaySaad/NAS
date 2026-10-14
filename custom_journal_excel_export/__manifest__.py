@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Voucher Excel Export',
-    'version': '18.0.1.0.2',
+    'version': '19.0.1.0.2',
     'category': 'Accounting',
     'summary': 'Export large journal entries to Excel with professional formatting',
     'description': """
@@ -39,6 +39,7 @@
     'license': 'LGPL-3',
     'depends': [
         'account',
+        'journal_voucher_print_export',
     ],
     'external_dependencies': {
         'python': ['xlsxwriter'],

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Account Expense Transaction',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'license': 'LGPL-3',
     'summary': 'All foundational developments for the Account Expense Transaction.',
     'description': r"""
@@ -9,7 +9,7 @@
     'author': 'Wahab Ali Malik',
     'website': 'https://www.dalba.com.sa',
     'category': 'Custom Development',
-    'depends': ['account', 'hr','account_operating_unit'],
+    'depends': ['account', 'hr', 'account_operating_unit', 'account_ext'],
     'data': [
         "security/security_view.xml",
         "security/ir.model.access.csv",
@@ -19,6 +19,9 @@
         "views/product_view.xml",
         "views/invoice_view.xml",
     ],
+    'external_dependencies': {
+        'python': ['num2words'],
+    },
     'installable': True,
     'application': True,
     'auto_install': False,

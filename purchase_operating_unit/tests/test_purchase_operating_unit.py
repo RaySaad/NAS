@@ -5,7 +5,7 @@
 import time
 
 from odoo.exceptions import ValidationError
-from odoo.models import Command
+from odoo.fields import Command
 from odoo.tests import Form
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -33,14 +33,14 @@ class TestPurchaseOperatingUnit(OperatingUnitCommon):
         # Update users
         cls.user1.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.group_purchase_user.id),
                 ],
             }
         )
         cls.user2.write(
             {
-                "groups_id": [
+                "group_ids": [
                     Command.link(cls.group_purchase_user.id),
                 ],
                 "operating_unit_ids": [Command.set([cls.b2b.id])],
@@ -64,7 +64,7 @@ class TestPurchaseOperatingUnit(OperatingUnitCommon):
                 "product_id": product.id,
                 "product_qty": qty,
                 "qty_received_manual": qty,
-                "product_uom": product.uom_id.id,
+                "product_uom_id": product.uom_id.id,
                 "price_unit": 50,
                 "date_planned": time.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
             }

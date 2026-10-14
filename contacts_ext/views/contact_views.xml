@@ -5,7 +5,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='vat']" position="after">
+            <!-- Odoo 19 moved VAT to the right column and phone/email to
+                 the title. Preserve the original two-column contact layout. -->
+            <xpath expr="//form/sheet/group/group/div[hasclass('o_address_format')]" position="after">
+                <xpath expr="//form/sheet/group/group/field[@name='vat']" position="move" />
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='vat']" position="after">
                 <field name="customer_code" invisible="company_type != 'company'" />
                 <field name="currency" invisible="1" /> <!--todo: Need to remove this because already defined-->
                 <field name="lock_sale_currency" invisible="company_type != 'company'" />
@@ -15,7 +20,7 @@
                 <field name="labor_office_no" invisible="company_type != 'company'" />
                 <field name="registration_no" invisible="company_type != 'company'" />
             </xpath>
-            <xpath expr="//field[@name='vat']" position="after">
+            <xpath expr="//form/sheet/group/group/field[@name='vat']" position="after">
                 <field name="customer_code" invisible="company_type != 'person'" />
                 <field name="identification_number" invisible="company_type != 'person'" />
                 <field name="country_code" invisible="company_type != 'person'" readonly="0" />
@@ -23,10 +28,17 @@
                 <field name="working_place" invisible="company_type != 'person'" />
                 <field name="gender" invisible="company_type != 'person'" />
             </xpath>
-            <xpath expr="//field[@name='category_id']" position="after">
+            <xpath expr="//form/sheet/group/group/field[@name='function']" position="after">
+                <xpath expr="//form/sheet/div[hasclass('mb8')]//field[@name='phone']" position="move" />
+                <field name="mobile" widget="phone" invisible="company_type != 'person'" />
+                <xpath expr="//form/sheet/div[hasclass('mb8')]//field[@name='email']" position="move" />
+            </xpath>
+            <xpath expr="//form/sheet/div[hasclass('mb8')]//div[i[hasclass('fa-envelope')]]" position="replace" />
+            <xpath expr="//form/sheet/div[hasclass('mb8')]//div[i[hasclass('fa-phone')]]" position="replace" />
+            <xpath expr="//form/sheet/group/group/field[@name='category_id']" position="after">
                 <field name="second_mobile" invisible="company_type != 'person'" />
             </xpath>
-            <xpath expr="//page" position="after">
+            <xpath expr="//form/sheet/notebook" position="inside">
                 <page string="Subscription" name="subscription">
                     <field name="subscription_id">
                         <list  editable="bottom">
@@ -36,7 +48,6 @@
                         </list>
                     </field>
                 </page>
-                <field name="second_mobile" invisible="company_type != 'person'" />
             </xpath>
         </field>
     </record>

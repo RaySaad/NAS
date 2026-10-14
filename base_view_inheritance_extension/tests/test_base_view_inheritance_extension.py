@@ -16,18 +16,37 @@ class TestBaseViewInheritanceExtension(TransactionCase):
 
     def test_base_view_inheritance_extension(self):
         view_id = self.env.ref("base.view_partner_simple_form").id
+        # Create the extension explicitly: this test must not depend on demo data.
+        self.env['ir.ui.view'].create({
+            'name': 'odoo19.context.extension.test',
+            'model': 'res.partner',
+            'inherit_id': view_id,
+            'arch': '''<data>
+                <xpath expr="." position="attributes">
+                    <attribute name="string">Partner form</attribute>
+                </xpath>
+                <field name="parent_id" position="attributes">
+                    <attribute name="context" operation="update">
+                        {"default_email": "info@odoo-community.org",
+                         "default_company_id": allowed_company_ids[0]}
+                    </attribute>
+                </field>
+            </data>''',
+        })
         arch, _ = self.env["res.partner"]._get_view(view_id=view_id)
         # Verify normal attributes work
         self.assertEqual(arch.xpath("//form")[0].get("string"), "Partner form")
-        # Verify our extra context key worked
-        self.assertTrue(
-            "'default_email': 'info@odoo-community.org'"
-            in arch.xpath('//field[@name="parent_id"]')[0].get("context")
-        )
-        self.assertTrue(
-            "'default_company_id': allowed_company_ids[0]"
-            in arch.xpath('//field[@name="parent_id"]')[0].get("context")
-        )
+        context = arch.xpath('//field[@name="parent_id"]')[0].get('context')
+        self.assertIn("'default_email': 'info@odoo-community.org'", context)
+        self.assertIn("'default_company_id': allowed_company_ids[0]", context)
+
+    def test_explicit_none_pre_locate(self):
+        source = etree.fromstring('<form><field name="name"/></form>')
+        specs = etree.fromstring('''<field name="name" position="attributes">
+            <attribute name="string">Contact</attribute>
+        </field>''')
+        result = self.env['ir.ui.view'].apply_inheritance_specs(source, specs, pre_locate=None)
+        self.assertEqual(result.xpath('//field')[0].get('string'), 'Contact')
 
     def test_update_context_default(self):
         source = etree.fromstring(

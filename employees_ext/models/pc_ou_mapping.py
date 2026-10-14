@@ -15,16 +15,16 @@ class PcOuMapping(models.Model):
         string="Operating Unit",
         check_company=True,
     )
+    company_id = fields.Many2one(
+        'res.company', related='operating_unit_id.company_id', store=True, readonly=True,
+    )
 
-    _sql_constraints = [
-        (
-            'project_code_unique',
-            'unique(project_code)',
-            'A mapping for this Project Code already exists!'
-        ),
-    ]
+    _project_code_unique = models.Constraint(
+        'unique(project_code)',
+        'A mapping for this Project Code already exists!',
+    )
     
     def unlink(self):
-        if self.project_code == 'DEFAULT':
+        if any(mapping.project_code == 'DEFAULT' for mapping in self):
             raise ValidationError(_('You cannot delete the DEFAULT mapping, you can only edit it!'))
         return super().unlink()

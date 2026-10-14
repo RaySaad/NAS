@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
     
-    def action_print_voucher(self):
+    def action_print_large_voucher(self):
         """
         Smart print method that automatically chooses:
         - PDF for journal entries with ≤1000 lines
@@ -43,14 +43,14 @@ class AccountMove(models.Model):
                     'message': message,
                     'type': 'info',
                     'sticky': False,
-                    'next': self.export_voucher_excel(),
+                    'next': self.export_large_voucher_excel(),
                 }
             }
         
         # Otherwise use standard PDF report (you can replace this with your custom report)
-        return self.env.ref('account.account_invoices').report_action(self)
+        return self.env.ref('journal_voucher_print_export.action_report_journal_entry_voucher').report_action(self)
     
-    def export_voucher_excel(self):
+    def export_large_voucher_excel(self):
         """
         Export journal voucher to professionally formatted Excel file
         Handles large datasets (5000+ lines) efficiently with chunk processing
@@ -248,7 +248,11 @@ class AccountMove(models.Model):
                     if line.analytic_distribution:
                         try:
                             # Extract analytic account IDs from the distribution dict
-                            analytic_ids = [int(k) for k in line.analytic_distribution.keys()]
+                            analytic_ids = sorted({
+                                int(account_id)
+                                for key in line.analytic_distribution
+                                for account_id in key.split(',')
+                            })
                             if analytic_ids:
                                 # Fetch all analytic accounts at once
                                 analytic_accounts = self.env['account.analytic.account'].browse(analytic_ids)
@@ -278,8 +282,8 @@ class AccountMove(models.Model):
             sheet.write(row, 2, '', total_label_format)
             sheet.write(row, 3, '', total_label_format)
             sheet.write(row, 4, 'TOTAL', total_label_format)
-            sheet.write_formula(row, 5, f'=SUM(F{data_start_row}:F{data_end_row})', total_format)
-            sheet.write_formula(row, 6, f'=SUM(G{data_start_row}:G{data_end_row})', total_format)
+            sheet.write_formula(row, 5, f'=SUM(F{data_start_row+1}:F{data_end_row+1})', total_format)
+            sheet.write_formula(row, 6, f'=SUM(G{data_start_row+1}:G{data_end_row+1})', total_format)
             sheet.write(row, 7, '', total_label_format)
             
             sheet.set_row(row, 25)
@@ -288,7 +292,7 @@ class AccountMove(models.Model):
             # ==================== BALANCE CHECK ====================
             row += 2
             sheet.write(row, 3, 'Balance Check (Debit - Credit):', header_info_label_format)
-            sheet.write_formula(row, 4, f'=F{total_row}-G{total_row}', balance_check_format)
+            sheet.write_formula(row, 4, f'=F{total_row+1}-G{total_row+1}', balance_check_format)
             sheet.write(row, 5, 'Should be 0.00', header_info_value_format)
             
             # ==================== COLUMN WIDTHS ====================

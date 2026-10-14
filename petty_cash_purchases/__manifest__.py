@@ -1,9 +1,10 @@
 {
     'name': 'Petty Cash Purchase',
-    'version': '1.0',
+    'version': '19.0.1.0.0',
     'category': 'Human Resources/Expenses',
+    'author': 'Custom Development',
 
-    'depends': ['hr_expense','fleet','account'],
+    'depends': ['hr_expense', 'fleet', 'account', 'account_ext'],
     'data': [
         'data/sequence.xml',
         'security/pcp.xml',

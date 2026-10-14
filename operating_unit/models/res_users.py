@@ -3,6 +3,7 @@
 # Copyright 2015-TODAY Serpent Consulting Services Pvt. Ltd. - Sudhir Arya
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from odoo import api, fields, models
+from odoo.fields import Domain
 
 
 class ResUsers(models.Model):
@@ -56,32 +57,39 @@ class ResUsers(models.Model):
         return self._get_default_operating_unit()
 
     @api.model
-    def default_get(self, fields):
-        vals = super().default_get(fields)
+    def default_get(self, fields_list):
+        vals = super().default_get(fields_list)
         if (
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("base_setup.default_user_rights", "False")
             == "True"
         ):
-            default_user = self.env.ref("base.default_user")
+            # Odoo 19 uses a default group instead of a template user. Keep
+            # template OU defaults on upgraded databases where it still exists.
+            default_user = self.env.ref("base.default_user", raise_if_not_found=False)
+            if not default_user:
+                return vals
             vals["default_operating_unit_id"] = (
                 default_user.default_operating_unit_id.id
             )
-            vals["operating_unit_ids"] = [(6, 0, default_user.operating_unit_ids.ids)]
+            vals["operating_unit_ids"] = [
+                fields.Command.set(default_user.operating_unit_ids.ids)
+            ]
         return vals
 
-    @api.depends("groups_id", "assigned_operating_unit_ids")
+    @api.depends("all_group_ids", "assigned_operating_unit_ids")
     @api.depends_context("allowed_company_ids")
     def _compute_operating_unit_ids(self):
         if self.env.context.get("allowed_company_ids"):
-            dom = [
-                "|",
-                ("company_id", "=", False),
-                ("company_id", "in", self.env.context["allowed_company_ids"]),
-            ]
+            dom = Domain.OR(
+                [
+                    Domain("company_id", "=", False),
+                    Domain("company_id", "in", self.env.context["allowed_company_ids"]),
+                ]
+            )
         else:
-            dom = []
+            dom = Domain.TRUE
         for user in self:
             if user.has_group("operating_unit.group_manager_operating_unit"):
                 user.operating_unit_ids = self.env["operating.unit"].search(dom)

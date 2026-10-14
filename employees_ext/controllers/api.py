@@ -3,15 +3,16 @@ import re
 import logging
 from odoo.http import request
 from odoo import http
+from odoo.addons.contacts_ext.controllers.api_utils import parse_api_payload
 
 _logger = logging.getLogger(__name__)
 
 
 class SimpleEmployeeAPI(http.Controller):
 
-    @http.route('/api/employee/create', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/create', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def create_employee(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -126,9 +127,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/employee/read', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/read', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def read_employee(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -202,9 +203,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/employee/update', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/update', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def update_employee(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -294,9 +295,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/employee/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_employee(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -353,9 +354,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/department/create', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/department/create', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def create_department(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -427,9 +428,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/department/read', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/department/read', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def get_department(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -499,9 +500,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/department/update', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/department/update', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def update_department(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -582,9 +583,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/department/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/department/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_department(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -681,9 +682,9 @@ class SimpleEmployeeAPI(http.Controller):
         else:
             return False
 
-    @http.route('/api/employee/sections/create', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/sections/create', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def create_employee_sections(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -792,9 +793,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }), headers=[('Content-Type', 'application/json')])
         
-    @http.route('/api/employee/sections/update', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/sections/update', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def update_employee_sections(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')
@@ -871,9 +872,9 @@ class SimpleEmployeeAPI(http.Controller):
                 'data': {}
             }
 
-    @http.route('/api/employee/sections/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/employee/sections/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_employee_sections(self, **kw):
-        post = json.loads(request.httprequest.data.decode('utf-8'))
+        post = parse_api_payload(request.httprequest.data)
         headers = request.httprequest.headers
         provided_authorization = headers.get('Authorization')
         token = request.env['ir.config_parameter'].sudo().get_param('employees_ext.hr_api_token')

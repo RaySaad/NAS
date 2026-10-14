@@ -2,9 +2,10 @@
 # Copyright 2017-TODAY Serpent Consulting Services Pvt. Ltd.
 #   (<http://www.serpentcs.com>)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestSaleTeamOperatingUnit(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
@@ -48,7 +49,7 @@ class TestSaleTeamOperatingUnit(common.TransactionCase):
                 "company_id": company.id,
                 "company_ids": [(4, company.id)],
                 "operating_unit_ids": [(4, ou.id) for ou in operating_units],
-                "groups_id": [(6, 0, group_ids)],
+                "group_ids": [(6, 0, group_ids)],
             }
         )
         return user

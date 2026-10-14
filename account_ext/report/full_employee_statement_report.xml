@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_full_employee_statement" model="report.paperformat">
+        <field name="name">Full Employee Statement</field>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_full_employee_statement_pdf" model="ir.actions.report">
+        <field name="name">Full Employee Statement</field>
+        <field name="model">full.employee.statement.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_ext.full_employee_statement_pdf</field>
+        <field name="report_file">account_ext.full_employee_statement_pdf</field>
+        <field name="paperformat_id" ref="paperformat_full_employee_statement"/>
+        <field name="print_report_name">'Employee Statement - %s - %s' % (object.date_from, object.date_to)</field>
+    </record>
+    <template id="full_employee_statement_pdf">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="display_name_in_footer" t-value="False"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Full Employee Statement</h2>
+                        <p>Period: <span t-field="o.date_from"/> – <span t-field="o.date_to"/></p>
+                        <p>Accounts: <span t-out="', '.join(o.account_ids.mapped('display_name'))"/></p>
+                        <table class="table table-sm" style="font-size: 10px;">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th><th>Employee</th><th>Account</th>
+                                    <th class="text-end">Opening Balance</th>
+                                    <th class="text-end">Debit</th><th class="text-end">Credit</th>
+                                    <th class="text-end">Net Diff.</th><th class="text-end">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><span t-field="line.employee_code"/></td>
+                                    <td><span t-field="line.employee_id.name"/></td>
+                                    <td><span t-field="line.account_id.display_name"/></td>
+                                    <td class="text-end"><span t-field="line.opening_balance"/></td>
+                                    <td class="text-end"><span t-field="line.debit"/></td>
+                                    <td class="text-end"><span t-field="line.credit"/></td>
+                                    <td class="text-end"><span t-field="line.net_diff"/></td>
+                                    <td class="text-end"><span t-field="line.balance"/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total</th>
+                                    <th class="text-end"><span t-out="sum(o.line_ids.mapped('opening_balance'))" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></th>
+                                    <th class="text-end"><span t-field="o.total_debit"/></th>
+                                    <th class="text-end"><span t-field="o.total_credit"/></th>
+                                    <th class="text-end"><span t-out="o.total_debit - o.total_credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></th>
+                                    <th class="text-end"><span t-field="o.total_balance"/></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

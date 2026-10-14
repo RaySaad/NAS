@@ -9,7 +9,7 @@ import re
 from lxml import etree
 
 from odoo import api, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 def ast_dict_update(source, update):
@@ -52,9 +52,10 @@ class IrUiView(models.Model):
     _inherit = "ir.ui.view"
 
     @api.model
-    def apply_inheritance_specs(self, source, specs_tree, pre_locate=lambda s: True):
+    def apply_inheritance_specs(self, source, specs_tree, pre_locate=None):
         for specs, handled_by in self._iter_inheritance_specs(specs_tree):
-            pre_locate(specs)
+            if pre_locate is not None:
+                pre_locate(specs)
             source = handled_by(source, specs)
         return source
 
@@ -163,9 +164,9 @@ class IrUiView(models.Model):
                     self._var2str_domain_text(attribute_node.text.strip())
                 )
                 if join_operator == "OR":
-                    new_value = str(expression.OR([old_domain, new_domain]))
+                    new_value = str(Domain.OR([old_domain, new_domain]))
                 else:
-                    new_value = str(expression.AND([old_domain, new_domain]))
+                    new_value = str(Domain.AND([old_domain, new_domain]))
                 new_value = self._str2var_domain_text(new_value)
                 old_value = "".join(old_value.splitlines())
             else:

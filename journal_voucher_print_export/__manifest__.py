@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Voucher Print & Excel Export',
-    'version': '18.0.1.0.2',
+    'version': '19.0.1.0.2',
     'category': 'Accounting',
     'summary': 'Professional PDF print and Excel export for journal entries with smart size detection',
     'description': """
@@ -56,6 +56,7 @@
     'depends': [
         'account',
         'web',
+        'account_ext',
     ],
     'external_dependencies': {
         'python': ['xlsxwriter'],

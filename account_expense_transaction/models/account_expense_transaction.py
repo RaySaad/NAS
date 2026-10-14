@@ -111,7 +111,6 @@ class ExpenseTransaction(models.Model):
                     move_ids.append(amortization_board_line.move_id.id)
         return {
             'name': _('Journal Entries'),
-            'view_type': 'form',
             'view_mode': 'list,form',
             'res_model': 'account.move',
             'view_id': False,
@@ -203,7 +202,9 @@ class ExpenseTransaction(models.Model):
         return date_list
 
     def create_expense_journal_entry(self):
+        self.ensure_one()
         iml = []
+        moves = self.env['account.move']
         total_amount = 0
         if self.type_jv == 'all_line':
             for expense_detail_rec in self.expense_detail_ids:
@@ -228,13 +229,16 @@ class ExpenseTransaction(models.Model):
                     0].analytic_distribution or False
             }))
             self.move_id = self.env['account.move'].create({
+                'company_id': self.company_id.id,
                 'journal_id': self.payment_journal_id.id,
                 'line_ids': iml,
                 'date': self.date,
                 'ref': self.reference,
             })
+            moves |= self.move_id
         if self.type_jv == 'each_line':
             for expense_detail_rec in self.expense_detail_ids:
+                iml = []
                 iml.append((0, 0, {
                     'name': expense_detail_rec.description,
                     'debit': expense_detail_rec.price_total,
@@ -261,12 +265,14 @@ class ExpenseTransaction(models.Model):
                     'contract_type': expense_detail_rec.contract_type,
                 }))
                 self.move_id = self.env['account.move'].create({
+                    'company_id': self.company_id.id,
                     'journal_id': self.payment_journal_id.id,
                     'line_ids': iml,
                     'date': self.date,
                     'ref': self.reference,
                 })
-        self.move_id.action_post()
+                moves |= self.move_id
+        moves.action_post()
 
     def action_final_approval(self):
         for expense_rec in self:

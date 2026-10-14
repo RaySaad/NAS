@@ -51,7 +51,7 @@ class AmortizationBoardLine(models.Model):
             if rec.partner_id:
                 rec.customer_account_domain = json.dumps([('id', 'in', rec.partner_id.subscription_id.ids)])
             else:
-                rec.customer_account_domain = json.dumps(['id', 'in', []])
+                rec.customer_account_domain = json.dumps([('id', 'in', [])])
 
     @api.onchange('partner_id')
     def _get_partner_info(self):
@@ -175,7 +175,7 @@ class AmortizationBoardLine(models.Model):
                        last_amortization_line.expense_transaction_id.amortization_board_ids):
                     last_amortization_line.expense_transaction_id.action_full_amortization()
 
-    _sql_constraints = [
-        ('amortization_date_greater', 'check(end_date >= start_date)',
-         'Error ! Ending Date cannot be set before Start Date.')
-    ]
+    _amortization_date_greater = models.Constraint(
+        'check(end_date >= start_date)',
+        'Error ! Ending Date cannot be set before Start Date.',
+    )

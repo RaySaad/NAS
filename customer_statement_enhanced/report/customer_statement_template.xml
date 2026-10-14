@@ -3,6 +3,7 @@
     <template id="report_customer_statement_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="partner">
+                <t t-set="o" t-value="partner"/>
                 <t t-call="web.external_layout">
                     <div class="page">
                         <!-- Custom CSS -->
@@ -151,30 +152,30 @@
                         <div class="info-box">
                             <div class="info-row">
                                 <span class="info-label">Customer:</span>
-                                <span class="info-value"><t t-esc="partner.name"/></span>
+                                <span class="info-value"><t t-out="partner.name"/></span>
                             </div>
                             <div class="info-row" t-if="partner.street">
                                 <span class="info-label">Address:</span>
                                 <span class="info-value">
-                                    <t t-esc="partner.street"/>
-                                    <t t-if="partner.street2">, <t t-esc="partner.street2"/></t>
+                                    <t t-out="partner.street"/>
+                                    <t t-if="partner.street2">, <t t-out="partner.street2"/></t>
                                 </span>
                             </div>
                             <div class="info-row" t-if="partner.city or partner.country_id">
                                 <span class="info-label">Location:</span>
                                 <span class="info-value">
-                                    <t t-if="partner.city" t-esc="partner.city"/>
-                                    <t t-if="partner.state_id">, <t t-esc="partner.state_id.name"/></t>
-                                    <t t-if="partner.country_id">, <t t-esc="partner.country_id.name"/></t>
+                                    <t t-if="partner.city" t-out="partner.city"/>
+                                    <t t-if="partner.state_id">, <t t-out="partner.state_id.name"/></t>
+                                    <t t-if="partner.country_id">, <t t-out="partner.country_id.name"/></t>
                                 </span>
                             </div>
                             <div class="info-row" t-if="partner.vat">
                                 <span class="info-label">VAT Number:</span>
-                                <span class="info-value"><t t-esc="partner.vat"/></span>
+                                <span class="info-value"><t t-out="partner.vat"/></span>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">Statement Date:</span>
-                                <span class="info-value"><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></span>
+                                <span class="info-value"><t t-out="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></span>
                             </div>
                         </div>
 
@@ -195,13 +196,13 @@
                             <div class="summary-box total">
                                 <div class="summary-label">Total Invoiced</div>
                                 <div class="summary-amount">
-                                    <t t-esc="'%.2f SR' % total_debit"/>
+                                    <t t-out="'%.2f SR' % total_debit"/>
                                 </div>
                             </div>
                             <div class="summary-box balance">
                                 <div class="summary-label">Current Balance</div>
                                 <div class="summary-amount">
-                                    <t t-esc="'%.2f SR' % abs(balance)"/>
+                                    <t t-out="'%.2f SR' % abs(balance)"/>
                                 </div>
                             </div>
                         </div>
@@ -223,26 +224,26 @@
                                 <t t-foreach="move_lines" t-as="line">
                                     <t t-set="running_balance" t-value="running_balance + line.debit - line.credit"/>
                                     <tr>
-                                        <td><t t-esc="line.date.strftime('%d/%m/%Y')"/></td>
-                                        <td><t t-esc="line.move_id.name"/></td>
+                                        <td><t t-out="line.date.strftime('%d/%m/%Y')"/></td>
+                                        <td><t t-out="line.move_id.name"/></td>
                                         <td>
                                             <t t-if="line.move_id.invoice_origin">
-                                                <t t-esc="line.move_id.invoice_origin"/> - 
+                                                <t t-out="line.move_id.invoice_origin"/> -
                                             </t>
-                                            <t t-esc="line.name"/>
+                                            <t t-out="line.name"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-if="line.debit > 0" class="amount-debit">
-                                                <t t-esc="'%.2f SR' % line.debit"/>
+                                                <t t-out="'%.2f SR' % line.debit"/>
                                             </span>
                                         </td>
                                         <td class="text-right">
                                             <span t-if="line.credit > 0" class="amount-credit">
-                                                <t t-esc="'%.2f SR' % line.credit"/>
+                                                <t t-out="'%.2f SR' % line.credit"/>
                                             </span>
                                         </td>
                                         <td class="text-right">
-                                            <t t-esc="'%.2f SR' % running_balance"/>
+                                            <t t-out="'%.2f SR' % running_balance"/>
                                         </td>
                                     </tr>
                                 </t>
@@ -251,13 +252,13 @@
                                 <tr class="total-row">
                                     <td colspan="3" class="text-right"><strong>TOTAL</strong></td>
                                     <td class="text-right amount-debit">
-                                        <t t-esc="'%.2f SR' % total_debit"/>
+                                        <t t-out="'%.2f SR' % total_debit"/>
                                     </td>
                                     <td class="text-right amount-credit">
-                                        <t t-esc="'%.2f SR' % total_credit"/>
+                                        <t t-out="'%.2f SR' % total_credit"/>
                                     </td>
                                     <td class="text-right">
-                                        <t t-esc="'%.2f SR' % balance"/>
+                                        <t t-out="'%.2f SR' % balance"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -297,10 +298,10 @@
                                     <td class="aging-header">Over 90 days</td>
                                 </tr>
                                 <tr>
-                                    <td><t t-esc="'%.2f SR' % aging_0_30"/></td>
-                                    <td><t t-esc="'%.2f SR' % aging_31_60"/></td>
-                                    <td><t t-esc="'%.2f SR' % aging_61_90"/></td>
-                                    <td><t t-esc="'%.2f SR' % aging_over_90"/></td>
+                                    <td><t t-out="'%.2f SR' % aging_0_30"/></td>
+                                    <td><t t-out="'%.2f SR' % aging_31_60"/></td>
+                                    <td><t t-out="'%.2f SR' % aging_61_90"/></td>
+                                    <td><t t-out="'%.2f SR' % aging_over_90"/></td>
                                 </tr>
                             </table>
                         </div>

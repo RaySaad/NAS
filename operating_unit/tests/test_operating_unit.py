@@ -67,9 +67,10 @@ class TestOperatingUnit(OperatingUnitCommon):
         user_form.name = "Test Customer"
         user_form.login = "test"
         user = user_form.save()
-        default_user = self.env.ref("base.default_user")
+        default_user = self.env.ref("base.default_user", raise_if_not_found=False)
         self.assertEqual(
-            user.default_operating_unit_id, default_user.default_operating_unit_id
+            user.default_operating_unit_id,
+            default_user.default_operating_unit_id if default_user else self.env["res.users"]._default_operating_unit(),
         )
         nou = self.env["operating.unit"].search(
             [

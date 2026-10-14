@@ -1,6 +1,8 @@
 from odoo.addons.base.tests.common import BaseCommon, Command
+from odoo.tests import tagged
 
 
+@tagged('post_install', '-at_install')
 class TestAccountBankStatementLine(BaseCommon):
     @classmethod
     def setUpClass(cls):
@@ -76,7 +78,7 @@ class TestAccountBankStatementLine(BaseCommon):
                 "name": "Cash Basis Base Account",
                 "code": "CBBA",
                 "account_type": "liability_current",
-                "reconcile": False,
+                "reconcile": True,
             }
         )
 

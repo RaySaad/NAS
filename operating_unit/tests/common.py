@@ -1,7 +1,7 @@
 # © 2017-TODAY ForgeFlow S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html)
 
-from odoo.models import Command
+from odoo.fields import Command
 from odoo.tests import common
 
 
@@ -43,7 +43,7 @@ class OperatingUnitCommon(common.TransactionCase):
                 "company_id": company.id,
                 "company_ids": [(4, company.id)],
                 "operating_unit_ids": [(4, ou.id) for ou in operating_units],
-                "groups_id": [Command.link(group.id)],
+                "group_ids": [Command.link(group.id)],
             }
         )
         return user

@@ -64,9 +64,7 @@ class PettyCashPurchase(models.Model):
 
 	def _default_account_id(self):
 		property_field = self.env['product.category']._fields['property_account_expense_categ_id']
-		for _expense in self:
-			expense = _expense.with_company(_expense.company_id)
-			expense.account_id = property_field.get_company_dependent_fallback(self.env['product.category'])
+		return property_field.get_company_dependent_fallback(self.env['product.category'])
 
 	account_id = fields.Many2one(
 		comodel_name='account.account',
@@ -137,7 +135,7 @@ class PettyCashPurchase(models.Model):
 		for vals in vals_list:
 			if vals.get('name', 'New') == 'New':
 				vals['name'] = self.env['ir.sequence'].next_by_code('petty.cash.purchase') or 'New'
-			return super(PettyCashPurchase, self).create(vals)
+		return super().create(vals_list)
 
 	@api.depends('expenses_line_ids.total_amount', 'expenses_line_ids.tax_amount')
 	def _compute_amount(self):
@@ -161,6 +159,7 @@ class PettyCashPurchase(models.Model):
 		self.write({'state': 'approve'})
 
 	def post(self):
+		self.ensure_one()
 		if len(self.expenses_line_ids) < 1:
 			raise ValidationError(_('Can not post if there is no expense.'))
 
@@ -202,30 +201,27 @@ class PettyCashPurchase(models.Model):
 				inside_tags = []
 				if rec.tax_ids and 'tag_ids' in tax_line:
 					inside_tags = tax_line.get('tag_ids',[])
-				tax = self.env['account.tax'].browse(tax_line['id'])
-				repartition_lines = tax.invoice_repartition_line_ids.filtered(lambda r: r.repartition_type == 'tax')
-				for repartition in repartition_lines:
-					if not repartition.account_id:
-						continue
-					line_ids.append((0, 0, {
-						'name': tax.name,
-						'account_id': repartition.account_id.id,
-						'analytic_distribution': rec.analytic_distribution,
-						'operating_unit_id': rec.operating_unit_id.id,
-						'vehicle_id': rec.vehicle_id.id,
-						'partner_id': rec.vendor_id.id or False,
-						'employee_id': rec.employee_id.id or False,
-						'customer_account': rec.customer_account.id or False,
-						'customer_code': rec.customer_code,
-						'contract_type': rec.contract_type,
-						'employee_code': rec.employee_code,
-						'debit': abs(tax_line['amount']) if tax_line['amount'] > 0 else 0.0,
-						'credit': abs(tax_line['amount']) if tax_line['amount'] < 0 else 0.0,
-						'tax_line_id': tax.id,
-						'tax_repartition_line_id': repartition.id,
-						'tax_tag_ids': [(6,0,inside_tags)] if inside_tags else False,
-					}))
-					amount_credit += tax_line['amount']
+				# compute_all already returns one row per tax repartition line.
+				# Expanding every row again would duplicate split tax amounts.
+				line_ids.append((0, 0, {
+					'name': tax_line['name'],
+					'account_id': tax_line['account_id'] or rec.account_id.id,
+					'analytic_distribution': rec.analytic_distribution,
+					'operating_unit_id': rec.operating_unit_id.id,
+					'vehicle_id': rec.vehicle_id.id,
+					'partner_id': rec.vendor_id.id or False,
+					'employee_id': rec.employee_id.id or False,
+					'customer_account': rec.customer_account.id or False,
+					'customer_code': rec.customer_code,
+					'contract_type': rec.contract_type,
+					'employee_code': rec.employee_code,
+					'debit': abs(tax_line['amount']) if tax_line['amount'] > 0 else 0.0,
+					'credit': abs(tax_line['amount']) if tax_line['amount'] < 0 else 0.0,
+					'tax_line_id': tax_line['id'],
+					'tax_repartition_line_id': tax_line['tax_repartition_line_id'],
+					'tax_tag_ids': [(6,0,inside_tags)] if inside_tags else False,
+				}))
+				amount_credit += tax_line['amount']
 
 		line_ids.append((0, 0, {
 			'analytic_distribution': rec.analytic_distribution,
@@ -241,6 +237,7 @@ class PettyCashPurchase(models.Model):
 		}))
 
 		jv = self.env['account.move'].create({
+			'company_id': self.company_id.id,
 			# 'partner_id': self.employee_id.id,
 			'move_type': 'entry',
 			'ref': self.name,
@@ -397,7 +394,7 @@ class ExpenseLines(models.Model):
 			if rec.vendor_id:
 				rec.customer_account_domain = json.dumps([('id', 'in', rec.vendor_id.subscription_id.ids)])
 			else:
-				rec.customer_account_domain = json.dumps(['id', 'in', []])
+				rec.customer_account_domain = json.dumps([('id', 'in', [])])
 
 	@api.onchange('vendor_id')
 	def _get_partner_info(self):

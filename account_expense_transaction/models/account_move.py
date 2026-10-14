@@ -20,11 +20,13 @@ class AccountMove(models.Model):
                     'date': fields.Date.today(),
                     'journal_id': expense.journal_id.id,
                     'amortization_method': 'monthly',
-                    'reference': expense.number,
+                    'reference': expense.name,
                     'payment_type': 'credit',
                     'vendor_id': expense.partner_id.id,
                     'invoice_id': expense.id,
-                    'move_id': expense.move_id.id
+                    'move_id': expense.id,
+                    'company_id': expense.company_id.id,
+                    'expense_nature': 'prepaid',
                 }
                 transaction_rec = self.env['account.expense.transaction'].create(vals)
                 for rec in expense_product_line:
@@ -39,5 +41,12 @@ class AccountMove(models.Model):
                         'start_date': rec.start_date,
                         'end_date': rec.end_date,
                         'quantity': rec.quantity,
-                        'price_unit': rec.price_unit})
+                        'price_unit': rec.price_unit,
+                        'employee_id': rec.employee_id.id,
+                        'operating_unit_id': rec.operating_unit_id.id,
+                        'partner_id': rec.partner_id.id,
+                        'customer_code': rec.customer_code,
+                        'customer_account': rec.customer_account.id,
+                        'contract_type': rec.contract_type,
+                    })
         return res

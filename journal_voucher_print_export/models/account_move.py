@@ -298,7 +298,11 @@ class AccountMove(models.Model):
                     if line.analytic_distribution:
                         try:
                             # Extract analytic account IDs from the distribution dict
-                            analytic_ids = [int(k) for k in line.analytic_distribution.keys()]
+                            analytic_ids = sorted({
+                                int(account_id)
+                                for key in line.analytic_distribution
+                                for account_id in key.split(',')
+                            })
                             if analytic_ids:
                                 # Fetch all analytic accounts at once
                                 analytic_accounts = self.env['account.analytic.account'].browse(analytic_ids)

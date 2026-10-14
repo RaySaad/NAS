@@ -1,9 +1,10 @@
 {
     'name': 'Employees Extension',
-    'version': '1.0',
+    'version': '19.0.1.0.0',
     'category': 'Human Resources',
+    'author': 'Custom Development',
 
-    'depends': ['hr', 'base', 'mail', 'base_setup', 'operating_unit'],
+    'depends': ['hr', 'base', 'mail', 'base_setup', 'iap', 'operating_unit', 'contacts_ext'],
     'data': [
         'security/ir.model.access.csv',
         'data/pc_ou_mapping_data.xml',

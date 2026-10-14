@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Contact Extension',
-    'version': '1.0',
+    'version': '19.0.1.0.0',
     'category': 'Contacts',
+    'author': 'Custom Development',
 
     'depends': ['base','mail','base_setup','contacts', 'account'],
     'data': [

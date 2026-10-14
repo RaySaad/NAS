@@ -42,8 +42,8 @@ class TestInvoiceOperatingUnit(test_ou.TestAccountOperatingUnit):
         with self.assertRaises(UserError):
             self.invoice.line_ids[0].company_id = new_company.id
         # Check report invoice
-        self.env["account.invoice.report"].sudo().read_group(
-            [], ["operating_unit_id"], ["operating_unit_id"]
+        self.env["account.invoice.report"].sudo()._read_group(
+            [], ["operating_unit_id"], ["__count"]
         )
 
     def test_form(self):

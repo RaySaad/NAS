@@ -1,11 +1,14 @@
 from odoo import models, fields, api, _
-from odoo import fields, Command
+from odoo.fields import Domain
 
 
 class EmployeeExt(models.Model):
     _inherit = 'hr.employee'
 
-    identification_id = fields.Char(string='Iqama No', groups="hr.group_hr_user", tracking=True)
+    identification_id = fields.Char(
+        string='Iqama No', related='version_id.identification_id', inherited=True,
+        store=False, readonly=False, groups="hr.group_hr_user",
+    )
     employee_section = fields.Many2one('employee.section', string="Employee Section", tracking=True)
     job_number = fields.Char(string="Job Number", tracking=True, translate=True)
     project_code = fields.Char(string="Project Code", tracking=True, translate=True)
@@ -19,13 +22,12 @@ class EmployeeExt(models.Model):
     crm_id = fields.Char(string="CRM ID", readonly=True, tracking=True)
     user_name = fields.Char(string="User Name", readonly=True, tracking=True)
     customer_account = fields.Many2one('partner.subscription', string='Customer Contract', tracking=True)
+    # Keep the legacy API name while using Odoo 19's version-backed field.
+    gender = fields.Selection(string='Legacy Gender', related='sex', readonly=False, groups='hr.group_hr_user')
     marital = fields.Selection(
-        selection='_get_marital_status_selection',
+        related='version_id.marital', inherited=True, store=False, readonly=False,
         string='Marital Status',
         groups="hr.group_hr_user",
-        default='single',
-        required=True,
-        tracking=True
     )
 
     def _get_marital_status_selection(self):
@@ -38,9 +40,10 @@ class EmployeeExt(models.Model):
             ('other', 'Other')
         ]
 
-    _sql_constraints = [
-        ('employee_code_unique', 'unique(employee_code)', 'Employee Code must be unique!')
-    ]
+    _employee_code_unique = models.Constraint(
+        'unique(employee_code)',
+        'Employee Code must be unique!',
+    )
 
     @api.model
     def _selection_employee_state(self):
@@ -65,18 +68,16 @@ class EmployeeExt(models.Model):
     )
 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        domain = args or []
-        results = []
-        if name:
-            results = super(EmployeeExt, self).name_search(name, args, operator, limit)
-            if not results:
-                clean_name = name.replace(',', '').replace(' ', '')
-                code_domain = [('employee_code', operator, clean_name)]
-                partners = self.search(domain + code_domain, limit=limit)
-                results = [(p.id, p.display_name) for p in partners]
-        else:
-            results = super(EmployeeExt, self).name_search(name, args, operator, limit)
+    def name_search(self, name='', domain=None, operator='ilike', limit=100, *, args=None):
+        # Odoo 19 sends `domain`; retain the legacy keyword for existing callers.
+        domain = Domain(domain if domain is not None else (args or Domain.TRUE))
+        results = super().name_search(name, domain, operator, limit)
+        if name and not results:
+            clean_name = name.replace(',', '').replace(' ', '')
+            employees = self.search(
+                domain & Domain('employee_code', operator, clean_name), limit=limit
+            )
+            results = [(employee.id, employee.display_name) for employee in employees]
         return results
 
     # cronjob for update field operating_unit_id based on formula
@@ -113,12 +114,27 @@ class EmployeeExt(models.Model):
                 employee.operating_unit_id = default_ou
 
 
+class EmployeeVersionExt(models.Model):
+    _inherit = 'hr.version'
+
+    # Keep the customization on the actual Odoo 19 storage model rather than
+    # shadowing its delegated employee field with a second database column.
+    marital = fields.Selection(default='single', required=True, tracking=True)
+
+    def _get_marital_status_selection(self):
+        values = super()._get_marital_status_selection()
+        if not any(key == 'other' for key, label in values):
+            values = [*values, ('other', _('Other'))]
+        return values
+
+
 class DepartmentExt(models.Model):
     _inherit = 'hr.department'
 
     crm_id = fields.Char(string="CRM ID", readonly=True, tracking=True)
     user_name = fields.Char(string="User Name", readonly=True, tracking=True)
 
-    _sql_constraints = [
-        ('crm_id_unique', 'unique (crm_id)', 'The Department with the same CRM ID already exists!'),
-    ]
+    _crm_id_unique = models.Constraint(
+        'unique (crm_id)',
+        'The Department with the same CRM ID already exists!',
+    )

@@ -16,7 +16,7 @@ patch(AnalyticDistribution.prototype, {
                             [
                                 "operating_unit_ids",
                                 "in",
-                                this.props.record.data.operating_unit_id[0],
+                                [this.props.record.data.operating_unit_id.id],
                             ],
                             ["operating_unit_ids", "=", false]
                         );

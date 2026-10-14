@@ -2,7 +2,7 @@
 
 {
     'name': 'Employee Financial Statement',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Consolidated financial statement for employees from journal entries',
     'description': """
@@ -32,6 +32,9 @@
     ],
     'assets': {
         'web.assets_backend': [],
+    },
+    'external_dependencies': {
+        'python': ['xlsxwriter'],
     },
     'installable': True,
     'application': False,

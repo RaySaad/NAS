@@ -22,15 +22,15 @@
                                     <table style="width: 100%;">
                                         <tr>
                                             <td style="font-weight: bold; color: #495057; width: 120px; padding: 5px 0;">Employee:</td>
-                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.name"/></td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-out="o.employee_id.name"/></td>
                                         </tr>
                                         <tr>
                                             <td style="font-weight: bold; color: #495057; padding: 5px 0;">Employee ID:</td>
-                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.barcode or o.employee_id.id"/></td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-out="o.employee_id.barcode or o.employee_id.id"/></td>
                                         </tr>
                                         <tr>
                                             <td style="font-weight: bold; color: #495057; padding: 5px 0;">Department:</td>
-                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="o.employee_id.department_id.name or '-'"/></td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-out="o.employee_id.department_id.name or '-'"/></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -40,7 +40,7 @@
                                             <td style="font-weight: bold; color: #495057; width: 120px; padding: 5px 0;">Period From:</td>
                                             <td style="color: #212529; padding: 5px 0;">
                                                 <t t-if="o.date_from">
-                                                    <t t-esc="o.date_from" t-options="{'widget': 'date'}"/>
+                                                    <t t-out="o.date_from" t-options="{'widget': 'date'}"/>
                                                 </t>
                                                 <t t-else="">All Time</t>
                                             </td>
@@ -49,14 +49,14 @@
                                             <td style="font-weight: bold; color: #495057; padding: 5px 0;">Period To:</td>
                                             <td style="color: #212529; padding: 5px 0;">
                                                 <t t-if="o.date_to">
-                                                    <t t-esc="o.date_to" t-options="{'widget': 'date'}"/>
+                                                    <t t-out="o.date_to" t-options="{'widget': 'date'}"/>
                                                 </t>
                                                 <t t-else="">Present</t>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="font-weight: bold; color: #495057; padding: 5px 0;">Print Date:</td>
-                                            <td style="color: #212529; padding: 5px 0;"><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></td>
+                                            <td style="color: #212529; padding: 5px 0;"><t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -83,28 +83,28 @@
                                     <t t-set="row_count" t-value="row_count + 1"/>
                                     <tr t-attf-style="background-color: {{ 'white' if row_count % 2 == 1 else '#f8f9fa' }};">
                                         <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">
-                                            <t t-esc="line.date" t-options="{'widget': 'date'}"/>
+                                            <t t-out="line.date" t-options="{'widget': 'date'}"/>
                                         </td>
                                         <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
-                                            <t t-esc="line.move_id.name"/>
+                                            <t t-out="line.move_id.name"/>
                                         </td>
                                         <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
-                                            <t t-esc="line.journal_id.name"/>
+                                            <t t-out="line.journal_id.name"/>
                                         </td>
                                         <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
-                                            <t t-esc="line.account_id.display_name"/>
+                                            <t t-out="line.account_id.display_name"/>
                                         </td>
                                         <td style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">
-                                            <t t-esc="line.label or '-'"/>
+                                            <t t-out="line.label or '-'"/>
                                         </td>
                                         <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6;">
-                                            <t t-esc="'{:,.2f}'.format(line.debit)"/>
+                                            <t t-out="'{:,.2f}'.format(line.debit)"/>
                                         </td>
                                         <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6;">
-                                            <t t-esc="'{:,.2f}'.format(line.credit)"/>
+                                            <t t-out="'{:,.2f}'.format(line.credit)"/>
                                         </td>
                                         <td style="padding: 8px; text-align: right; border: 1px solid #dee2e6; font-weight: 500;">
-                                            <t t-esc="'{:,.2f}'.format(line.running_balance)"/>
+                                            <t t-out="'{:,.2f}'.format(line.running_balance)"/>
                                         </td>
                                     </tr>
                                 </t>
@@ -116,13 +116,13 @@
                                         TOTALS:
                                     </td>
                                     <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
-                                        <t t-esc="'{:,.2f}'.format(o.total_debit)"/>
+                                        <t t-out="'{:,.2f}'.format(o.total_debit)"/>
                                     </td>
                                     <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
-                                        <t t-esc="'{:,.2f}'.format(o.total_credit)"/>
+                                        <t t-out="'{:,.2f}'.format(o.total_credit)"/>
                                     </td>
                                     <td style="padding: 10px 8px; text-align: right; border: 1px solid #1a252f;">
-                                        <t t-esc="'{:,.2f}'.format(o.balance)"/>
+                                        <t t-out="'{:,.2f}'.format(o.balance)"/>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -137,13 +137,13 @@
                                         <tr style="background-color: #e8f4fd;">
                                             <td style="padding: 10px; font-weight: bold; border: 1px solid #bee5eb;">Total Debit:</td>
                                             <td style="padding: 10px; text-align: right; border: 1px solid #bee5eb;">
-                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.total_debit)"/>
+                                                <t t-out="o.currency_id.symbol"/> <t t-out="'{:,.2f}'.format(o.total_debit)"/>
                                             </td>
                                         </tr>
                                         <tr style="background-color: #fff3cd;">
                                             <td style="padding: 10px; font-weight: bold; border: 1px solid #ffeeba;">Total Credit:</td>
                                             <td style="padding: 10px; text-align: right; border: 1px solid #ffeeba;">
-                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.total_credit)"/>
+                                                <t t-out="o.currency_id.symbol"/> <t t-out="'{:,.2f}'.format(o.total_credit)"/>
                                             </td>
                                         </tr>
                                         <tr t-attf-style="background-color: {{ '#d4edda' if o.balance >= 0 else '#f8d7da' }};">
@@ -151,7 +151,7 @@
                                                 Net Balance:
                                             </td>
                                             <td style="padding: 12px; text-align: right; font-weight: bold; font-size: 14px; border: 1px solid #c3e6cb;">
-                                                <t t-esc="o.currency_id.symbol"/> <t t-esc="'{:,.2f}'.format(o.balance)"/>
+                                                <t t-out="o.currency_id.symbol"/> <t t-out="'{:,.2f}'.format(o.balance)"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -165,7 +165,7 @@
                                 This is a computer-generated document. No signature is required.
                             </p>
                             <p style="font-size: 10px; color: #6c757d; text-align: center; margin: 5px 0 0 0;">
-                                Generated by <t t-esc="o.env.company.name"/> on <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                Generated by <t t-out="o.env.company.name"/> on <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
                             </p>
                         </div>
                     </div>

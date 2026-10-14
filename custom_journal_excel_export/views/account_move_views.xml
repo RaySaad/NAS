@@ -13,7 +13,7 @@
                 <xpath expr="//header" position="inside">
                     
                     <!-- Smart Print Button - Auto-detects size -->
-                    <button name="action_print_voucher" 
+                    <button name="action_print_large_voucher"
                             string="Print Voucher" 
                             type="object" 
                             class="btn-primary"
@@ -22,7 +22,7 @@
                             help="Automatically uses PDF for entries under 1000 lines, Excel for larger entries"/>
                     
                     <!-- Explicit Excel Export Button -->
-                    <button name="export_voucher_excel" 
+                    <button name="export_large_voucher_excel"
                             string="Export to Excel" 
                             type="object" 
                             class="btn-success"
