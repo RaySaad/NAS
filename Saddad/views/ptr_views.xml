@@ -1,0 +1,42 @@
+<odoo>
+
+<record id="view_ptr_list" model="ir.ui.view"><field name="name">saddad.ptr.list</field><field name="model">saddad.ptr</field>
+<field name="arch" type="xml"><list decoration-success="state == 'confirmed'" decoration-info="state == 'reviewed'">
+<header><button name="action_review" type="object" string="Review" /><button name="action_confirm" type="object" string="Confirm" /></header>
+<field name="name" /><field name="employee_id" /><field name="department_id" optional="show" /><field name="company_id" groups="base.group_multi_company" />
+<field name="iqama_number" /><field name="expiry_date" /><field name="remaining_days" /><field name="period" optional="hide" /><field name="product_id" optional="hide" /><field name="amount" sum="Total Cost" /><field name="currency_id" column_invisible="True" />
+<field name="auto_generated" optional="hide" /><field name="state" widget="badge" /><field name="qiwa_route_state" optional="hide" />
+</list></field></record>
+<record id="view_ptr_form" model="ir.ui.view"><field name="name">saddad.ptr.form</field><field name="model">saddad.ptr</field>
+<field name="arch" type="xml"><form><header>
+<button name="action_review" type="object" string="Review" class="oe_highlight" invisible="not can_review" />
+<button name="action_confirm" type="object" string="Confirm" class="oe_highlight" invisible="not can_confirm" />
+<button name="action_reset_draft" type="object" string="Reset to Draft" invisible="not can_reset" />
+<field name="can_review" invisible="True" /><field name="can_confirm" invisible="True" /><field name="can_reset" invisible="True" /><field name="state" widget="statusbar" statusbar_visible="draft,reviewed,confirmed" />
+<field name="can_prepare_muqeem" invisible="1" /><button name="action_prepare_muqeem" type="object" string="Prepare Muqeem" invisible="not can_prepare_muqeem" /></header><sheet><div class="oe_button_box" name="button_box"><button name="action_open_muqeem" type="object" class="oe_stat_button" icon="fa-money" invisible="not muqeem_count"><field name="muqeem_count" widget="statinfo" /></button></div><div class="oe_title"><h1><field name="name" /></h1></div><group><group>
+<field name="company_id" readonly="id" groups="base.group_multi_company" />
+<field name="employee_id" readonly="state != 'draft'" domain="[('company_id', '=', company_id)]" />
+<field name="department_id" /><field name="iqama_number" /><field name="expiry_date" /><field name="remaining_days" /><field name="period" readonly="state != 'draft'" />
+</group><group><field name="product_id" /><field name="amount" /><field name="currency_id" invisible="True" />
+<field name="auto_generated" /><field name="qiwa_handoff_state" invisible="1" />
+<field name="qiwa_route_state" invisible="state != 'confirmed'" /></group></group><notebook><page name="services" string="Service Lines">
+<field name="line_ids" readonly="state != 'draft'">
+<list editable="bottom"><field name="company_id" column_invisible="True" /><field name="currency_id" column_invisible="True" />
+<field name="mapping_id" domain="[('company_id','=',parent.company_id)]" />
+<field name="product_id" readonly="mapping_id" /><field name="service_type" readonly="mapping_id" />
+<field name="period" readonly="mapping_id" /><field name="amount" sum="Total Cost" /></list></field></page>
+<page name="notes" string="Notes"><field name="notes" readonly="state != 'draft'" /></page>
+<page name="audit" string="Approval History"><group><field name="reviewed_by" /><field name="reviewed_at" />
+<field name="confirmed_by" /><field name="confirmed_at" /><field name="reset_by" /><field name="reset_at" /></group></page></notebook></sheet><chatter /></form></field></record>
+<record id="view_ptr_search" model="ir.ui.view"><field name="name">saddad.ptr.search</field><field name="model">saddad.ptr</field>
+<field name="arch" type="xml"><search><field name="name" /><field name="employee_id" /><field name="department_id" /><field name="iqama_number" />
+<field name="expiry_date" /><field name="remaining_days" /><field name="line_ids" string="Service Product" filter_domain="[('line_ids.product_id','ilike',self)]" />
+<filter name="draft" string="Draft" domain="[('state','=','draft')]" /><filter name="reviewed" string="Reviewed" domain="[('state','=','reviewed')]" />
+<filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" />
+<separator /><filter name="automatic" string="Automatic" domain="[('auto_generated','=',True)]" />
+<group><filter name="by_state" string="Status" context="{'group_by':'state'}" />
+<filter name="by_department" string="Department" context="{'group_by':'department_id'}" />
+<filter name="by_company" string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company" /></group></search></field></record>
+<record id="action_ptr" model="ir.actions.act_window"><field name="name">Pending to Renew</field><field name="res_model">saddad.ptr</field><field name="view_mode">list,form</field></record>
+
+</odoo>

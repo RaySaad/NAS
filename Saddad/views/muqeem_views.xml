@@ -1,0 +1,46 @@
+<odoo>
+<record id="view_muqeem_list" model="ir.ui.view"><field name="name">saddad.muqeem.expense.list</field><field name="model">saddad.muqeem.expense</field><field name="arch" type="xml"><list decoration-success="state == 'posted'" decoration-danger="state == 'rejected'"><field name="name" /><field name="date" /><field name="reference" /><field name="company_id" groups="base.group_multi_company" /><field name="currency_id" column_invisible="True" /><field name="total_amount" sum="Total" /><field name="paid_amount" sum="Paid" /><field name="state" widget="badge" /></list></field></record>
+<record id="view_muqeem_form" model="ir.ui.view"><field name="name">saddad.muqeem.expense.form</field><field name="model">saddad.muqeem.expense</field><field name="arch" type="xml"><form>
+<header><button name="action_approve" type="object" string="Submit" class="btn-primary" invisible="not can_approve or state != 'draft'" /><button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="not can_approve or state == 'draft'" /><button name="action_reject" type="object" string="Reject" invisible="not can_reject" /><button name="action_reset" type="object" string="Reset to Draft" invisible="not can_reset" /><button name="action_post" type="object" string="Post Journal Entry" class="btn-primary" invisible="not can_post" /><field name="state" widget="statusbar" statusbar_visible="draft,assistant,hr,finance,gm,payment,done,posted" /></header>
+<sheet><div class="oe_button_box" name="button_box"><button type="object" name="action_open_entry" class="oe_stat_button" icon="fa-book" invisible="not move_id" groups="account.group_account_readonly"><div class="o_stat_info"><span class="o_stat_text">Journal Entry</span></div></button><button type="object" name="action_open_deferrals" class="oe_stat_button" icon="fa-calendar" invisible="not deferred_move_count" groups="account.group_account_readonly"><field name="deferred_move_count" widget="statinfo" /></button></div><h1><field name="name" /></h1>
+<field name="can_approve" invisible="1" /><field name="can_reject" invisible="1" /><field name="can_reset" invisible="1" /><field name="can_pay" invisible="1" /><field name="can_post" invisible="1" /><field name="currency_id" invisible="1" />
+<group><group><field name="company_id" readonly="id" groups="base.group_multi_company" /><field name="date" readonly="state != 'draft'" /><field name="reference" readonly="state != 'draft'" /><field name="qiwa_batch_id" invisible="not qiwa_batch_id" /><field name="ptr_id" invisible="not ptr_id" /></group><group><field name="journal_id" readonly="not can_pay or paid_amount != 0" /><field name="total_amount" /><field name="paid_amount" /><field name="move_id" invisible="not move_id" groups="account.group_account_readonly" /></group></group>
+<field name="rejection_reason" invisible="not rejection_reason" />
+<notebook><page string="Expense Lines"><field name="line_ids" readonly="state not in ['draft', 'payment', 'done']"><list editable="bottom"><field name="company_id" column_invisible="True" /><field name="currency_id" column_invisible="True" /><field name="qiwa_line_id" optional="hide" /><field name="employee_id" readonly="parent.state != 'draft' or qiwa_line_id or ptr_line_id" domain="[('company_id', '=', parent.company_id)]" /><field name="department_id" optional="hide" /><field name="muqeem_category_id" column_invisible="True" /><field name="product_id" options="{'no_create': True}" readonly="parent.state != 'draft' or qiwa_line_id or ptr_line_id" /><field name="period" readonly="parent.state != 'draft' or qiwa_line_id or ptr_line_id" /><field name="amount" readonly="parent.state != 'draft' or qiwa_line_id or ptr_line_id" /><field name="tax_ids" widget="many2many_tags" readonly="parent.state != 'draft'" optional="show" /><field name="total" sum="Total" /><field name="paid_for" readonly="parent.state != 'draft'" /><field name="defer_expense" readonly="parent.state != 'draft'" /><field name="defer_start" readonly="parent.state != 'draft'" optional="show" /><field name="defer_end" readonly="parent.state != 'draft'" optional="show" /><field name="paid" /><field name="payment_date" optional="hide" /><field name="paid_by" optional="hide" /><button name="action_mark_paid" type="object" string="Mark Paid" icon="fa-check" invisible="not parent.can_pay or paid or parent.state != 'payment'" /><button name="action_unmark_paid" type="object" string="Reverse Payment Mark" icon="fa-undo" invisible="not parent.can_pay or not paid" /><field name="ptr_line_id" optional="hide" /></list></field></page><page string="Notes"><field name="notes" readonly="state != 'draft'" /></page><page string="Approval History"><group><field name="action_user_id" /><field name="action_at" /></group><p>Approvals, rejections and payment actions are recorded in the chatter.</p></page></notebook>
+</sheet><chatter /></form></field></record>
+<record id="view_muqeem_search" model="ir.ui.view"><field name="name">saddad.muqeem.expense.search</field><field name="model">saddad.muqeem.expense</field><field name="arch" type="xml"><search><field name="name" /><field name="reference" /><field name="line_ids" string="Employee" filter_domain="[('line_ids.employee_id.name','ilike',self)]" /><filter name="pending_payment" string="Pending Payment" domain="[('state','=','payment')]" /><filter name="posted" string="Posted" domain="[('state','=','posted')]" /><filter name="rejected" string="Rejected" domain="[('state','=','rejected')]" /><filter name="date" string="Date" date="date" /><group><filter name="group_state" string="Stage" context="{'group_by':'state'}" /><filter name="group_company" string="Company" context="{'group_by':'company_id'}" /></group><field name="state" /><field name="line_ids" string="Department" filter_domain="[('line_ids.department_id.name','ilike',self)]" /><field name="line_ids" string="Service Product" filter_domain="[('line_ids.product_id.name','ilike',self)]" /><filter name="some_paid" string="Has Paid Lines" domain="[('paid_amount','&gt;',0)]" /></search></field></record>
+<record id="action_muqeem" model="ir.actions.act_window"><field name="name">Muqeem Expenses</field><field name="res_model">saddad.muqeem.expense</field><field name="view_mode">list,form</field></record>
+<record id="view_muqeem_reject" model="ir.ui.view"><field name="name">saddad.muqeem.reject.form</field><field name="model">saddad.muqeem.reject</field><field name="arch" type="xml"><form><group><field name="expense_id" readonly="1" /><field name="reason" /></group><footer><button type="object" name="action_apply" string="Reject" class="btn-primary" /><button special="cancel" string="Cancel" /></footer></form></field></record>
+
+<record id="view_muqeem_line_list" model="ir.ui.view">
+ <field name="name">saddad.muqeem.line.list</field><field name="model">saddad.muqeem.line</field>
+ <field name="arch" type="xml"><list create="false" edit="false" delete="false" default_order="id desc">
+  <field name="expense_id" string="Muqeem Expense"/><field name="employee_id"/><field name="department_id" optional="show"/>
+  <field name="product_id" string="Service Product"/><field name="period"/><field name="company_id" groups="base.group_multi_company"/>
+  <field name="currency_id" column_invisible="True"/><field name="amount" sum="Amount"/><field name="total" sum="Total"/>
+  <field name="paid_for"/><field name="paid"/><field name="payment_date" optional="hide"/>
+  <field name="defer_expense" optional="hide"/><field name="defer_start" optional="hide"/><field name="defer_end" optional="hide"/>
+  <button name="action_open_expense" type="object" string="Open Expense" icon="fa-external-link"/>
+ </list></field>
+</record>
+<record id="view_muqeem_line_search" model="ir.ui.view">
+ <field name="name">saddad.muqeem.line.search</field><field name="model">saddad.muqeem.line</field>
+ <field name="arch" type="xml"><search>
+  <field name="employee_id"/><field name="product_id" string="Service Product"/><field name="expense_id" string="Muqeem Expense"/>
+  <field name="department_id"/><field name="company_id" groups="base.group_multi_company"/>
+  <filter name="paid" string="Paid" domain="[('paid','=',True)]"/><filter name="unpaid" string="Unpaid" domain="[('paid','=',False)]"/>
+  <separator/><filter name="posted" string="Posted" domain="[('expense_id.state','=','posted')]"/>
+  <filter name="draft" string="Draft" domain="[('expense_id.state','=','draft')]"/>
+  <group><filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+   <filter name="group_service" string="Service Product" context="{'group_by':'product_id'}"/>
+   <filter name="group_department" string="Department" context="{'group_by':'department_id'}"/>
+   <filter name="group_expense" string="Muqeem Expense" context="{'group_by':'expense_id'}"/>
+   <filter name="group_company" string="Company" context="{'group_by':'company_id'}"/>
+  </group>
+ </search></field>
+</record>
+<record id="action_muqeem_lines" model="ir.actions.act_window">
+ <field name="name">Muqeem Expense Lines</field><field name="res_model">saddad.muqeem.line</field><field name="view_mode">list</field>
+ <field name="view_id" ref="view_muqeem_line_list"/><field name="search_view_id" ref="view_muqeem_line_search"/>
+</record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+<menuitem id="menu_saddad" name="Saddad" sequence="35" groups="Saddad.group_user,Saddad.group_muqeem_base" web_icon="Saddad,static/description/icon.png"/>
+<menuitem id="menu_renewals" name="Renewals" parent="menu_saddad" sequence="10"/><menuitem id="menu_muqeem_group" name="Muqeem" parent="menu_saddad" sequence="30"/><menuitem id="menu_ptr" name="Pending to Renew" parent="menu_renewals" action="action_ptr" sequence="10"/>
+<menuitem id="menu_configuration" name="Configuration" parent="menu_saddad" groups="Saddad.group_manager" sequence="90"/>
+<menuitem id="menu_mapping" name="Service Period Mappings" parent="menu_configuration" action="action_service_mapping"/>
+<menuitem id="menu_approval" name="Approval Rules" parent="menu_configuration" action="action_approval_rule"/>
+<menuitem id="menu_settings" name="Settings" parent="menu_saddad" action="action_saddad_company_settings" groups="Saddad.group_manager" sequence="99"/>
+
+<menuitem id="menu_qiwa" name="Qiwa Work Permit" parent="menu_saddad" action="action_qiwa" sequence="20"/>
+<menuitem id="menu_muqeem" name="Muqeem Expenses" parent="menu_muqeem_group" action="action_muqeem" groups="Saddad.group_muqeem_base" sequence="30"/>
+<menuitem id="menu_morro" name="Morro Expenses" parent="menu_saddad" action="action_morro" groups="Saddad.group_morro_base" sequence="40"/>
+<menuitem id="menu_services" name="Saddad Services" parent="menu_saddad" action="action_services" groups="Saddad.group_services_base" sequence="50"/>
+<menuitem id="menu_billers" name="Billers" parent="menu_configuration" action="action_biller" sequence="30"/>
+<menuitem id="menu_muqeem_lines" name="Muqeem Expense Lines" parent="menu_muqeem_group" action="action_muqeem_lines" groups="Saddad.group_muqeem_base" sequence="31"/>
+</odoo>

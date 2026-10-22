@@ -1,0 +1,190 @@
+<odoo>
+  <record id="view_services_list" model="ir.ui.view">
+    <field name="name">saddad.service.request.list</field>
+    <field name="model">saddad.service.request</field>
+    <field name="arch" type="xml">
+      <list decoration-success="state == 'posted'" decoration-danger="state == 'rejected'">
+        <field name="name"/>
+        <field name="date"/>
+        <field name="description"/>
+        <field name="biller_id"/>
+        <field name="reference"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="currency_id" column_invisible="True"/>
+        <field name="total_amount" sum="Total"/>
+        <field name="paid_amount" sum="Paid"/>
+        <field name="state" widget="badge"/>
+      </list>
+    </field>
+  </record>
+  <record id="view_services_form" model="ir.ui.view">
+    <field name="name">saddad.service.request.form</field>
+    <field name="model">saddad.service.request</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button name="action_approve" type="object" string="Submit" class="btn-primary" invisible="not can_approve or state != 'draft'"/>
+          <button name="action_approve" type="object" string="Review" invisible="not can_approve or state != 'reviewed'"/>
+          <button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="not can_approve or state in ['draft','reviewed']"/>
+          <button name="action_reject" type="object" string="Reject" invisible="not can_reject"/>
+          <button name="action_reset" type="object" string="Reset to Draft" invisible="not can_reset"/>
+          <button name="action_post" type="object" string="Post Journal Entry" class="btn-primary" invisible="not can_post"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,reviewed,finance,gm,payment,done,posted"/>
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button type="object" name="action_open_entry" class="oe_stat_button" icon="fa-book" invisible="not move_id" groups="account.group_account_readonly">
+              <div class="o_stat_info">
+                <span class="o_stat_text">Journal Entry</span>
+              </div>
+            </button>
+          </div>
+          <h1>
+            <field name="name"/>
+          </h1>
+          <field name="can_approve" invisible="1"/>
+          <field name="can_reject" invisible="1"/>
+          <field name="can_reset" invisible="1"/>
+          <field name="can_pay" invisible="1"/>
+          <field name="can_post" invisible="1"/>
+          <field name="currency_id" invisible="1"/>
+          <group>
+            <group>
+              <field name="company_id" readonly="id" groups="base.group_multi_company"/>
+              <field name="date" readonly="state != 'draft'"/>
+              <field name="description" readonly="state != 'draft'"/>
+              <field name="biller_id" readonly="state != 'draft'" options="{'no_create': True}"/>
+              <field name="reference" readonly="state != 'draft'"/>
+            </group>
+            <group>
+              <field name="journal_id" readonly="not can_pay or paid_amount != 0"/>
+              <field name="untaxed_amount"/>
+              <field name="tax_amount"/>
+              <field name="total_amount"/>
+              <field name="paid_amount"/>
+              <field name="move_id" invisible="not move_id" groups="account.group_account_readonly"/>
+            </group>
+          </group>
+          <field name="rejection_reason" invisible="not rejection_reason"/>
+          <notebook>
+            <page string="Expense Lines">
+              <field name="line_ids" readonly="state not in ['draft', 'payment', 'done']">
+                <list editable="bottom">
+                  <field name="company_id" column_invisible="True"/>
+                  <field name="currency_id" column_invisible="True"/>
+                  <field name="services_category_id" column_invisible="True"/>
+                  <field name="product_id" options="{'no_create': True}" readonly="parent.state != 'draft'"/>
+                  <field name="invoice_number" readonly="parent.state != 'draft'"/>
+                  <field name="description" optional="hide" readonly="parent.state != 'draft'"/>
+                  <field name="amount" readonly="parent.state != 'draft'" string="Invoice Amount"/>
+                  <field name="tax_ids" widget="many2many_tags" readonly="parent.state != 'draft'" optional="show"/>
+                  <field name="untaxed_amount" optional="hide"/>
+                  <field name="tax_amount" optional="show"/>
+                  <field name="total" sum="Total"/>
+                  <field name="analytic_account_id" optional="hide" readonly="parent.state != 'draft'"/>
+                  <field name="attachment_filename" column_invisible="True" readonly="parent.state != 'draft'"/>
+                  <field name="attachment" optional="hide" filename="attachment_filename" readonly="parent.state != 'draft'"/>
+                  <field name="paid"/>
+                  <field name="payment_date" optional="hide"/>
+                  <field name="paid_by" optional="hide"/>
+                  <button name="action_mark_paid" type="object" string="Mark Paid" icon="fa-check" invisible="not parent.can_pay or paid or parent.state != 'payment'"/>
+                  <button name="action_unmark_paid" type="object" string="Reverse Payment Mark" icon="fa-undo" invisible="not parent.can_pay or not paid"/>
+                </list>
+              </field>
+            </page>
+            <page string="Notes">
+              <field name="notes" readonly="state != 'draft'"/>
+            </page>
+            <page string="Approval History">
+              <group>
+                <field name="action_user_id"/>
+                <field name="action_at"/>
+              </group>
+              <p>Approvals, rejections and payment actions are recorded in the chatter.</p>
+            </page>
+          </notebook>
+        </sheet>
+        <chatter/>
+      </form>
+    </field>
+  </record>
+  <record id="view_services_search" model="ir.ui.view">
+    <field name="name">saddad.service.request.search</field>
+    <field name="model">saddad.service.request</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="reference"/>
+        <filter name="pending_payment" string="Pending Payment" domain="[('state','=','payment')]"/>
+        <filter name="posted" string="Posted" domain="[('state','=','posted')]"/>
+        <filter name="rejected" string="Rejected" domain="[('state','=','rejected')]"/>
+        <filter name="date" string="Date" date="date"/>
+        <group>
+          <filter name="group_state" string="Stage" context="{'group_by':'state'}"/>
+          <filter name="group_company" string="Company" context="{'group_by':'company_id'}"/>
+        </group>
+        <field name="state"/>
+        <field name="line_ids" string="Service Product" filter_domain="[('line_ids.product_id.name','ilike',self)]"/>
+        <filter name="some_paid" string="Has Paid Lines" domain="[('paid_amount','&gt;',0)]"/>
+        <field name="biller_id"/>
+        <field name="line_ids" string="Invoice / Reference Number" filter_domain="[('line_ids.invoice_number','ilike',self)]"/>
+      </search>
+    </field>
+  </record>
+  <record id="action_services" model="ir.actions.act_window">
+    <field name="name">Saddad Services</field>
+    <field name="res_model">saddad.service.request</field>
+    <field name="view_mode">list,form</field>
+  </record>
+  <record id="view_services_reject" model="ir.ui.view">
+    <field name="name">saddad.service.reject.form</field>
+    <field name="model">saddad.service.reject</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="expense_id" readonly="1"/>
+          <field name="reason"/>
+        </group>
+        <footer>
+          <button type="object" name="action_apply" string="Reject" class="btn-primary"/>
+          <button special="cancel" string="Cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+  <record id="view_biller_list" model="ir.ui.view">
+    <field name="name">saddad.biller.list</field>
+    <field name="model">saddad.biller</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="code"/>
+        <field name="name"/>
+        <field name="partner_id"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="active" optional="hide"/>
+      </list>
+    </field>
+  </record>
+  <record id="view_biller_form" model="ir.ui.view">
+    <field name="name">saddad.biller.form</field>
+    <field name="model">saddad.biller</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="code"/>
+            <field name="partner_id"/>
+            <field name="company_id" groups="base.group_multi_company"/>
+            <field name="active"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_biller" model="ir.actions.act_window">
+    <field name="name">Billers</field>
+    <field name="res_model">saddad.biller</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>

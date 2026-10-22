@@ -1,0 +1,62 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_ptr_user,ptr user,model_saddad_ptr,group_user,1,1,1,0
+access_ptr_manager,ptr manager,model_saddad_ptr,group_manager,1,1,1,1
+access_ptr_line_user,ptr_line user,model_saddad_ptr_line,group_user,1,1,1,1
+access_ptr_line_manager,ptr_line manager,model_saddad_ptr_line,group_manager,1,1,1,1
+access_service_mapping_user,service_mapping user,model_saddad_service_mapping,group_user,1,0,0,0
+access_service_mapping_manager,service_mapping manager,model_saddad_service_mapping,group_manager,1,1,1,1
+access_approval_rule_user,approval_rule user,model_saddad_approval_rule,group_user,1,0,0,0
+access_approval_rule_manager,approval_rule manager,model_saddad_approval_rule,group_manager,1,1,1,1
+access_settings_manager,settings manager,model_saddad_settings,group_manager,1,1,1,1
+access_qiwa_batch_user,qiwa_batch user,model_saddad_qiwa_batch,group_user,1,1,1,0
+access_qiwa_line_user,qiwa_line user,model_saddad_qiwa_line,group_user,1,1,1,1
+access_qiwa_import_user,qiwa_import user,model_saddad_qiwa_import,group_user,1,1,1,1
+access_qiwa_import_line_user,qiwa_import_line user,model_saddad_qiwa_import_line,group_user,1,1,1,1
+access_qiwa_batch_manager,qiwa batch manager,model_saddad_qiwa_batch,group_manager,1,1,1,1
+access_muqeem,Muqeem muqeem,model_saddad_muqeem_expense,Saddad.group_muqeem_base,1,1,1,1
+access_muqeem_line,Muqeem muqeem_line,model_saddad_muqeem_line,Saddad.group_muqeem_base,1,1,1,1
+access_muqeem_qiwa_read,Muqeem muqeem_qiwa_read,model_saddad_muqeem_expense,Saddad.group_user,1,0,0,0
+access_muqeem_qiwa_line_read,Muqeem muqeem_qiwa_line_read,model_saddad_muqeem_line,Saddad.group_user,1,0,0,0
+access_muqeem_reject,Muqeem muqeem_reject,model_saddad_muqeem_reject,Saddad.group_muqeem_base,1,1,1,1
+access_muqeem_rule,Muqeem muqeem_rule,model_saddad_approval_rule,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_qiwa_source,Muqeem muqeem_qiwa_source,model_saddad_qiwa_batch,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_qiwa_source_line,Muqeem muqeem_qiwa_source_line,model_saddad_qiwa_line,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_account_journal,Muqeem account_journal,account.model_account_journal,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_account_account,Muqeem account_account,account.model_account_account,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_account_tax,Muqeem account_tax,account.model_account_tax,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_account_tax_repartition_line,Muqeem account_tax_repartition_line,account.model_account_tax_repartition_line,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_ptr_read,Muqeem source PTR read,model_saddad_ptr,Saddad.group_muqeem_base,1,0,0,0
+access_muqeem_ptr_line_read,Muqeem source PTR line read,model_saddad_ptr_line,Saddad.group_muqeem_base,1,0,0,0
+
+access_morro,Morro morro,model_saddad_morro,Saddad.group_morro_base,1,1,1,1
+access_morro_line,Morro morro_line,model_saddad_morro_line,Saddad.group_morro_base,1,1,1,1
+access_morro_reject,Morro morro_reject,model_saddad_morro_reject,Saddad.group_morro_base,1,1,1,1
+access_morro_rule,Morro morro_rule,model_saddad_approval_rule,Saddad.group_morro_base,1,0,0,0
+access_morro_account_journal,Morro account_journal,account.model_account_journal,Saddad.group_morro_base,1,0,0,0
+access_morro_account_account,Morro account_account,account.model_account_account,Saddad.group_morro_base,1,0,0,0
+access_morro_account_tax,Morro account_tax,account.model_account_tax,Saddad.group_morro_base,1,0,0,0
+access_morro_account_tax_repartition_line,Morro account_tax_repartition_line,account.model_account_tax_repartition_line,Saddad.group_morro_base,1,0,0,0
+access_morro_vehicle,Morro vehicle,fleet.model_fleet_vehicle,Saddad.group_morro_base,1,0,0,0
+access_morro_vehicle_model,Morro vehicle_model,fleet.model_fleet_vehicle_model,Saddad.group_morro_base,1,0,0,0
+access_morro_vehicle_brand,Morro vehicle_brand,fleet.model_fleet_vehicle_model_brand,Saddad.group_morro_base,1,0,0,0
+access_morro_analytic,Morro analytic,analytic.model_account_analytic_account,Saddad.group_morro_base,1,0,0,0
+
+access_services,Service services,model_saddad_service_request,Saddad.group_services_base,1,1,1,1
+access_services_line,Service services_line,model_saddad_service_line,Saddad.group_services_base,1,1,1,1
+access_services_reject,Service services_reject,model_saddad_service_reject,Saddad.group_services_base,1,1,1,1
+access_services_rule,Service services_rule,model_saddad_approval_rule,Saddad.group_services_base,1,0,0,0
+access_services_account_journal,Service account_journal,account.model_account_journal,Saddad.group_services_base,1,0,0,0
+access_services_account_account,Service account_account,account.model_account_account,Saddad.group_services_base,1,0,0,0
+access_services_account_tax,Service account_tax,account.model_account_tax,Saddad.group_services_base,1,0,0,0
+access_services_account_tax_repartition_line,Service account_tax_repartition_line,account.model_account_tax_repartition_line,Saddad.group_services_base,1,0,0,0
+access_services_analytic,Service analytic,analytic.model_account_analytic_account,Saddad.group_services_base,1,0,0,0
+access_biller_read,Service biller read,model_saddad_biller,Saddad.group_services_base,1,0,0,0
+access_biller_admin,Service biller administration,model_saddad_biller,Saddad.group_manager,1,1,1,1
+access_establishment_hr,establishment,model_saddad_establishment,Saddad.group_resident_hr,1,0,0,0
+access_resident_hr,resident,model_saddad_resident,Saddad.group_resident_hr,1,1,1,0
+access_renewal_hr,renewal,model_saddad_renewal,Saddad.group_resident_hr,1,1,1,0
+access_resident_import_hr,resident_import,model_saddad_resident_import,Saddad.group_resident_hr,1,1,1,0
+access_resident_import_line_hr,resident_import_line,model_saddad_resident_import_line,Saddad.group_resident_hr,1,1,1,0
+access_resident_expiry_hr,resident_expiry,model_saddad_resident_expiry,Saddad.group_resident_hr,1,1,1,0
+access_establishment_admin,Establishment configuration,model_saddad_establishment,Saddad.group_manager,1,1,1,0
+access_resident_mapping_read,Resident mapping read,model_saddad_service_mapping,Saddad.group_resident_hr,1,0,0,0

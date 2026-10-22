@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="module_category_saddad" model="ir.module.category"><field name="name">Saddad</field></record>
+<record id="privilege_saddad" model="res.groups.privilege"><field name="name">Saddad</field><field name="category_id" ref="module_category_saddad"/></record>
+<record id="group_user" model="res.groups"><field name="name">PTR User</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/></record>
+<record id="group_reviewer" model="res.groups"><field name="name">PTR Reviewer</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('Saddad.group_user'))]"/></record>
+<record id="group_confirmer" model="res.groups"><field name="name">PTR Confirmed</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('Saddad.group_user'))]"/></record>
+<record id="group_manager" model="res.groups"><field name="name">Saddad Admin</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('Saddad.group_reviewer')), (4, ref('Saddad.group_confirmer'))]"/></record>
+<record id="group_muqeem_user" model="res.groups"><field name="name">Muqeem User</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_muqeem_hr" model="res.groups"><field name="name">Muqeem HR</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_muqeem_finance" model="res.groups"><field name="name">Muqeem Finance</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_muqeem_gm" model="res.groups"><field name="name">Muqeem GM</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_muqeem_post" model="res.groups"><field name="name">Muqeem Post</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_morro_user" model="res.groups"><field name="name">Morro User</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_morro_fleet" model="res.groups"><field name="name">Morro Fleet</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_morro_finance" model="res.groups"><field name="name">Morro Finance</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_morro_gm" model="res.groups"><field name="name">Morro GM</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_morro_post" model="res.groups"><field name="name">Morro Post</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_services_user" model="res.groups"><field name="name">Saddad Service User</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_services_finance" model="res.groups"><field name="name">Saddad Service Finance</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_services_gm" model="res.groups"><field name="name">Saddad Service GM</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_services_post" model="res.groups"><field name="name">Saddad Service Post</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+<record id="group_payment" model="res.groups"><field name="name">Saddad Payment</field>
+    <field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('base.group_user'))]"/></record>
+</odoo>

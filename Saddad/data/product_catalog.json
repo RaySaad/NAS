@@ -1,0 +1,1962 @@
+[
+  {
+    "xmlid": "Saddad.product_muqeem_001",
+    "sheet": "Muqeem",
+    "row": 2,
+    "name": "CHANGE OCCUPATION",
+    "arabic": "تغيير مهنه",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_002",
+    "sheet": "Muqeem",
+    "row": 3,
+    "name": "CHANGING SPONSORSHIP (1st Time)",
+    "arabic": "نقل كفالة (اول مرة)",
+    "cost": 2000,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_003",
+    "sheet": "Muqeem",
+    "row": 4,
+    "name": "CHANGING SPONSORSHIP (2nd Time)",
+    "arabic": "نقل كفالة (ثاني مرة)",
+    "cost": 4000,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_004",
+    "sheet": "Muqeem",
+    "row": 5,
+    "name": "CHANGING SPONSORSHIP (3rd or more Time)",
+    "arabic": "نقل كفالة (ثالث او اكثر)",
+    "cost": 6000,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_005",
+    "sheet": "Muqeem",
+    "row": 6,
+    "name": "EXPIRIED VISA  CANCELATION",
+    "arabic": "ألغاء فيزا منتهيه",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_006",
+    "sheet": "Muqeem",
+    "row": 7,
+    "name": "EXTEND EXIT RE ENTRY VISA",
+    "arabic": "تمديد خروج وعودة",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_007",
+    "sheet": "Muqeem",
+    "row": 8,
+    "name": "FAMILY SINGEL EXIT RE ENTRY VISA",
+    "arabic": "خروج وعودة للعائلة",
+    "cost": 200,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_008",
+    "sheet": "Muqeem",
+    "row": 9,
+    "name": "FEES FOR CHILDREN OVER 18yrs IQAMA",
+    "arabic": "رسوم إقامة للأطفال فوق 18 سنة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_009",
+    "sheet": "Muqeem",
+    "row": 10,
+    "name": "FEES FOR FAMILY IQAMA",
+    "arabic": "رسوم مرافقين",
+    "cost": 4800,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_010",
+    "sheet": "Muqeem",
+    "row": 11,
+    "name": "IQAMA PENALTY-LATE RENEWAL",
+    "arabic": "غرامة عدم تجديد الإقامة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_011",
+    "sheet": "Muqeem",
+    "row": 12,
+    "name": "Iqama Issuing  (3 months)",
+    "arabic": "اصدار إقامة (3 شهور)",
+    "cost": 162.5,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_012",
+    "sheet": "Muqeem",
+    "row": 13,
+    "name": "Iqama Issuing  (6 months)",
+    "arabic": "اصدار إقامة (6 شهور)",
+    "cost": 325,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_013",
+    "sheet": "Muqeem",
+    "row": 14,
+    "name": "Iqama Issuing (9 months)",
+    "arabic": "اصدار إقامة (9 شهور)",
+    "cost": 487.5,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_014",
+    "sheet": "Muqeem",
+    "row": 15,
+    "name": "Iqama Issuing (12 months)",
+    "arabic": "اصدار إقامة (12 شهر)",
+    "cost": 650,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_015",
+    "sheet": "Muqeem",
+    "row": 16,
+    "name": "Iqama Renewal (3 months)",
+    "arabic": "تجديد إقامة (3 شهور)",
+    "cost": 162.5,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_016",
+    "sheet": "Muqeem",
+    "row": 17,
+    "name": "Iqama Renewal (6 months)",
+    "arabic": "تجديد إقامة (6 شهور)",
+    "cost": 325,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_017",
+    "sheet": "Muqeem",
+    "row": 18,
+    "name": "Iqama Renewal (9 months)",
+    "arabic": "تجديد إقامة (9 شهور)",
+    "cost": 487.5,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_018",
+    "sheet": "Muqeem",
+    "row": 19,
+    "name": "Iqama Renewal (12 months)",
+    "arabic": "تجديد إقامة (12 شهر)",
+    "cost": 650,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_019",
+    "sheet": "Muqeem",
+    "row": 20,
+    "name": "SINGEL EXIT RE ENTRY VISA",
+    "arabic": "خروج وعودة - مفردة",
+    "cost": 200,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_020",
+    "sheet": "Muqeem",
+    "row": 21,
+    "name": "Multi EXIT RE ENTRY VISA",
+    "arabic": "خروج وعودة - متعددة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_021",
+    "sheet": "Muqeem",
+    "row": 22,
+    "name": "VISIT VISA EXTENTION",
+    "arabic": "تمديد فيزا زيارة",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_022",
+    "sheet": "Muqeem",
+    "row": 23,
+    "name": "Work Permit Issuing  (3 months)",
+    "arabic": "اصدار رخصة عمل (3 شهور)",
+    "cost": 2425,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_023",
+    "sheet": "Muqeem",
+    "row": 24,
+    "name": "Work Permit Issuing (6 months)",
+    "arabic": "اصدار رخصة عمل (6 شهور)",
+    "cost": 4850,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_024",
+    "sheet": "Muqeem",
+    "row": 25,
+    "name": "Work Permit Issuing (9 months)",
+    "arabic": "اصدار رخصة عمل (9 شهور)",
+    "cost": 7275,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_025",
+    "sheet": "Muqeem",
+    "row": 26,
+    "name": "Work Permit Issuing (12 months)",
+    "arabic": "اصدار رخصة عمل  (12 شهر)",
+    "cost": 9700,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_026",
+    "sheet": "Muqeem",
+    "row": 27,
+    "name": "Work permit Renewal  (3 months)",
+    "arabic": "تجديد رخصة عمل (3 شهور)",
+    "cost": 2425,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_027",
+    "sheet": "Muqeem",
+    "row": 28,
+    "name": "Work permit Renewal (6 months)",
+    "arabic": "تجديد رخصة عمل (6 شهور)",
+    "cost": 4850,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_028",
+    "sheet": "Muqeem",
+    "row": 29,
+    "name": "Work permit Renewal (9 months)",
+    "arabic": "تجديد رخصة عمل (9 شهور)",
+    "cost": 7275,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_muqeem_029",
+    "sheet": "Muqeem",
+    "row": 30,
+    "name": "Work permit Renewal (12 months)",
+    "arabic": "تجديد رخصة عمل (12 شهر)",
+    "cost": 9700,
+    "source_uom": "PCS",
+    "category": "Muqeem"
+  },
+  {
+    "xmlid": "Saddad.product_morro_001",
+    "sheet": "Morro",
+    "row": 2,
+    "name": "COMMITTING INTENTIONAL/EXCESSIVE ACCIDENT RESULTING IN AN INJURY WITH RECOVERY PERIOD ABOVE 15 DAYS",
+    "arabic": "ارتكاب حادث متعمدا/مفرطا نتج عنه اصابة بمدة شفاء تفوق 15 يوم",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_002",
+    "sheet": "Morro",
+    "row": 3,
+    "name": "DRIVER USING ANY HANDHELD DEVICE WHILE DRIVING",
+    "arabic": "استخدام السائق بيده أي جهاز محمول أثناء سير المركبة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_003",
+    "sheet": "Morro",
+    "row": 4,
+    "name": "ALLOWING A PERSON WITH NO DRIVING LICENSE TO DRIVE A VEHICLE",
+    "arabic": "السماح لشخص لا يحمل رخصة بقيادة المركبة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_004",
+    "sheet": "Morro",
+    "row": 5,
+    "name": "ANIMAL OWNERS ALLOWING THEIR ANIMALS OF CROSSING THE ROAD IN NON-DESIGNATED PLACES",
+    "arabic": "سماح أصحاب الحيوانات بعبور حيواناتهم من غير اماكن المخصصة",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_005",
+    "sheet": "Morro",
+    "row": 6,
+    "name": "CARRYING MORE PASSENGERS THAN THE PERMITTED LICENSE LIMIT",
+    "arabic": "نقل عدد من الركاب يزيد عن العدد المحدد في رخصة السير",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_006",
+    "sheet": "Morro",
+    "row": 7,
+    "name": "COMMITTING INTENTIONAL/EXCESSIVE ACCIDENT RESULTING IN DEATH/DEMISE OF AN ORGAN/ORGAN DISABABILITY",
+    "arabic": "ارتكاب حادث مروري متعمدا/مفرطا نتج عنه وفاة/زوال عضو/تعطيله",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_007",
+    "sheet": "Morro",
+    "row": 8,
+    "name": "DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS1",
+    "arabic": "خروج المركبة قبل نقل ملكيتها أو اعطاء عقود/ختم المعرض للغير 1",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_008",
+    "sheet": "Morro",
+    "row": 9,
+    "name": "DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS2",
+    "arabic": "خروج المركبة قبل نقل ملكيتها أو اعطاء عقود/ختم المعرض للغير 2",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_009",
+    "sheet": "Morro",
+    "row": 10,
+    "name": "DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS3",
+    "arabic": "خروج المركبة قبل نقل ملكيتها أو اعطاء عقود/ختم المعرض للغير 3",
+    "cost": 8000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_010",
+    "sheet": "Morro",
+    "row": 11,
+    "name": "DRIFTING FINE FOR MORE THAN THREE TIMES",
+    "arabic": "غرامة التفحيط كثر من ثث مرات",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_011",
+    "sheet": "Morro",
+    "row": 12,
+    "name": "DRIFTING FINE FOR THE FIRST TIME",
+    "arabic": "غرامة التفحيط للمرة اولى",
+    "cost": 20000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_012",
+    "sheet": "Morro",
+    "row": 13,
+    "name": "DRIFTING FINE FOR THE SECOND TIME",
+    "arabic": "غرامة التفحيط للمرة الثانية",
+    "cost": 40000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_013",
+    "sheet": "Morro",
+    "row": 14,
+    "name": "DRIFTING FINE FOR THE THIRD TIME",
+    "arabic": "غرامة التفحيط للمرة الثالثة",
+    "cost": 60000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_014",
+    "sheet": "Morro",
+    "row": 15,
+    "name": "DRIVE THE VEHICLE AGAINST THE DIRECTION OF THE TRAFFIC",
+    "arabic": "قيادة المركبة باتجاه المعاكس لحركة السير",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_015",
+    "sheet": "Morro",
+    "row": 16,
+    "name": "DRIVER NOT LEAVING ENOUGH SPACE BETWEEN HIM AND OTHER VEHICLES",
+    "arabic": "عدم ترك السائق مسافة كافية بين مركبته والمركبة التي أمامه",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_016",
+    "sheet": "Morro",
+    "row": 17,
+    "name": "DRIVER USING ANY HANDHELD DEVICE WHILE DRIVING - ELECTRONIC CAPTURING",
+    "arabic": "استخدام السائق بيده أي جهاز محمول أثناء سير المركبة - رصد آلي",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_017",
+    "sheet": "Morro",
+    "row": 18,
+    "name": "DRIVING A VEHICLE WHICH IS CAUSING AIR POLLUTION",
+    "arabic": "تسيير مركبة تحدث تلويثا للبيئة على الطرق العامة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_018",
+    "sheet": "Morro",
+    "row": 19,
+    "name": "DRIVING A VEHICLE WITH A DRIVER'S LICENSE THAT DOES NOT MATCH THE SIZE OF THE VEHICLE OR TYPE OF USE",
+    "arabic": "قيادة المركبة برخصة قيادة لا تتناسب مع حجمها ونوع استخدامها",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_019",
+    "sheet": "Morro",
+    "row": 20,
+    "name": "DRIVING A VEHICLE WITHOUT A FRONT LICENSE PLATE",
+    "arabic": "سير المركبة بدون لوحة أمامية",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_020",
+    "sheet": "Morro",
+    "row": 21,
+    "name": "DRIVING A VEHICLE WITHOUT A FRONT LICENSE PLATE - ELECTRONIC CAPTURING",
+    "arabic": "سير المركبة بدون لوحة أمامية - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_021",
+    "sheet": "Morro",
+    "row": 22,
+    "name": "DRIVING A VEHICLE WITHOUT REAR PLATE OR WITHOUT PLATES",
+    "arabic": "سير المركبة بدون لوحة خلفية أو ب لوحات",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_022",
+    "sheet": "Morro",
+    "row": 23,
+    "name": "DRIVING BEFORE OBTAINING A DRIVERS LICENSE OR IF THE LICENSE IS WITHDRAWN",
+    "arabic": "قيادة المركبة قبل الحصول على رخصة قيادة أو في حال سحب الرخصة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_023",
+    "sheet": "Morro",
+    "row": 24,
+    "name": "DRIVING IN REVERSE ON MAIN ROADS FOR A DISTANCE EXCEEDING 20 METERS",
+    "arabic": "الرجوع الى الخلف في الطريق العام لمسافة تزيد على عشرين مترا",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_024",
+    "sheet": "Morro",
+    "row": 25,
+    "name": "DRIVING INSIDE TUNNELS WITHOUT USING THE LIGHTS",
+    "arabic": "قيادة المركبة داخل انفاق من غير اضاءة أنوارها",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_025",
+    "sheet": "Morro",
+    "row": 26,
+    "name": "DRIVING ON SHOULDERS OF THE ROAD/SIDEWALKS/PATHS WHERE DRIVING IS PROHIBITED",
+    "arabic": "القيادة على أكتاف الطريق/ارصفة/المسارات الممنوع القيادة بها",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_026",
+    "sheet": "Morro",
+    "row": 27,
+    "name": "DRIVING ON SHOULDERS OF THE ROAD/SIDEWALKS/PATHS WHERE DRIVING IS PROHIBITED - ELECTRONIC CAPTURING",
+    "arabic": "القيادة على أكتاف الطريق أو على ارصفة أو المسارات التي تمنع القيادة فيها - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_027",
+    "sheet": "Morro",
+    "row": 28,
+    "name": "DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) AT HOLY PLACES ENTRANCES",
+    "arabic": "ضبط مركبة نقل حجاج أقل من (25) راكب في مداخل المشاعر المقدسة",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_028",
+    "sheet": "Morro",
+    "row": 29,
+    "name": "DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) AT MECCA ENTRANCES",
+    "arabic": "ضبط مركبة نقل حجاج أقل من (25) راكب في مداخل مكة المكرمة",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_029",
+    "sheet": "Morro",
+    "row": 30,
+    "name": "DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) INSIDE THE HOLY PLACES",
+    "arabic": "ضبط مركبة نقل حجاج أقل من (25) راكب داخل المشاعر المقدسة",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_030",
+    "sheet": "Morro",
+    "row": 31,
+    "name": "DRIVING THE VEHICLE IN MARKETS WHERE DRIVING IS PROHIBITED",
+    "arabic": "قيادة المركبة في اسواق التي لا يسمح بالقيادة فيها",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_031",
+    "sheet": "Morro",
+    "row": 32,
+    "name": "DRIVING THE VEHICLE WITH DEFECTIVE BRAKES OR LIGHTS OR ANY OTHER CRUCIAL PARTS",
+    "arabic": "قيادة مركبة دون توافر التجهيزات الزمة مثل المكابح وانوار",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_032",
+    "sheet": "Morro",
+    "row": 33,
+    "name": "DRIVING THE VEHICLE WITH UNCLEAR OR DAMAGED LICENSE PLATES",
+    "arabic": "قيادة المركبة بلوحات غير واضحة أو بها تلف",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_033",
+    "sheet": "Morro",
+    "row": 34,
+    "name": "DRIVING THE VEHICLE WITH UNCLEAR OR DAMAGED LICENSE PLATES - ELECTRONIC CAPTURING",
+    "arabic": "قيادة المركبة بلوحات غير واضحة أو بها تلف - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_034",
+    "sheet": "Morro",
+    "row": 35,
+    "name": "DRIVING UNDER THE INFLUENCE OF ALCOHOL OR DRUGS",
+    "arabic": "قيادة المركبة تحت تأثير مسكر أو مخدر أو عقاقير طبية محظورة",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_035",
+    "sheet": "Morro",
+    "row": 36,
+    "name": "DRIVING VEHICLES DESIGNATED FOR ACQUISITION",
+    "arabic": "القيادة على الطريق بمركبات مخصصة لقتناء",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_036",
+    "sheet": "Morro",
+    "row": 37,
+    "name": "DRIVING WITH AN EXPIRED DRIVING LICENSE",
+    "arabic": "القيادة برخصة قيادة صحيتها منتهيه",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_037",
+    "sheet": "Morro",
+    "row": 38,
+    "name": "DRIVING WITHOUT LIGHTS AT NIGHTS OR WHEN THE VISION IS NOT CLEAR",
+    "arabic": "عدم استخدام انوار عند السير لي أو في حالة عدم وضوح الرؤية",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_038",
+    "sheet": "Morro",
+    "row": 39,
+    "name": "DRIVING WITHOUT LIGHTS AT NIGHTS OR WHEN THE VISION IS NOT CLEAR - ELECTRONIC CAPTURING",
+    "arabic": "عدم استخدام انوار الزمة عند السير لي أو في احوال التي يكون فيها الرؤية غير واضحة - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_039",
+    "sheet": "Morro",
+    "row": 40,
+    "name": "EXCEEDING THE CARGO DIMENSIONS FOR HEAVY TRANSPORTATION VEHICLES",
+    "arabic": "زيادة أبعاد الحمولة المنقولة لمركبات النقل الثقيل عن المسموح",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_040",
+    "sheet": "Morro",
+    "row": 41,
+    "name": "EXCEEDING THE CARGO DIMENSIONS FOR LIGHT TRANSPORTATION VEHICLES",
+    "arabic": "زيادة أبعاد الحمولة المنقولة لمركبات النقل الخفيف عن المسموح",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_041",
+    "sheet": "Morro",
+    "row": 42,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 10 TO 20 KM/H",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 10 الى 20 كلم/س",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_042",
+    "sheet": "Morro",
+    "row": 43,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 10 TO 20 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 10 الى 20 كلم/س - رصد آلي",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_043",
+    "sheet": "Morro",
+    "row": 44,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 20 TO 30 KM/H",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 20 الى 30 كلم/س",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_044",
+    "sheet": "Morro",
+    "row": 45,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 20 TO 30 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 20 الى 30 كلم/س - رصد آلي",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_045",
+    "sheet": "Morro",
+    "row": 46,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 30 TO 40 KM/H",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 30 الى 40 كلم/س",
+    "cost": 800,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_046",
+    "sheet": "Morro",
+    "row": 47,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 30 TO 40 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 30 الى 40 كلم/س - رصد آلي",
+    "cost": 800,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_047",
+    "sheet": "Morro",
+    "row": 48,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 40 TO 50 KM/H",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 40 الى 50 كلم/س",
+    "cost": 1200,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_048",
+    "sheet": "Morro",
+    "row": 49,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 40 TO 50 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 40 الى 50 كلم/س - رصد آلي",
+    "cost": 1200,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_049",
+    "sheet": "Morro",
+    "row": 50,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 50 KM/H",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 50 كلم/س",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_050",
+    "sheet": "Morro",
+    "row": 51,
+    "name": "EXCEEDING THE SPEED LIMIT BY MORE THAN 50 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة المحددة بأكثر من 50 كلم/س - رصد آلي",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_051",
+    "sheet": "Morro",
+    "row": 52,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 10 TO 20 KM/H",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 10 الى 20 كلم/س",
+    "cost": 800,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_052",
+    "sheet": "Morro",
+    "row": 53,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 10 TO 20 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 10 الى 20 كلم/س - رصد آلي",
+    "cost": 800,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_053",
+    "sheet": "Morro",
+    "row": 54,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 20 TO 30 KM/H",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 20 الى 30 كلم/س",
+    "cost": 1200,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_054",
+    "sheet": "Morro",
+    "row": 55,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 20 TO 30 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 20 الى 30 كلم/س - رصد آلي",
+    "cost": 1200,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_055",
+    "sheet": "Morro",
+    "row": 56,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 5 TO 10 KM/H",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 5 الى 10 كلم/س",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_056",
+    "sheet": "Morro",
+    "row": 57,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 5 TO 10 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 5 الى 10 كلم/س - رصد آلي",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_057",
+    "sheet": "Morro",
+    "row": 58,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY MORE THAN 30 KM/H",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 30 كلم/س",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_058",
+    "sheet": "Morro",
+    "row": 59,
+    "name": "EXCEEDING THE SPEED LIMIT OF 140 KM/H BY MORE THAN 30 KM/H - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز السرعة 140 كلم/س بأكثر من 30 كلم/س - رصد آلي",
+    "cost": 1500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_059",
+    "sheet": "Morro",
+    "row": 60,
+    "name": "FAILING TO DISCLOSE MAJOR CHANGES INTRODUCED TO THE VEHICLE'S BODY",
+    "arabic": "عدم انهاء اجراءات تعديل مجال استعمال المركبة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_060",
+    "sheet": "Morro",
+    "row": 61,
+    "name": "FAILING TO EXPORT THE FOR EXPORT VEHICLE WITHIN THE ALLOWED TIME",
+    "arabic": "عدم اخراج المركبة المعدة للتصدير خل المدة المحددة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_061",
+    "sheet": "Morro",
+    "row": 62,
+    "name": "FAILING TO FOLLOW THE ALLOW PASSING ADVANTAGE TRAFFIC SIGN THROUGH STOPPING THE VEHICLE",
+    "arabic": "عدم اعطاء أفضلية بالوقوف وقوفا تاما عند اشارة (أمامك افضلية)",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_062",
+    "sheet": "Morro",
+    "row": 63,
+    "name": "FAILING TO FOLLOW THE FORMAL PROCEDURES FOR DRIVING HEAVY MACHINERY",
+    "arabic": "تسيير مركبات اشغال العامة قبل اتخاذ اجراءات اللازمة",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_063",
+    "sheet": "Morro",
+    "row": 64,
+    "name": "FAILING TO FOLLOW THE OBLIGATORY (STOP) SIGN",
+    "arabic": "عدم الوقوف تماما عند اشارة (قف)",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_064",
+    "sheet": "Morro",
+    "row": 65,
+    "name": "FAILING TO FOLLOW THE PEDESTRIANS TRAFFIC LIGHTS",
+    "arabic": "عدم تقيد المشاة باشارات الخاصة بهم",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_065",
+    "sheet": "Morro",
+    "row": 66,
+    "name": "FAILING TO GIVE ADVANTAGE TO PEDESTRIANS IN PEDESTRIANS' WALKWAYS",
+    "arabic": "عدم اعطاء أفضلية المرور للمشاة عند عبور المسارات المخصصة لهم",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_066",
+    "sheet": "Morro",
+    "row": 67,
+    "name": "FAILING TO KEEP THE ANIMALS AWAY FROM THE DESIGNATED ROAD",
+    "arabic": "عدم قيام أصحاب الحيوانات بابعادها عن حرم الطريق المعتمد",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_067",
+    "sheet": "Morro",
+    "row": 68,
+    "name": "FAILING TO TAKE THE CAR FOR REGULAR INSPECTION",
+    "arabic": "عدم تقديم المركبة للفحص الفني الدوري",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_068",
+    "sheet": "Morro",
+    "row": 69,
+    "name": "FAILING TO TAKE THE REQUIRED PRECAUTIONS FOR STOPPING THE VEHICLE ON PUBLIC ROADS",
+    "arabic": "عدم اتخاذ احتياطات الزمة يقاف المركبة على الطرق العامة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_069",
+    "sheet": "Morro",
+    "row": 70,
+    "name": "FAILING TO UPGRADE THE VEHICLE'S USING PURPOSE",
+    "arabic": "اجراء أي تعديل على هيكل المركبة دون اتخاذ اجراءات النظامية",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_070",
+    "sheet": "Morro",
+    "row": 71,
+    "name": "FAILING TO YIELD TO EMERGENCY OR OFFICIAL MOTORCADE VEHICLES",
+    "arabic": "عدم اعطاء أفضلية المرور لمركبات المواكب الرسمية أو الطوارىء",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_071",
+    "sheet": "Morro",
+    "row": 72,
+    "name": "FAILURE OF TRUCKS AND HEAVY EQUIPMENT TO FOLLOW RIGHT LANE",
+    "arabic": "عدم التزام الشاحنات والمعدات الثقيلة بالسير في المسار ايمن",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_072",
+    "sheet": "Morro",
+    "row": 73,
+    "name": "FAILURE OF TRUCKS AND HEAVY EQUIPMENT TO FOLLOW RIGHT LANE IN MULTILANE ROADS - ELECTRONIC CAPTURING",
+    "arabic": "عدم التزام الشاحنات والمعدات الثقيلة بالسير في المسار ايمن في الطريق المتعدد المسارات - رصد آلي",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_073",
+    "sheet": "Morro",
+    "row": 74,
+    "name": "FAILURE TO FOLLOW THE ROAD LANES",
+    "arabic": "عدم التزام بحدود المسارات المحددة على الطريق",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_074",
+    "sheet": "Morro",
+    "row": 75,
+    "name": "FAILURE TO FOLLOW THE ROAD LANES - ELECTRONIC CAPTURING",
+    "arabic": "عدم التزام بحدود المسارات المحددة على الطريق - رصد آلي",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_075",
+    "sheet": "Morro",
+    "row": 76,
+    "name": "FAILURE TO FOLLOW THE SAFE DISTANCE BETWEEN VEHICLES - ELECTRONIC CAPTURING",
+    "arabic": "عدم التزام بالمسافة امنة بين المركبات - رصد آلي",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_076",
+    "sheet": "Morro",
+    "row": 77,
+    "name": "FAILURE TO PRESENT A DRIVER LICENSE OR REGISTRATION WHEN ASKED FOR IT",
+    "arabic": "رفض ابراز الوثائق الخاصة بالسائق أو المركبة للمصرح لهم اطع",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_077",
+    "sheet": "Morro",
+    "row": 78,
+    "name": "FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 1",
+    "arabic": "اصح/تعديل أو تغيير مركبة أو ازالة أرقام هيكل بدون تصريح 1",
+    "cost": 10000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_078",
+    "sheet": "Morro",
+    "row": 79,
+    "name": "FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 2",
+    "arabic": "اصح/تعديل أو تغيير مركبة أو ازالة أرقام هيكل بدون تصريح 2",
+    "cost": 20000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_079",
+    "sheet": "Morro",
+    "row": 80,
+    "name": "FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 3",
+    "arabic": "اصح/تعديل أو تغيير مركبة أو ازالة أرقام هيكل بدون تصريح 3",
+    "cost": 40000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_080",
+    "sheet": "Morro",
+    "row": 81,
+    "name": "FOLLOWING EMERGENCY VEHICLES - ELECTRONIC CAPTURING",
+    "arabic": "ملاحقة مركبات الطوارىء - رصد آلي",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_081",
+    "sheet": "Morro",
+    "row": 82,
+    "name": "FOLLOWING EMERGENCY VEHICLES WHILE IT TURNED ON THE ALARMS",
+    "arabic": "ملاحقة مركبات الطوارىء أثناء استعمال المنبهات الخاصة بها",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_082",
+    "sheet": "Morro",
+    "row": 83,
+    "name": "GATHERING IN DRIFTING LOCATIONS",
+    "arabic": "التجمهر في مواقع التفحيط",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_083",
+    "sheet": "Morro",
+    "row": 84,
+    "name": "GATHERING IN THE SCENE OF AN ACCIDENT",
+    "arabic": "التجمهر في موقع الحادث",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_084",
+    "sheet": "Morro",
+    "row": 85,
+    "name": "GETTING INTO OR OUT OF THE VEHICLE WHILE MOVING",
+    "arabic": "النزول أو الركوب أثناء سير المركبات",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_085",
+    "sheet": "Morro",
+    "row": 86,
+    "name": "HIDE OR ATTEMPT TO HIDE THE VEHICLE CHASSIS NUMBER",
+    "arabic": "طمس رقم هيكل المركبة أو محاولة طمسه",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_086",
+    "sheet": "Morro",
+    "row": 87,
+    "name": "HIDE THE VEHICLE'S LICENSE PLATES",
+    "arabic": "طمس لوحات المركبة",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_087",
+    "sheet": "Morro",
+    "row": 88,
+    "name": "HIDE THE VEHICLE'S LICENSE PLATES - ELECTRONIC CAPTURING",
+    "arabic": "طمس لوحات المركبة - رصد آلي",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_088",
+    "sheet": "Morro",
+    "row": 89,
+    "name": "ILLEGAL PARKING",
+    "arabic": "وقوف المركبة في أماكن غير مخصصة للوقوف",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_089",
+    "sheet": "Morro",
+    "row": 90,
+    "name": "ILLEGAL PASSING OF OTHER VEHICLES ON THE ROAD",
+    "arabic": "المراوغة بسرعة بين المركبات على الطرق العامة",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_090",
+    "sheet": "Morro",
+    "row": 91,
+    "name": "ILLEGAL PASSING OF SCHOOL BUSSES DURING STOPPING FOR LOADING",
+    "arabic": "تجاوز حافت النقل المدرسي عند توقفها للتحميل أو التنزيل",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_091",
+    "sheet": "Morro",
+    "row": 92,
+    "name": "IMPROPER USE OF ENGAGEMENT LIGHTS",
+    "arabic": "مخالفة قواعد استعمال أنوار التقي",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_092",
+    "sheet": "Morro",
+    "row": 93,
+    "name": "IMPROPER USE OF THE HORN",
+    "arabic": "اساءة استعمال منبه المركبة",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_093",
+    "sheet": "Morro",
+    "row": 94,
+    "name": "INSTALLING ACCESSORIES SIMILAR TO THOSE DEDICATED FOR THE FORMAL & EMERGENCY VEHICLES ONLY",
+    "arabic": "تركيب تجهيزات كتلك الخاصة بالمركبات الرسمية ومركبات الطوارىء",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_094",
+    "sheet": "Morro",
+    "row": 95,
+    "name": "INTENTIONALLY CAUSING A TRAFFIC ACCIDENT",
+    "arabic": "افتعال وقوع حادث مروري",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_095",
+    "sheet": "Morro",
+    "row": 96,
+    "name": "LEAVING CHILDREN UNDER THE AGE OF (TEN) IN THE VEHICLE UNACCOMPANIED BY AN ADULT",
+    "arabic": "ترك اطفال دون سن (العاشرة) في المركبة دون مرافق راشد",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_096",
+    "sheet": "Morro",
+    "row": 97,
+    "name": "LEAVING OBSTACLES ON A PUBLIC ROAD",
+    "arabic": "ترك أجسام على الطرق العامة تعرض السمة العامة للخطر",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_097",
+    "sheet": "Morro",
+    "row": 98,
+    "name": "LEAVING THE CARRIED CARGOS UNTIED OR UNCOVERED",
+    "arabic": "عدم تغطية الحمولة المنقولة وتثبيتها",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_098",
+    "sheet": "Morro",
+    "row": 99,
+    "name": "LEAVING THE VEHICLE ON A DECLINED ROAD WITHOUT TAKING THE REQUIRED PRECAUTIONS",
+    "arabic": "ترك المركبة في طريق منحدر مع عدم اتخاذ احتياطات الزمة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_099",
+    "sheet": "Morro",
+    "row": 100,
+    "name": "LEAVING THE VEHICLE OPEN AND OPERATIONAL AFTER GETTING OUT",
+    "arabic": "ترك المركبة مفتوحة وفي وضع التشغيل بعد مغادرتها",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_100",
+    "sheet": "Morro",
+    "row": 101,
+    "name": "MAKING IMPROPER NOISES USING DEVICES FROM INSIDE THE VEHICLE",
+    "arabic": "احداث ضوضاء من أجهزة داخل المركبة/ارتكاب سلوك يتنافى مع اداب",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_101",
+    "sheet": "Morro",
+    "row": 102,
+    "name": "MISSING LEGAL REQUIREMENTS FOR THE TRAILER",
+    "arabic": "عدم توافر المتطلبات النظامية للمقطورة",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_102",
+    "sheet": "Morro",
+    "row": 103,
+    "name": "MISSING WITH THE ROAD SIGNS",
+    "arabic": "العبث بعمات الطريق أو العاكسات أو الشاخصات المنظمة للسير",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_103",
+    "sheet": "Morro",
+    "row": 104,
+    "name": "MORTGAGE OF THE DRIVING LICENSE OR REGISTRATION CARD",
+    "arabic": "حجز أو رهن أو ارتهان رخصة القيادة أو السير",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_104",
+    "sheet": "Morro",
+    "row": 105,
+    "name": "MOTORCYLE DRIVING ATTACHING HIMSELF TO A VEHICLE OR PULLING/CARRYING OBJECTS THAT ENDANGERS SAFETY",
+    "arabic": "تعلق سائق الدراجة بمركبة أخرى أو سحب/حمل أشياء تعرض للخطورة",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_105",
+    "sheet": "Morro",
+    "row": 106,
+    "name": "MOVING THE VEHICLE AT HIGH SPEED, SO THAT THE TIRES MAKE A LOUD NOISE",
+    "arabic": "التحرك بالمركبة بسرعة عالية، بحيث تحدث اطارات صوتا عاليا",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_106",
+    "sheet": "Morro",
+    "row": 107,
+    "name": "NOT ALLOW PASSING ADVANTAGE FOR VEHICLE COMING FROM RIGHT SIDE WHEN PASSING ADVANTAGES ARE EQUAL",
+    "arabic": "عدم اعطاء أفضلية للمركبة القادمة من اليمين عند تساوي افضليات",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_107",
+    "sheet": "Morro",
+    "row": 108,
+    "name": "NOT CARRYING THE DRIVING LICENSE OR THE VEHICLE REGISTRATION WHILE DRIVING",
+    "arabic": "عدم حمل رخصة القيادة أو رخصة السير أثناء القيادة",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_108",
+    "sheet": "Morro",
+    "row": 109,
+    "name": "NOT FOLLOWING THE TRAFFIC OFFICER MANUAL SIGNS OR GIVING PRIORITY TO HIS INSTRUCTIONS",
+    "arabic": "عدم التقيد باشارات رجل امن اليدوية وعدم اعطاءها اولوية",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_109",
+    "sheet": "Morro",
+    "row": 110,
+    "name": "NOT FOLLOWING THE TRAFFIC RULES AT THE ROADS' CROSSINGS",
+    "arabic": "عدم التقيد بتنظيمات السير عند تقاطعات الطرق",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_110",
+    "sheet": "Morro",
+    "row": 111,
+    "name": "NOT GIVING WAY AT A ROUNDABOUT",
+    "arabic": "عدم اعطاء أفضلية للمركبات بداخل الدوار من قبل المركبات خارجه",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_111",
+    "sheet": "Morro",
+    "row": 112,
+    "name": "NOT GIVING WAY FOR VEHICLES ON THE MAIN ROAD",
+    "arabic": "عدم اعطاء افضلية للمركبات التي على الطريق الرئيسة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_112",
+    "sheet": "Morro",
+    "row": 113,
+    "name": "NOT GIVING WAY IN PARTIALLY CLOSED ROADS TO CARS WHOSE ROAD IS OPEN",
+    "arabic": "عدم اعطاء أفضلية حال اغق جزء من الطريق لمن كان طريقه مفتوحا",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_113",
+    "sheet": "Morro",
+    "row": 114,
+    "name": "NOT GIVING WAY TO EMERGENCY VEHICLES - ELECTRONIC CAPTURING",
+    "arabic": "عدم افساح لمركبات الطوراىء - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_114",
+    "sheet": "Morro",
+    "row": 115,
+    "name": "NOT GIVING WAY TO PUBLIC TRANSPORTATION VEHICLES",
+    "arabic": "عدم اعطاء أفضلية لوسائل النقل العام حال سيرها على مساراتها",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_115",
+    "sheet": "Morro",
+    "row": 116,
+    "name": "NOT GIVING WAY TO VEHICLES AHEAD AT JUNCTIONS OR INTERSECTIONS",
+    "arabic": "عدم اعطاء أفضلية في ملتقيات الطرق/تقاطعاتها للمركبة المتقدمة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_116",
+    "sheet": "Morro",
+    "row": 117,
+    "name": "NOT GIVING WAY TO VEHICLES AT THE OTHER DIRECTION WHEN DOING A U-TURN",
+    "arabic": "عدم اعطاء أفضلية للمركبات من اتجاهات اخرى عند الدوران للخلف",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_117",
+    "sheet": "Morro",
+    "row": 118,
+    "name": "NOT GIVING WAY TO VEHICLES DRIVING IN A STRAIGHT LINE WHEN SWITCHING LANES",
+    "arabic": "عدم اعطاء أفضلية عند تغيير المسار لمركبة تسير في اتجاه مستقيم",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_118",
+    "sheet": "Morro",
+    "row": 119,
+    "name": "NOT GIVING WAY TO VEHICLES DRIVING ON THE MAIN ROAD AT INTERSECTIONS",
+    "arabic": "عدم اعطاء أفضلية لمركبات طريق رئيسي حال تقاطعها مع طريق فرعي",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_119",
+    "sheet": "Morro",
+    "row": 120,
+    "name": "NOT HAVING A VALID VEHICLE'S INSURANCE",
+    "arabic": "عدم وجود تأمين سار للمركبة",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_120",
+    "sheet": "Morro",
+    "row": 121,
+    "name": "NOT HAVING A VALID VEHICLE'S INSURANCE - ELECTRONIC CAPTURING",
+    "arabic": "عدم وجود تأمين سار للمركبة - رصد آلي",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_121",
+    "sheet": "Morro",
+    "row": 122,
+    "name": "NOT INSTALLING THE VEHICLE LICENSE PLACE IN ITS DESIGNATED PLACE",
+    "arabic": "عدم تثبيت اللوحة في مكانها المخصص",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_122",
+    "sheet": "Morro",
+    "row": 123,
+    "name": "NOT PAYING AN ATTENTION TO THE ROAD WHILE DRIVING",
+    "arabic": "انشغال بغير الطريق أثناء قيادة المركبة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_123",
+    "sheet": "Morro",
+    "row": 124,
+    "name": "NOT REPORTING THE SELLING OR DAMAGE OF THE VEHICLE OUTSIDE THE KINGDOM",
+    "arabic": "عدم ابغ ادارة المرور عن بيع المركبة أو تلفها خارج المملكة",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_124",
+    "sheet": "Morro",
+    "row": 125,
+    "name": "NOT STOPPING AT THE CHECK POINTS WHEN REQUESTED",
+    "arabic": "عدم الوقوف عند نقاط التفتيش أو الدوريات امنية عند الوجوب",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_125",
+    "sheet": "Morro",
+    "row": 126,
+    "name": "NOT STOPPING IN THE ACCIDENT LOCATION AND LEAVING WITHOUT REPORTING OR HELPING THE INJURED",
+    "arabic": "عدم الوقوف بمكان الحادث وعدم ابغ عنه وعدم مساعدة المصابين",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_126",
+    "sheet": "Morro",
+    "row": 127,
+    "name": "NOT USING THE PROPER KIDS' CAR",
+    "arabic": "عدم استخدام مقاعد امان المخصصة لطفال",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_127",
+    "sheet": "Morro",
+    "row": 128,
+    "name": "NOT USING TURN SIGNALS TO TURN LEFT/RIGHT OR TO OVERTAKE VEHICLES/CHANGE LANES",
+    "arabic": "عدم استخدام اشارة التفاف للتحول يمين/يسار/تجاوز/تغيير المسار",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_128",
+    "sheet": "Morro",
+    "row": 129,
+    "name": "NOT WEARING A HELMET FOR DRIVING A MOTORCYCLE",
+    "arabic": "عدم ارتداء الخوذة أثناء قيادة الدراجة الية",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_129",
+    "sheet": "Morro",
+    "row": 130,
+    "name": "NOT WEARING A SEATBELT",
+    "arabic": "عدم ربط حزام امان",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_130",
+    "sheet": "Morro",
+    "row": 131,
+    "name": "NOT WEARING A SEATBELT - ELECTRONIC CAPTURING",
+    "arabic": "عدم ربط حزام امان - رصد آلي",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_131",
+    "sheet": "Morro",
+    "row": 132,
+    "name": "OPENING VEHICLES SHOWROOM WITHOUT PERMISSION FROM TRAFFIC DEPARTMENT OR COMMERCIAL REGISTRATION",
+    "arabic": "افتتاح معرض مركبات بدون موافقة المرور والحصول على سجل تجاري",
+    "cost": 100000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_132",
+    "sheet": "Morro",
+    "row": 133,
+    "name": "OVERTAKING VEHICLES AHEAD OF SIGNALS USING THE SHOULDER OF THE ROAD/TURNING LANE",
+    "arabic": "تخطي المركبات أمام اشارات باستخدام كتف الطريق/مسار التفاف",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_133",
+    "sheet": "Morro",
+    "row": 134,
+    "name": "PARKING IN LOCATIONS RESERVED TO PEOPLE WITH SPECIAL NEEDS",
+    "arabic": "الوقوف في أماكن وقوف ذوي احتياجات الخاصة من غير هذه الفئة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_134",
+    "sheet": "Morro",
+    "row": 135,
+    "name": "PASSING THE RED TRAFFIC LIGHT",
+    "arabic": "تجاوز اشارة المرور الضوئية أثناء الضوء احمر",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_135",
+    "sheet": "Morro",
+    "row": 136,
+    "name": "PASSING THE RED TRAFFIC LIGHT - ELECTRONIC CAPTURING",
+    "arabic": "تجاوز اشارة المرور الضوئية أثناء الضوء احمر - رصد آلي",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_136",
+    "sheet": "Morro",
+    "row": 137,
+    "name": "PASSING THE ROADS FROM A NON PEDESTRIANS' WALKWAYS",
+    "arabic": "عبور المشاة للطرق من غير اماكن المخصصة لهم",
+    "cost": 100,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_137",
+    "sheet": "Morro",
+    "row": 138,
+    "name": "PASSING VEHICLES WHILE IT'S PROHIBITED",
+    "arabic": "التجاوز في المناطق التي يمنع فيها التجاوز (منعطفات، مرتفعات)",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_138",
+    "sheet": "Morro",
+    "row": 139,
+    "name": "PASSING VEHICLES WHILE IT'S PROHIBITED - ELECTRONIC CAPTURING",
+    "arabic": "التجاوز في المناطق التي يمنع فيها التجاوز - مثل المنعطفات والمرتفعات - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_139",
+    "sheet": "Morro",
+    "row": 140,
+    "name": "PEDESTRIAN CROSSING OF HIGHWAYS",
+    "arabic": "عبور المشاة للطرق السريعة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_140",
+    "sheet": "Morro",
+    "row": 141,
+    "name": "PLACING A WRITING/DRAWING/STICKER/ANY OTHER OBJECT ON THE VEHICLE WITHOUT APPROVAL",
+    "arabic": "وضع كتابة/رسم/ملصق أو أي بيان آخر على جسم المركبة دون موافقه",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_141",
+    "sheet": "Morro",
+    "row": 142,
+    "name": "PUTTING ANY OBSTACLES INSIDE OR OUTSIDE THE VEHICLE WHICH AFFECTS THE DRIVER'S VISION",
+    "arabic": "وضع حواجز داخل المركبة أو خارجها تعوق رؤية السائق",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_142",
+    "sheet": "Morro",
+    "row": 143,
+    "name": "REPLACING/PATICIPATING IN THE ACT OF REPLACING VEHICLE'S DRIVER WHO COMMITTED THE VEHICLE ACCIDENT",
+    "arabic": "استبدال سائق المركبة الذي ارتكب الحادث أو المشاركة بذلك",
+    "cost": 1,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_143",
+    "sheet": "Morro",
+    "row": 144,
+    "name": "SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 1",
+    "arabic": "بيع/شراء مركبة تالفة/جزء منها دون تقيد بضوابط ادارة المختصة 1",
+    "cost": 2000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_144",
+    "sheet": "Morro",
+    "row": 145,
+    "name": "SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 2",
+    "arabic": "بيع/شراء مركبة تالفة/جزء منها دون تقيد بضوابط ادارة المختصة 2",
+    "cost": 4000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_145",
+    "sheet": "Morro",
+    "row": 146,
+    "name": "SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 3",
+    "arabic": "بيع/شراء مركبة تالفة/جزء منها دون تقيد بضوابط ادارة المختصة 3",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_146",
+    "sheet": "Morro",
+    "row": 147,
+    "name": "SLOWING TO A POINT WHERE IT IS OBSTRUCTING TRAFFIC",
+    "arabic": "التباطؤ في السير على نحو يعرقل الحركة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_147",
+    "sheet": "Morro",
+    "row": 148,
+    "name": "STOPPING THE VEHICLE ON THE RAILWAYS",
+    "arabic": "الوقوف على خطوط السكك الحديدية",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_148",
+    "sheet": "Morro",
+    "row": 149,
+    "name": "THROWING ANY OBJECT OUT OF THE VEHICLE",
+    "arabic": "رمي أجسام خارج المركبة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_149",
+    "sheet": "Morro",
+    "row": 150,
+    "name": "TINTING THE VEHICLE WITHOUT FOLLOWING THE RULES",
+    "arabic": "تظليل زجاج المركبة دون التقيد بالضوابط الخاصة بادارة المختصة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_150",
+    "sheet": "Morro",
+    "row": 151,
+    "name": "TRANSPORTING PASSENGERS IN NON-PASSENGER DESIGNATED LOCATIONS WITHIN THE VEHICLE",
+    "arabic": "نقل الركاب في اماكن غير المخصصة لهم في المركبة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_151",
+    "sheet": "Morro",
+    "row": 152,
+    "name": "TRUCKS ENTERING/EXITING CITIES DURING UNAUTHORIZED TIME",
+    "arabic": "دخول/خروج شاحنات/معدات ثقيلة المدن في أوقات غير مسموحة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_152",
+    "sheet": "Morro",
+    "row": 153,
+    "name": "TRUCKS ENTERING/EXITING CITIES DURING UNAUTHORIZED TIME - ELECTRONIC CAPTURING",
+    "arabic": "دخول/خروج شاحنات/معدات ثقيلة المدن في أوقات غير مسموحة - رصد آلي",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_153",
+    "sheet": "Morro",
+    "row": 154,
+    "name": "TRUCKS OR TRAILERS NOT HAVING SIDE LIGHTS, REFLECTORS OR SCREENS",
+    "arabic": "عدم وجود انارة جانبية أو عواكس أو سواتر للشاحنات والمقطورات",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_154",
+    "sheet": "Morro",
+    "row": 155,
+    "name": "UNDERGOING ANY WORK ON THE ROADS WITHOUT A PERMIT",
+    "arabic": "القيام بأعمال الطرق قبل التنسيق مع ادارات المختصة",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_155",
+    "sheet": "Morro",
+    "row": 156,
+    "name": "UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 1",
+    "arabic": "تعديل/تغيير سجت البيع أو بيع/تأجير المعرض بدون موافقة 1",
+    "cost": 10000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_156",
+    "sheet": "Morro",
+    "row": 157,
+    "name": "UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 2",
+    "arabic": "تعديل/تغيير سجت البيع أو بيع/تأجير المعرض بدون موافقة 2",
+    "cost": 20000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_157",
+    "sheet": "Morro",
+    "row": 158,
+    "name": "UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 3",
+    "arabic": "تعديل/تغيير سجت البيع أو بيع/تأجير المعرض بدون موافقة 3",
+    "cost": 40000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_158",
+    "sheet": "Morro",
+    "row": 159,
+    "name": "USING A PLATE WHICH DOESN'T BELONG TO THE VEHICLE",
+    "arabic": "استخدام لوحات غير عائدة للمركبة",
+    "cost": 5000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_159",
+    "sheet": "Morro",
+    "row": 160,
+    "name": "USING A VEHICLE FOR PURPOSE IT ISN'T LICENSED FOR",
+    "arabic": "استعمال المركبة لغير الغرض الذي رخصت من أجله",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_160",
+    "sheet": "Morro",
+    "row": 161,
+    "name": "USING AN UNAUTHORIZED DEVICES OR AN IMPROPER STICKERS OR SIGNS",
+    "arabic": "استخدام أجهزة غير مصرحة أو وضع شعارات أو ملصقات تنافي اداب",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_161",
+    "sheet": "Morro",
+    "row": 162,
+    "name": "USING LICENSE PLATES THAT ARE NOT ISSUED BY THE OFFICIAL DEPARTMENT",
+    "arabic": "استخدام لوحات غير صادرة من ادارة المختصة",
+    "cost": 1000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_162",
+    "sheet": "Morro",
+    "row": 163,
+    "name": "USING THE BRAKES SUDDENLY OR UNNECESSARILY",
+    "arabic": "استعمال المكابح (الفرامل) بشكل مفاجىء لغير ضرورة",
+    "cost": 300,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_163",
+    "sheet": "Morro",
+    "row": 164,
+    "name": "USING THE EMERGENCY VEHICLE'S ALARMS UNNECESSARILY",
+    "arabic": "استعمال المنبهات الخاصة بمركبة الطوارىء من غير ضرورة",
+    "cost": 500,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_164",
+    "sheet": "Morro",
+    "row": 165,
+    "name": "VEHICLE RACE ON PUBLIC ROADS/JOINING OFFICIAL MOTORCADE WITHOUT PERMITS",
+    "arabic": "اجراء سباق للمركبات على الطرق العامة/السير في مواكب دون تصريح",
+    "cost": 3000,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_165",
+    "sheet": "Morro",
+    "row": 166,
+    "name": "VIOLATING THE DRIVING REGULATIONS ON THE ROADS",
+    "arabic": "مخالفة تنظيمات السير على الطرق",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_morro_166",
+    "sheet": "Morro",
+    "row": 167,
+    "name": "VIOLATING THE DRIVING REGULATIONS ON THE ROADS - ELECTRONIC CAPTURING",
+    "arabic": "مخالفة تنظيمات السير على الطرق - رصد آلي",
+    "cost": 150,
+    "source_uom": "PCS",
+    "category": "Morro"
+  },
+  {
+    "xmlid": "Saddad.product_services_001",
+    "sheet": "Saddad Services",
+    "row": 2,
+    "name": "Muqeem Point",
+    "arabic": "نقاط مقيم",
+    "cost": 2000,
+    "source_uom": "PC",
+    "category": "Saddad Service"
+  }
+]

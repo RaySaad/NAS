@@ -1,0 +1,163 @@
+<odoo>
+  <record id="view_morro_list" model="ir.ui.view">
+    <field name="name">saddad.morro.list</field>
+    <field name="model">saddad.morro</field>
+    <field name="arch" type="xml">
+      <list decoration-success="state == 'posted'" decoration-danger="state == 'rejected'">
+        <field name="name"/>
+        <field name="date"/>
+        <field name="reference"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="currency_id" column_invisible="True"/>
+        <field name="total_amount" sum="Total"/>
+        <field name="paid_amount" sum="Paid"/>
+        <field name="state" widget="badge"/>
+        <field name="forecast_amount" sum="Forecast"/>
+        <field name="expense_type"/>
+      </list>
+    </field>
+  </record>
+  <record id="view_morro_form" model="ir.ui.view">
+    <field name="name">saddad.morro.form</field>
+    <field name="model">saddad.morro</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button name="action_approve" type="object" string="Submit" class="btn-primary" invisible="not can_approve or state != 'draft'"/>
+          <button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="not can_approve or state == 'draft'"/>
+          <button name="action_reject" type="object" string="Reject" invisible="not can_reject"/>
+          <button name="action_reset" type="object" string="Reset to Draft" invisible="not can_reset"/>
+          <button name="action_post" type="object" string="Post Journal Entry" class="btn-primary" invisible="not can_post"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,fleet,finance,gm,payment,done,posted"/>
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button type="object" name="action_open_entry" class="oe_stat_button" icon="fa-book" invisible="not move_id" groups="account.group_account_readonly">
+              <div class="o_stat_info">
+                <span class="o_stat_text">Journal Entry</span>
+              </div>
+            </button>
+          </div>
+          <h1>
+            <field name="name"/>
+          </h1>
+          <field name="can_approve" invisible="1"/>
+          <field name="can_reject" invisible="1"/>
+          <field name="can_reset" invisible="1"/>
+          <field name="can_pay" invisible="1"/>
+          <field name="can_post" invisible="1"/>
+          <field name="currency_id" invisible="1"/>
+          <group>
+            <group>
+              <field name="company_id" readonly="id" groups="base.group_multi_company"/>
+              <field name="date" readonly="state != 'draft'"/>
+              <field name="reference" readonly="state != 'draft'"/>
+              <field name="expense_type" readonly="state != 'draft'"/>
+            </group>
+            <group>
+              <field name="journal_id" readonly="not can_pay or paid_amount != 0"/>
+              <field name="total_amount"/>
+              <field name="paid_amount"/>
+              <field name="forecast_amount"/>
+              <field name="move_id" invisible="not move_id" groups="account.group_account_readonly"/>
+            </group>
+          </group>
+          <field name="rejection_reason" invisible="not rejection_reason"/>
+          <notebook>
+            <page string="Expense Lines">
+              <field name="line_ids" readonly="state not in ['draft', 'payment', 'done']">
+                <list editable="bottom">
+                  <field name="company_id" column_invisible="True"/>
+                  <field name="currency_id" column_invisible="True"/>
+                  <field name="expense_type" column_invisible="True"/>
+                  <field name="morro_category_id" column_invisible="True"/>
+                  <field name="employee_id" readonly="parent.state != 'draft'" domain="[('company_id', '=', parent.company_id)]"/>
+                  <field name="department_id" optional="hide"/>
+                  <field name="vehicle_id" optional="show" readonly="parent.state != 'draft'"/>
+                  <field name="license_plate" optional="hide"/>
+                  <field name="product_id" options="{'no_create': True}" readonly="parent.state != 'draft'"/>
+                  <field name="violation_number" readonly="parent.state != 'draft'" required="expense_type == 'traffic_violation'" column_invisible="parent.expense_type != 'traffic_violation'"/>
+                  <field name="violation_date" readonly="parent.state != 'draft'" required="expense_type == 'traffic_violation'" column_invisible="parent.expense_type != 'traffic_violation'"/>
+                  <field name="description" optional="hide" readonly="parent.state != 'draft'"/>
+                  <field name="period" readonly="parent.state != 'draft'" optional="hide" column_invisible="parent.expense_type != 'driving_licence'"/>
+                  <field name="amount" readonly="parent.state != 'draft'"/>
+                  <field name="tax_ids" widget="many2many_tags" readonly="parent.state != 'draft'" optional="show"/>
+                  <field name="total" sum="Total"/>
+                  <field name="paid_for" readonly="parent.state != 'draft'"/>
+                  <field name="analytic_account_id" optional="hide" readonly="parent.state != 'draft'"/>
+                  <field name="deduction_date" optional="hide" readonly="parent.state != 'draft'"/>
+                  <field name="attachment_filename" column_invisible="True" readonly="parent.state != 'draft'"/>
+                  <field name="attachment" optional="hide" filename="attachment_filename" readonly="parent.state != 'draft'"/>
+                  <field name="paid"/>
+                  <field name="payment_date" optional="hide"/>
+                  <field name="paid_by" optional="hide"/>
+                  <button name="action_mark_paid" type="object" string="Mark Paid" icon="fa-check" invisible="not parent.can_pay or paid or parent.state != 'payment'"/>
+                  <button name="action_unmark_paid" type="object" string="Reverse Payment Mark" icon="fa-undo" invisible="not parent.can_pay or not paid"/>
+                </list>
+              </field>
+            </page>
+            <page string="Notes">
+              <field name="notes" readonly="state != 'draft'"/>
+            </page>
+            <page string="Approval History">
+              <group>
+                <field name="action_user_id"/>
+                <field name="action_at"/>
+              </group>
+              <p>Approvals, rejections and payment actions are recorded in the chatter.</p>
+            </page>
+          </notebook>
+        </sheet>
+        <chatter/>
+      </form>
+    </field>
+  </record>
+  <record id="view_morro_search" model="ir.ui.view">
+    <field name="name">saddad.morro.search</field>
+    <field name="model">saddad.morro</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="reference"/>
+        <field name="line_ids" string="Employee" filter_domain="[('line_ids.employee_id.name','ilike',self)]"/>
+        <filter name="pending_payment" string="Pending Payment" domain="[('state','=','payment')]"/>
+        <filter name="posted" string="Posted" domain="[('state','=','posted')]"/>
+        <filter name="rejected" string="Rejected" domain="[('state','=','rejected')]"/>
+        <filter name="date" string="Date" date="date"/>
+        <group>
+          <filter name="group_state" string="Stage" context="{'group_by':'state'}"/>
+          <filter name="group_company" string="Company" context="{'group_by':'company_id'}"/>
+        </group>
+        <field name="state"/>
+        <field name="line_ids" string="Department" filter_domain="[('line_ids.department_id.name','ilike',self)]"/>
+        <field name="line_ids" string="Service Product" filter_domain="[('line_ids.product_id.name','ilike',self)]"/>
+        <filter name="some_paid" string="Has Paid Lines" domain="[('paid_amount','&gt;',0)]"/>
+        <field name="expense_type"/>
+        <field name="line_ids" string="Violation Number" filter_domain="[('line_ids.violation_number','ilike',self)]"/>
+        <field name="line_ids" string="Vehicle" filter_domain="[('line_ids.vehicle_id','ilike',self)]"/>
+        <filter name="forecast" string="Traffic Violation Forecast" domain="[('expense_type','=','traffic_violation'),('state','in',['fleet','finance','gm','payment'])]"/>
+      </search>
+    </field>
+  </record>
+  <record id="action_morro" model="ir.actions.act_window">
+    <field name="name">Morro Expenses</field>
+    <field name="res_model">saddad.morro</field>
+    <field name="view_mode">list,form</field>
+  </record>
+  <record id="view_morro_reject" model="ir.ui.view">
+    <field name="name">saddad.morro.reject.form</field>
+    <field name="model">saddad.morro.reject</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="expense_id" readonly="1"/>
+          <field name="reason"/>
+        </group>
+        <footer>
+          <button type="object" name="action_apply" string="Reject" class="btn-primary"/>
+          <button special="cancel" string="Cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>

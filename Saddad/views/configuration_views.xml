@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_service_mapping_list" model="ir.ui.view"><field name="name">saddad.service.mapping.list</field><field name="model">saddad.service.mapping</field>
+    <field name="arch" type="xml"><list><field name="company_id"/><field name="service_type"/><field name="period"/><field name="product_id"/><field name="cost"/><field name="currency_id"/><field name="default_for_ptr"/><field name="active"/></list></field></record>
+    <record id="view_service_mapping_form" model="ir.ui.view"><field name="name">saddad.service.mapping.form</field><field name="model">saddad.service.mapping</field>
+    <field name="arch" type="xml"><form><sheet><group><field name="company_id"/><field name="service_type"/><field name="period"/><field name="product_id"/><field name="cost"/><field name="currency_id"/><field name="default_for_ptr"/><field name="active"/></group></sheet></form></field></record>
+    <record id="action_service_mapping" model="ir.actions.act_window"><field name="name">Service Period Mappings</field><field name="res_model">saddad.service.mapping</field><field name="view_mode">list,form</field></record><record id="view_approval_rule_list" model="ir.ui.view"><field name="name">saddad.approval.rule.list</field><field name="model">saddad.approval.rule</field>
+    <field name="arch" type="xml"><list><field name="name"/><field name="company_id"/><field name="transition"/><field name="group_id"/><field name="notify_email"/><field name="notify_activity"/></list></field></record>
+    <record id="view_approval_rule_form" model="ir.ui.view"><field name="name">saddad.approval.rule.form</field><field name="model">saddad.approval.rule</field>
+    <field name="arch" type="xml"><form><sheet><group><field name="name"/><field name="company_id"/><field name="transition"/><field name="group_id"/><field name="notify_email"/><field name="notify_activity"/></group></sheet></form></field></record>
+    <record id="action_approval_rule" model="ir.actions.act_window"><field name="name">Approval Rules</field><field name="res_model">saddad.approval.rule</field><field name="view_mode">list,form</field></record>
+</odoo>

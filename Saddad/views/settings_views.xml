@@ -1,0 +1,18 @@
+<odoo>
+<record id="view_settings_saddad" model="ir.ui.view"><field name="name">res.config.settings.saddad</field>
+<field name="model">res.config.settings</field><field name="inherit_id" ref="base.res_config_settings_view_form" />
+<field name="arch" type="xml"><xpath expr="//form" position="inside"><app string="Saddad" name="Saddad" groups="base.group_system">
+<block title="Pending to Renew" name="saddad_ptr"><setting string="Expiry Threshold" company_dependent="1"><field name="saddad_ptr_threshold" /></setting>
+<setting string="Default Renewal Period" company_dependent="1"><field name="saddad_ptr_period" /></setting>
+<setting string="Default PTR Product" help="Derived from the active service mapping marked Default for PTR." company_dependent="1"><field name="saddad_ptr_product_id" /></setting>
+<setting string="Automatic PTR Creation" help="Select eligible employees and configure service products before enabling." company_dependent="1"><field name="saddad_ptr_automation" /></setting>
+</block></app></xpath></field></record>
+<record id="action_settings" model="ir.actions.act_window"><field name="name">Saddad Settings</field><field name="res_model">res.config.settings</field>
+<field name="view_mode">form</field><field name="target">current</field><field name="context">{'module': 'Saddad'}</field></record>
+
+<record id="view_saddad_settings" model="ir.ui.view"><field name="name">saddad.settings.form</field><field name="model">saddad.settings</field>
+<field name="arch" type="xml"><form string="Saddad Company Settings"><group><field name="company_id" /><field name="threshold" /><field name="automation" /><field name="services_category_id" options="{'no_create': True}" /><field name="morro_category_id" options="{'no_create': True}" /><field name="muqeem_category_id" options="{'no_create': True}" /><field name="bank_journal_id" /><field name="employee_loan_account_id" /></group>
+<footer><button name="action_save" type="object" string="Save" class="btn-primary" /><button special="cancel" string="Cancel" /></footer></form></field></record>
+<record id="action_saddad_company_settings" model="ir.actions.act_window"><field name="name">Saddad Company Settings</field><field name="res_model">saddad.settings</field>
+<field name="view_mode">form</field><field name="target">new</field></record>
+</odoo>

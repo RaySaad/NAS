@@ -1,0 +1,74 @@
+<odoo>
+  <data noupdate="1">
+    <record id="sequence_muqeem" model="ir.sequence">
+      <field name="name">Muqeem Expense</field>
+      <field name="code">saddad.muqeem.expense</field>
+      <field name="prefix">MUQ/%(year)s/</field>
+      <field name="padding">6</field>
+      <field name="company_id" eval="False" />
+    </record>
+    <record id="approval_muqeem_submit" model="saddad.approval.rule">
+      <field name="name">Muqeem Submit</field>
+      <field name="transition">muqeem_submit</field>
+      <field name="group_id" ref="group_muqeem_user" />
+    </record>
+    <record id="approval_muqeem_assistant" model="saddad.approval.rule">
+      <field name="name">Muqeem Assistant</field>
+      <field name="transition">muqeem_assistant</field>
+      <field name="group_id" ref="group_muqeem_user" />
+    </record>
+    <record id="approval_muqeem_hr" model="saddad.approval.rule">
+      <field name="name">Muqeem Hr</field>
+      <field name="transition">muqeem_hr</field>
+      <field name="group_id" ref="group_muqeem_hr" />
+    </record>
+    <record id="approval_muqeem_finance" model="saddad.approval.rule">
+      <field name="name">Muqeem Finance</field>
+      <field name="transition">muqeem_finance</field>
+      <field name="group_id" ref="group_muqeem_finance" />
+    </record>
+    <record id="approval_muqeem_gm" model="saddad.approval.rule">
+      <field name="name">Muqeem Gm</field>
+      <field name="transition">muqeem_gm</field>
+      <field name="group_id" ref="group_muqeem_gm" />
+    </record>
+    <record id="approval_muqeem_payment" model="saddad.approval.rule">
+      <field name="name">Muqeem Payment</field>
+      <field name="transition">muqeem_payment</field>
+      <field name="group_id" ref="group_payment" />
+    </record>
+    <record id="approval_muqeem_post" model="saddad.approval.rule">
+      <field name="name">Muqeem Post</field>
+      <field name="transition">muqeem_post</field>
+      <field name="group_id" ref="group_muqeem_post" />
+    </record>
+    <record id="approval_muqeem_reset" model="saddad.approval.rule">
+      <field name="name">Muqeem Reset</field>
+      <field name="transition">muqeem_reset</field>
+      <field name="group_id" ref="group_muqeem_user" />
+    </record>
+    <record id="activity_muqeem" model="mail.activity.type">
+      <field name="name">Muqeem Approval</field>
+      <field name="res_model">saddad.muqeem.expense</field>
+      <field name="icon">fa-check-square-o</field>
+    </record>
+    <record id="mail_template_muqeem" model="mail.template">
+      <field name="name">Saddad: Muqeem Action Required</field>
+      <field name="model_id" ref="model_saddad_muqeem_expense" />
+      <field name="subject">Muqeem action required: {{ object.name }}</field>
+      <field name="email_from">{{ object.company_id.partner_id.email_formatted or user.email_formatted }}</field>
+      <field name="auto_delete" eval="True" />
+      <field name="body_html" type="html">
+        <div>
+          <p>A Muqeem expense requires your action.</p>
+          <p>
+            <t t-out="object.name" />
+          </p>
+          <p>
+            <a t-att-href="object.get_base_url() + &quot;/odoo/saddad.muqeem.expense/&quot; + str(object.id)">Open Muqeem Expense</a>
+          </p>
+        </div>
+      </field>
+    </record>
+  </data>
+</odoo>

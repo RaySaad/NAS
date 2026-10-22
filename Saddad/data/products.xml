@@ -1,0 +1,2170 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <data noupdate="1">
+    <record id="category_muqeem" model="product.category">
+      <field name="name">Muqeem</field>
+    </record>
+    <record id="product_muqeem_001" model="product.product">
+      <field name="name">CHANGE OCCUPATION</field>
+      <field name="default_code">SAD-MUQEEM-001</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_002" model="product.product">
+      <field name="name">CHANGING SPONSORSHIP (1st Time)</field>
+      <field name="default_code">SAD-MUQEEM-002</field>
+      <field name="type">service</field>
+      <field name="standard_price">2000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_003" model="product.product">
+      <field name="name">CHANGING SPONSORSHIP (2nd Time)</field>
+      <field name="default_code">SAD-MUQEEM-003</field>
+      <field name="type">service</field>
+      <field name="standard_price">4000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_004" model="product.product">
+      <field name="name">CHANGING SPONSORSHIP (3rd or more Time)</field>
+      <field name="default_code">SAD-MUQEEM-004</field>
+      <field name="type">service</field>
+      <field name="standard_price">6000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_005" model="product.product">
+      <field name="name">EXPIRIED VISA  CANCELATION</field>
+      <field name="default_code">SAD-MUQEEM-005</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_006" model="product.product">
+      <field name="name">EXTEND EXIT RE ENTRY VISA</field>
+      <field name="default_code">SAD-MUQEEM-006</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_007" model="product.product">
+      <field name="name">FAMILY SINGEL EXIT RE ENTRY VISA</field>
+      <field name="default_code">SAD-MUQEEM-007</field>
+      <field name="type">service</field>
+      <field name="standard_price">200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_008" model="product.product">
+      <field name="name">FEES FOR CHILDREN OVER 18yrs IQAMA</field>
+      <field name="default_code">SAD-MUQEEM-008</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_009" model="product.product">
+      <field name="name">FEES FOR FAMILY IQAMA</field>
+      <field name="default_code">SAD-MUQEEM-009</field>
+      <field name="type">service</field>
+      <field name="standard_price">4800</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_010" model="product.product">
+      <field name="name">IQAMA PENALTY-LATE RENEWAL</field>
+      <field name="default_code">SAD-MUQEEM-010</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_011" model="product.product">
+      <field name="name">Iqama Issuing  (3 months)</field>
+      <field name="default_code">SAD-MUQEEM-011</field>
+      <field name="type">service</field>
+      <field name="standard_price">162.5</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_012" model="product.product">
+      <field name="name">Iqama Issuing  (6 months)</field>
+      <field name="default_code">SAD-MUQEEM-012</field>
+      <field name="type">service</field>
+      <field name="standard_price">325</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_013" model="product.product">
+      <field name="name">Iqama Issuing (9 months)</field>
+      <field name="default_code">SAD-MUQEEM-013</field>
+      <field name="type">service</field>
+      <field name="standard_price">487.5</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_014" model="product.product">
+      <field name="name">Iqama Issuing (12 months)</field>
+      <field name="default_code">SAD-MUQEEM-014</field>
+      <field name="type">service</field>
+      <field name="standard_price">650</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_015" model="product.product">
+      <field name="name">Iqama Renewal (3 months)</field>
+      <field name="default_code">SAD-MUQEEM-015</field>
+      <field name="type">service</field>
+      <field name="standard_price">162.5</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_016" model="product.product">
+      <field name="name">Iqama Renewal (6 months)</field>
+      <field name="default_code">SAD-MUQEEM-016</field>
+      <field name="type">service</field>
+      <field name="standard_price">325</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_017" model="product.product">
+      <field name="name">Iqama Renewal (9 months)</field>
+      <field name="default_code">SAD-MUQEEM-017</field>
+      <field name="type">service</field>
+      <field name="standard_price">487.5</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_018" model="product.product">
+      <field name="name">Iqama Renewal (12 months)</field>
+      <field name="default_code">SAD-MUQEEM-018</field>
+      <field name="type">service</field>
+      <field name="standard_price">650</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_019" model="product.product">
+      <field name="name">SINGEL EXIT RE ENTRY VISA</field>
+      <field name="default_code">SAD-MUQEEM-019</field>
+      <field name="type">service</field>
+      <field name="standard_price">200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_020" model="product.product">
+      <field name="name">Multi EXIT RE ENTRY VISA</field>
+      <field name="default_code">SAD-MUQEEM-020</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_021" model="product.product">
+      <field name="name">VISIT VISA EXTENTION</field>
+      <field name="default_code">SAD-MUQEEM-021</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_022" model="product.product">
+      <field name="name">Work Permit Issuing  (3 months)</field>
+      <field name="default_code">SAD-MUQEEM-022</field>
+      <field name="type">service</field>
+      <field name="standard_price">2425</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_023" model="product.product">
+      <field name="name">Work Permit Issuing (6 months)</field>
+      <field name="default_code">SAD-MUQEEM-023</field>
+      <field name="type">service</field>
+      <field name="standard_price">4850</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_024" model="product.product">
+      <field name="name">Work Permit Issuing (9 months)</field>
+      <field name="default_code">SAD-MUQEEM-024</field>
+      <field name="type">service</field>
+      <field name="standard_price">7275</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_025" model="product.product">
+      <field name="name">Work Permit Issuing (12 months)</field>
+      <field name="default_code">SAD-MUQEEM-025</field>
+      <field name="type">service</field>
+      <field name="standard_price">9700</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_026" model="product.product">
+      <field name="name">Work permit Renewal  (3 months)</field>
+      <field name="default_code">SAD-MUQEEM-026</field>
+      <field name="type">service</field>
+      <field name="standard_price">2425</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_027" model="product.product">
+      <field name="name">Work permit Renewal (6 months)</field>
+      <field name="default_code">SAD-MUQEEM-027</field>
+      <field name="type">service</field>
+      <field name="standard_price">4850</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_028" model="product.product">
+      <field name="name">Work permit Renewal (9 months)</field>
+      <field name="default_code">SAD-MUQEEM-028</field>
+      <field name="type">service</field>
+      <field name="standard_price">7275</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_muqeem_029" model="product.product">
+      <field name="name">Work permit Renewal (12 months)</field>
+      <field name="default_code">SAD-MUQEEM-029</field>
+      <field name="type">service</field>
+      <field name="standard_price">9700</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_muqeem" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="category_morro" model="product.category">
+      <field name="name">Morro</field>
+    </record>
+    <record id="product_morro_001" model="product.product">
+      <field name="name">COMMITTING INTENTIONAL/EXCESSIVE ACCIDENT RESULTING IN AN INJURY WITH RECOVERY PERIOD ABOVE 15 DAYS</field>
+      <field name="default_code">SAD-MORRO-001</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_002" model="product.product">
+      <field name="name">DRIVER USING ANY HANDHELD DEVICE WHILE DRIVING</field>
+      <field name="default_code">SAD-MORRO-002</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_003" model="product.product">
+      <field name="name">ALLOWING A PERSON WITH NO DRIVING LICENSE TO DRIVE A VEHICLE</field>
+      <field name="default_code">SAD-MORRO-003</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_004" model="product.product">
+      <field name="name">ANIMAL OWNERS ALLOWING THEIR ANIMALS OF CROSSING THE ROAD IN NON-DESIGNATED PLACES</field>
+      <field name="default_code">SAD-MORRO-004</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_005" model="product.product">
+      <field name="name">CARRYING MORE PASSENGERS THAN THE PERMITTED LICENSE LIMIT</field>
+      <field name="default_code">SAD-MORRO-005</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_006" model="product.product">
+      <field name="name">COMMITTING INTENTIONAL/EXCESSIVE ACCIDENT RESULTING IN DEATH/DEMISE OF AN ORGAN/ORGAN DISABABILITY</field>
+      <field name="default_code">SAD-MORRO-006</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_007" model="product.product">
+      <field name="name">DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS1</field>
+      <field name="default_code">SAD-MORRO-007</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_008" model="product.product">
+      <field name="name">DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS2</field>
+      <field name="default_code">SAD-MORRO-008</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_009" model="product.product">
+      <field name="name">DELIVERING VEHICLE BEFORE TRANSFERRING OWNERSHIP OR GIVING THE SHOWROOM CONTRACTS/STAMPS FOR OTHERS3</field>
+      <field name="default_code">SAD-MORRO-009</field>
+      <field name="type">service</field>
+      <field name="standard_price">8000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_010" model="product.product">
+      <field name="name">DRIFTING FINE FOR MORE THAN THREE TIMES</field>
+      <field name="default_code">SAD-MORRO-010</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_011" model="product.product">
+      <field name="name">DRIFTING FINE FOR THE FIRST TIME</field>
+      <field name="default_code">SAD-MORRO-011</field>
+      <field name="type">service</field>
+      <field name="standard_price">20000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_012" model="product.product">
+      <field name="name">DRIFTING FINE FOR THE SECOND TIME</field>
+      <field name="default_code">SAD-MORRO-012</field>
+      <field name="type">service</field>
+      <field name="standard_price">40000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_013" model="product.product">
+      <field name="name">DRIFTING FINE FOR THE THIRD TIME</field>
+      <field name="default_code">SAD-MORRO-013</field>
+      <field name="type">service</field>
+      <field name="standard_price">60000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_014" model="product.product">
+      <field name="name">DRIVE THE VEHICLE AGAINST THE DIRECTION OF THE TRAFFIC</field>
+      <field name="default_code">SAD-MORRO-014</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_015" model="product.product">
+      <field name="name">DRIVER NOT LEAVING ENOUGH SPACE BETWEEN HIM AND OTHER VEHICLES</field>
+      <field name="default_code">SAD-MORRO-015</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_016" model="product.product">
+      <field name="name">DRIVER USING ANY HANDHELD DEVICE WHILE DRIVING - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-016</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_017" model="product.product">
+      <field name="name">DRIVING A VEHICLE WHICH IS CAUSING AIR POLLUTION</field>
+      <field name="default_code">SAD-MORRO-017</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_018" model="product.product">
+      <field name="name">DRIVING A VEHICLE WITH A DRIVER'S LICENSE THAT DOES NOT MATCH THE SIZE OF THE VEHICLE OR TYPE OF USE</field>
+      <field name="default_code">SAD-MORRO-018</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_019" model="product.product">
+      <field name="name">DRIVING A VEHICLE WITHOUT A FRONT LICENSE PLATE</field>
+      <field name="default_code">SAD-MORRO-019</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_020" model="product.product">
+      <field name="name">DRIVING A VEHICLE WITHOUT A FRONT LICENSE PLATE - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-020</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_021" model="product.product">
+      <field name="name">DRIVING A VEHICLE WITHOUT REAR PLATE OR WITHOUT PLATES</field>
+      <field name="default_code">SAD-MORRO-021</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_022" model="product.product">
+      <field name="name">DRIVING BEFORE OBTAINING A DRIVERS LICENSE OR IF THE LICENSE IS WITHDRAWN</field>
+      <field name="default_code">SAD-MORRO-022</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_023" model="product.product">
+      <field name="name">DRIVING IN REVERSE ON MAIN ROADS FOR A DISTANCE EXCEEDING 20 METERS</field>
+      <field name="default_code">SAD-MORRO-023</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_024" model="product.product">
+      <field name="name">DRIVING INSIDE TUNNELS WITHOUT USING THE LIGHTS</field>
+      <field name="default_code">SAD-MORRO-024</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_025" model="product.product">
+      <field name="name">DRIVING ON SHOULDERS OF THE ROAD/SIDEWALKS/PATHS WHERE DRIVING IS PROHIBITED</field>
+      <field name="default_code">SAD-MORRO-025</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_026" model="product.product">
+      <field name="name">DRIVING ON SHOULDERS OF THE ROAD/SIDEWALKS/PATHS WHERE DRIVING IS PROHIBITED - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-026</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_027" model="product.product">
+      <field name="name">DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) AT HOLY PLACES ENTRANCES</field>
+      <field name="default_code">SAD-MORRO-027</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_028" model="product.product">
+      <field name="name">DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) AT MECCA ENTRANCES</field>
+      <field name="default_code">SAD-MORRO-028</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_029" model="product.product">
+      <field name="name">DRIVING PILGRIMS BUS (LESS THAN 25 PASSENGERS) INSIDE THE HOLY PLACES</field>
+      <field name="default_code">SAD-MORRO-029</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_030" model="product.product">
+      <field name="name">DRIVING THE VEHICLE IN MARKETS WHERE DRIVING IS PROHIBITED</field>
+      <field name="default_code">SAD-MORRO-030</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_031" model="product.product">
+      <field name="name">DRIVING THE VEHICLE WITH DEFECTIVE BRAKES OR LIGHTS OR ANY OTHER CRUCIAL PARTS</field>
+      <field name="default_code">SAD-MORRO-031</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_032" model="product.product">
+      <field name="name">DRIVING THE VEHICLE WITH UNCLEAR OR DAMAGED LICENSE PLATES</field>
+      <field name="default_code">SAD-MORRO-032</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_033" model="product.product">
+      <field name="name">DRIVING THE VEHICLE WITH UNCLEAR OR DAMAGED LICENSE PLATES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-033</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_034" model="product.product">
+      <field name="name">DRIVING UNDER THE INFLUENCE OF ALCOHOL OR DRUGS</field>
+      <field name="default_code">SAD-MORRO-034</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_035" model="product.product">
+      <field name="name">DRIVING VEHICLES DESIGNATED FOR ACQUISITION</field>
+      <field name="default_code">SAD-MORRO-035</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_036" model="product.product">
+      <field name="name">DRIVING WITH AN EXPIRED DRIVING LICENSE</field>
+      <field name="default_code">SAD-MORRO-036</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_037" model="product.product">
+      <field name="name">DRIVING WITHOUT LIGHTS AT NIGHTS OR WHEN THE VISION IS NOT CLEAR</field>
+      <field name="default_code">SAD-MORRO-037</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_038" model="product.product">
+      <field name="name">DRIVING WITHOUT LIGHTS AT NIGHTS OR WHEN THE VISION IS NOT CLEAR - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-038</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_039" model="product.product">
+      <field name="name">EXCEEDING THE CARGO DIMENSIONS FOR HEAVY TRANSPORTATION VEHICLES</field>
+      <field name="default_code">SAD-MORRO-039</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_040" model="product.product">
+      <field name="name">EXCEEDING THE CARGO DIMENSIONS FOR LIGHT TRANSPORTATION VEHICLES</field>
+      <field name="default_code">SAD-MORRO-040</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_041" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 10 TO 20 KM/H</field>
+      <field name="default_code">SAD-MORRO-041</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_042" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 10 TO 20 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-042</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_043" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 20 TO 30 KM/H</field>
+      <field name="default_code">SAD-MORRO-043</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_044" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 20 TO 30 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-044</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_045" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 30 TO 40 KM/H</field>
+      <field name="default_code">SAD-MORRO-045</field>
+      <field name="type">service</field>
+      <field name="standard_price">800</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_046" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 30 TO 40 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-046</field>
+      <field name="type">service</field>
+      <field name="standard_price">800</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_047" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 40 TO 50 KM/H</field>
+      <field name="default_code">SAD-MORRO-047</field>
+      <field name="type">service</field>
+      <field name="standard_price">1200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_048" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 40 TO 50 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-048</field>
+      <field name="type">service</field>
+      <field name="standard_price">1200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_049" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 50 KM/H</field>
+      <field name="default_code">SAD-MORRO-049</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_050" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT BY MORE THAN 50 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-050</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_051" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 10 TO 20 KM/H</field>
+      <field name="default_code">SAD-MORRO-051</field>
+      <field name="type">service</field>
+      <field name="standard_price">800</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_052" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 10 TO 20 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-052</field>
+      <field name="type">service</field>
+      <field name="standard_price">800</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_053" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 20 TO 30 KM/H</field>
+      <field name="default_code">SAD-MORRO-053</field>
+      <field name="type">service</field>
+      <field name="standard_price">1200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_054" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 20 TO 30 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-054</field>
+      <field name="type">service</field>
+      <field name="standard_price">1200</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_055" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 5 TO 10 KM/H</field>
+      <field name="default_code">SAD-MORRO-055</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_056" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY 5 TO 10 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-056</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_057" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY MORE THAN 30 KM/H</field>
+      <field name="default_code">SAD-MORRO-057</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_058" model="product.product">
+      <field name="name">EXCEEDING THE SPEED LIMIT OF 140 KM/H BY MORE THAN 30 KM/H - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-058</field>
+      <field name="type">service</field>
+      <field name="standard_price">1500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_059" model="product.product">
+      <field name="name">FAILING TO DISCLOSE MAJOR CHANGES INTRODUCED TO THE VEHICLE'S BODY</field>
+      <field name="default_code">SAD-MORRO-059</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_060" model="product.product">
+      <field name="name">FAILING TO EXPORT THE FOR EXPORT VEHICLE WITHIN THE ALLOWED TIME</field>
+      <field name="default_code">SAD-MORRO-060</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_061" model="product.product">
+      <field name="name">FAILING TO FOLLOW THE ALLOW PASSING ADVANTAGE TRAFFIC SIGN THROUGH STOPPING THE VEHICLE</field>
+      <field name="default_code">SAD-MORRO-061</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_062" model="product.product">
+      <field name="name">FAILING TO FOLLOW THE FORMAL PROCEDURES FOR DRIVING HEAVY MACHINERY</field>
+      <field name="default_code">SAD-MORRO-062</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_063" model="product.product">
+      <field name="name">FAILING TO FOLLOW THE OBLIGATORY (STOP) SIGN</field>
+      <field name="default_code">SAD-MORRO-063</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_064" model="product.product">
+      <field name="name">FAILING TO FOLLOW THE PEDESTRIANS TRAFFIC LIGHTS</field>
+      <field name="default_code">SAD-MORRO-064</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_065" model="product.product">
+      <field name="name">FAILING TO GIVE ADVANTAGE TO PEDESTRIANS IN PEDESTRIANS' WALKWAYS</field>
+      <field name="default_code">SAD-MORRO-065</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_066" model="product.product">
+      <field name="name">FAILING TO KEEP THE ANIMALS AWAY FROM THE DESIGNATED ROAD</field>
+      <field name="default_code">SAD-MORRO-066</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_067" model="product.product">
+      <field name="name">FAILING TO TAKE THE CAR FOR REGULAR INSPECTION</field>
+      <field name="default_code">SAD-MORRO-067</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_068" model="product.product">
+      <field name="name">FAILING TO TAKE THE REQUIRED PRECAUTIONS FOR STOPPING THE VEHICLE ON PUBLIC ROADS</field>
+      <field name="default_code">SAD-MORRO-068</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_069" model="product.product">
+      <field name="name">FAILING TO UPGRADE THE VEHICLE'S USING PURPOSE</field>
+      <field name="default_code">SAD-MORRO-069</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_070" model="product.product">
+      <field name="name">FAILING TO YIELD TO EMERGENCY OR OFFICIAL MOTORCADE VEHICLES</field>
+      <field name="default_code">SAD-MORRO-070</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_071" model="product.product">
+      <field name="name">FAILURE OF TRUCKS AND HEAVY EQUIPMENT TO FOLLOW RIGHT LANE</field>
+      <field name="default_code">SAD-MORRO-071</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_072" model="product.product">
+      <field name="name">FAILURE OF TRUCKS AND HEAVY EQUIPMENT TO FOLLOW RIGHT LANE IN MULTILANE ROADS - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-072</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_073" model="product.product">
+      <field name="name">FAILURE TO FOLLOW THE ROAD LANES</field>
+      <field name="default_code">SAD-MORRO-073</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_074" model="product.product">
+      <field name="name">FAILURE TO FOLLOW THE ROAD LANES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-074</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_075" model="product.product">
+      <field name="name">FAILURE TO FOLLOW THE SAFE DISTANCE BETWEEN VEHICLES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-075</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_076" model="product.product">
+      <field name="name">FAILURE TO PRESENT A DRIVER LICENSE OR REGISTRATION WHEN ASKED FOR IT</field>
+      <field name="default_code">SAD-MORRO-076</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_077" model="product.product">
+      <field name="name">FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 1</field>
+      <field name="default_code">SAD-MORRO-077</field>
+      <field name="type">service</field>
+      <field name="standard_price">10000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_078" model="product.product">
+      <field name="name">FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 2</field>
+      <field name="default_code">SAD-MORRO-078</field>
+      <field name="type">service</field>
+      <field name="standard_price">20000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_079" model="product.product">
+      <field name="name">FIX / MODIFY OR CHANGE A VEHICLE OR ERASE THE VEHICLE IDENTIFICATION NUMBER WITHOUT PERMISSION 3</field>
+      <field name="default_code">SAD-MORRO-079</field>
+      <field name="type">service</field>
+      <field name="standard_price">40000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_080" model="product.product">
+      <field name="name">FOLLOWING EMERGENCY VEHICLES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-080</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_081" model="product.product">
+      <field name="name">FOLLOWING EMERGENCY VEHICLES WHILE IT TURNED ON THE ALARMS</field>
+      <field name="default_code">SAD-MORRO-081</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_082" model="product.product">
+      <field name="name">GATHERING IN DRIFTING LOCATIONS</field>
+      <field name="default_code">SAD-MORRO-082</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_083" model="product.product">
+      <field name="name">GATHERING IN THE SCENE OF AN ACCIDENT</field>
+      <field name="default_code">SAD-MORRO-083</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_084" model="product.product">
+      <field name="name">GETTING INTO OR OUT OF THE VEHICLE WHILE MOVING</field>
+      <field name="default_code">SAD-MORRO-084</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_085" model="product.product">
+      <field name="name">HIDE OR ATTEMPT TO HIDE THE VEHICLE CHASSIS NUMBER</field>
+      <field name="default_code">SAD-MORRO-085</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_086" model="product.product">
+      <field name="name">HIDE THE VEHICLE'S LICENSE PLATES</field>
+      <field name="default_code">SAD-MORRO-086</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_087" model="product.product">
+      <field name="name">HIDE THE VEHICLE'S LICENSE PLATES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-087</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_088" model="product.product">
+      <field name="name">ILLEGAL PARKING</field>
+      <field name="default_code">SAD-MORRO-088</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_089" model="product.product">
+      <field name="name">ILLEGAL PASSING OF OTHER VEHICLES ON THE ROAD</field>
+      <field name="default_code">SAD-MORRO-089</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_090" model="product.product">
+      <field name="name">ILLEGAL PASSING OF SCHOOL BUSSES DURING STOPPING FOR LOADING</field>
+      <field name="default_code">SAD-MORRO-090</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_091" model="product.product">
+      <field name="name">IMPROPER USE OF ENGAGEMENT LIGHTS</field>
+      <field name="default_code">SAD-MORRO-091</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_092" model="product.product">
+      <field name="name">IMPROPER USE OF THE HORN</field>
+      <field name="default_code">SAD-MORRO-092</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_093" model="product.product">
+      <field name="name">INSTALLING ACCESSORIES SIMILAR TO THOSE DEDICATED FOR THE FORMAL &amp; EMERGENCY VEHICLES ONLY</field>
+      <field name="default_code">SAD-MORRO-093</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_094" model="product.product">
+      <field name="name">INTENTIONALLY CAUSING A TRAFFIC ACCIDENT</field>
+      <field name="default_code">SAD-MORRO-094</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_095" model="product.product">
+      <field name="name">LEAVING CHILDREN UNDER THE AGE OF (TEN) IN THE VEHICLE UNACCOMPANIED BY AN ADULT</field>
+      <field name="default_code">SAD-MORRO-095</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_096" model="product.product">
+      <field name="name">LEAVING OBSTACLES ON A PUBLIC ROAD</field>
+      <field name="default_code">SAD-MORRO-096</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_097" model="product.product">
+      <field name="name">LEAVING THE CARRIED CARGOS UNTIED OR UNCOVERED</field>
+      <field name="default_code">SAD-MORRO-097</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_098" model="product.product">
+      <field name="name">LEAVING THE VEHICLE ON A DECLINED ROAD WITHOUT TAKING THE REQUIRED PRECAUTIONS</field>
+      <field name="default_code">SAD-MORRO-098</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_099" model="product.product">
+      <field name="name">LEAVING THE VEHICLE OPEN AND OPERATIONAL AFTER GETTING OUT</field>
+      <field name="default_code">SAD-MORRO-099</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_100" model="product.product">
+      <field name="name">MAKING IMPROPER NOISES USING DEVICES FROM INSIDE THE VEHICLE</field>
+      <field name="default_code">SAD-MORRO-100</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_101" model="product.product">
+      <field name="name">MISSING LEGAL REQUIREMENTS FOR THE TRAILER</field>
+      <field name="default_code">SAD-MORRO-101</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_102" model="product.product">
+      <field name="name">MISSING WITH THE ROAD SIGNS</field>
+      <field name="default_code">SAD-MORRO-102</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_103" model="product.product">
+      <field name="name">MORTGAGE OF THE DRIVING LICENSE OR REGISTRATION CARD</field>
+      <field name="default_code">SAD-MORRO-103</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_104" model="product.product">
+      <field name="name">MOTORCYLE DRIVING ATTACHING HIMSELF TO A VEHICLE OR PULLING/CARRYING OBJECTS THAT ENDANGERS SAFETY</field>
+      <field name="default_code">SAD-MORRO-104</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_105" model="product.product">
+      <field name="name">MOVING THE VEHICLE AT HIGH SPEED, SO THAT THE TIRES MAKE A LOUD NOISE</field>
+      <field name="default_code">SAD-MORRO-105</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_106" model="product.product">
+      <field name="name">NOT ALLOW PASSING ADVANTAGE FOR VEHICLE COMING FROM RIGHT SIDE WHEN PASSING ADVANTAGES ARE EQUAL</field>
+      <field name="default_code">SAD-MORRO-106</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_107" model="product.product">
+      <field name="name">NOT CARRYING THE DRIVING LICENSE OR THE VEHICLE REGISTRATION WHILE DRIVING</field>
+      <field name="default_code">SAD-MORRO-107</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_108" model="product.product">
+      <field name="name">NOT FOLLOWING THE TRAFFIC OFFICER MANUAL SIGNS OR GIVING PRIORITY TO HIS INSTRUCTIONS</field>
+      <field name="default_code">SAD-MORRO-108</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_109" model="product.product">
+      <field name="name">NOT FOLLOWING THE TRAFFIC RULES AT THE ROADS' CROSSINGS</field>
+      <field name="default_code">SAD-MORRO-109</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_110" model="product.product">
+      <field name="name">NOT GIVING WAY AT A ROUNDABOUT</field>
+      <field name="default_code">SAD-MORRO-110</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_111" model="product.product">
+      <field name="name">NOT GIVING WAY FOR VEHICLES ON THE MAIN ROAD</field>
+      <field name="default_code">SAD-MORRO-111</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_112" model="product.product">
+      <field name="name">NOT GIVING WAY IN PARTIALLY CLOSED ROADS TO CARS WHOSE ROAD IS OPEN</field>
+      <field name="default_code">SAD-MORRO-112</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_113" model="product.product">
+      <field name="name">NOT GIVING WAY TO EMERGENCY VEHICLES - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-113</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_114" model="product.product">
+      <field name="name">NOT GIVING WAY TO PUBLIC TRANSPORTATION VEHICLES</field>
+      <field name="default_code">SAD-MORRO-114</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_115" model="product.product">
+      <field name="name">NOT GIVING WAY TO VEHICLES AHEAD AT JUNCTIONS OR INTERSECTIONS</field>
+      <field name="default_code">SAD-MORRO-115</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_116" model="product.product">
+      <field name="name">NOT GIVING WAY TO VEHICLES AT THE OTHER DIRECTION WHEN DOING A U-TURN</field>
+      <field name="default_code">SAD-MORRO-116</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_117" model="product.product">
+      <field name="name">NOT GIVING WAY TO VEHICLES DRIVING IN A STRAIGHT LINE WHEN SWITCHING LANES</field>
+      <field name="default_code">SAD-MORRO-117</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_118" model="product.product">
+      <field name="name">NOT GIVING WAY TO VEHICLES DRIVING ON THE MAIN ROAD AT INTERSECTIONS</field>
+      <field name="default_code">SAD-MORRO-118</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_119" model="product.product">
+      <field name="name">NOT HAVING A VALID VEHICLE'S INSURANCE</field>
+      <field name="default_code">SAD-MORRO-119</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_120" model="product.product">
+      <field name="name">NOT HAVING A VALID VEHICLE'S INSURANCE - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-120</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_121" model="product.product">
+      <field name="name">NOT INSTALLING THE VEHICLE LICENSE PLACE IN ITS DESIGNATED PLACE</field>
+      <field name="default_code">SAD-MORRO-121</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_122" model="product.product">
+      <field name="name">NOT PAYING AN ATTENTION TO THE ROAD WHILE DRIVING</field>
+      <field name="default_code">SAD-MORRO-122</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_123" model="product.product">
+      <field name="name">NOT REPORTING THE SELLING OR DAMAGE OF THE VEHICLE OUTSIDE THE KINGDOM</field>
+      <field name="default_code">SAD-MORRO-123</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_124" model="product.product">
+      <field name="name">NOT STOPPING AT THE CHECK POINTS WHEN REQUESTED</field>
+      <field name="default_code">SAD-MORRO-124</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_125" model="product.product">
+      <field name="name">NOT STOPPING IN THE ACCIDENT LOCATION AND LEAVING WITHOUT REPORTING OR HELPING THE INJURED</field>
+      <field name="default_code">SAD-MORRO-125</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_126" model="product.product">
+      <field name="name">NOT USING THE PROPER KIDS' CAR</field>
+      <field name="default_code">SAD-MORRO-126</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_127" model="product.product">
+      <field name="name">NOT USING TURN SIGNALS TO TURN LEFT/RIGHT OR TO OVERTAKE VEHICLES/CHANGE LANES</field>
+      <field name="default_code">SAD-MORRO-127</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_128" model="product.product">
+      <field name="name">NOT WEARING A HELMET FOR DRIVING A MOTORCYCLE</field>
+      <field name="default_code">SAD-MORRO-128</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_129" model="product.product">
+      <field name="name">NOT WEARING A SEATBELT</field>
+      <field name="default_code">SAD-MORRO-129</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_130" model="product.product">
+      <field name="name">NOT WEARING A SEATBELT - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-130</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_131" model="product.product">
+      <field name="name">OPENING VEHICLES SHOWROOM WITHOUT PERMISSION FROM TRAFFIC DEPARTMENT OR COMMERCIAL REGISTRATION</field>
+      <field name="default_code">SAD-MORRO-131</field>
+      <field name="type">service</field>
+      <field name="standard_price">100000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_132" model="product.product">
+      <field name="name">OVERTAKING VEHICLES AHEAD OF SIGNALS USING THE SHOULDER OF THE ROAD/TURNING LANE</field>
+      <field name="default_code">SAD-MORRO-132</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_133" model="product.product">
+      <field name="name">PARKING IN LOCATIONS RESERVED TO PEOPLE WITH SPECIAL NEEDS</field>
+      <field name="default_code">SAD-MORRO-133</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_134" model="product.product">
+      <field name="name">PASSING THE RED TRAFFIC LIGHT</field>
+      <field name="default_code">SAD-MORRO-134</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_135" model="product.product">
+      <field name="name">PASSING THE RED TRAFFIC LIGHT - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-135</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_136" model="product.product">
+      <field name="name">PASSING THE ROADS FROM A NON PEDESTRIANS' WALKWAYS</field>
+      <field name="default_code">SAD-MORRO-136</field>
+      <field name="type">service</field>
+      <field name="standard_price">100</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_137" model="product.product">
+      <field name="name">PASSING VEHICLES WHILE IT'S PROHIBITED</field>
+      <field name="default_code">SAD-MORRO-137</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_138" model="product.product">
+      <field name="name">PASSING VEHICLES WHILE IT'S PROHIBITED - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-138</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_139" model="product.product">
+      <field name="name">PEDESTRIAN CROSSING OF HIGHWAYS</field>
+      <field name="default_code">SAD-MORRO-139</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_140" model="product.product">
+      <field name="name">PLACING A WRITING/DRAWING/STICKER/ANY OTHER OBJECT ON THE VEHICLE WITHOUT APPROVAL</field>
+      <field name="default_code">SAD-MORRO-140</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_141" model="product.product">
+      <field name="name">PUTTING ANY OBSTACLES INSIDE OR OUTSIDE THE VEHICLE WHICH AFFECTS THE DRIVER'S VISION</field>
+      <field name="default_code">SAD-MORRO-141</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_142" model="product.product">
+      <field name="name">REPLACING/PATICIPATING IN THE ACT OF REPLACING VEHICLE'S DRIVER WHO COMMITTED THE VEHICLE ACCIDENT</field>
+      <field name="default_code">SAD-MORRO-142</field>
+      <field name="type">service</field>
+      <field name="standard_price">1</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_143" model="product.product">
+      <field name="name">SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 1</field>
+      <field name="default_code">SAD-MORRO-143</field>
+      <field name="type">service</field>
+      <field name="standard_price">2000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_144" model="product.product">
+      <field name="name">SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 2</field>
+      <field name="default_code">SAD-MORRO-144</field>
+      <field name="type">service</field>
+      <field name="standard_price">4000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_145" model="product.product">
+      <field name="name">SELLING/BUYING A PARTIALLY/FULLY DAMAGED VEHICLE WITHOUT ADHERING TO REGULATIONS OF THE DEPARTMENT 3</field>
+      <field name="default_code">SAD-MORRO-145</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_146" model="product.product">
+      <field name="name">SLOWING TO A POINT WHERE IT IS OBSTRUCTING TRAFFIC</field>
+      <field name="default_code">SAD-MORRO-146</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_147" model="product.product">
+      <field name="name">STOPPING THE VEHICLE ON THE RAILWAYS</field>
+      <field name="default_code">SAD-MORRO-147</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_148" model="product.product">
+      <field name="name">THROWING ANY OBJECT OUT OF THE VEHICLE</field>
+      <field name="default_code">SAD-MORRO-148</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_149" model="product.product">
+      <field name="name">TINTING THE VEHICLE WITHOUT FOLLOWING THE RULES</field>
+      <field name="default_code">SAD-MORRO-149</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_150" model="product.product">
+      <field name="name">TRANSPORTING PASSENGERS IN NON-PASSENGER DESIGNATED LOCATIONS WITHIN THE VEHICLE</field>
+      <field name="default_code">SAD-MORRO-150</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_151" model="product.product">
+      <field name="name">TRUCKS ENTERING/EXITING CITIES DURING UNAUTHORIZED TIME</field>
+      <field name="default_code">SAD-MORRO-151</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_152" model="product.product">
+      <field name="name">TRUCKS ENTERING/EXITING CITIES DURING UNAUTHORIZED TIME - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-152</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_153" model="product.product">
+      <field name="name">TRUCKS OR TRAILERS NOT HAVING SIDE LIGHTS, REFLECTORS OR SCREENS</field>
+      <field name="default_code">SAD-MORRO-153</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_154" model="product.product">
+      <field name="name">UNDERGOING ANY WORK ON THE ROADS WITHOUT A PERMIT</field>
+      <field name="default_code">SAD-MORRO-154</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_155" model="product.product">
+      <field name="name">UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 1</field>
+      <field name="default_code">SAD-MORRO-155</field>
+      <field name="type">service</field>
+      <field name="standard_price">10000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_156" model="product.product">
+      <field name="name">UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 2</field>
+      <field name="default_code">SAD-MORRO-156</field>
+      <field name="type">service</field>
+      <field name="standard_price">20000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_157" model="product.product">
+      <field name="name">UPDATE / CHANGE SALES RECORDS OR SELLING / RENTING THE SHOWROOM WITHOUT PERMISSION 3</field>
+      <field name="default_code">SAD-MORRO-157</field>
+      <field name="type">service</field>
+      <field name="standard_price">40000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_158" model="product.product">
+      <field name="name">USING A PLATE WHICH DOESN'T BELONG TO THE VEHICLE</field>
+      <field name="default_code">SAD-MORRO-158</field>
+      <field name="type">service</field>
+      <field name="standard_price">5000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_159" model="product.product">
+      <field name="name">USING A VEHICLE FOR PURPOSE IT ISN'T LICENSED FOR</field>
+      <field name="default_code">SAD-MORRO-159</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_160" model="product.product">
+      <field name="name">USING AN UNAUTHORIZED DEVICES OR AN IMPROPER STICKERS OR SIGNS</field>
+      <field name="default_code">SAD-MORRO-160</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_161" model="product.product">
+      <field name="name">USING LICENSE PLATES THAT ARE NOT ISSUED BY THE OFFICIAL DEPARTMENT</field>
+      <field name="default_code">SAD-MORRO-161</field>
+      <field name="type">service</field>
+      <field name="standard_price">1000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_162" model="product.product">
+      <field name="name">USING THE BRAKES SUDDENLY OR UNNECESSARILY</field>
+      <field name="default_code">SAD-MORRO-162</field>
+      <field name="type">service</field>
+      <field name="standard_price">300</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_163" model="product.product">
+      <field name="name">USING THE EMERGENCY VEHICLE'S ALARMS UNNECESSARILY</field>
+      <field name="default_code">SAD-MORRO-163</field>
+      <field name="type">service</field>
+      <field name="standard_price">500</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_164" model="product.product">
+      <field name="name">VEHICLE RACE ON PUBLIC ROADS/JOINING OFFICIAL MOTORCADE WITHOUT PERMITS</field>
+      <field name="default_code">SAD-MORRO-164</field>
+      <field name="type">service</field>
+      <field name="standard_price">3000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_165" model="product.product">
+      <field name="name">VIOLATING THE DRIVING REGULATIONS ON THE ROADS</field>
+      <field name="default_code">SAD-MORRO-165</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="product_morro_166" model="product.product">
+      <field name="name">VIOLATING THE DRIVING REGULATIONS ON THE ROADS - ELECTRONIC CAPTURING</field>
+      <field name="default_code">SAD-MORRO-166</field>
+      <field name="type">service</field>
+      <field name="standard_price">150</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_morro" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+    <record id="category_services" model="product.category">
+      <field name="name">Saddad Service</field>
+    </record>
+    <record id="product_services_001" model="product.product">
+      <field name="name">Muqeem Point</field>
+      <field name="default_code">SAD-SERVICES-001</field>
+      <field name="type">service</field>
+      <field name="standard_price">2000</field>
+      <field name="list_price">0</field>
+      <field name="categ_id" ref="category_services" />
+      <field name="uom_id" ref="uom.product_uom_unit" />
+      <field name="sale_ok" eval="False" />
+      <field name="purchase_ok" eval="True" />
+    </record>
+  </data>
+</odoo>

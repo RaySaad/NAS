@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="rule_ptr_company" model="ir.rule"><field name="name">Saddad ptr company boundary</field>
+    <field name="model_id" ref="model_saddad_ptr"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_ptr_line_company" model="ir.rule"><field name="name">Saddad ptr_line company boundary</field>
+    <field name="model_id" ref="model_saddad_ptr_line"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_service_mapping_company" model="ir.rule"><field name="name">Saddad service_mapping company boundary</field>
+    <field name="model_id" ref="model_saddad_service_mapping"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_approval_rule_company" model="ir.rule"><field name="name">Saddad approval_rule company boundary</field>
+    <field name="model_id" ref="model_saddad_approval_rule"/><field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field></record>
+<record id="rule_approval_rule_write_company" model="ir.rule"><field name="name">Saddad company approval overrides</field>
+<field name="model_id" ref="model_saddad_approval_rule"/><field name="domain_force">[('company_id', 'in', company_ids)]</field>
+<field name="perm_read" eval="False"/><field name="perm_write" eval="True"/><field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/></record>
+<record id="rule_qiwa_company" model="ir.rule"><field name="name">Qiwa company boundary</field><field name="model_id" ref="model_saddad_qiwa_batch"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_qiwa_line_company" model="ir.rule"><field name="name">Qiwa line company boundary</field><field name="model_id" ref="model_saddad_qiwa_line"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+</odoo>

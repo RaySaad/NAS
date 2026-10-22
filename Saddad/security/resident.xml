@@ -1,0 +1,8 @@
+<odoo>
+<record id="group_resident_hr" model="res.groups"><field name="name">Muqeem Resident HR</field><field name="privilege_id" ref="privilege_saddad"/><field name="implied_ids" eval="[(4, ref('Saddad.group_muqeem_base'))]"/></record>
+<record id="rule_establishment" model="ir.rule"><field name="name">Resident company boundary</field><field name="model_id" ref="model_saddad_establishment"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_resident" model="ir.rule"><field name="name">Resident company boundary</field><field name="model_id" ref="model_saddad_resident"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_renewal" model="ir.rule"><field name="name">Resident company boundary</field><field name="model_id" ref="model_saddad_renewal"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_resident_import" model="ir.rule"><field name="name">Resident company boundary</field><field name="model_id" ref="model_saddad_resident_import"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+<record id="rule_resident_import_line" model="ir.rule"><field name="name">Resident company boundary</field><field name="model_id" ref="model_saddad_resident_import_line"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+</odoo>

@@ -1,0 +1,69 @@
+<odoo>
+  <data noupdate="1">
+    <record id="sequence_services" model="ir.sequence">
+      <field name="name">Service Expense</field>
+      <field name="code">saddad.service.request</field>
+      <field name="prefix">SRV/%(year)s/</field>
+      <field name="padding">6</field>
+      <field name="company_id" eval="False"/>
+    </record>
+    <record id="approval_services_submit" model="saddad.approval.rule">
+      <field name="name">Service Submit</field>
+      <field name="transition">services_submit</field>
+      <field name="group_id" ref="group_services_user"/>
+    </record>
+    <record id="approval_services_reviewed" model="saddad.approval.rule">
+      <field name="name">Service Review</field>
+      <field name="transition">services_reviewed</field>
+      <field name="group_id" ref="group_services_user"/>
+    </record>
+    <record id="approval_services_finance" model="saddad.approval.rule">
+      <field name="name">Service Finance</field>
+      <field name="transition">services_finance</field>
+      <field name="group_id" ref="group_services_finance"/>
+    </record>
+    <record id="approval_services_gm" model="saddad.approval.rule">
+      <field name="name">Service Gm</field>
+      <field name="transition">services_gm</field>
+      <field name="group_id" ref="group_services_gm"/>
+    </record>
+    <record id="approval_services_payment" model="saddad.approval.rule">
+      <field name="name">Service Payment</field>
+      <field name="transition">services_payment</field>
+      <field name="group_id" ref="group_payment"/>
+    </record>
+    <record id="approval_services_post" model="saddad.approval.rule">
+      <field name="name">Service Post</field>
+      <field name="transition">services_post</field>
+      <field name="group_id" ref="group_services_post"/>
+    </record>
+    <record id="approval_services_reset" model="saddad.approval.rule">
+      <field name="name">Service Reset</field>
+      <field name="transition">services_reset</field>
+      <field name="group_id" ref="group_services_user"/>
+    </record>
+    <record id="activity_services" model="mail.activity.type">
+      <field name="name">Service Approval</field>
+      <field name="res_model">saddad.service.request</field>
+      <field name="icon">fa-check-square-o</field>
+    </record>
+    <record id="mail_template_services" model="mail.template">
+      <field name="name">Saddad: Service Action Required</field>
+      <field name="model_id" ref="model_saddad_service_request"/>
+      <field name="subject">Service action required: {{ object.name }}</field>
+      <field name="email_from">{{ object.company_id.partner_id.email_formatted or user.email_formatted }}</field>
+      <field name="auto_delete" eval="True"/>
+      <field name="body_html" type="html">
+        <div>
+          <p>A Service expense requires your action.</p>
+          <p>
+            <t t-out="object.name"/>
+          </p>
+          <p>
+            <a t-att-href="object.get_base_url() + &quot;/odoo/saddad.service.request/&quot; + str(object.id)">Open Service Expense</a>
+          </p>
+        <p>Current stage: <t t-out="object._stage_label()"/></p></div>
+      </field>
+    </record>
+  </data>
+</odoo>
