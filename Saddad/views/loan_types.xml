@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_loans_advances_form_ext" model="ir.ui.view">
+        <field name="name">hr.loans.advances.form.ext</field>
+        <field name="model">hr_loans.loan_advance</field>
+        <field name="inherit_id" ref="hr_loans.hr_loans_advances_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_installment_number']" position="after">
+                <field name="is_traffic_violation"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

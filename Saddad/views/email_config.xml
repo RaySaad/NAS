@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="saddad_email_config_form_view">
+            <field name="name">email.config.form.view inherit saddad</field>
+            <field name="model">email.config</field>
+            <field name="inherit_id" ref="email_utility_base.email_config_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]" position="inside">
+                    <field name="pending_to_renew_email_state"
+                           invisible="type != 'pending_to_renew'"
+                           required="type == 'pending_to_renew'"/>
+                    <field name="muqeem_expense_email_state"
+                           invisible="type != 'muqeem_expenses'"
+                           required="type == 'muqeem_expenses'"/>
+                    <field name="morror_email_state"
+                           invisible="type != 'morror'"
+                           required="type == 'morror'"/>
+
+                    <field name="saddad_services_email_state"
+                           invisible="type != 'saddad_services'"
+                           required="type == 'saddad_services'"/>
+
+                    <field name="saddad_approval_company_ids"
+                           invisible="type not in ('pending_to_renew', 'muqeem_expenses', 'morror', 'saddad_services')"
+                           required="type in ('pending_to_renew', 'muqeem_expenses', 'morror', 'saddad_services')"/>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

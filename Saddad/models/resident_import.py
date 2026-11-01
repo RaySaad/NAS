@@ -43,6 +43,97 @@ class ResidentImport(models.Model):
     applied_at = fields.Datetime(readonly=True)
     applied_by = fields.Many2one('res.users', readonly=True)
 
+    blocked_export = fields.Binary(string='Blocked Records Excel', compute='_compute_blocked_export', attachment=False, groups='Saddad.group_resident_hr')
+
+    def _check_blocked_export(self):
+        self.ensure_one()
+        self.check_access('read')
+        if not self.env.user.has_group('Saddad.group_resident_hr'):
+            raise AccessError(_('Muqeem Resident HR access is required to export blocked records.'))
+        if self.state not in ('preview', 'applied'):
+            raise UserError(_('Preview the import before exporting blocked records.'))
+        blocked = self.line_ids.filtered(lambda line: line.status == 'error').sorted('row_number')
+        blocked.check_access('read')
+        if not blocked:
+            raise UserError(_('There are no blocked records to export.'))
+        return blocked
+
+    def action_export_blocked(self):
+        self._check_blocked_export()
+        filename = 'Muqeem_Blocked_%s_%s.xlsx' % (self.id, self.snapshot_date.strftime('%d-%m-%Y'))
+        return {'type': 'ir.actions.act_url', 'url': '/web/content/saddad.resident.import/%s/blocked_export/%s?download=true' % (self.id, filename), 'target': 'self'}
+
+    def _compute_blocked_export(self):
+        for batch in self:
+            batch.blocked_export = base64.b64encode(batch._blocked_export_bytes())
+
+    def _blocked_export_bytes(self):
+        blocked = self._check_blocked_export()
+        # Blocked rows can fail before a payload is populated. Always read the
+        # immutable original workbook, including pre-feature import batches.
+        source = openpyxl.load_workbook(io.BytesIO(base64.b64decode(self.file)), read_only=True, data_only=False)
+        try:
+            sheet = source.active
+            rows = sheet.iter_rows(values_only=True)
+            headers = [str(v or '').strip() for v in next(rows)]
+            order = [headers.index(header) for header in HEADERS]
+            wanted = {line.row_number: line for line in blocked}
+            original = {n: [row[i] if i < len(row) else None for i in order]
+                        for n, row in enumerate(rows, 2) if n in wanted}
+        finally:
+            source.close()
+        if len(original) != len(blocked):
+            raise UserError(_('Some blocked rows could not be located in the original report.'))
+        from openpyxl.styles import Font, PatternFill, Alignment
+        from openpyxl.utils import get_column_letter
+        book = openpyxl.Workbook()
+        sheet = book.active
+        sheet.title = 'Blocked Records'
+        sheet.sheet_view.rightToLeft = self.env.lang.startswith('ar') if self.env.lang else False
+        sheet.append([_('Source Row'), _('Blocking Reason')] + HEADERS)
+        for row_index, line in enumerate(blocked, 2):
+            values = original[line.row_number]
+            output = [line.row_number, line.detail or '']
+            for key, value in zip(KEYS, values):
+                if key in DATE_KEYS and value:
+                    try:
+                        value = fields.Date.to_date(value) if isinstance(value, (date, datetime)) else date.fromisoformat(str(value).strip())
+                    except (ValueError, TypeError):
+                        pass  # Invalid dates must remain visible for correction.
+                elif key == 'reported_hijri' and value:
+                    import re
+                    match = re.fullmatch(r'(\d{4})[-/](\d{2})[-/](\d{2})', str(value).strip())
+                    if match:
+                        value = '%s/%s/%s' % (match[3], match[2], match[1])
+                if key not in DATE_KEYS and value is not None:
+                    value = str(value)
+                output.append(value)
+            sheet.append(output)
+            for column in range(1, 16):
+                cell = sheet.cell(row_index, column)
+                # Force strings, including =,+,-,@ values, to remain literal.
+                if isinstance(cell.value, str):
+                    cell.data_type = 's'
+                    cell.number_format = '@'
+                elif isinstance(cell.value, (date, datetime)):
+                    cell.number_format = 'dd/mm/yyyy'
+                cell.alignment = Alignment(vertical='top', wrap_text=True)
+        sheet.freeze_panes = 'C2'
+        sheet.auto_filter.ref = sheet.dimensions
+        sheet.row_dimensions[1].height = 42
+        for cell in sheet[1]:
+            cell.font = Font(bold=True, color='FFFFFF')
+            cell.fill = PatternFill('solid', fgColor='24476A')
+            cell.alignment = Alignment(wrap_text=True, vertical='center')
+        for n in range(1, 16):
+            sheet.column_dimensions[get_column_letter(n)].width = 12 if n == 1 else 65 if n == 2 else 32 if n == 4 else 22
+        for n in range(2, sheet.max_row + 1):
+            sheet.row_dimensions[n].height = 60
+        stream = io.BytesIO()
+        book.save(stream)
+        book.close()
+        return stream.getvalue()
+
     @api.model_create_multi
     def create(self, vals_list):
         if any({'state', 'line_ids', 'summary', 'applied_at', 'applied_by'}.intersection(v) for v in vals_list):

@@ -1,7 +1,7 @@
 {
     'name': 'Saddad',
     'summary': 'Employee renewal requests and government-service configuration',
-    'version': '19.0.6.0.1',
+    'version': '19.0.6.0.2',
     'category': 'Human Resources',
     'author': 'Saddad Project',
     'license': 'LGPL-3',

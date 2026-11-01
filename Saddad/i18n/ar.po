@@ -6209,3 +6209,44 @@ msgstr "ليست لديك صلاحية إنشاء مصروفات مقيم في �
 #: code:addons/Saddad/models/services.py:0
 msgid "You are not authorized to create Service expenses in this company."
 msgstr "ليست لديك صلاحية إنشاء مصروفات خدمات سداد في هذه الشركة."
+
+#. module: Saddad
+#: model:ir.model.fields,field_description:Saddad.field_saddad_resident_import__blocked_export
+msgid "Blocked Records Excel"
+msgstr "سجلات التعذر بصيغة إكسل"
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Muqeem Resident HR access is required to export blocked records."
+msgstr ""
+"يلزم امتلاك صلاحية الموارد البشرية لمقيمي مقيم لتصدير السجلات المتعذرة."
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Preview the import before exporting blocked records."
+msgstr "قم بمعاينة الاستيراد قبل تصدير السجلات المتعذرة."
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "There are no blocked records to export."
+msgstr "لا توجد سجلات متعذرة للتصدير."
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Some blocked rows could not be located in the original report."
+msgstr "تعذر العثور على بعض السطور المتعذرة في التقرير الأصلي."
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Source Row"
+msgstr "رقم السطر الأصلي"
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid "Export Blocked Records"
+msgstr "تصدير السجلات المتعذرة"

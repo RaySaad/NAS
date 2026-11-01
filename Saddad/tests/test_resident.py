@@ -1,3 +1,5 @@
+from unittest.mock import patch
+from types import SimpleNamespace
 import base64
 import io
 from datetime import date, timedelta
@@ -227,3 +229,55 @@ class TestResident(TransactionCase):
         expense.line_ids.invalidate_recordset()
         with self.assertRaises(UserError):
             expense.line_ids.action_renewal_followup()
+
+    def test_blocked_export_preview_and_applied(self):
+        batch = self._batch()
+        book = openpyxl.load_workbook(io.BytesIO(base64.b64decode(batch.file)))
+        row = [cell.value for cell in book.active[2]]
+        row[0], row[1], row[5] = '2000000888', '=1+1', '0012345'
+        book.active.append(row)
+        stream = io.BytesIO(); book.save(stream); book.close()
+        batch.file = base64.b64encode(stream.getvalue())
+        with self.assertRaises(UserError): batch.action_export_blocked()
+        batch.action_preview()
+        self.assertEqual(batch.line_ids.mapped('status'), ['ready', 'error'])
+        before = (batch.write_date, batch.summary, batch.line_ids.mapped('status'))
+        action = batch.action_export_blocked()
+        self.assertIn('/blocked_export/', action['url'])
+        with patch('odoo.http.request', SimpleNamespace(env=batch.env)):
+            download = batch.env['ir.binary']._get_stream_from(batch, 'blocked_export', filename='blocked.xlsx')
+        self.assertEqual(download.download_name, 'blocked.xlsx')
+        self.assertTrue(download.data.startswith(b'PK'))
+        exported = openpyxl.load_workbook(io.BytesIO(batch._blocked_export_bytes()))
+        sheet = exported.active
+        self.assertEqual(sheet.max_row, 2)
+        self.assertEqual(sheet.cell(2, 1).value, 3)
+        self.assertIn('No unique active employee', sheet.cell(2, 2).value)
+        self.assertEqual(sheet.cell(2, 3).value, '2000000888')
+        self.assertEqual(sheet.cell(2, 4).value, '=1+1')
+        self.assertEqual(sheet.cell(2, 4).data_type, 's')
+        self.assertEqual(sheet.cell(2, 8).value, '0012345')
+        self.assertEqual(sheet.cell(2, 9).number_format, 'dd/mm/yyyy')
+        self.assertEqual(sheet.freeze_panes, 'C2')
+        self.assertEqual(sheet.auto_filter.ref, 'A1:O2')
+        exported.close()
+        self.assertEqual(before, (batch.write_date, batch.summary, batch.line_ids.mapped('status')))
+        batch.action_apply()
+        self.assertEqual(batch.state, 'applied')
+        self.assertIn('/blocked_export/', batch.action_export_blocked()['url'])
+        exported = openpyxl.load_workbook(io.BytesIO(base64.b64decode(batch.blocked_export)))
+        self.assertEqual(exported.active.max_row, 2)
+        self.assertEqual(exported.active.cell(2, 3).value, '2000000888')
+        exported.close()
+
+    def test_blocked_export_no_errors_and_access(self):
+        batch = self._batch()
+        batch.action_preview()
+        with self.assertRaises(UserError): batch.action_export_blocked()
+        outsider = self.env['res.users'].create({'name':'Export outsider','login':'export_outsider',
+            'group_ids':[Command.set([self.env.ref('base.group_user').id])]})
+        with self.assertRaises(AccessError): batch.with_user(outsider).action_export_blocked()
+        blocked = self._batch(employer='7000000000')
+        blocked.action_preview()
+        other_company = self.env['res.company'].create({'name':'Export Other Company'})
+        with self.assertRaises(AccessError): blocked.with_context(allowed_company_ids=other_company.ids).action_export_blocked()
