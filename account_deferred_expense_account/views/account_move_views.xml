@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_deferred_expense_account" model="ir.ui.view">
+        <field name="name">account.move.form.deferred.expense.account</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_accountant.view_move_form_inherit"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='invoice_tab']//list/field[@name='deferred_end_date']" position="after">
+                <field name="deferred_expense_account_override_id"
+                       string="Prepaid Account"
+                       optional="hide"
+                       column_invisible="parent.move_type not in ('in_invoice', 'in_refund')"
+                       options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

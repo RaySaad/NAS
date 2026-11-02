@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_deferred_expense_account" model="ir.ui.view">
+        <field name="name">product.template.form.deferred.expense.account</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="property_account_expense_id" position="after">
+                <field name="property_deferred_expense_account_id"
+                       placeholder="From Category / Accounting Settings"
+                       groups="account.group_account_readonly"
+                       options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_category_form_deferred_expense_account" model="ir.ui.view">
+        <field name="name">product.category.form.deferred.expense.account</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="arch" type="xml">
+            <field name="property_account_expense_categ_id" position="after">
+                <field name="property_deferred_expense_account_categ_id"
+                       placeholder="Accounting Settings"
+                       groups="account.group_account_readonly"
+                       options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>
