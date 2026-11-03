@@ -1,7 +1,7 @@
 {
     'name': 'Saddad',
     'summary': 'Employee renewal requests and government-service configuration',
-    'version': '19.0.6.0.2',
+    'version': '19.0.6.1.1',
     'category': 'Human Resources',
     'author': 'Saddad Project',
     'license': 'LGPL-3',
@@ -35,6 +35,7 @@
         'views/menus.xml',
         'views/resident_views.xml',
     ],
+    'assets': {'web.assets_backend': ['Saddad/static/src/js/date_fields.js']},
     'application': True,
     'pre_init_hook': 'pre_init_hook',
     'post_init_hook': 'post_init_hook',

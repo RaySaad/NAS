@@ -122,8 +122,18 @@ class MuqeemExpense(models.Model):
             self._check_action('payment', ['draft', 'assistant', 'hr', 'finance', 'gm', 'payment'])
             if self.line_ids.filtered('paid'):
                 raise UserError(_('Reverse unposted payment marks before changing the bank journal.'))
-        if {'reference', 'date', 'line_ids', 'notes'}.intersection(vals):
+        if {'reference', 'date', 'notes'}.intersection(vals):
             self._check_action('submit', ['draft'])
+        if 'line_ids' in vals:
+            if any(rec.state != 'draft' for rec in self):
+                self._check_action('post', ['done'])
+                for rec in self:
+                    if rec.move_id or any(not isinstance(cmd, (list, tuple)) or len(cmd) != 3 or cmd[0] != 1
+                            or cmd[1] not in rec.line_ids.ids or not isinstance(cmd[2], dict)
+                            or set(cmd[2]) - {'defer_expense', 'defer_start', 'defer_end'} for cmd in vals['line_ids']):
+                        raise AccessError(_('Only deferral settings can be changed before posting.'))
+            else:
+                self._check_action('submit', ['draft'])
         return super().write(vals)
 
     def copy(self, default=None):
@@ -299,6 +309,7 @@ class MuqeemLine(models.Model):
     payment_date = fields.Date(readonly=True, copy=False)
     qiwa_line_id = fields.Many2one('saddad.qiwa.line', readonly=True, copy=False, check_company=True, ondelete='restrict')
     move_line_id = fields.Many2one('account.move.line', readonly=True, copy=False, check_company=True, ondelete='restrict')
+    expense_date = fields.Date(string='Transaction Date', related='expense_id.date', store=True, index=True)
     defer_expense = fields.Boolean(string='Defer Expense')
     defer_start = fields.Date(string='Deferral Start Date')
     defer_end = fields.Date(string='Deferral End Date')
@@ -328,7 +339,7 @@ class MuqeemLine(models.Model):
         prepared = []
         for original in vals_list:
             vals = dict(original)
-            if {'paid', 'paid_by', 'paid_at', 'payment_date', 'move_line_id', 'qiwa_line_id', 'total'}.intersection(vals):
+            if {'paid', 'paid_by', 'paid_at', 'payment_date', 'move_line_id', 'qiwa_line_id', 'expense_date', 'total'}.intersection(vals):
                 raise AccessError(_('Use the payment and posting actions for protected expense line fields.'))
             parent = self.env['saddad.muqeem.expense'].browse(vals.get('expense_id'))
             parent._check_action('submit', ['draft'])
@@ -348,9 +359,16 @@ class MuqeemLine(models.Model):
         return records
 
     def write(self, vals):
-        if {'paid', 'paid_by', 'paid_at', 'payment_date', 'move_line_id', 'qiwa_line_id', 'total', 'company_id'}.intersection(vals):
+        if {'paid', 'paid_by', 'paid_at', 'payment_date', 'move_line_id', 'qiwa_line_id', 'expense_date', 'total', 'company_id'}.intersection(vals):
             raise AccessError(_('Use the payment and posting actions for protected expense line fields.'))
-        self.expense_id._check_action('submit', ['draft'])
+        accounting_edit = any(line.expense_id.state != 'draft' for line in self)
+        if accounting_edit:
+            self.expense_id._check_action('post', ['done'])
+            if set(vals) - {'defer_expense', 'defer_start', 'defer_end'} or any(line.expense_id.move_id for line in self):
+                raise AccessError(_('Only deferral settings can be changed before posting.'))
+        else:
+            self.expense_id._check_action('submit', ['draft'])
+        previous = {line.id: (line.defer_expense, line.defer_start, line.defer_end) for line in self}
         if 'expense_id' in vals and any(l.expense_id.id != vals['expense_id'] for l in self):
             raise AccessError(_('Expense lines cannot be moved to another expense.'))
         if self.filtered('qiwa_line_id') and {'employee_id', 'product_id', 'period', 'amount'}.intersection(vals):
@@ -358,6 +376,15 @@ class MuqeemLine(models.Model):
         result = super().write(vals)
         self._validate_business()
         self._validate_product_category()
+        if accounting_edit:
+            for line in self:
+                current = (line.defer_expense, line.defer_start, line.defer_end)
+                if current != previous[line.id]:
+                    def display(value):
+                        return value.strftime('%d/%m/%Y') if hasattr(value, 'strftime') else str(value or '')
+                    line.expense_id.message_post(body=_('Deferral settings updated for %(employee)s: %(old)s -> %(new)s.',
+                        employee=line.employee_id.name,
+                        old=' / '.join(display(v) for v in previous[line.id]), new=' / '.join(display(v) for v in current)))
         return result
 
     def unlink(self):

@@ -209,6 +209,17 @@ class QiwaLine(models.Model):
     _description = 'Qiwa Employee Line'
     _check_company_auto = True
 
+    issue_date = fields.Date(string='Issue Date', related='batch_id.issue_date', store=True, index=True)
+    batch_state = fields.Selection(string='Batch Status', related='batch_id.state', store=True)
+    batch_reference = fields.Char(string='Batch Reference', related='batch_id.reference', store=True)
+
+    def action_open_batch(self):
+        self.ensure_one()
+        self.check_access('read')
+        self.batch_id.check_access('read')
+        return {'type': 'ir.actions.act_window', 'res_model': 'saddad.qiwa.batch',
+                'res_id': self.batch_id.id, 'view_mode': 'form', 'target': 'current'}
+
     batch_id = fields.Many2one('saddad.qiwa.batch', required=True, ondelete='cascade', index=True)
     company_id = fields.Many2one(related='batch_id.company_id', store=True)
     currency_id = fields.Many2one(related='batch_id.currency_id')
@@ -256,7 +267,7 @@ class QiwaLine(models.Model):
     def create(self, vals_list):
         prepared = []
         for vals in vals_list:
-            if {'ptr_line_id', 'iqama_number', 'product_id', 'period', 'company_id', 'currency_id', 'ptr_id', 'downstream_state'}.intersection(vals) or vals.get('amount_source') == 'ptr':
+            if {'ptr_line_id', 'iqama_number', 'product_id', 'period', 'company_id', 'currency_id', 'ptr_id', 'downstream_state', 'issue_date', 'batch_state', 'batch_reference'}.intersection(vals) or vals.get('amount_source') == 'ptr':
                 raise AccessError(_('Qiwa source links and snapshots are managed by Saddad.'))
             batch = self.env['saddad.qiwa.batch'].browse(vals.get('batch_id')).exists()
             if not batch:
@@ -266,7 +277,7 @@ class QiwaLine(models.Model):
         return super().create(prepared)
 
     def write(self, vals):
-        if {'batch_id', 'ptr_line_id', 'iqama_number', 'product_id', 'period', 'company_id', 'currency_id', 'ptr_id', 'downstream_state'}.intersection(vals) or vals.get('amount_source') == 'ptr':
+        if {'batch_id', 'ptr_line_id', 'iqama_number', 'product_id', 'period', 'company_id', 'currency_id', 'ptr_id', 'downstream_state', 'issue_date', 'batch_state', 'batch_reference'}.intersection(vals) or vals.get('amount_source') == 'ptr':
             raise AccessError(_('Qiwa source links and snapshots are managed by Saddad.'))
         self.batch_id._draft()
         for line in self:

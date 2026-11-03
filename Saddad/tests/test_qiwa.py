@@ -61,6 +61,19 @@ class TestQiwa(TransactionCase):
         with self.assertRaises(UserError):
             rec.action_reset_draft()
 
+    def test_work_permit_line_reporting(self):
+        batch = self._batch()
+        line = batch.line_ids
+        self.assertEqual(line.issue_date, batch.issue_date)
+        self.assertEqual(line.batch_reference, batch.reference)
+        self.assertEqual(line.batch_state, 'draft')
+        for kind in ('list', 'search'):
+            line.get_view(self.env.ref('Saddad.view_qiwa_line_' + kind).id, kind)
+        self.assertEqual(line.action_open_batch()['res_id'], batch.id)
+        with self.assertRaises(AccessError): line.with_user(self.plain).action_open_batch()
+        batch.action_review()
+        self.assertEqual(line.batch_state, 'reviewed')
+
     def test_permissions_and_direct_state(self):
         rec = self._batch()
         with self.assertRaises(AccessError):
@@ -448,3 +461,4 @@ class TestQiwa(TransactionCase):
         hr = self._make_user('direct_muqeem_hr', 'Saddad.group_muqeem_hr')
         self.assertEqual(ptr.direct_muqeem_ids.with_user(hr).ptr_id.read(['name'])[0]['name'], ptr.name)
         with self.assertRaises(AccessError): ptr.with_user(hr).action_prepare_muqeem()
+

@@ -69,6 +69,31 @@ class TestMuqeem(TransactionCase):
         with self.assertRaises(AccessError):
             rec.line_ids[:1].with_user(self.users['plain']).action_open_expense()
 
+    def test_accountant_deferral_before_posting(self):
+        rec = self._expense()
+        self.assertEqual(rec.line_ids.expense_date, rec.date)
+        self._payment(rec)
+        with self.assertRaises(UserError):
+            rec.line_ids.with_user(self.users['post']).write({'defer_expense': False})
+        rec.line_ids.with_user(self.users['payment']).action_mark_paid()
+        with self.assertRaises(AccessError):
+            rec.line_ids.with_user(self.users['payment']).write({'defer_expense': False})
+        accountant = rec.with_user(self.users['post'])
+        accountant.write({'line_ids': [Command.update(rec.line_ids.id, {
+            'defer_expense': True, 'defer_start': fields.Date.today(),
+            'defer_end': fields.Date.today() + timedelta(days=90)})]})
+        self.assertTrue(rec.line_ids.defer_expense)
+        with self.assertRaises(AccessError):
+            accountant.write({'line_ids': [Command.update(rec.line_ids.id, {'amount': 1})]})
+        with self.assertRaises(AccessError):
+            accountant.write({'line_ids': [Command.clear()]})
+        accountant.line_ids.write({'defer_expense': False})
+        self.assertFalse(rec.line_ids.defer_expense)
+        accountant.action_post()
+        self.assertEqual(rec.state, 'posted')
+        with self.assertRaises(UserError):
+            accountant.line_ids.write({'defer_expense': True})
+
     def test_full_workflow_consolidated_entry(self):
         rec = self._expense(2)
         move = self._post(rec)

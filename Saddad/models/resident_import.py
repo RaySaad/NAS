@@ -37,9 +37,10 @@ class ResidentImport(models.Model):
     filename = fields.Char(required=True)
     file = fields.Binary(required=True, attachment=True)
     snapshot_date = fields.Date(required=True, help='Date the report was exported from Muqeem, confirmed by HR.')
-    state = fields.Selection([('draft', 'Draft'), ('preview', 'Preview'), ('applied', 'Applied')], default='draft', readonly=True, tracking=True)
+    state = fields.Selection([('draft', 'Draft'), ('preview', 'Preview'), ('applied', 'Applied'), ('rejected', 'Rejected')], default='draft', readonly=True, tracking=True)
     line_ids = fields.One2many('saddad.resident.import.line', 'batch_id', readonly=True)
     summary = fields.Text(readonly=True)
+    rejection_reason = fields.Text(string='Rejection Reason')
     applied_at = fields.Datetime(readonly=True)
     applied_by = fields.Many2one('res.users', readonly=True)
 
@@ -141,6 +142,12 @@ class ResidentImport(models.Model):
         return super().create([dict(v, state='draft', summary=False, applied_at=False, applied_by=False, line_ids=False) for v in vals_list])
 
     def write(self, vals):
+        if 'company_id' in vals and any(rec.company_id.id != vals['company_id'] for rec in self):
+            raise UserError(_('Create a new import to change the company.'))
+        if set(vals) == {'rejection_reason'}:
+            self._lock()
+        if set(vals) == {'rejection_reason'} and all(rec.state == 'preview' for rec in self):
+            return super().write(vals)
         if {'state', 'line_ids', 'summary', 'applied_at', 'applied_by'}.intersection(vals) or any(r.state != 'draft' for r in self):
             raise AccessError(_('Create a new import to change a reviewed report.'))
         return super().write(vals)
@@ -153,6 +160,33 @@ class ResidentImport(models.Model):
         self.check_access('write')
         self.env.cr.execute('SELECT id FROM saddad_resident_import WHERE id = %s FOR UPDATE', [self.id])
         self.invalidate_recordset()
+
+    def action_reset_preview(self):
+        self._lock()
+        if self.state != 'preview':
+            raise UserError(_('Only Preview imports can be reset.'))
+        lines = self.line_ids
+        audit = [{'row': l.row_number, 'iqama': l.iqama, 'status': l.status, 'detail': l.detail} for l in lines]
+        self.env['ir.attachment'].create([
+            {'name': 'Before reset - ' + self.filename, 'type': 'binary', 'datas': self.file,
+             'res_model': self._name, 'res_id': self.id, 'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'},
+            {'name': 'Preview before reset.json', 'type': 'binary',
+             'datas': base64.b64encode(json.dumps({'snapshot_date': str(self.snapshot_date), 'summary': self.summary, 'rows': audit}, ensure_ascii=False).encode('utf-8')),
+             'res_model': self._name, 'res_id': self.id, 'mimetype': 'application/json'}])
+        super(ResidentImportLine, lines).write({'active': False})
+        super().write({'state': 'draft', 'summary': False, 'rejection_reason': False})
+        self.message_post(body=_('Preview reset to Draft. The previous source report and preview results were retained as audit attachments. No resident records were changed.'))
+        return True
+
+    def action_reject_preview(self):
+        self._lock()
+        if self.state != 'preview':
+            raise UserError(_('Only Preview imports can be rejected.'))
+        if not (self.rejection_reason or '').strip():
+            raise UserError(_('Enter a rejection reason first.'))
+        super().write({'state': 'rejected'})
+        self.message_post(body=_('Resident import rejected: %s', self.rejection_reason))
+        return True
 
     def action_preview(self):
         self._lock()
@@ -285,6 +319,7 @@ class ResidentImportLine(models.Model):
     _order = 'row_number'
     batch_id = fields.Many2one('saddad.resident.import', required=True, ondelete='restrict')
     company_id = fields.Many2one(related='batch_id.company_id', store=True)
+    active = fields.Boolean(default=True)
     row_number = fields.Integer()
     iqama = fields.Char()
     employee_id = fields.Many2one('hr.employee')

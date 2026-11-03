@@ -4378,19 +4378,27 @@ msgid "Reject Saddad Service Request"
 msgstr ""
 
 #. module: Saddad
+#. odoo-python
 #: model:ir.model.fields.selection,name:Saddad.selection__saddad_morro__state__rejected
 #: model:ir.model.fields.selection,name:Saddad.selection__saddad_muqeem_expense__state__rejected
 #: model:ir.model.fields.selection,name:Saddad.selection__saddad_service_request__state__rejected
 #: model_terms:ir.ui.view,arch_db:Saddad.view_morro_search
 #: model_terms:ir.ui.view,arch_db:Saddad.view_muqeem_search
 #: model_terms:ir.ui.view,arch_db:Saddad.view_services_search
+#: code:addons/Saddad/models/morro.py:0 code:addons/Saddad/models/muqeem.py:0
+#: code:addons/Saddad/models/resident_import.py:0
+#: code:addons/Saddad/models/services.py:0
+#: model:ir.model.fields.selection,name:Saddad.selection__saddad_resident_import__state__rejected
 msgid "Rejected"
 msgstr ""
 
 #. module: Saddad
+#. odoo-python
 #: model:ir.model.fields,field_description:Saddad.field_saddad_morro__rejection_reason
 #: model:ir.model.fields,field_description:Saddad.field_saddad_muqeem_expense__rejection_reason
 #: model:ir.model.fields,field_description:Saddad.field_saddad_service_request__rejection_reason
+#: code:addons/Saddad/models/resident_import.py:0
+#: model:ir.model.fields,field_description:Saddad.field_saddad_resident_import__rejection_reason
 msgid "Rejection Reason"
 msgstr ""
 
@@ -6140,4 +6148,122 @@ msgstr ""
 #. module: Saddad
 #: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
 msgid "Export Blocked Records"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/muqeem.py:0
+#: model_terms:ir.ui.view,arch_db:Saddad.view_muqeem_line_search
+#: model:ir.model.fields,field_description:Saddad.field_saddad_muqeem_line__expense_date
+msgid "Transaction Date"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/qiwa.py:0
+#: model:ir.model.fields,field_description:Saddad.field_saddad_qiwa_line__batch_reference
+msgid "Batch Reference"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/qiwa.py:0
+#: model:ir.model.fields,field_description:Saddad.field_saddad_qiwa_line__batch_state
+msgid "Batch Status"
+msgstr ""
+
+#. module: Saddad
+#: model:ir.actions.act_window,name:Saddad.action_qiwa_lines
+#: model:ir.ui.menu,name:Saddad.menu_qiwa_lines
+msgid "Qiwa Work Permit Lines"
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_qiwa_line_list
+msgid "Open Batch"
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid "Reset Preview to Draft"
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid "Reject Preview"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Only Preview imports can be reset."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Only Preview imports can be rejected."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Enter a rejection reason first."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Resident import rejected: %s"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Create a new import to change the company."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/muqeem.py:0
+msgid "Only deferral settings can be changed before posting."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/muqeem.py:0
+msgid "Deferral settings updated for %(employee)s: %(old)s -> %(new)s."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid ""
+"Preview reset to Draft. The previous source report and preview results were "
+"retained as audit attachments. No resident records were changed."
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid ""
+"Reset this preview? The previous source report and results will be retained "
+"as audit attachments."
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid "Reject this import without applying any rows?"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/qiwa.py:0
+#: model_terms:ir.ui.view,arch_db:Saddad.view_qiwa_line_search
+#: model:ir.model.fields,field_description:Saddad.field_saddad_qiwa_line__issue_date
+msgid "Issue Date"
+msgstr ""
+
+#. module: Saddad
+#: model:ir.ui.menu,name:Saddad.menu_work_permit_transactions
+msgid "Work Permit Transactions"
 msgstr ""
