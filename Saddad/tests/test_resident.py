@@ -63,12 +63,15 @@ class TestResident(TransactionCase):
         return self.env['saddad.renewal'].with_user(self.hr).create({'resident_id': profile.id,
             'expense_line_id': expense.line_ids.id, 'period': '3', 'evidence': 'Verified portal result'})
 
-    def test_import_preview_apply_and_no_employee_overwrite(self):
+    def test_import_preview_apply_advances_expiry_only(self):
         batch = self._batch(date(2027, 3, 1))
         batch.action_preview()
         self.assertEqual(batch.line_ids.status, 'ready')
-        batch.action_apply()
         self.assertEqual(self.employee.saddad_iqama_expiry, date(2026, 12, 1))
+        original_identity = (self.employee.name, self.employee.identification_id)
+        batch.action_apply()
+        self.assertEqual(self.employee.saddad_iqama_expiry, date(2027, 3, 1))
+        self.assertEqual((self.employee.name, self.employee.identification_id), original_identity)
         profile = self.env['saddad.resident'].search([('employee_id', '=', self.employee.id)])
         self.assertEqual(profile.reported_expiry, date(2027, 3, 1))
         with self.assertRaises(UserError):
@@ -77,6 +80,37 @@ class TestResident(TransactionCase):
             batch.line_ids.write({'status': 'ready'})
         for kind in ('list', 'form', 'search'):
             profile.with_user(self.hr).get_view(self.env.ref('Saddad.view_resident_' + kind).id, kind)
+
+    def test_import_expiry_empty_equal_and_later(self):
+        reported = date(2027, 3, 1)
+        for current in (False, reported, date(2027, 6, 1)):
+            with self.subTest(current=current):
+                self.employee.saddad_iqama_expiry = current
+                before_messages = self.employee.message_ids
+                batch = self._batch(reported)
+                batch.action_preview()
+                self.assertEqual(self.employee.saddad_iqama_expiry, current)
+                batch.action_apply()
+                self.assertEqual(self.employee.saddad_iqama_expiry, current or reported)
+                if current:
+                    self.assertEqual(self.employee.message_ids, before_messages)
+                else:
+                    self.assertTrue(self.employee.message_ids - before_messages)
+
+    def test_import_preserves_date_changed_after_preview(self):
+        batch = self._batch(date(2027, 3, 1))
+        batch.action_preview()
+        self.employee.saddad_iqama_expiry = date(2027, 6, 1)
+        batch.action_apply()
+        self.assertEqual(self.employee.saddad_iqama_expiry, date(2027, 6, 1))
+
+    def test_blocked_import_does_not_fill_employee_expiry(self):
+        self.employee.saddad_iqama_expiry = False
+        batch = self._batch(employer='999')
+        batch.action_preview()
+        with self.assertRaises(UserError):
+            batch.action_apply()
+        self.assertFalse(self.employee.saddad_iqama_expiry)
 
     def test_duplicate_and_wrong_employer_blocked(self):
         for batch in (self._batch(duplicate=True), self._batch(employer='999')):

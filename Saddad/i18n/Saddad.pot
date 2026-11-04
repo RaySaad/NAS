@@ -6267,3 +6267,35 @@ msgstr ""
 #: model:ir.ui.menu,name:Saddad.menu_work_permit_transactions
 msgid "Work Permit Transactions"
 msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid ""
+"Rows: %(rows)s. Ready: %(ready)s. Blocked: %(errors)s. Applying updates "
+"ready resident profiles and fills empty or advances older employee Iqama "
+"expiry dates. Equal or later employee dates are preserved; blocked rows are "
+"skipped."
+msgstr ""
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid ""
+"Apply ready rows and update empty or older employee Iqama expiry dates? "
+"Equal or later employee dates will be preserved. Blocked rows will be "
+"skipped."
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Muqeem Resident Import %(batch)s: %(filename)s"
+msgstr ""
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid ""
+"Resident import applied. Employee Iqama expiry dates updated: %s. Equal or "
+"later dates were preserved."
+msgstr ""

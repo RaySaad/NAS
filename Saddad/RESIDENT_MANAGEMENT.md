@@ -1,4 +1,8 @@
-# Muqeem Resident Management — 19.0.6.0.1
+# Muqeem Resident Management — 19.0.6.2.0
+
+Current behavior: Apply Ready Rows also fills an empty employee `saddad_iqama_expiry` or advances an older employee date to the validated report expiry. Equal or later employee dates are preserved, with the latest date checked under a lock at Apply. Preview and blocked rows do not update employee dates. Employee chatter records source evidence, and import chatter records the update count. The separate expiry-review action remains available but is not required for these valid Apply updates. Older statements below about separate confirmation refer to that optional review workflow. No automatic renewal completion or accounting changes are made.
+
+Preview imports can Reset Preview to Draft or Reject Preview with a reason. Reset retains source/results as audit attachments. Applied imports cannot reset or reject. Export Blocked Records works in Preview and Applied and includes Iqama numbers.
 
 ## Setup
 

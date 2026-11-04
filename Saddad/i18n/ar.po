@@ -6381,3 +6381,42 @@ msgstr "تاريخ الإصدار"
 #: model:ir.ui.menu,name:Saddad.menu_work_permit_transactions
 msgid "Work Permit Transactions"
 msgstr "معاملات رخص العمل"
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid ""
+"Rows: %(rows)s. Ready: %(ready)s. Blocked: %(errors)s. Applying updates "
+"ready resident profiles and fills empty or advances older employee Iqama "
+"expiry dates. Equal or later employee dates are preserved; blocked rows are "
+"skipped."
+msgstr ""
+"الصفوف: %(rows)s. الجاهزة: %(ready)s. المتعذرة: %(errors)s. يحدث التطبيق "
+"ملفات المقيمين الجاهزة ويملأ تاريخ انتهاء إقامة الموظف الفارغ أو يستبدل "
+"التاريخ الأقدم. يحتفظ بالتاريخ المساوي أو الأحدث ويتجاوز الصفوف المتعذرة."
+
+#. module: Saddad
+#: model_terms:ir.ui.view,arch_db:Saddad.view_resident_import_form
+msgid ""
+"Apply ready rows and update empty or older employee Iqama expiry dates? "
+"Equal or later employee dates will be preserved. Blocked rows will be "
+"skipped."
+msgstr ""
+"هل تريد تطبيق الصفوف الجاهزة وتحديث تاريخ انتهاء إقامة الموظف الفارغ أو "
+"الأقدم؟ سيحتفظ بالتاريخ المساوي أو الأحدث ويتجاوز الصفوف المتعذرة."
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid "Muqeem Resident Import %(batch)s: %(filename)s"
+msgstr "استيراد مقيمي مقيم %(batch)s: %(filename)s"
+
+#. module: Saddad
+#. odoo-python
+#: code:addons/Saddad/models/resident_import.py:0
+msgid ""
+"Resident import applied. Employee Iqama expiry dates updated: %s. Equal or "
+"later dates were preserved."
+msgstr ""
+"تم تطبيق استيراد المقيمين. عدد تواريخ انتهاء إقامة الموظفين المحدثة: %s. تم "
+"الاحتفاظ بالتواريخ المساوية أو الأحدث."

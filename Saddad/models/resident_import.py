@@ -276,7 +276,7 @@ class ResidentImport(models.Model):
                 'proposed_expiry': values.get('reported_expiry') if not error else False})
         super(ResidentImportLine, self.env['saddad.resident.import.line']).create(prepared)
         errors = sum(v['status'] == 'error' for v in prepared)
-        super().write({'state': 'preview', 'summary': _('Rows: %(rows)s. Ready: %(ready)s. Blocked: %(errors)s. Applying imports ready rows only; blocked rows remain visible. Employee fields are not changed.', rows=len(prepared), ready=len(prepared)-errors, errors=errors)})
+        super().write({'state': 'preview', 'summary': _('Rows: %(rows)s. Ready: %(ready)s. Blocked: %(errors)s. Applying updates ready resident profiles and fills empty or advances older employee Iqama expiry dates. Equal or later employee dates are preserved; blocked rows are skipped.', rows=len(prepared), ready=len(prepared)-errors, errors=errors)})
 
     def action_apply(self):
         self._lock()
@@ -287,6 +287,15 @@ class ResidentImport(models.Model):
             raise UserError(_('There are no ready rows to import.'))
         # A company lock serializes imports even where a resident does not exist yet.
         self.env.cr.execute('SELECT id FROM res_company WHERE id = %s FOR UPDATE', [self.company_id.id])
+        # Read the latest employee expiry under a lock, including changes made
+        # after Preview. Never overwrite a newer employee date with this report.
+        employees = ready.employee_id.sorted('id')
+        if any(not line.employee_id for line in ready):
+            raise UserError(_('Employee matching changed. Create a fresh import preview.'))
+        employees.check_access('write')
+        self.env.cr.execute('SELECT id FROM hr_employee WHERE id IN %s ORDER BY id FOR UPDATE', [tuple(employees.ids)])
+        employees.invalidate_recordset()
+        updated_expiries = 0
         for line in ready:
             payload = json.loads(line.payload)
             values = payload['values']
@@ -309,8 +318,15 @@ class ResidentImport(models.Model):
             else:
                 profile = super(Resident, self.env['saddad.resident']).create(values)
             profile.message_post(body=_('Resident snapshot imported from %s.', self.filename))
+            reported_expiry = fields.Date.to_date(values['reported_expiry'])
+            current_expiry = employee.saddad_iqama_expiry
+            if not current_expiry or reported_expiry > current_expiry:
+                employee._apply_verified_expiry(current_expiry, reported_expiry,
+                    _('Muqeem Resident Import %(batch)s: %(filename)s', batch=self.id, filename=self.filename))
+                updated_expiries += 1
             super(ResidentImportLine, line).write({'status': 'applied'})
         super().write({'state': 'applied', 'applied_at': fields.Datetime.now(), 'applied_by': self.env.uid})
+        self.message_post(body=_('Resident import applied. Employee Iqama expiry dates updated: %s. Equal or later dates were preserved.', updated_expiries))
 
 
 class ResidentImportLine(models.Model):
