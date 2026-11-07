@@ -61,6 +61,13 @@ class EmployeeExt(models.Model):
         default='1'
     )
 
+    employee_types = fields.Selection(
+        selection=_selection_employee_state,
+        string="Employee Sector xx",
+        related="employee_type",
+        store=True
+    )
+
     operating_unit_id = fields.Many2one(
         comodel_name="operating.unit",
         string="Operating Unit",

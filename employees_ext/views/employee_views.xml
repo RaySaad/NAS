@@ -47,6 +47,7 @@
                         <field name="company_country_code" />
                         <field name="arrival_date" />
                         <field name="employee_type" />
+                        <field name="employee_types" />
                         <field name="profession_id" />
                         <field name="identification_id" string="Iqama No" />
                         <field name="project_joining_date" />
@@ -92,9 +93,9 @@
             <xpath expr="//page[@name='hr_settings']//group[@name='user']" position="attributes">
                 <attribute name="string">Status</attribute>
             </xpath>
-            <xpath expr="//page[@name='hr_settings']//group[@name='user']/label[@for='user_id']" position="before">
-                <xpath expr="//page[@name='payroll_information']//field[@name='employee_type']" position="move" />
-            </xpath>
+<!--            <xpath expr="//page[@name='hr_settings']//group[@name='user']/label[@for='user_id']" position="before">-->
+<!--                <xpath expr="//page[@name='payroll_information']//field[@name='employee_type']" position="move" />-->
+<!--            </xpath>-->
             <xpath expr="//page[@name='personal_information']//group[@name='citizenship']/field[@name='identification_id']" position="attributes">
                 <attribute name="string">Iqama No</attribute>
             </xpath>
