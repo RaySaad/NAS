@@ -63,9 +63,7 @@ class EmployeeExt(models.Model):
 
     employee_types = fields.Selection(
         selection=_selection_employee_state,
-        string="Employee Sector xx",
-        related="employee_type",
-        store=True
+        string="Employee Sector xx"
     )
 
     operating_unit_id = fields.Many2one(
