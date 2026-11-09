@@ -55,15 +55,17 @@ class EmployeeExt(models.Model):
             ('5', '5'),
         ]
 
-    # employee_type = fields.Selection(
-    #     selection=_selection_employee_state,
-    #     string="Employee Sector",
-    #     default='1'
-    # )
+    employee_type = fields.Selection(
+        selection=_selection_employee_state,
+        string="Employee Sector",
+        default='1'
+    )
 
     employee_types = fields.Selection(
         selection=_selection_employee_state,
-        string="Employee Sector"
+        string="Employee Sector xx",
+        related="employee_type",
+        store=True
     )
 
     operating_unit_id = fields.Many2one(
